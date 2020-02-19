@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= FlashSpeed - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,19 +12,24 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S2-CS2103T-W17-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `AY1920S2-CS2103T-W17-1`      Since: `Feb 2020`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+FlashSpeed is a text-based flashcard application specifically designed for university students who are learning a foreign language. University students often have hectic schedules. With this in mind, FlashSpeed was created to allow students to be able to study and revise foreign vocabulary on the fly. With a single command, you can start a quick study session on FlashSpeed whenever!
+
+FlashSpeed enhances the revision process by adopting the Space Repetition System (SRS) in its design. Users will be tested more frequently on new words, or words that they have gotten wrong in previous sessions. This system benefits from the psychological spacing effect. SRS has been scientifically proven to increase the rate of learning and memorisation [1]. By using FlashSpeed, you will learn faster and remember for longer!
+
+We hope you enjoy using our app. Happy FlashSpeeding!
+
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `flashspeed.jar` link:{https://github.com/AY1920S2-CS2103T-W17-1/main/releases}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for FlashSpeed.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,9 +38,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`list`* : lists all decks
+* **`create`**`Japanese 1` : creates a deck named `Japanese 1` in the FlashSpeed library.
+* **`delete`**`3` : deletes the 3rd deck shown in the deck list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -46,83 +51,84 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `<>` are the parameters to be supplied by the user. +
+e.g. in `create <deck>`, `<deck>` is a parameter which can be used as `create Japanese 1`.
 ====
 
 === Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Listing all decks : `list`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-
-[TIP]
-A person can have any number of tags (including 0)
-
-Examples:
-
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-
-=== Listing all persons : `list`
-
-Shows a list of all persons in the address book. +
+Shows a list of all decks in the library. +
 Format: `list`
 
-=== Editing a person : `edit`
+=== Creating a deck : `create`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Creates a new deck in the library. +
+Format: `create <deck>`
+
+Examples:
+
+* `create Japanese 1`
+* `create Japanese Verbs`
+
+=== Adding a card : `add`
+
+Adds a new card to a deck. +
+Format: `add <index> <front>:<back>`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
+* Adds a card to the deck at the specified `index`. The index refers to the index number shown in the displayed decks list. The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `add 1 ありがとう:thanks`
+* `add 2 いい[お]てんきですね。:Nice weather, isn't it?`
+
+=== Showing all cards in a deck : `show`
+
+Shows all cards in a deck. +
+Format: `show <index>`
+
+****
+* Shows all cards in the deck at the specified `index`. The index refers to the index number shown in the displayed decks list. The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Example:
+
+* `show 2` +
+Shows all cards in the 2nd deck.
+
+=== Editing a card : `edit`
+
+Edits an existing card in a deck. +
+Format: `edit <index> <front>:<back>` or `edit <index> :<back>` or `edit <index> <front>:`
+
+****
+* Edits the card in a deck at the specified `index`. The index refers to the index number shown in the displayed cards list. The index *must be a positive integer* 1, 2, 3, ...
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `edit 1 ありがとう:thanks` +
+Edits the front and back values of the 1st card in the deck to be `ありがとう` and `thanks` respectively.
+* `edit 1 :thanks` +
+Edits the back value of the 1st card in the deck to be `thanks`.
+* `edit 1 ありがとう:` +
+Edits the front value of the 1st card in the deck to be `ありがとう`.
 
-=== Locating persons by name: `find`
+=== Deleting a deck / card : `delete`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Deletes the specified deck from the library when in List mode, or deletes the specified card from a deck when in Show mode. +
+Format: `delete <index>`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the deck / card at the specified `index`.
+* The index refers to the index number shown in the displayed deck / card list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -130,15 +136,14 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
+Deletes the 2nd deck in the library.
+* `show 2` +
 `delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Deletes the 1st card in the 2nd deck.
 
-// end::delete[]
-=== Clearing all entries : `clear`
+=== Clearing all decks / cards : `clear`
 
-Clears all entries from the address book. +
+Clears all decks when in List mode, or clears all cards in a deck when in Show mode. +
 Format: `clear`
 
 === Exiting the program : `exit`
@@ -148,30 +153,31 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+All data in FlashSpeed (e.g. decks, cards) are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+=== Studying a deck `[coming in v2.0]`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+_{explain how the user can study a deck in Play mode}_
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous FlashSpeed folder.
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
 * *Help* : `help`
+* *List* : `list`
+* *Create* : `create <deck>` +
+e.g. `create Japanese 1`
+* *Add* `add <index> <front>:<back>` +
+e.g. `add 1 ありがとう:thanks`
+* *Show* `show <index>` +
+e.g. `show 2`
+* *Edit* : `edit <index> <front>:<back>` or `edit <index> :<back>` or `edit <index> <front>:` +
+e.g. `edit 1 ありがとう:thanks` or `edit 1 :thanks` or `edit 1 ありがとう:`
+* *Delete* : `delete <index>` +
+e.g. `delete 3`
+* *Clear* : `clear`
+* *Exit* : `exit`
