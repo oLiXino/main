@@ -6,15 +6,27 @@ https://travis-ci.org/AY1920S2-CS2103T-W17-1/main[image:https://travis-ci.org/AY
 //https://coveralls.io/github/se-edu/addressbook-level3?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level3/badge.svg?branch=master[Coverage Status]]
 
 ifdef::env-github[]
+image::docs/images/Ui.png[width="600"]
+endif::[]
+
+ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
 ifdef::env-github[]
+image::docs/images/Ui2.png[width="600"]
+endif::[]
+
+ifndef::env-github[]
 image::images/Ui2.png[width="600"]
 endif::[]
 
 ifdef::env-github[]
-image::images/Ui3.png[width="600"]
+image::docs/images/Ui2.png[width="600"]
+endif::[]
+
+ifndef::env-github[]
+image::images/Ui2.png[width="600"]
 endif::[]
 
 FlashSpeed is a text-based flashcard application specifically designed for university students who are learning a foreign language. University students often have hectic schedules. With this in mind, FlashSpeed was created to allow students to be able to study and revise foreign vocabulary on the fly. With a single command, you can start a quick study session on FlashSpeed whenever!
