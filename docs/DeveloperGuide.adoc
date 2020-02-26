@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S2-CS2103T-W17-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `AY1920S2-CS2103T-W17-1`      Since: `Feb 2020`      Licence: `MIT`
 
 == Setting up
 
@@ -279,13 +279,14 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to memorize a large number of new vocabulary words in a foreign language
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
+* can accomplish most tasks faster via CLI, compared to a hypothetical GUI-version
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: study new vocabulary words anytime and anywhere
 
 [appendix]
 == User Stories
@@ -297,15 +298,48 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |create a new <<deck,deck>> |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |delete a deck |remove decks that I no longer need
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |list all decks |check what decks I can choose from to use
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |add a <<card,card>> to a deck |add words that I want to practice with
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |delete a card from a deck|remove words that I no longer want to practice with
+
+|`* * *` |user |show both sides of a card|check the translation of a word
+
+|`* * *` |user |show all cards in a deck |remove decks that I no longer need
+
+|`* * *` |user |edit a card in a deck |update or enhance the content of a card
+
+|`* * *` |user |delete all decks |start afresh with a clean slate program
+
+|`* * *` |user |delete all cards in a deck |start afresh with a clean deck of the same name
+
+|`* * *` |user |exit the program by typing | exit the program without using the mouse
+
+|`* * ` |user |find a deck by name |locate the deck without having to go through the entire list of decks
+
+|`* * ` |user |find a specific card by name in any language |locate the card without having to go through the entire list of decks and cards
+
+|`* * ` |user |tag a deck |group decks together
+
+|`* *` |user |be able to choose which side of the card to see first |have two ways of memorizing new words.
+
+|`* * ` |user |keep track of how many cards I have visited |
+
+|`* *` |user |clone a deck of cards |so that I can create custom sets of decks from existing decks quickly
+
+|`*` |user |add audio files to cards |add more information such as the correct pronunciation to the card
+
+|`*` |user |have a <<spaced-repetition system,spaced-repetition system>> |memorize new words even more effectively
+
+|`*` |user |choose to have a card I appear more times |have cards that are harder to memorize appear more frequently
+
+|`*` |user |timer for going through a deck |see how much time it took me to memorize a deck of cards
+
 |=======================================================================
 
 _{More to be added}_
@@ -313,17 +347,19 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `FlashSpeed` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Delete a card
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list decks
+2.  FlashSpeed shows a list of decks
+3.  User chooses a deck and requests to list all cards in that deck
+4.  FlashSpeed shows a list of all cards in the deck
+5.  User requests to delete a specific card in the deck
+6.  FlashSpeed deletes the card
 +
 Use case ends.
 
@@ -337,9 +373,22 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. FlashSpeed shows an error message.
 +
 Use case resumes at step 2.
+
+[none]
+* 4a. The deck is empty.
++
+Use case ends.
+
+[none]
+* 5a. The given index is invalid.
++
+[none]
+** 5a1. FlashSpeed shows an error message.
++
+Use case resumes at step 4.
 
 _{More to be added}_
 
@@ -347,7 +396,7 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 decks without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
@@ -358,8 +407,14 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[deck]] Deck::
+A Deck holds cards
+
+[[card]] Card::
+A Card has two faces. One side for prompting the user and the other side for the content the user wants to memorize
+
+[[spaced-repetition system]] Spaced-repetition System::
+Spaced repetition is an evidence-based learning technique that is usually performed with flashcards. Newly introduced and more difficult flashcards are shown more frequently while older and less difficult flashcards are shown less frequently in order to exploit the psychological spacing effect
 
 [appendix]
 == Product Survey
