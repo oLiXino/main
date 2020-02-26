@@ -22,11 +22,11 @@ image::images/Ui2.png[width="600"]
 endif::[]
 
 ifdef::env-github[]
-image::docs/images/Ui2.png[width="600"]
+image::docs/images/Ui3.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui2.png[width="600"]
+image::images/Ui3.png[width="600"]
 endif::[]
 
 FlashSpeed is a text-based flashcard application specifically designed for university students who are learning a foreign language. University students often have hectic schedules. With this in mind, FlashSpeed was created to allow students to be able to study and revise foreign vocabulary on the fly. With a single command, you can start a quick study session on FlashSpeed whenever!
