@@ -320,15 +320,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |exit the program by typing | exit the program without using the mouse
 
-|`* * ` |user |find a deck by name |locate the deck without having to go through the entire list of decks
+|`* *` |user |find a deck by name |locate the deck without having to go through the entire list of decks
 
-|`* * ` |user |find a specific card by name in any language |locate the card without having to go through the entire list of decks and cards
+|`* *` |user |find a specific card by name in any language |locate the card without having to go through the entire list of decks and cards
 
-|`* * ` |user |tag a deck |group decks together
+|`* *` |user |tag a deck |group decks together
 
 |`* *` |user |be able to choose which side of the card to see first |have two ways of memorizing new words.
 
-|`* * ` |user |keep track of how many cards I have visited |
+|`* *` |user |keep track of how many cards I have visited |
 
 |`* *` |user |clone a deck of cards |so that I can create custom sets of decks from existing decks quickly
 
