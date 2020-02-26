@@ -413,7 +413,7 @@ A Deck holds cards
 [[card]] Card::
 A Card has two faces. One side for prompting the user and the other side for the content the user wants to memorize
 
-[[spaced-repetition system]] Spaced-repetition System::
+[[spaced--repetition-system]] Spaced-repetition System::
 Spaced repetition is an evidence-based learning technique that is usually performed with flashcards. Newly introduced and more difficult flashcards are shown more frequently while older and less difficult flashcards are shown less frequently in order to exploit the psychological spacing effect
 
 [appendix]
