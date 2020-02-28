@@ -4,51 +4,50 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 3 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+FlashSpeed was developed by the https://github.com/orgs/AY1920S2-CS2103T-W17-1/teams/developers[W17-1] team. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== AMIRUL ARDY BIN MOHAMED RASI
+image::amirul.jpg[width="150", align="left"]
+{empty}[https://github.com/amrl[github]] [<<johndoe#, portfolio>>]
 
 Role: Project Advisor
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== CHIEW KOK SENG
+image::kok.jpg[width="150", align="left"]
+{empty}[http://github.com/kschiew[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: UI
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== LEONG ZHAN HAO, NICHOLAS
+image::nicholas.jpg[width="150", align="left"]
+{empty}[https://github.com/ncslzh[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Data
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== LIAO LIXIN
+image::lixing.jpg[width="150", align="left"]
+{empty}[http://github.com/oLiXino[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Dev Ops + Threading
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== PHAM TRAN TUAN LINH
+image::robby.jpg[width="150", align="left"]
+{empty}[http://github.com/lacedaemon98[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI
