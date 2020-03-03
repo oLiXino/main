@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === AMIRUL ARDY BIN MOHAMED RASI
-image::amirul.jpg[width="150", align="left"]
+image::amirul.png[width="150", align="left"]
 {empty}[https://github.com/amrl[github]] [<<johndoe#, portfolio>>]
 
 Role: Project Advisor
@@ -19,7 +19,7 @@ Role: Project Advisor
 '''
 
 === CHIEW KOK SENG
-image::kok.jpg[width="150", align="left"]
+image::kok.png[width="150", align="left"]
 {empty}[http://github.com/kschiew[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
@@ -28,7 +28,7 @@ Responsibilities: UI
 '''
 
 === LEONG ZHAN HAO, NICHOLAS
-image::nicholas.jpg[width="150", align="left"]
+image::nicholas.png[width="150", align="left"]
 {empty}[https://github.com/ncslzh[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -37,7 +37,7 @@ Responsibilities: Data
 '''
 
 === LIAO LIXIN
-image::lixing.jpg[width="150", align="left"]
+image::lixing.png[width="150", align="left"]
 {empty}[http://github.com/oLiXino[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -46,7 +46,7 @@ Responsibilities: Dev Ops + Threading
 '''
 
 === PHAM TRAN TUAN LINH
-image::robby.jpg[width="150", align="left"]
+image::robby.png[width="150", align="left"]
 {empty}[http://github.com/lacedaemon98[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
