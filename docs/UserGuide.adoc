@@ -61,7 +61,7 @@ Format: `help`
 Shows a list of all decks in the library. +
 Format: `list`
 
-=== Creating a deck : `create`
+=== Creating a deck : `create` `[coming in v2.0]`
 
 Creates a new deck in the library. +
 Format: `create <deck>`
@@ -85,7 +85,7 @@ Examples:
 * `add 1 ありがとう:thanks`
 * `add 2 いい[お]てんきですね。:Nice weather, isn't it?`
 
-=== Showing all cards in a deck : `show`
+=== Showing all cards in a deck : `show` `[coming in v2.0]`
 
 Shows all cards in a deck. +
 Format: `show <index>`
