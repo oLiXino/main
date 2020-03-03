@@ -138,12 +138,12 @@ Deletes the 2nd deck in the library.
 `delete 1` +
 Deletes the 1st card in the 2nd deck.
 
-=== Clearing all decks / cards : `clear` `[coming in v2.0]`
+=== Clearing all decks / cards : `clear`
 
 Clears all decks when in List mode, or clears all cards in a deck when in Show mode. +
 Format: `clear`
 
-=== Exiting the program : `exit` `[coming in v2.0]`
+=== Exiting the program : `exit`
 
 Exits the program. +
 Format: `exit`
