@@ -29,15 +29,25 @@ ifndef::env-github[]
 image::images/Ui3.png[width="600"]
 endif::[]
 
+== What is it?
+
 FlashSpeed is a text-based flashcard application specifically designed for university students who are learning a foreign language. University students often have hectic schedules. With this in mind, FlashSpeed was created to allow students to be able to study and revise foreign vocabulary on the fly. With a single command, you can start a quick study session on FlashSpeed whenever!
 
-FlashSpeed enhances the revision process by adopting the Space Repetition System (SRS) in its design. Users will be tested more frequently on new words, or words that they have gotten wrong in previous sessions. This system benefits from the psychological spacing effect. SRS has been scientifically proven to increase the rate of learning and memorisation. By using FlashSpeed, you will learn faster and remember for longer!
+FlashSpeed enhances the revision process by adopting the Space Repetition System (SRS) in its design. Users will be tested more frequently on new words, or words that they have gotten wrong in previous sessions. This system benefits from the psychological spacing effect. SRS has been scientifically proven to increase the rate of learning and memorisation.
 
-We hope you enjoy using our app. Happy FlashSpeeding!
+By using FlashSpeed, you will learn faster and remember for longer!
+
+// We hope you enjoy using our app. Happy FlashSpeeding!
 
 //* This is a desktop Flashcard application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 //* It is a Java sample application intended for students learning a new language.
 //* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
+
+== Who is it for?
+
+FlashSpeed is intended for university students reading a foreign language module who need an effective way to memorize a lot of new vocabulary fast and for the long term. It can also be used by students who need to remember a lot of information (e.g. historical dates, definitions, etc.) before an exam.
+
+Of course, anyone who needs a powerful memorization tool can benefit from using FlashSpeed!
 
 == Site Map
 

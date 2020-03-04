@@ -28,7 +28,7 @@ We hope you enjoy using our app. Happy FlashSpeeding!
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `flashspeed.jar` link:{https://github.com/AY1920S2-CS2103T-W17-1/main/releases}/releases[here].
+.  Download the latest `flashspeed.jar` link:https://github.com/AY1920S2-CS2103T-W17-1/main/releases[here].
 .  Copy the file to the folder you want to use as the home folder for FlashSpeed.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
@@ -61,7 +61,7 @@ Format: `help`
 Shows a list of all decks in the library. +
 Format: `list`
 
-=== Creating a deck : `create`
+=== Creating a deck : `create` `[coming in v2.0]`
 
 Creates a new deck in the library. +
 Format: `create <deck>`
@@ -85,7 +85,7 @@ Examples:
 * `add 1 ありがとう:thanks`
 * `add 2 いい[お]てんきですね。:Nice weather, isn't it?`
 
-=== Showing all cards in a deck : `show`
+=== Showing all cards in a deck : `show` `[coming in v2.0]`
 
 Shows all cards in a deck. +
 Format: `show <index>`
