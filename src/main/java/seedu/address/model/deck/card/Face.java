@@ -1,4 +1,4 @@
-package seedu.address.model.deck;
+package seedu.address.model.deck.card;
 
 public class Face {
     public String value;

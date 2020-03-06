@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.deck.card.UniqueCardList;
 import seedu.address.model.deck.dump.Address;
 import seedu.address.model.deck.dump.Email;
 import seedu.address.model.deck.dump.Name;

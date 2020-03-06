@@ -24,15 +24,15 @@ public class ModelManager implements Model {
     private final FilteredList<Deck> filteredDecks;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given library and userPrefs.
      */
-    public ModelManager(ReadOnlyLibrary addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyLibrary library, ReadOnlyUserPrefs userPrefs) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(library, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with address book: " + library + " and user prefs " + userPrefs);
 
-        this.library = new Library(addressBook);
+        this.library = new Library(library);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredDecks = new FilteredList<>(this.library.getPersonList());
     }

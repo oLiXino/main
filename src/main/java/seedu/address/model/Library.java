@@ -14,7 +14,8 @@ import seedu.address.model.deck.UniqueDeckList;
  */
 public class Library implements ReadOnlyLibrary {
 
-    private final UniqueDeckList persons;
+
+    private final UniqueDeckList decks;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -24,7 +25,7 @@ public class Library implements ReadOnlyLibrary {
      *   among constructors.
      */
     {
-        persons = new UniqueDeckList();
+        decks = new UniqueDeckList();
     }
 
     public Library() {}
@@ -43,8 +44,8 @@ public class Library implements ReadOnlyLibrary {
      * Replaces the contents of the person list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
-    public void setPersons(List<Deck> decks) {
-        this.persons.setPersons(decks);
+    public void setDecks(List<Deck> decks) {
+        this.decks.setPersons(decks);
     }
 
     /**
@@ -53,7 +54,7 @@ public class Library implements ReadOnlyLibrary {
     public void resetData(ReadOnlyLibrary newData) {
         requireNonNull(newData);
 
-        setPersons(newData.getPersonList());
+        setDecks(newData.getPersonList());
     }
 
     //// person-level operations
@@ -63,7 +64,7 @@ public class Library implements ReadOnlyLibrary {
      */
     public boolean hasPerson(Deck deck) {
         requireNonNull(deck);
-        return persons.contains(deck);
+        return decks.contains(deck);
     }
 
     /**
@@ -71,7 +72,7 @@ public class Library implements ReadOnlyLibrary {
      * The person must not already exist in the address book.
      */
     public void addPerson(Deck p) {
-        persons.add(p);
+        decks.add(p);
     }
 
     /**
@@ -82,7 +83,7 @@ public class Library implements ReadOnlyLibrary {
     public void setPerson(Deck target, Deck editedDeck) {
         requireNonNull(editedDeck);
 
-        persons.setPerson(target, editedDeck);
+        decks.setPerson(target, editedDeck);
     }
 
     /**
@@ -90,31 +91,31 @@ public class Library implements ReadOnlyLibrary {
      * {@code key} must exist in the address book.
      */
     public void removePerson(Deck key) {
-        persons.remove(key);
+        decks.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return decks.asUnmodifiableObservableList().size() + " persons";
         // TODO: refine later
     }
 
     @Override
     public ObservableList<Deck> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+        return decks.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Library // instanceof handles nulls
-                && persons.equals(((Library) other).persons));
+                && decks.equals(((Library) other).decks));
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return decks.hashCode();
     }
 }
