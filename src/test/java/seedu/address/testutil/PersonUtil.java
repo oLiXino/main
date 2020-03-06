@@ -8,10 +8,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.dump.AddCommand;
+import seedu.address.logic.commands.dump.EditCommand.EditPersonDescriptor;
 import seedu.address.model.deck.Deck;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.deck.dump.tag.Tag;
 
 /**
  * A utility class for Person.

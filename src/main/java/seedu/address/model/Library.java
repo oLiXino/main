@@ -12,7 +12,7 @@ import seedu.address.model.deck.UniqueDeckList;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .isSamePerson comparison)
  */
-public class Library implements ReadOnlyAddressBook {
+public class Library implements ReadOnlyLibrary {
 
     private final UniqueDeckList persons;
 
@@ -32,7 +32,7 @@ public class Library implements ReadOnlyAddressBook {
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
      */
-    public Library(ReadOnlyAddressBook toBeCopied) {
+    public Library(ReadOnlyLibrary toBeCopied) {
         this();
         resetData(toBeCopied);
     }
@@ -50,7 +50,7 @@ public class Library implements ReadOnlyAddressBook {
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyLibrary newData) {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());

@@ -6,21 +6,25 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.dump.AddCommand;
+import seedu.address.logic.commands.dump.ClearCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.dump.DeleteCommand;
+import seedu.address.logic.commands.dump.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.dump.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.dump.ListCommand;
+import seedu.address.logic.parser.dump.AddCommandParser;
+import seedu.address.logic.parser.dump.DeleteCommandParser;
+import seedu.address.logic.parser.dump.EditCommandParser;
+import seedu.address.logic.parser.dump.FindCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses user input.
  */
-public class AddressBookParser {
+public class FlashSpeedParser {
 
     /**
      * Used for initial separation of command word and args.

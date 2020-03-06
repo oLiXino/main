@@ -5,13 +5,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.Library;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyLibrary;
 import seedu.address.model.deck.dump.Address;
 import seedu.address.model.deck.dump.Email;
 import seedu.address.model.deck.dump.Name;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.dump.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.deck.dump.tag.Tag;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -40,7 +40,7 @@ public class SampleDataUtil {
         };
     }
 
-    public static ReadOnlyAddressBook getSampleAddressBook() {
+    public static ReadOnlyLibrary getSampleAddressBook() {
         Library sampleAb = new Library();
         for (Deck sampleDeck : getSamplePersons()) {
             sampleAb.addPerson(sampleDeck);

@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.dump;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
@@ -17,6 +17,8 @@ import java.util.Set;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.deck.dump.Address;
@@ -24,7 +26,7 @@ import seedu.address.model.deck.dump.Email;
 import seedu.address.model.deck.dump.Name;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.dump.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.deck.dump.tag.Tag;
 
 /**
  * Edits the details of an existing person in the address book.

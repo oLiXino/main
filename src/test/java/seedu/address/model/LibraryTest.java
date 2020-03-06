@@ -49,7 +49,7 @@ public class LibraryTest {
         Deck editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Deck> newDecks = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newDecks);
+        LibraryStub newData = new LibraryStub(newDecks);
 
         assertThrows(DuplicatePersonException.class, () -> library.resetData(newData));
     }
@@ -86,10 +86,10 @@ public class LibraryTest {
     /**
      * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
      */
-    private static class AddressBookStub implements ReadOnlyAddressBook {
+    private static class LibraryStub implements ReadOnlyLibrary {
         private final ObservableList<Deck> decks = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Deck> decks) {
+        LibraryStub(Collection<Deck> decks) {
             this.decks.setAll(decks);
         }
 
