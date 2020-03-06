@@ -18,8 +18,8 @@ import seedu.address.logic.commands.dump.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Library;
 import seedu.address.model.Model;
-import seedu.address.model.deck.dump.NameContainsKeywordsPredicate;
 import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.dump.NameContainsKeywordsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
