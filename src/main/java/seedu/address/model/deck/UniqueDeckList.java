@@ -22,7 +22,7 @@ import seedu.address.model.deck.exceptions.PersonNotFoundException;
  *
  * @see Deck#isSamePerson(Deck)
  */
-public class UniquePersonList implements Iterable<Deck> {
+public class UniqueDeckList implements Iterable<Deck> {
 
     private final ObservableList<Deck> internalList = FXCollections.observableArrayList();
     private final ObservableList<Deck> internalUnmodifiableList =
@@ -79,7 +79,7 @@ public class UniquePersonList implements Iterable<Deck> {
         }
     }
 
-    public void setPersons(UniquePersonList replacement) {
+    public void setPersons(UniqueDeckList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);
     }
@@ -112,8 +112,8 @@ public class UniquePersonList implements Iterable<Deck> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniquePersonList // instanceof handles nulls
-                        && internalList.equals(((UniquePersonList) other).internalList));
+                || (other instanceof UniqueDeckList // instanceof handles nulls
+                        && internalList.equals(((UniqueDeckList) other).internalList));
     }
 
     @Override

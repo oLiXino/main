@@ -29,7 +29,7 @@ public class AddCommandIntegrationTest {
     public void execute_newPerson_success() {
         Deck validDeck = new PersonBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getLibrary(), new UserPrefs());
         expectedModel.addPerson(validDeck);
 
         assertCommandSuccess(new AddCommand(validDeck), model,
@@ -38,7 +38,7 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Deck deckInList = model.getAddressBook().getPersonList().get(0);
+        Deck deckInList = model.getLibrary().getPersonList().get(0);
         assertCommandFailure(new AddCommand(deckInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
     }
 

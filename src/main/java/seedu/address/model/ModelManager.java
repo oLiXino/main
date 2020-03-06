@@ -19,7 +19,7 @@ import seedu.address.model.deck.Deck;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final Library library;
     private final UserPrefs userPrefs;
     private final FilteredList<Deck> filteredDecks;
 
@@ -32,13 +32,13 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.library = new Library(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredDecks = new FilteredList<>(this.addressBook.getPersonList());
+        filteredDecks = new FilteredList<>(this.library.getPersonList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new Library(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -79,29 +79,29 @@ public class ModelManager implements Model {
     //=========== AddressBook ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
+    public void setLibrary(ReadOnlyAddressBook library) {
+        this.library.resetData(library);
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyAddressBook getLibrary() {
+        return library;
     }
 
     @Override
     public boolean hasPerson(Deck deck) {
         requireNonNull(deck);
-        return addressBook.hasPerson(deck);
+        return library.hasPerson(deck);
     }
 
     @Override
     public void deletePerson(Deck target) {
-        addressBook.removePerson(target);
+        library.removePerson(target);
     }
 
     @Override
     public void addPerson(Deck deck) {
-        addressBook.addPerson(deck);
+        library.addPerson(deck);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -109,7 +109,7 @@ public class ModelManager implements Model {
     public void setPerson(Deck target, Deck editedDeck) {
         requireAllNonNull(target, editedDeck);
 
-        addressBook.setPerson(target, editedDeck);
+        library.setPerson(target, editedDeck);
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -143,7 +143,7 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
+        return library.equals(other.library)
                 && userPrefs.equals(other.userPrefs)
                 && filteredDecks.equals(other.filteredDecks);
     }
