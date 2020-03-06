@@ -23,9 +23,11 @@ public class Card {
     private final Face frontFace = new Face("Dummy Front");
     private final Face backFace = new Face("Dummy Back");
 
-    public boolean isSamePerson(Card otherDeck) {
+    /*
+    public boolean isSameDeck(Card otherDeck) {
         return true;
     }
+    */
 
     @Override
     public boolean equals(Object other) {
