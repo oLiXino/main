@@ -20,7 +20,7 @@ import seedu.address.model.deck.exceptions.PersonNotFoundException;
  *
  * Supports a minimal set of list operations.
  *
- * @see Deck#isSamePerson(Deck)
+ * @see Deck#isSameDeck(Deck)
  */
 public class UniqueDeckList implements Iterable<Deck> {
 
@@ -33,7 +33,7 @@ public class UniqueDeckList implements Iterable<Deck> {
      */
     public boolean contains(Deck toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSamePerson);
+        return internalList.stream().anyMatch(toCheck::isSameDeck);
     }
 
     /**
@@ -61,7 +61,7 @@ public class UniqueDeckList implements Iterable<Deck> {
             throw new PersonNotFoundException();
         }
 
-        if (!target.isSamePerson(editedDeck) && contains(editedDeck)) {
+        if (!target.isSameDeck(editedDeck) && contains(editedDeck)) {
             throw new DuplicatePersonException();
         }
 
@@ -127,7 +127,7 @@ public class UniqueDeckList implements Iterable<Deck> {
     private boolean personsAreUnique(List<Deck> decks) {
         for (int i = 0; i < decks.size() - 1; i++) {
             for (int j = i + 1; j < decks.size(); j++) {
-                if (decks.get(i).isSamePerson(decks.get(j))) {
+                if (decks.get(i).isSameDeck(decks.get(j))) {
                     return false;
                 }
             }

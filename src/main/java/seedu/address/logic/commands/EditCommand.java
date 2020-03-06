@@ -19,11 +19,11 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.deck.Address;
-import seedu.address.model.deck.Email;
-import seedu.address.model.deck.Name;
+import seedu.address.model.deck.dump.Address;
+import seedu.address.model.deck.dump.Email;
+import seedu.address.model.deck.dump.Name;
 import seedu.address.model.deck.Deck;
-import seedu.address.model.deck.Phone;
+import seedu.address.model.deck.dump.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -77,7 +77,7 @@ public class EditCommand extends Command {
         Deck deckToEdit = lastShownList.get(index.getZeroBased());
         Deck editedDeck = createEditedPerson(deckToEdit, editPersonDescriptor);
 
-        if (!deckToEdit.isSamePerson(editedDeck) && model.hasPerson(editedDeck)) {
+        if (!deckToEdit.isSameDeck(editedDeck) && model.hasPerson(editedDeck)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 

@@ -7,6 +7,10 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.deck.dump.Address;
+import seedu.address.model.deck.dump.Email;
+import seedu.address.model.deck.dump.Name;
+import seedu.address.model.deck.dump.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -14,6 +18,9 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Deck {
+
+    // New fields
+    private final UniqueCardList cards = new UniqueCardList();
 
     // Identity fields
     private final Name name;
@@ -64,7 +71,7 @@ public class Deck {
      * Returns true if both persons of the same name have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Deck otherDeck) {
+    public boolean isSameDeck(Deck otherDeck) {
         if (otherDeck == this) {
             return true;
         }
