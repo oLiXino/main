@@ -8,10 +8,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
+import seedu.address.logic.commands.dump.AddCommand;
+import seedu.address.logic.commands.dump.EditCommand.EditPersonDescriptor;
+import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.dump.tag.Tag;
 
 /**
  * A utility class for Person.
@@ -21,20 +21,20 @@ public class PersonUtil {
     /**
      * Returns an add command string for adding the {@code person}.
      */
-    public static String getAddCommand(Person person) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(person);
+    public static String getAddCommand(Deck deck) {
+        return AddCommand.COMMAND_WORD + " " + getPersonDetails(deck);
     }
 
     /**
      * Returns the part of command string for the given {@code person}'s details.
      */
-    public static String getPersonDetails(Person person) {
+    public static String getPersonDetails(Deck deck) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_NAME + person.getName().fullName + " ");
-        sb.append(PREFIX_PHONE + person.getPhone().value + " ");
-        sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
-        sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
-        person.getTags().stream().forEach(
+        sb.append(PREFIX_NAME + deck.getName().fullName + " ");
+        sb.append(PREFIX_PHONE + deck.getPhone().value + " ");
+        sb.append(PREFIX_EMAIL + deck.getEmail().value + " ");
+        sb.append(PREFIX_ADDRESS + deck.getAddress().value + " ");
+        deck.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
         return sb.toString();

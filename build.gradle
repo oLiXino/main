@@ -121,24 +121,24 @@ asciidoctor {
     outputDir "${buildDir}/docs"
 
     options = [
-        template_dirs: [file("${sourceDir}/templates")],
+            template_dirs: [file("${sourceDir}/templates")],
     ]
 
     attributes = [
-        linkcss: true,
-        sheet: 'gh-pages.css',
-        'source-highlighter': 'coderay',
-        icons: 'font',
-        experimental: true,
-        sectlinks: true,
-        idprefix: '',  // for compatibility with GitHub preview
-        idseparator: '-',
-        'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        // 'site-name': 'AddressBook-Level3',
-        'site-name': 'FlashSpeed',
-        // 'site-githuburl': 'https://github.com/se-edu/addressbook-level3',
-        'site-githuburl': 'https://github.com/AY1920S2-CS2103T-W17-1/main',
-        'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
+            linkcss: true,
+            stylesheet: 'gh-pages.css',
+            'source-highlighter': 'coderay',
+            icons: 'font',
+            experimental: true,
+            sectlinks: true,
+            idprefix: '',  // for compatibility with GitHub preview
+            idseparator: '-',
+            'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
+            // 'site-name': 'AddressBook-Level3',
+            'site-name': 'FlashSpeed',
+            // 'site-githuburl': 'https://github.com/se-edu/addressbook-level3',
+            'site-githuburl': 'https://github.com/AY1920S2-CS2103T-W17-1/main',
+            'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
     ]
 
     options['template_dirs'].each {
@@ -146,9 +146,9 @@ asciidoctor {
     }
 }
 
-// Copies sheets into the directory containing generated HTML files as
+// Copies stylesheets into the directory containing generated HTML files as
 // Asciidoctor does not copy linked CSS files to the output directory when rendering.
-// This is needed for linked sheets and embedded stylesheets which import other files.
+// This is needed for linked stylesheets and embedded stylesheets which import other files.
 task copyStylesheets(type: Copy) {
     from "${asciidoctor.sourceDir}/stylesheets"
     into "${asciidoctor.outputDir}/html5/stylesheets"
@@ -156,3 +156,4 @@ task copyStylesheets(type: Copy) {
 asciidoctor.dependsOn copyStylesheets
 
 defaultTasks 'clean', 'test', 'coverage', 'asciidoctor'
+
