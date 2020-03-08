@@ -10,7 +10,8 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.FlashSpeedParser;
+import seedu.address.logic.parser.DeckParser;
+import seedu.address.logic.parser.LibraryParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyLibrary;
@@ -26,12 +27,16 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final FlashSpeedParser flashSpeedParser;
+    private final View view;
+    private final LibraryParser libParser;
+    private final DeckParser deckParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        flashSpeedParser = new FlashSpeedParser();
+        this.view = View.LIBRARY;  // 1st view will always be in library
+        this.libParser = new LibraryParser();
+        this.deckParser = new DeckParser();
     }
 
     @Override
@@ -39,7 +44,16 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = flashSpeedParser.parseCommand(commandText);
+        Command command;
+        
+        if (view == View.LIBRARY) {
+            command = libParser.parseCommand(commandText);
+        } else {
+            command = deckParser.parseCommand(commandText);
+        }
+        
+        // somehow change this.view if command makes us move in/out of library/deck
+        
         commandResult = command.execute(model);
 
         try {

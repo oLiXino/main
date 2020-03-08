@@ -31,7 +31,7 @@ import seedu.address.testutil.PersonUtil;
 
 public class LibraryParserTest {
 
-    private final FlashSpeedParser parser = new FlashSpeedParser();
+    private final LibraryParser parser = new LibraryParser();
 
     @Test
     public void parseCommand_add() throws Exception {

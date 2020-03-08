@@ -3,7 +3,7 @@ package seedu.address.model.deck.card;
 import java.util.Objects;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Card in the deck.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Card {
@@ -58,6 +58,5 @@ public class Card {
                 .append(" : ")
                 .append(getBackFace());
         return builder.toString();
-    };
-
+    }
 }
