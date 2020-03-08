@@ -20,6 +20,12 @@ import seedu.address.model.deck.dump.tag.Tag;
  */
 public class Deck {
     
+    // todo remove
+    private final Phone phone;
+    private final Email email;
+    private final Address address;
+    private final Set<Tag> tags = new HashSet<>();
+    
     // todo: what other fields represent unique identity of a deck?
     // Identity fields
     private final Name name;
@@ -30,22 +36,44 @@ public class Deck {
     /**
      * Every field must be present and not null.
      */
-    public Deck(Name name) {
-        requireAllNonNull(name);
+    public Deck(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
+        
+        // todo remove
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
     }
 
+    // todo remove vvv
+    
     public Name getName() {
         return name;
     }
 
-//    /**
-//     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-//     * if modification is attempted.
-//     */
-//    public Set<Tag> getTags() {
-//        return Collections.unmodifiableSet(tags);
-//    }
+    public Phone getPhone() {
+        return phone;
+    }
+
+    public Email getEmail() {
+        return email;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    /**
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
+    public Set<Tag> getTags() {
+        return Collections.unmodifiableSet(tags);
+    }
+    
+    // todo remove ^^^
 
     /**
      * Returns true if both decks have the same name.

@@ -45,7 +45,7 @@ public class DeleteCardCommand extends Command {
         List<Deck> lastShownList = model.getFilteredPersonList();
         
         // placeholder
-        return new CommandResult(String.format(MESSAGE_SUCCESS, null));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, targetIndex));
         
         // model needs to know current deck
         // then impl getFilteredCardList() method
