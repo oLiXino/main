@@ -13,5 +13,5 @@ public interface ReadOnlyLibrary {
      * This list will not contain any duplicate persons.
      */
     ObservableList<Deck> getPersonList();
-
+    ObservableList<Deck> getDeckList();
 }
