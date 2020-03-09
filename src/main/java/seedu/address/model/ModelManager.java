@@ -91,17 +91,17 @@ public class ModelManager implements Model {
     @Override
     public boolean hasPerson(Deck deck) {
         requireNonNull(deck);
-        return library.hasPerson(deck);
+        return library.hasDeck(deck);
     }
 
     @Override
     public void deletePerson(Deck target) {
-        library.removePerson(target);
+        library.deleteDeck(target);
     }
 
     @Override
     public void addPerson(Deck deck) {
-        library.addPerson(deck);
+        library.createDeck(deck);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 

@@ -6,7 +6,9 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.card.Card;
 import seedu.address.model.deck.UniqueDeckList;
+import seedu.address.model.deck.card.UniqueCardList;
 
 /**
  * Wraps all data at the address-book level
@@ -16,6 +18,7 @@ public class Library implements ReadOnlyLibrary {
 
 
     private final UniqueDeckList decks;
+    private final UniqueCardList cards;
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -26,6 +29,7 @@ public class Library implements ReadOnlyLibrary {
      */
     {
         decks = new UniqueDeckList();
+        cards = new UniqueCardList();
     }
 
     public Library() {}
@@ -41,69 +45,119 @@ public class Library implements ReadOnlyLibrary {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the person list with {@code decks}.
+     * {@code decks} must not contain duplicate decks.
      */
+    //public void setDecks(List<Deck> decks) {
+    //this.decks.setPersons(decks);
+    //}
     public void setDecks(List<Deck> decks) {
-        this.decks.setPersons(decks);
+        this.decks.setDecks(decks);
     }
+
 
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
+//    public void resetData(ReadOnlyLibrary newData) {
+//        requireNonNull(newData);
+//
+//        setDecks(newData.getPersonList());
+//    }
     public void resetData(ReadOnlyLibrary newData) {
         requireNonNull(newData);
 
-        setDecks(newData.getPersonList());
+        setDecks(newData.getDeckList());
     }
 
     //// person-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a deck with the same identity as {@code deck} exists in the Library.
      */
-    public boolean hasPerson(Deck deck) {
+    public boolean hasPerson(Deck deck) {   // remove the code at the enc
+        requireNonNull(deck);
+        return decks.contains(deck);
+    }
+
+    public boolean hasDeck(Deck deck) {
         requireNonNull(deck);
         return decks.contains(deck);
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a deck to the library.
+     * The deck must not already exist in the library.
      */
     public void addPerson(Deck p) {
+        decks.add(p);
+    }   // remove the code at the end
+
+    public void createDeck(Deck p) {
         decks.add(p);
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Replaces the given deck {@code target} in the list with {@code editedDeck}.
+     * {@code target} must exist in the library.
+     * The deck identity of {@code editedDeck} must not be the same as another existing deck in the library.
      */
-    public void setPerson(Deck target, Deck editedDeck) {
+    public void setPerson(Deck target, Deck editedDeck) { // remove the code at the end
         requireNonNull(editedDeck);
 
         decks.setPerson(target, editedDeck);
     }
 
+
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code Library}.
+     * {@code key} must exist in the library .
      */
-    public void removePerson(Deck key) {
+
+    public void deleteDeck(Deck key) {
         decks.remove(key);
+    }
+
+
+    /**
+     * Returns true if a card with the same identity as {@code card} exists in the deck.
+     */
+    public boolean hasCard(Card card) {
+        requireNonNull(card);
+        return cards.contains(card);
+    }
+
+    /**
+     * Adds a card to the deck.
+     * The card must not already exist in the deck.
+     */
+    public void addCard(Card card) {
+        cards.add(card);
+    }
+
+    /**
+     * Removes {@code key} from this {@code Deck}.
+     * {@code key} must exist in the deck .
+     */
+    public void removeCard(Card key) {
+        cards.remove(key);
     }
 
     //// util methods
 
     @Override
     public String toString() {
-        return decks.asUnmodifiableObservableList().size() + " persons";
+        return decks.asUnmodifiableObservableList().size() + " decks";
         // TODO: refine later
     }
 
     @Override
-    public ObservableList<Deck> getPersonList() {
+    public ObservableList<Deck> getPersonList() {   // remove the code at the end
+        return decks.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Deck> getDeckList() {
         return decks.asUnmodifiableObservableList();
     }
 
