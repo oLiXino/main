@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.DoubleUnaryOperator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -68,6 +69,7 @@ public class UniqueDeckList implements Iterable<Deck> {
         internalList.set(index, editedDeck);
     }
 
+
     /**
      * Removes the equivalent person from the list.
      * The person must exist in the list.
@@ -84,11 +86,25 @@ public class UniqueDeckList implements Iterable<Deck> {
         internalList.setAll(replacement.internalList);
     }
 
+
     /**
      * Replaces the contents of this list with {@code persons}.
      * {@code persons} must not contain duplicate persons.
      */
     public void setPersons(List<Deck> decks) {
+        requireAllNonNull(decks);
+        if (!personsAreUnique(decks)) {
+            throw new DuplicatePersonException();
+        }
+
+        internalList.setAll(decks);
+    }
+
+    /**
+     * Replaces the contents of the library with {@code decks}.
+     * {@code decks} must not contain duplicate deck.
+     */
+    public void setDecks(List<Deck> decks) {
         requireAllNonNull(decks);
         if (!personsAreUnique(decks)) {
             throw new DuplicatePersonException();

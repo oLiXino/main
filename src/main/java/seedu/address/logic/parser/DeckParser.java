@@ -6,9 +6,12 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.logic.commands.ClearDeckCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.cardcommands.AddCardCommand;
+import seedu.address.logic.commands.cardcommands.DeleteCardCommand;
 import seedu.address.logic.commands.dump.AddCommand;
 import seedu.address.logic.commands.dump.ClearCommand;
 import seedu.address.logic.commands.dump.DeleteCommand;
@@ -22,9 +25,9 @@ import seedu.address.logic.parser.dump.FindCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses user input.
+ * Parses user input for when in a deck.
  */
-public class FlashSpeedParser {
+public class DeckParser {
 
     /**
      * Used for initial separation of command word and args.
@@ -46,19 +49,11 @@ public class FlashSpeedParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+        switch (commandWord) {
 
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
-
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
-
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
@@ -72,9 +67,14 @@ public class FlashSpeedParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
+        case AddCardCommand.COMMAND_WORD:
+            return new AddCardCommandParser().parse(arguments);
+
+        case DeleteCardCommand.COMMAND_WORD:
+            return new DeleteCardCommandParser().parse(arguments);
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-
 }
