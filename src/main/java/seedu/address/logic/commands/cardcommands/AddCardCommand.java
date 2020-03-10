@@ -43,16 +43,12 @@ public class AddCardCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        
-        // model needs to know current deck
-        // then impl hasCard() method
-//        if (model.hasCard(toAdd)) {
-//            throw new CommandException(MESSAGE_DUPLICATE_CARD);
-//        }
 
-        // model needs to know current deck
-        // then impl addCard() method
-//        model.addCard(toAdd);
+        if (model.hasCard(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_CARD);
+        }
+
+        model.addCard(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

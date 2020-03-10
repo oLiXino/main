@@ -42,25 +42,17 @@ public class DeleteCardCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Deck> lastShownList = model.getFilteredPersonList();
-        
-        // placeholder
-        return new CommandResult(String.format(MESSAGE_SUCCESS, targetIndex));
-        
-        // model needs to know current deck
-        // then impl getFilteredCardList() method
-//        List<Card> lastShownList = model.getFilteredCardList();
-//        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-//            throw new CommandException(Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
-//        }
-        
-        
-//        Card cardToDelete = lastShownList.get(targetIndex.getZeroBased());
 
-        // model needs to know current deck
-        // then impl deleteCard() method
-//        model.deleteCard(cardToDelete);
-//        return new CommandResult(String.format(MESSAGE_SUCCESS, cardToDelete));
+        List<Card> lastShownList = model.getFilteredCardList();
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
+        }
+        
+        
+        Card cardToDelete = lastShownList.get(targetIndex.getZeroBased());
+
+        model.deleteCard(cardToDelete);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, cardToDelete));
     }
 
     @Override
