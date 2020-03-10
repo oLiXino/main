@@ -1,67 +1,54 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.List;
+
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Deck;
 
+
 /**
- * Adds a person to the address book.
+ * Deletes a person identified using it's displayed index from the address book.
  */
 public class DeleteDeckCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "delete";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
-            + "Parameters: "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_PHONE + "PHONE "
-            + PREFIX_EMAIL + "EMAIL "
-            + PREFIX_ADDRESS + "ADDRESS "
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
-            + PREFIX_PHONE + "98765432 "
-            + PREFIX_EMAIL + "johnd@example.com "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Deletes the deck identified by the index number used in the displayed deck list.\n"
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_DELETE_DECK_SUCCESS = "Deleted Deck: %1$s";
 
-    private final Deck toAdd;
+    private final Index targetIndex;
 
-    /**
-     * Creates an AddCommand to add the specified {@code Person}
-     */
-    public DeleteDeckCommand(Deck deck) {
-        requireNonNull(deck);
-        toAdd = deck;
+    public DeleteDeckCommand(Index targetIndex) {
+        this.targetIndex = targetIndex;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        List<Deck> lastShownList = model.getFilteredPersonList();
 
-        if (model.hasPerson(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        model.addPerson(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        Deck deckToDelete = lastShownList.get(targetIndex.getZeroBased());
+        model.deleteDeck(deckToDelete);
+        return new CommandResult(String.format(MESSAGE_DELETE_DECK_SUCCESS, deckToDelete));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteDeckCommand // instanceof handles nulls
-                && toAdd.equals(((DeleteDeckCommand) other).toAdd));
+                && targetIndex.equals(((DeleteDeckCommand) other).targetIndex)); // state check
     }
 }

@@ -1,5 +1,6 @@
 package seedu.address.model.deck;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
@@ -7,12 +8,16 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javafx.collections.ObservableList;
+import seedu.address.model.deck.card.Card;
 import seedu.address.model.deck.card.UniqueCardList;
 import seedu.address.model.deck.dump.Address;
 import seedu.address.model.deck.dump.Email;
 import seedu.address.model.deck.dump.Name;
 import seedu.address.model.deck.dump.Phone;
 import seedu.address.model.deck.dump.tag.Tag;
+import seedu.address.model.deck.exceptions.CardNotFoundException;
+import seedu.address.model.deck.exceptions.DuplicateCardException;
 
 /**
  * Represents a Deck in the library.
@@ -76,6 +81,29 @@ public class Deck {
     // todo remove ^^^
 
     /**
+     * Returns true if the list contains an equivalent card as the given argument.
+     */
+    public boolean contains(Card toCheck) {
+        return cards.contains(toCheck);
+    }
+
+    /**
+     * Adds a person to the list.
+     * The person must not already exist in the list.
+     */
+    public void add(Card toAdd) {
+        cards.add(toAdd);
+    }
+
+    /**
+     * Removes the equivalent card from the list.
+     * The card must exist in the list.
+     */
+    public void remove(Card toRemove) {
+        cards.remove(toRemove);
+    }
+
+    /**
      * Returns true if both decks have the same name.
      * This defines a weaker notion of equality between two decks.
      */
@@ -86,6 +114,13 @@ public class Deck {
 
         return otherDeck != null
                 && otherDeck.getName().equals(getName());
+    }
+
+    /**
+     * Returns the backing list as an unmodifiable {@code ObservableList}.
+     */
+    public ObservableList<Card> asUnmodifiableObservableList() {
+        return cards.asUnmodifiableObservableList();
     }
 
     /**

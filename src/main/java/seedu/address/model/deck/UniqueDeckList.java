@@ -38,8 +38,18 @@ public class UniqueDeckList implements Iterable<Deck> {
     }
 
     /**
-     * Adds a person to the list.
-     * The person must not already exist in the list.
+     * Returns deck with the given index.
+     */
+    public Deck get(int index) {
+        if (index < 0 || index >= internalList.size()) {
+            return null;
+        }
+        return internalList.get(index);
+    }
+
+    /**
+     * Adds a deck to the library.
+     * The deck must not already exist in the library.
      */
     public void add(Deck toAdd) {
         requireNonNull(toAdd);
@@ -71,8 +81,8 @@ public class UniqueDeckList implements Iterable<Deck> {
 
 
     /**
-     * Removes the equivalent person from the list.
-     * The person must exist in the list.
+     * Removes the equivalent deck from the library.
+     * The deck must exist in the library.
      */
     public void remove(Deck toRemove) {
         requireNonNull(toRemove);
@@ -86,6 +96,11 @@ public class UniqueDeckList implements Iterable<Deck> {
         internalList.setAll(replacement.internalList);
     }
 
+
+    public void setDecks(UniqueDeckList replacement) {
+        requireNonNull(replacement);
+        internalList.setAll(replacement.internalList);
+    }
 
     /**
      * Replaces the contents of this list with {@code persons}.
