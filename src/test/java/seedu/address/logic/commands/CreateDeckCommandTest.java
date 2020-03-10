@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.logic.commands.dump.AddCommand;
+import seedu.address.logic.commands.dump.CreateDeckCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Library;
 import seedu.address.model.Model;
@@ -24,11 +24,11 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.deck.Deck;
 import seedu.address.testutil.PersonBuilder;
 
-public class AddCommandTest {
+public class CreateDeckCommandTest {
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCommand(null));
+        assertThrows(NullPointerException.class, () -> new CreateDeckCommand(null));
     }
 
     @Test
@@ -36,33 +36,33 @@ public class AddCommandTest {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Deck validDeck = new PersonBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validDeck).execute(modelStub);
+        CommandResult commandResult = new CreateDeckCommand(validDeck).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validDeck), commandResult.getFeedbackToUser());
+        assertEquals(String.format(CreateDeckCommand.MESSAGE_SUCCESS, validDeck), commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validDeck), modelStub.personsAdded);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Deck validDeck = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validDeck);
+        CreateDeckCommand createDeckCommand = new CreateDeckCommand(validDeck);
         ModelStub modelStub = new ModelStubWithPerson(validDeck);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_PERSON, () -> addCommand.execute(modelStub));
+        assertThrows(CommandException.class, CreateDeckCommand.MESSAGE_DUPLICATE_PERSON, () -> createDeckCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
         Deck alice = new PersonBuilder().withName("Alice").build();
         Deck bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        CreateDeckCommand addAliceCommand = new CreateDeckCommand(alice);
+        CreateDeckCommand addBobCommand = new CreateDeckCommand(bob);
 
         // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
 
         // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
+        CreateDeckCommand addAliceCommandCopy = new CreateDeckCommand(alice);
         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
 
         // different types -> returns false

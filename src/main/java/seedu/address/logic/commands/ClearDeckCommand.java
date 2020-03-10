@@ -15,7 +15,7 @@ import seedu.address.model.deck.Deck;
  */
 public class ClearDeckCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "clear";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
             + "Parameters: "

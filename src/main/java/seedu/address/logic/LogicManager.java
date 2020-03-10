@@ -16,6 +16,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyLibrary;
 import seedu.address.model.deck.Deck;
+import seedu.address.model.util.View;
 import seedu.address.storage.Storage;
 
 /**
@@ -27,14 +28,14 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final View view;
+    //private final View view;
     private final LibraryParser libParser;
     private final DeckParser deckParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        this.view = View.LIBRARY;  // 1st view will always be in library
+        //this.view = View.LIBRARY;  // 1st view will always be in library
         this.libParser = new LibraryParser();
         this.deckParser = new DeckParser();
     }
@@ -46,7 +47,7 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command;
         
-        if (view == View.LIBRARY) {
+        if (model.getView() == View.LIBRARY) {
             command = libParser.parseCommand(commandText);
         } else {
             command = deckParser.parseCommand(commandText);

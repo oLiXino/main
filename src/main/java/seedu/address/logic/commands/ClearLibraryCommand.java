@@ -12,7 +12,7 @@ import seedu.address.model.Model;
  */
 public class ClearLibraryCommand extends Command {
 
-    public static final String COMMAND_WORD = "clear";
+    public static final String COMMAND_WORD = "reset";
     public static final String MESSAGE_SUCCESS = "Library has been cleared!";
 
     @Override

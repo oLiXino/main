@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.dump.AddCommand;
+import seedu.address.logic.commands.dump.CreateDeckCommand;
 import seedu.address.logic.commands.dump.ClearCommand;
 import seedu.address.logic.commands.dump.DeleteCommand;
 import seedu.address.logic.commands.dump.EditCommand;
@@ -36,8 +36,8 @@ public class LibraryParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Deck deck = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(PersonUtil.getAddCommand(deck));
-        assertEquals(new AddCommand(deck), command);
+        CreateDeckCommand command = (CreateDeckCommand) parser.parseCommand(PersonUtil.getAddCommand(deck));
+        assertEquals(new CreateDeckCommand(deck), command);
     }
 
     @Test

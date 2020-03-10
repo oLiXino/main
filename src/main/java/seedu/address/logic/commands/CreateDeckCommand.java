@@ -17,7 +17,7 @@ import seedu.address.model.deck.Deck;
  */
 public class CreateDeckCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = "create";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a deck to the library. "
             + "Parameters: "
