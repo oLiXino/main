@@ -106,16 +106,22 @@ public interface Model {
 
     /**
      * Deletes the given card.
-     * The card must exist in the deck.
+     * {@code target} must exist in the deck.
      */
     void deleteCard(Card target);
-
-
+    
     /**
      * Adds the given card.
      * {@code card} must not already exist in the deck.
      */
     void addCard(Card card);
+
+    /**
+     * Replaces the given old card with the new card.
+     * {@code target} must exist in the deck.
+     * {@code card} must not already exist in the deck.
+     */
+    void replaceCard(Card target, Card card);
 
     /**
      * Gets the current view of the model.

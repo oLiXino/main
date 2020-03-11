@@ -113,6 +113,14 @@ public class Deck {
     }
 
     /**
+     * Replaces the equivalent card from the list with the new card.
+     * The old card must exist in the list and the new card must not already exist in the list.
+     */
+    public void replace(Card toRemove, Card toAdd) {
+        cards.replace(toRemove, toAdd);
+    }
+
+    /**
      * Returns true if both decks have the same name.
      * This defines a weaker notion of equality between two decks.
      */
