@@ -47,7 +47,7 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command;
         
-        if (model.getView() == View.LIBRARY) {
+        if (model.getView().equals(View.LIBRARY)) {
             command = libParser.parseCommand(commandText);
         } else {
             command = deckParser.parseCommand(commandText);

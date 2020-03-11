@@ -6,7 +6,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.ClearDeckCommand;
 import seedu.address.logic.commands.ClearLibraryCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CreateDeckCommand;
@@ -51,9 +50,6 @@ public class LibraryParser {
 
         case DeleteDeckCommand.COMMAND_WORD:
             return new DeleteDeckCommandParser().parse(arguments);
-
-        case ClearDeckCommand.COMMAND_WORD:
-            return new ClearDeckCommandParser().parse(arguments);
 
         case ClearLibraryCommand.COMMAND_WORD:
             return new ClearLibraryCommand();
