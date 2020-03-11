@@ -52,6 +52,15 @@ public class Deck {
         this.tags.addAll(tags);
     }
 
+    public Deck(Name name) {
+        this.name = name;
+
+        //dummy values
+        this.phone = new Phone("999");
+        this.email = new Email("gmail.com");
+        this.address = new Address("Kent Ridge");
+    }
+
     // todo remove vvv
     
     public Name getName() {

@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.UniqueDeckList;
 
@@ -83,6 +84,12 @@ public class Library implements ReadOnlyLibrary {
 
     public Deck getDeck(int index) {
         return decks.get(index);
+    }
+
+    public Deck getDeck(Index index) {
+        int idxInInt = Integer.parseInt(index.toString());
+        return decks.get(idxInInt);
+
     }
 
     /**

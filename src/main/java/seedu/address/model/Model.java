@@ -5,8 +5,10 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.card.Card;
+import seedu.address.model.util.View;
 
 /**
  * The API of the Model component.
@@ -88,6 +90,16 @@ public interface Model {
     void createDeck(Deck deck);
 
     /**
+     * Selects a deck and enter Deck Mode.
+     */
+    void selectDeck(Index targetIdx);
+
+    /**
+     * Returns the user from Deck Mode to Library Mode.
+     */
+    void returnToLibrary();
+
+    /**
      * Returns true if a card with the same identity as {@code card} exists in the deck.
      */
     boolean hasCard(Card card);
@@ -104,6 +116,12 @@ public interface Model {
      * {@code card} must not already exist in the deck.
      */
     void addCard(Card card);
+
+    /**
+     * Gets the current view of the model.
+     * @return The current view of the model.
+     */
+    public View getView();
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.

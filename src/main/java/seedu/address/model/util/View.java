@@ -1,4 +1,4 @@
-package seedu.address.logic;
+package seedu.address.model.util;
 
 public enum View {
     LIBRARY,
