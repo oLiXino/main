@@ -9,27 +9,34 @@ import seedu.address.model.deck.card.Card;
 import seedu.address.model.deck.card.FrontFace;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new AddCardCommand object.
  */
 public class AddCardCommandParser implements Parser<AddCardCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddCardCommand
+     * and returns an AddCardCommand object for execution.
      *
-     * @throws ParseException if the user input does not conform the expected format
+     * @throws ParseException if the user input does not conform to the expected format
      */
     public AddCardCommand parse(String args) throws ParseException {
-        // naive check -> must have 1 and only 1 ":" in input
-        String[] values = args.split(":");
-        if (values.length != 2) {
+        // first occurrence of ":" will be used as the delineation between the front and back values
+        int delinIdx = args.indexOf(":");
+        if (delinIdx == -1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCardCommand.MESSAGE_USAGE));
         }
-
-        FrontFace front = new FrontFace(values[0].trim());
-        BackFace back = new BackFace(values[1].trim());
+        
+        String frontValue = args.substring(0, delinIdx).strip();
+        String backValue  = args.substring(delinIdx + 1).strip();
+        
+        if (frontValue.isBlank() || backValue.isBlank()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCardCommand.MESSAGE_USAGE));
+        }
+        
+        FrontFace front = new FrontFace(frontValue);
+        BackFace  back  = new BackFace(backValue);
+        
         Card card = new Card(front, back);
-
         return new AddCardCommand(card);
     }
 }

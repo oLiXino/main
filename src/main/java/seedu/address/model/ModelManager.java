@@ -181,6 +181,14 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void replaceCard(Card target, Card card) {
+        Deck deck = library.getDeck(deckIndex.get());
+        if (deck == null) return;
+        deck.replace(target, card);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
     public void setPerson(Deck target, Deck editedDeck) {
         requireAllNonNull(target, editedDeck);
 

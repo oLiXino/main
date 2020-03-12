@@ -41,7 +41,7 @@ public class UniqueCardList implements Iterable<Card> {
      * Adds a person to the list.
      * The person must not already exist in the list.
      */
-    public void add(Card toAdd) {
+    public void add(Card toAdd) throws DuplicateCardException {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicateCardException();
@@ -73,11 +73,26 @@ public class UniqueCardList implements Iterable<Card> {
      * Removes the equivalent card from the list.
      * The card must exist in the list.
      */
-    public void remove(Card toRemove) {
+    public void remove(Card toRemove) throws DuplicateCardException {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new CardNotFoundException();
         }
+    }
+
+    /**
+     * Replaces the equivalent card from the list with the new card.
+     * The old card must exist in the list and the new card must not already exist in the list.
+     */
+    public void replace(Card toRemove, Card toAdd) throws DuplicateCardException {
+        requireAllNonNull(toRemove, toAdd);
+
+        int idx = internalList.indexOf(toRemove);
+        if (idx == -1) {
+            throw new CardNotFoundException();
+        }
+        
+        internalList.set(idx, toAdd);
     }
 
     public void setCards(UniqueCardList replacement) {
