@@ -4,14 +4,20 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+
+import javax.swing.text.html.Option;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.card.Card;
+import seedu.address.model.util.View;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,6 +28,10 @@ public class ModelManager implements Model {
     private final Library library;
     private final UserPrefs userPrefs;
     private final FilteredList<Deck> filteredDecks;
+
+    private View view;
+
+    private Optional<Index> deckIndex;
 
     /**
      * Initializes a ModelManager with the given library and userPrefs.
@@ -34,11 +44,24 @@ public class ModelManager implements Model {
 
         this.library = new Library(library);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredDecks = new FilteredList<>(this.library.getPersonList());
+        filteredDecks = new FilteredList<>(this.library.getDeckList());
+        this.deckIndex = Optional.empty();
+
+        this.view = View.LIBRARY;  // 1st view will always be in library
     }
 
     public ModelManager() {
         this(new Library(), new UserPrefs());
+    }
+
+    //=========== Getters ==================================================================================
+
+    /**
+     * Gets the current view of the model.
+     * @return The current view of the model.
+     */
+    public View getView() {
+        return view;
     }
 
     //=========== UserPrefs ==================================================================================
@@ -91,17 +114,85 @@ public class ModelManager implements Model {
     @Override
     public boolean hasPerson(Deck deck) {
         requireNonNull(deck);
-        return library.hasPerson(deck);
+        return library.hasDeck(deck);
+    }
+
+    @Override
+    public boolean hasDeck(Deck deck) {
+        requireNonNull(deck);
+        return library.hasDeck(deck);
     }
 
     @Override
     public void deletePerson(Deck target) {
-        library.removePerson(target);
+        library.deleteDeck(target);
+    }
+
+    @Override
+    public void deleteDeck(Deck target) {
+        library.deleteDeck(target);
     }
 
     @Override
     public void addPerson(Deck deck) {
-        library.addPerson(deck);
+        library.createDeck(deck);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public void createDeck(Deck deck) {
+        library.createDeck(deck);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public void selectDeck(Index targetIdx) {
+        deckIndex = Optional.of(targetIdx);
+        this.view = View.DECK;
+    }
+
+    @Override
+    public Deck getCurrentDeck() {
+        if (deckIndex.equals(Optional.empty())) {
+            return null;
+        }
+        return library.getDeck(deckIndex.get());
+    }
+
+    @Override
+    public void returnToLibrary() {
+        view = View.LIBRARY;
+        deckIndex = Optional.empty();
+    }
+
+    @Override
+    public boolean hasCard(Card card) {
+        Deck deck = library.getDeck(deckIndex.get());
+        if (deck == null) return false;
+        requireNonNull(card);
+        return deck.contains(card);
+    }
+
+    @Override
+    public void deleteCard(Card target) {
+        Deck deck = library.getDeck(deckIndex.get());
+        if (deck == null) return;
+        deck.remove(target);
+    }
+
+    @Override
+    public void addCard(Card card) {
+        Deck deck = library.getDeck(deckIndex.get());
+        if (deck == null) return;
+        deck.add(card);
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    }
+
+    @Override
+    public void replaceCard(Card target, Card card) {
+        Deck deck = library.getDeck(deckIndex.get());
+        if (deck == null) return;
+        deck.replace(target, card);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -121,6 +212,22 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Deck> getFilteredPersonList() {
         return filteredDecks;
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Deck} backed by the internal list of
+     */
+    @Override
+    public ObservableList<Deck> getFilteredDeckList() {
+        return filteredDecks;
+    }
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Card} backed by the internal list of
+     */
+    @Override
+    public ObservableList<Card> getFilteredCardList() {
+        return filteredDecks.get(Integer.parseInt(deckIndex.get().toString())).asUnmodifiableObservableList();
     }
 
     @Override

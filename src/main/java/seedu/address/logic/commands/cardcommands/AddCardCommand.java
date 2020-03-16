@@ -6,7 +6,6 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.card.Card;
 
 /**
@@ -19,13 +18,9 @@ public class AddCardCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds a card to the current deck. "
             + "Parameters: "
-            + "FRONT "
-            + ": "
-            + "BACK \n"
+            + "FRONT:BACK\n"
             + "Example: " + COMMAND_WORD + " "
-            + "ありがとう "
-            + ": "
-            + "thanks";
+            + "ありがとう:thanks";
 
     public static final String MESSAGE_SUCCESS = "New card added: %1$s";
     public static final String MESSAGE_DUPLICATE_CARD = "This card already exists in the deck";
@@ -43,16 +38,12 @@ public class AddCardCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        
-        // model needs to know current deck
-        // then impl hasCard() method
-//        if (model.hasCard(toAdd)) {
-//            throw new CommandException(MESSAGE_DUPLICATE_CARD);
-//        }
 
-        // model needs to know current deck
-        // then impl addCard() method
-//        model.addCard(toAdd);
+        if (model.hasCard(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_CARD);
+        }
+
+        model.addCard(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

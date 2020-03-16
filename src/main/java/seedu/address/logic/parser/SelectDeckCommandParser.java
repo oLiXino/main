@@ -8,28 +8,28 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.dump.CreateDeckCommand;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.DeleteDeckCommand;
+import seedu.address.logic.commands.SelectDeckCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.deck.Deck;
-import seedu.address.model.deck.dump.Name;
 
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class CreateDeckCommandParser implements Parser<CreateDeckCommand> {
+public class SelectDeckCommandParser implements Parser<SelectDeckCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public CreateDeckCommand parse(String args) throws ParseException {
+    public SelectDeckCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
-        Deck deck = new Deck(new Name(args));
+        Index targetIdx = Index.fromOneBased(Integer.parseInt(args));
 
-        return new CreateDeckCommand(deck);
+        return new SelectDeckCommand(targetIdx);
     }
 
     /**

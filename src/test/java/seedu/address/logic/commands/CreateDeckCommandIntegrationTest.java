@@ -7,7 +7,7 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.dump.AddCommand;
+import seedu.address.logic.commands.dump.CreateDeckCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -17,7 +17,7 @@ import seedu.address.testutil.PersonBuilder;
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
  */
-public class AddCommandIntegrationTest {
+public class CreateDeckCommandIntegrationTest {
 
     private Model model;
 
@@ -33,14 +33,14 @@ public class AddCommandIntegrationTest {
         Model expectedModel = new ModelManager(model.getLibrary(), new UserPrefs());
         expectedModel.addPerson(validDeck);
 
-        assertCommandSuccess(new AddCommand(validDeck), model,
-                String.format(AddCommand.MESSAGE_SUCCESS, validDeck), expectedModel);
+        assertCommandSuccess(new CreateDeckCommand(validDeck), model,
+                String.format(CreateDeckCommand.MESSAGE_SUCCESS, validDeck), expectedModel);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Deck deckInList = model.getLibrary().getPersonList().get(0);
-        assertCommandFailure(new AddCommand(deckInList), model, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(new CreateDeckCommand(deckInList), model, CreateDeckCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
 }

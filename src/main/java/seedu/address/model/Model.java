@@ -5,7 +5,10 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.card.Card;
+import seedu.address.model.util.View;
 
 /**
  * The API of the Model component.
@@ -58,16 +61,78 @@ public interface Model {
     boolean hasPerson(Deck deck);
 
     /**
+     * Returns true if a deck with the same identity as {@code deck} exists in the library.
+     */
+    boolean hasDeck(Deck deck);
+
+    /**
      * Deletes the given person.
      * The person must exist in the address book.
      */
     void deletePerson(Deck target);
 
     /**
+     * Deletes the given deck.
+     * The deck must exist in the library.
+     */
+    void deleteDeck(Deck target);
+
+    /**
      * Adds the given person.
      * {@code person} must not already exist in the address book.
      */
     void addPerson(Deck deck);
+
+    /**
+     * Adds the given deck.
+     * {@code deck} must not already exist in the library.
+     */
+    void createDeck(Deck deck);
+
+    /**
+     * Selects a deck and enter Deck Mode.
+     */
+    void selectDeck(Index targetIdx);
+
+    /**
+     * Returns the current deck;
+     */
+    Deck getCurrentDeck();
+
+    /**
+     * Returns the user from Deck Mode to Library Mode.
+     */
+    void returnToLibrary();
+
+    /**
+     * Returns true if a card with the same identity as {@code card} exists in the deck.
+     */
+    boolean hasCard(Card card);
+
+    /**
+     * Deletes the given card.
+     * {@code target} must exist in the deck.
+     */
+    void deleteCard(Card target);
+    
+    /**
+     * Adds the given card.
+     * {@code card} must not already exist in the deck.
+     */
+    void addCard(Card card);
+
+    /**
+     * Replaces the given old card with the new card.
+     * {@code target} must exist in the deck.
+     * {@code card} must not already exist in the deck.
+     */
+    void replaceCard(Card target, Card card);
+
+    /**
+     * Gets the current view of the model.
+     * @return The current view of the model.
+     */
+    public View getView();
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
@@ -78,6 +143,12 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Deck> getFilteredPersonList();
+
+    /** Returns an unmodifiable view of the filtered deck list */
+    ObservableList<Deck> getFilteredDeckList();
+
+    /** Returns an unmodifiable view of the filtered card list */
+    ObservableList<Card> getFilteredCardList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.

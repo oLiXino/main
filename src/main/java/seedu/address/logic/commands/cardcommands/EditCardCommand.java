@@ -1,0 +1,62 @@
+package seedu.address.logic.commands.cardcommands;
+
+import static java.util.Objects.requireNonNull;
+
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
+import seedu.address.model.deck.card.Card;
+
+import java.util.List;
+
+/**
+ * Edits a card in the deck.
+ */
+public class EditCardCommand extends Command {
+
+    public static final String COMMAND_WORD = "edit";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Edits a card in the current deck. "
+            + "Parameters: "
+            + "INDEX (must be a positive integer) "
+            + "FRONT:BACK\n"
+            + "Example: " + COMMAND_WORD + " "
+            + "1 "
+            + "ありがとう:thanks";
+
+    public static final String MESSAGE_SUCCESS = "Card edited: %1$s";
+
+    private final Index targetIndex;
+    private final Card editedCard;
+
+    public EditCardCommand(Index targetIndex, Card editedCard) {
+        this.targetIndex = targetIndex;
+        this.editedCard = editedCard;
+    }
+
+    @Override
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+
+        List<Card> lastShownList = model.getFilteredCardList();
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
+        }
+
+        Card oldCard = lastShownList.get(targetIndex.getZeroBased());
+
+        model.replaceCard(oldCard, editedCard);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, editedCard));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof EditCardCommand // instanceof handles nulls
+                && targetIndex.equals(((EditCardCommand) other).targetIndex)); // state check
+    }
+}

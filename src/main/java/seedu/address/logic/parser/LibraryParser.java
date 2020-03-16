@@ -6,21 +6,14 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.ClearDeckCommand;
+import seedu.address.logic.commands.ClearLibraryCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CreateDeckCommand;
+import seedu.address.logic.commands.DeleteDeckCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.cardcommands.AddCardCommand;
-import seedu.address.logic.commands.cardcommands.DeleteCardCommand;
-import seedu.address.logic.commands.dump.AddCommand;
-import seedu.address.logic.commands.dump.ClearCommand;
-import seedu.address.logic.commands.dump.DeleteCommand;
-import seedu.address.logic.commands.dump.EditCommand;
 import seedu.address.logic.commands.dump.FindCommand;
 import seedu.address.logic.commands.dump.ListCommand;
-import seedu.address.logic.parser.dump.AddCommandParser;
-import seedu.address.logic.parser.dump.DeleteCommandParser;
-import seedu.address.logic.parser.dump.EditCommandParser;
 import seedu.address.logic.parser.dump.FindCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -52,17 +45,14 @@ public class LibraryParser {
         
         switch (commandWord) {
 
-        case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(arguments);
+        case CreateDeckCommand.COMMAND_WORD:
+            return new CreateDeckCommandParser().parse(arguments);
 
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+        case DeleteDeckCommand.COMMAND_WORD:
+            return new DeleteDeckCommandParser().parse(arguments);
 
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
-
-        case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+        case ClearLibraryCommand.COMMAND_WORD:
+            return new ClearLibraryCommand();
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);

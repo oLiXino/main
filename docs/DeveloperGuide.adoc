@@ -310,7 +310,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |show both sides of a card|check the translation of a word
 
-|`* * *` |user |show all cards in a deck |remove decks that I no longer need
+|`* * *` |user |show all cards in a deck (view deck) |
 
 |`* * *` |user |edit a card in a deck |update or enhance the content of a card
 
@@ -350,45 +350,225 @@ _{More to be added}_
 (For all use cases below, the *System* is the `FlashSpeed` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete a card
+=== UC01: Help
 
-*MSS*
+*MSS:*
 
-1.  User requests to list decks
-2.  FlashSpeed shows a list of decks
-3.  User chooses a deck and requests to list all cards in that deck
-4.  FlashSpeed shows a list of all cards in the deck
-5.  User requests to delete a specific card in the deck
-6.  FlashSpeed deletes the card
+1.  User requests help.
+2.  FlashSpeed pops up a new small window and shows all possible commands and their usage.
++
+Use case ends.
+
+
+[discrete]
+=== UC02: Create a new deck
+
+*MSS:*
+
+1.  User requests to create a deck of a certain name.
+2.  FlashSpeed creates a new deck and the deck shows up on the UI.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2a. The given name already exists.
++
+[none]
+** 2a1. FlashSpeed shows an error message.
++
+Use case resumes at step 1.
+
+
+[discrete]
+=== UC03: Delete a deck
+
+*MSS:*
+
+1. FlashSpeed shows a list of decks.
+2. User chooses a deck and deletes it.
+3. The deck disappears from the list of decks.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. FlashSpeed shows an error message.
-+
-Use case resumes at step 2.
+*Extensions*
 
 [none]
-* 4a. The deck is empty.
+* 1. The list is empty.
++
+Use case ends.
+
+* 2a. The given index is invalid.
++
+[none]
+** 2a1. FlashSpeed shows an error message.
++
+Use case resumes at step 1.
+
+
+[discrete]
+=== UC04: View a deck
+
+*MSS:*
+
+1. FlashSpeed shows a list of all decks.
+2. Uer chooses a deck and requests to view that deck.
+3. FlashSpeed shows a list of all cards in the deck.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1. The list is empty.
++
+Use case ends.
+
+* 2a. The given index is invalid.
++
+[none]
+** 2a1. FlashSpeed shows an error message.
++
+Use case resumes at step 1.
+
+
+[discrete]
+=== UC05: Add a card to a deck
+
+*MSS:*
+
+1.  FlashSpeed shows a list of decks.
+2.  User chooses a deck and requests to view that deck.
+3.  FlashSpeed shows a list of all cards in the deck.
+4.  User requests to add a specific card in the deck.
+5.  FlashSpeed adds the card and the card shows up in the deck.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list is empty.
++
+Use case ends.
+
+* 2a. The given deck index is invalid.
++
+[none]
+** 2a1. FlashSpeed shows an error message.
++
+Use case resumes at step 1.
+
+* 4a. The deck already contains the same card the user requested to add.
++
+[none]
+** 4a. FlashSpeed shows an error message.
++
+Use case resumes at step 3.
+
+
+[discrete]
+=== UC06: Delete a card from a deck
+
+*MSS:*
+
+1.  FlashSpeed shows a list of decks.
+2.  User chooses a deck and requests to list all cards in that deck.
+3.  FlashSpeed shows a list of all cards in the deck.
+4.  User requests to delete a specific card in the deck.
+5.  FlashSpeed deletes the card and the card disappears from the deck.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list is empty.
++
+Use case ends.
+
+* 2a. The given index is invalid.
++
+[none]
+** 2a1. FlashSpeed shows an error message.
++
+Use case resumes at step 1.
+
+[none]
+* 3a. The deck is empty.
 +
 Use case ends.
 
 [none]
-* 5a. The given index is invalid.
+* 4a. The given index is invalid.
 +
 [none]
-** 5a1. FlashSpeed shows an error message.
+** 4a1. FlashSpeed shows an error message.
 +
-Use case resumes at step 4.
+Use case resumes at step 3.
+
+
+[discrete]
+=== UC07: Edit a card in a deck
+
+*MSS:*
+
+1.  FlashSpeed shows a list of decks.
+2.  User chooses a deck and requests to list all cards in that deck.
+3.  FlashSpeed shows a list of all cards in the deck.
+4.  User requests to edit a specific card in the deck.
+5.  FlashSpeed edits the card.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list is empty.
++
+Use case ends.
+
+* 2a. The given index is invalid.
++
+[none]
+** 2a1. FlashSpeed shows an error message.
++
+Use case resumes at step 1.
+
+[none]
+* 3a. The deck is empty.
++
+Use case ends.
+
+[none]
+* 4a. The given index is invalid.
++
+[none]
+** 4a1. FlashSpeed shows an error message.
++
+Use case resumes at step 3.
+
+
+[discrete]
+=== UC08: Delete all decks
+
+*MSS:*
+
+1.  User requests to delete all decks.
+2.  FlashSpeed deletes all decks.
+
+Use case ends.
+
+
+[discrete]
+=== UC09: Exit
+
+*MSS:*
+
+1. User requests to exit FlashSpeed.
+
+User case ends.
 
 _{More to be added}_
 
