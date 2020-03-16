@@ -95,6 +95,11 @@ public interface Model {
     void selectDeck(Index targetIdx);
 
     /**
+     * Returns the current deck;
+     */
+    Deck getCurrentDeck();
+
+    /**
      * Returns the user from Deck Mode to Library Mode.
      */
     void returnToLibrary();
