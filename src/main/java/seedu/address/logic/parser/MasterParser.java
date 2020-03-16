@@ -63,6 +63,11 @@ public class MasterParser {
           - AddCard
           - DeleteCard
           - EditCard
+        General:
+          - Help
+          - Exit
+          - ReturnToLibrary
+
          */
         switch (commandWord) {
 
@@ -89,13 +94,13 @@ public class MasterParser {
         case EditCardCommand.COMMAND_WORD:
             return new EditCardCommandParser().parse(arguments);
 
+        // General
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        // other
         case ReturnToLibraryCommand.COMMAND_WORD:
             return new ReturnToLibraryCommand();
 
