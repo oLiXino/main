@@ -2,13 +2,11 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Library;
 import seedu.address.model.Model;
 
 /**
- * Adds a person to the address book.
+ * Clears the library
  */
 public class ClearLibraryCommand extends Command {
 

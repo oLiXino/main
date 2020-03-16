@@ -9,10 +9,18 @@ import seedu.address.model.deck.card.BackFace;
 import seedu.address.model.deck.card.Card;
 import seedu.address.model.deck.card.FrontFace;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Parses input arguments and creates a new AddCardCommand object.
  */
 public class AddCardCommandParser implements Parser<AddCardCommand> {
+
+    /**
+     * Used to get pattern FRONT:BACK, spaces before and after ":" is handled.
+     */
+    private final Pattern COMMAND_FORMAT = Pattern.compile("(?<front>.*)(\\s*:\\s*)(?<back>.*)");
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCardCommand
@@ -21,15 +29,23 @@ public class AddCardCommandParser implements Parser<AddCardCommand> {
      * @throws ParseException if the user input does not conform to the expected format
      */
     public AddCardCommand parse(String args) throws ParseException {
-        // first occurrence of ":" will be used as the delineation between the front and back values
-        int delinIdx = args.indexOf(":");
-        if (delinIdx == -1) {
+        final Matcher matcher = COMMAND_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCardCommand.MESSAGE_USAGE));
         }
-        
-        String frontValue = args.substring(0, delinIdx).strip();
-        String backValue  = args.substring(delinIdx + 1).strip();
-        
+
+        final String frontValue = matcher.group("front");
+        final String backValue = matcher.group("back");
+
+//        // first occurrence of ":" will be used as the delineation between the front and back values
+//        int delinIdx = args.indexOf(":");
+//        if (delinIdx == -1) {
+//            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCardCommand.MESSAGE_USAGE));
+//        }
+//
+//        String frontValue = args.substring(0, delinIdx).strip();
+//        String backValue  = args.substring(delinIdx + 1).strip();
+
         if (frontValue.isBlank() || backValue.isBlank()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCardCommand.MESSAGE_USAGE));
         }

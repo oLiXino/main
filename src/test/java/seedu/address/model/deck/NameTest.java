@@ -6,8 +6,6 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.deck.dump.Name;
-
 public class NameTest {
 
     @Test

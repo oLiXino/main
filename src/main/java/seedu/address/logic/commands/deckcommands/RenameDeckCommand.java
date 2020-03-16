@@ -11,7 +11,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Deck;
-import seedu.address.model.deck.dump.Name;
+import seedu.address.model.deck.Name;
 
 /**
  * Edits the name of a deck in the library.
@@ -24,7 +24,7 @@ public class RenameDeckCommand extends Command {
             + "by the index number used in the displayed deck list. "
             + "Existing name will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[NAME] \n"
+            + "NAME \n"
             + "Example: " + COMMAND_WORD + " 1 "
             + "Japanese 2";
 

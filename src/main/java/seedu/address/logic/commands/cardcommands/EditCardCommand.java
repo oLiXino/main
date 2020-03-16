@@ -20,13 +20,23 @@ public class EditCardCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Edits a card in the current deck. "
+            + ": Edits a card in the current deck.\n "
+            + "Either FRONT or BACK can be omitted.\n"
             + "Parameters: "
-            + "INDEX (must be a positive integer) "
-            + "FRONT:BACK\n"
-            + "Example: " + COMMAND_WORD + " "
+            + "INDEX (must be a positive integer) FRONT:BACK\n"
+            + "or "
+            + "INDEX (must be a positive integer) :BACK\n"
+            + "or "
+            + "INDEX (must be a positive integer) FRONT:\n"
+            + "Example 1: " + COMMAND_WORD + " "
             + "1 "
-            + "ありがとう:thanks";
+            + "ありがとう:thanks\n"
+            + "Example 2: " + COMMAND_WORD + " "
+            + "1 "
+            + "ありがとう:\n"
+            + "Example 3: " + COMMAND_WORD + " "
+            + "1 "
+            + ":thanks";
 
     public static final String MESSAGE_SUCCESS = "Card edited: %1$s";
 

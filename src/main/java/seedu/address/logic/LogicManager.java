@@ -10,6 +10,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.MasterParser;
 import seedu.address.logic.parser.dump.DeckParser;
 import seedu.address.logic.parser.dump.LibraryParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -29,15 +30,17 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     //private final View view;
-    private final LibraryParser libParser;
-    private final DeckParser deckParser;
+//    private final LibraryParser libParser;
+//    private final DeckParser deckParser;
+    private final MasterParser masterParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
         //this.view = View.LIBRARY;  // 1st view will always be in library
-        this.libParser = new LibraryParser();
-        this.deckParser = new DeckParser();
+//        this.libParser = new LibraryParser();
+//        this.deckParser = new DeckParser();
+        this.masterParser = new MasterParser();
     }
 
     @Override
@@ -47,11 +50,12 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command;
         
-        if (model.getView().equals(View.LIBRARY)) {
-            command = libParser.parseCommand(commandText);
-        } else {
-            command = deckParser.parseCommand(commandText);
-        }
+//        if (model.getView().equals(View.LIBRARY)) {
+//            command = libParser.parseCommand(commandText);
+//        } else {
+//            command = deckParser.parseCommand(commandText);
+//        }
+        command = masterParser.parseCommand(commandText);
         
         // somehow change this.view if command makes us move in/out of library/deck
         
