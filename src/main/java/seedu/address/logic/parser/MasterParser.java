@@ -3,8 +3,11 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import seedu.address.logic.commands.*;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.RenameDeckCommand;
+import seedu.address.logic.commands.ReturnToLibraryCommand;
 import seedu.address.logic.commands.cardcommands.AddCardCommand;
 import seedu.address.logic.commands.cardcommands.DeleteCardCommand;
 
@@ -16,13 +19,13 @@ import seedu.address.logic.parser.cardparsers.AddCardCommandParser;
 import seedu.address.logic.parser.cardparsers.DeleteCardCommandParser;
 import seedu.address.logic.parser.cardparsers.EditCardCommandParser;
 import seedu.address.logic.parser.deckparsers.CreateDeckCommandParser;
-import seedu.address.logic.parser.deckparsers.RemoveDeckCommandParser
+import seedu.address.logic.parser.deckparsers.RemoveDeckCommandParser;
 import seedu.address.logic.parser.deckparsers.RenameDeckCommandParser;
 import seedu.address.logic.parser.deckparsers.SelectDeckCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- Parses input for FlashSpeed
+ Parses input for FlashSpeed.
  */
 public class MasterParser {
 
@@ -58,41 +61,41 @@ public class MasterParser {
          */
         switch (commandWord) {
 
-            // Deck functions
-            case CreateDeckCommand.COMMAND_WORD:
-                return new CreateDeckCommandParser().parse(arguments);
+        // Deck functions
+        case CreateDeckCommand.COMMAND_WORD:
+            return new CreateDeckCommandParser().parse(arguments);
 
-            case RemoveDeckCommand.COMMAND_WORD:
-                return new RemoveDeckCommandParser().parse(arguments);
+        case RemoveDeckCommand.COMMAND_WORD:
+            return new RemoveDeckCommandParser().parse(arguments);
 
-            case RenameDeckCommand.COMMAND_WORD:
-                return new RenameDeckCommandParser().parse(arguments);
+        case RenameDeckCommand.COMMAND_WORD:
+            return new RenameDeckCommandParser().parse(arguments);
 
-            case SelectDeckCommand.COMMAND_WORD:
-                return new SelectDeckCommandParser().parse(arguments);
+        case SelectDeckCommand.COMMAND_WORD:
+            return new SelectDeckCommandParser().parse(arguments);
 
-            // Card functions
-            case AddCardCommand.COMMAND_WORD:
-                return new AddCardCommandParser().parse(arguments);
+        // Card functions
+        case AddCardCommand.COMMAND_WORD:
+            return new AddCardCommandParser().parse(arguments);
 
-            case DeleteCardCommand.COMMAND_WORD:
-                return new DeleteCardCommandParser().parse(arguments);
+        case DeleteCardCommand.COMMAND_WORD:
+            return new DeleteCardCommandParser().parse(arguments);
 
-            case EditCardCommand.COMMAND_WORD:
-                return new EditCardCommandParser().parse(arguments);
+        case EditCardCommand.COMMAND_WORD:
+            return new EditCardCommandParser().parse(arguments);
 
-            case ExitCommand.COMMAND_WORD:
-                return new ExitCommand();
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
 
-            case HelpCommand.COMMAND_WORD:
-                return new HelpCommand();
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
 
-            // other
-            case ReturnToLibraryCommand.COMMAND_WORD:
-                return new ReturnToLibraryCommand();
+        // other
+        case ReturnToLibraryCommand.COMMAND_WORD:
+            return new ReturnToLibraryCommand();
 
-            default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 }

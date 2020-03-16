@@ -1,26 +1,20 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+
+import java.util.List;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.dump.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Deck;
-import seedu.address.model.deck.dump.Address;
-import seedu.address.model.deck.dump.Email;
 import seedu.address.model.deck.dump.Name;
-import seedu.address.model.deck.dump.Phone;
-import seedu.address.model.deck.dump.tag.Tag;
-
-import java.util.List;
-import java.util.Set;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 /**
- * Edits the name of a deck in the library
+ * Edits the name of a deck in the library.
  */
 public class RenameDeckCommand extends Command {
 
@@ -30,9 +24,9 @@ public class RenameDeckCommand extends Command {
             + "by the index number used in the displayed deck list. "
             + "Existing name will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_NAME + "NAME] \n"
+            + "[NAME] \n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_NAME + "Japanese 2";
+            + "Japanese 2";
 
     public static final String MESSAGE_RENAME_DECK_SUCCESS = "Edited Deck: %1$s";
     public static final String MESSAGE_NOT_EDITED = "New deck name must be provided.";
@@ -40,15 +34,13 @@ public class RenameDeckCommand extends Command {
 
     private final Index index;
     private final Name name;
-//    private final EditCommand.EditPersonDescriptor editPersonDescriptor;
 
     /**
      * @param index of the deck in the library list to edit
      * @param name new name to edit the deck with
      */
     public RenameDeckCommand(Index index, Name name) {
-        requireNonNull(index);
-        requireNonNull(name);
+        requireAllNonNull(index, name);
 
         this.index = index;
         this.name = name;
