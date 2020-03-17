@@ -101,6 +101,11 @@ public interface Model {
     Deck getCurrentDeck();
 
     /**
+     * Returns the deck at index of library;
+     */
+    Deck getDeck(Index index);
+
+    /**
      * Returns the readonly property
      */
     ReadOnlyProperty<Deck> selectedDeckProperty();

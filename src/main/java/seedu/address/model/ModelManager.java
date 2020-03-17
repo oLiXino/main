@@ -173,8 +173,11 @@ public class ModelManager implements Model {
     public void setSelectedDeck(Deck deck) {
         selectedDeck.setValue(deck);
     }
-
-
+    
+    @Override
+    public Deck getDeck(Index targetIdx) {
+        return library.getDeck(targetIdx);
+    }
 
 
     @Override
