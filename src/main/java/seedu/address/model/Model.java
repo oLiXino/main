@@ -161,4 +161,10 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Deck> predicate);
+
+    /**
+     * Sets the selected person in the filtered person list.
+     */
+    void setSelectedDeck(Deck deck);
+
 }
