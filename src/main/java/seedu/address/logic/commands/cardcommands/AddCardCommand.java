@@ -44,6 +44,7 @@ public class AddCardCommand extends Command {
         }
 
         model.addCard(toAdd);
+
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
