@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.deck.card.Card;
 import seedu.address.model.deck.card.UniqueCardList;
 
@@ -40,6 +41,10 @@ public class Deck {
      */
     public boolean contains(Card toCheck) {
         return cards.contains(toCheck);
+    }
+
+    public Card getCard(Index index) {
+        return cards.getCard(index);
     }
 
     /**
