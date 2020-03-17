@@ -7,22 +7,15 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.dump.CreateDeckCommand;
-import seedu.address.logic.parser.ArgumentMultimap;
-import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Deck;
-import seedu.address.model.deck.dump.Address;
-import seedu.address.model.deck.dump.Email;
 import seedu.address.model.deck.Name;
-import seedu.address.model.deck.dump.Phone;
-import seedu.address.model.deck.dump.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AddCommand object
