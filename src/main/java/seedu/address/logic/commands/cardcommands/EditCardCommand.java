@@ -52,12 +52,16 @@ public class EditCardCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        /*
         List<Card> lastShownList = model.getFilteredCardList();
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
         }
 
-        Card oldCard = lastShownList.get(targetIndex.getZeroBased());
+         */
+
+        //Card oldCard = lastShownList.get(targetIndex.getZeroBased());
+        Card oldCard = model.getCard(targetIndex);
 
         model.replaceCard(oldCard, editedCard);
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedCard));
