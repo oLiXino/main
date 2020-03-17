@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
+import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
@@ -98,6 +99,11 @@ public interface Model {
      * Returns the current deck;
      */
     Deck getCurrentDeck();
+
+    /**
+     * Returns the readonly property
+     */
+    ReadOnlyProperty<Deck> selectedDeckProperty();
 
     /**
      * Returns the user from Deck Mode to Library Mode.
