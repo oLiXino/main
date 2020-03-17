@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.*;
-import seedu.address.logic.commands.RenameDeckCommand;
+import seedu.address.logic.commands.deckcommands.RenameDeckCommand;
 import seedu.address.logic.commands.cardcommands.AddCardCommand;
 import seedu.address.logic.commands.cardcommands.DeleteCardCommand;
 import seedu.address.logic.commands.cardcommands.EditCardCommand;

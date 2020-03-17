@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-import java.util.Comparator;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -46,12 +44,6 @@ public class PersonCard extends UiPart<Region> {
         this.deck = deck;
         id.setText(displayedIndex + ". ");
         name.setText(deck.getName().name);
-        phone.setText(deck.getPhone().value);
-        address.setText(deck.getAddress().value);
-        email.setText(deck.getEmail().value);
-        deck.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override
