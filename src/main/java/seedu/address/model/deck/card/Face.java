@@ -18,4 +18,9 @@ public abstract class Face {
     public int hashCode() {
         return value.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return value;
+    }
 }

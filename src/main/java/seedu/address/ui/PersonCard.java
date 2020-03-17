@@ -30,20 +30,16 @@ public class PersonCard extends UiPart<Region> {
     private Label name;
     @FXML
     private Label id;
+
     @FXML
-    private Label phone;
-    @FXML
-    private Label address;
-    @FXML
-    private Label email;
-    @FXML
-    private FlowPane tags;
+    private Label cardNo;
 
     public PersonCard(Deck deck, int displayedIndex) {
         super(FXML);
         this.deck = deck;
         id.setText(displayedIndex + ". ");
         name.setText(deck.getName().name);
+        cardNo.setText(String.valueOf(deck.asUnmodifiableObservableList().size()));
     }
 
     @Override
