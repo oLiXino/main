@@ -1,4 +1,4 @@
-package seedu.address.logic.parser;
+package seedu.address.logic.parser.dump;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -6,22 +6,22 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.logic.commands.ClearLibraryCommand;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.deckcommands.CreateDeckCommand;
+import seedu.address.logic.commands.deckcommands.RemoveDeckCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.cardcommands.AddCardCommand;
-import seedu.address.logic.commands.cardcommands.DeleteCardCommand;
-import seedu.address.logic.commands.dump.EditCommand;
 import seedu.address.logic.commands.dump.FindCommand;
 import seedu.address.logic.commands.dump.ListCommand;
-import seedu.address.logic.parser.dump.EditCommandParser;
-import seedu.address.logic.parser.dump.FindCommandParser;
+import seedu.address.logic.parser.deckparsers.CreateDeckCommandParser;
+import seedu.address.logic.parser.deckparsers.RemoveDeckCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses user input for when in a deck.
+ * Parses user input for when in library.
  */
-public class DeckParser {
+public class LibraryParser {
 
     /**
      * Used for initial separation of command word and args.
@@ -43,11 +43,17 @@ public class DeckParser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-
+        
         switch (commandWord) {
 
-        case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(arguments);
+        case CreateDeckCommand.COMMAND_WORD:
+            return new CreateDeckCommandParser().parse(arguments);
+
+        case RemoveDeckCommand.COMMAND_WORD:
+            return new RemoveDeckCommandParser().parse(arguments);
+
+        case ClearLibraryCommand.COMMAND_WORD:
+            return new ClearLibraryCommand();
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
@@ -60,12 +66,6 @@ public class DeckParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-
-        case AddCardCommand.COMMAND_WORD:
-            return new AddCardCommandParser().parse(arguments);
-
-        case DeleteCardCommand.COMMAND_WORD:
-            return new DeleteCardCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -16,7 +16,7 @@ public class AddCardCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds a card to the current deck. "
+            + ": Adds a card to the current deck.\n"
             + "Parameters: "
             + "FRONT:BACK\n"
             + "Example: " + COMMAND_WORD + " "

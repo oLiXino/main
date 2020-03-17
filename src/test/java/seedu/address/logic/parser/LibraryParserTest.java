@@ -22,6 +22,7 @@ import seedu.address.logic.commands.dump.EditCommand;
 import seedu.address.logic.commands.dump.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.dump.FindCommand;
 import seedu.address.logic.commands.dump.ListCommand;
+import seedu.address.logic.parser.dump.LibraryParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.dump.NameContainsKeywordsPredicate;

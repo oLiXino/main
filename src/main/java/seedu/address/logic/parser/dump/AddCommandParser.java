@@ -7,22 +7,15 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.dump.CreateDeckCommand;
-import seedu.address.logic.parser.ArgumentMultimap;
-import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Deck;
-import seedu.address.model.deck.dump.Address;
-import seedu.address.model.deck.dump.Email;
-import seedu.address.model.deck.dump.Name;
-import seedu.address.model.deck.dump.Phone;
-import seedu.address.model.deck.dump.tag.Tag;
+import seedu.address.model.deck.Name;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -44,12 +37,12 @@ public class AddCommandParser implements Parser<CreateDeckCommand> {
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+//        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
+//        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
+//        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+//        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Deck deck = new Deck(name, phone, email, address, tagList);
+        Deck deck = new Deck(name);
 
         return new CreateDeckCommand(deck);
     }

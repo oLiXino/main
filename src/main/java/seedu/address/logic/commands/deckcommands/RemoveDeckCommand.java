@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.deckcommands;
 
 import static java.util.Objects.requireNonNull;
 
@@ -6,28 +6,29 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Deck;
 
-
 /**
  * Deletes a person identified using it's displayed index from the address book.
  */
-public class DeleteDeckCommand extends Command {
+public class RemoveDeckCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = "remove";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the deck identified by the index number used in the displayed deck list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example:" + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_DECK_SUCCESS = "Deleted Deck: %1$s";
 
     private final Index targetIndex;
 
-    public DeleteDeckCommand(Index targetIndex) {
+    public RemoveDeckCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -48,7 +49,7 @@ public class DeleteDeckCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteDeckCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteDeckCommand) other).targetIndex)); // state check
+                || (other instanceof RemoveDeckCommand // instanceof handles nulls
+                && targetIndex.equals(((RemoveDeckCommand) other).targetIndex)); // state check
     }
 }

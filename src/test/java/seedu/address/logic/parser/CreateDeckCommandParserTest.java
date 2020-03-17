@@ -36,7 +36,7 @@ import seedu.address.logic.parser.dump.AddCommandParser;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.dump.Address;
 import seedu.address.model.deck.dump.Email;
-import seedu.address.model.deck.dump.Name;
+import seedu.address.model.deck.Name;
 import seedu.address.model.deck.dump.Phone;
 import seedu.address.model.deck.dump.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
