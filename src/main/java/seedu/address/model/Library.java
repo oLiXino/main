@@ -87,7 +87,7 @@ public class Library implements ReadOnlyLibrary {
     }
 
     public Deck getDeck(Index index) {
-        int idxInInt = Integer.parseInt(index.toString());
+        int idxInInt = index.getZeroBased();
         return decks.get(idxInInt);
 
     }
