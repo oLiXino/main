@@ -152,6 +152,14 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Deck getCurrentDeck() {
+        if (deckIndex.equals(Optional.empty())) {
+            return null;
+        }
+        return library.getDeck(deckIndex.get());
+    }
+
+    @Override
     public void returnToLibrary() {
         view = View.LIBRARY;
         deckIndex = Optional.empty();
