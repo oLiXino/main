@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -13,6 +14,7 @@ import javafx.scene.layout.Region;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.card.Card;
 
 
 import java.net.URL;
@@ -40,11 +42,11 @@ public class BrowserPanel extends UiPart<Region> {
 
     public BrowserPanel(ObservableValue<Deck> selectedPerson) {
         super(FXML);
-        TableColumn nameColumn = new TableColumn("Name");
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        TableColumn nameColumn = new TableColumn("Front");
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("frontFace"));
 
-        TableColumn surnameColumn = new TableColumn("Phone");
-        surnameColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        TableColumn surnameColumn = new TableColumn("Back");
+        surnameColumn.setCellValueFactory(new PropertyValueFactory<>("backFace"));
 
         itemTbl.getColumns().addAll(nameColumn, surnameColumn);
         nameColumn.prefWidthProperty().bind(itemTbl.widthProperty().multiply(0.5));
@@ -59,16 +61,26 @@ public class BrowserPanel extends UiPart<Region> {
 
                 return;
             }
-            loadPersonPage(newValue);
+            getCardList(newValue);
 
 
         });
     }
 
-    private void loadPersonPage(Deck person) {
-        //loadPage(SEARCH_PAGE_URL + person.getName().fullName);
+    private void getCardList(Deck deck) {
         itemTbl.getItems().clear();
-        itemTbl.getItems().add(person);
+        ObservableList<Card> cardList = deck.asUnmodifiableObservableList();
+        for (int i = 0; i < cardList.size(); i++) {
+            Card card = cardList.get(i);
+            itemTbl.getItems().add(card);
+
+        }
+    }
+
+    private void printCard(Card card) {
+        //loadPage(SEARCH_PAGE_URL + person.getName().fullName);
+
+        itemTbl.getItems().add(card);
 
 
     }
