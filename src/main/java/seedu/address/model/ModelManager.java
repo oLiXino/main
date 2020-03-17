@@ -150,6 +150,7 @@ public class ModelManager implements Model {
     @Override
     public void createDeck(Deck deck) {
         library.createDeck(deck);
+        setSelectedDeck(deck);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 

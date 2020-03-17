@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import javafx.application.Platform;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -36,24 +37,40 @@ public class BrowserPanel extends UiPart<Region> {
     TableView itemTbl;
 
     @FXML
+    TableColumn id;
+    @FXML
     TableColumn front;
     @FXML
     TableColumn back;
 
     public BrowserPanel(ObservableValue<Deck> selectedPerson) {
         super(FXML);
-        TableColumn nameColumn = new TableColumn("Front");
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("frontFace"));
 
-        TableColumn surnameColumn = new TableColumn("Back");
-        surnameColumn.setCellValueFactory(new PropertyValueFactory<>("backFace"));
 
-        itemTbl.getColumns().addAll(nameColumn, surnameColumn);
-        nameColumn.prefWidthProperty().bind(itemTbl.widthProperty().multiply(0.5));
-        surnameColumn.prefWidthProperty().bind(itemTbl.widthProperty().multiply(0.5));
+        TableColumn<Deck, Number> indexColumn = new TableColumn<Deck, Number>("ID");
+       
 
-        nameColumn.setResizable(false);
-        surnameColumn.setResizable(false);
+        indexColumn.setCellValueFactory(column-> new ReadOnlyObjectWrapper<Number>(itemTbl.getItems().indexOf(column.getValue())+1));
+
+        TableColumn frontColumn = new TableColumn("Front");
+        frontColumn.setCellValueFactory(new PropertyValueFactory<>("frontFace"));
+
+        TableColumn backColumn = new TableColumn("Back");
+        backColumn.setCellValueFactory(new PropertyValueFactory<>("backFace"));
+
+        itemTbl.getColumns().addAll(indexColumn, frontColumn, backColumn);
+
+        indexColumn.prefWidthProperty().bind(itemTbl.widthProperty().multiply(0.2));
+        frontColumn.prefWidthProperty().bind(itemTbl.widthProperty().multiply(0.4));
+        backColumn.prefWidthProperty().bind(itemTbl.widthProperty().multiply(0.4));
+
+        indexColumn.setSortable(false);
+        frontColumn.setSortable(false);
+        backColumn.setSortable(false);
+        
+        indexColumn.setResizable(false);
+        frontColumn.setResizable(false);
+        backColumn.setResizable(false);
 
         // Load person page when selected person changes.
         selectedPerson.addListener((observable, oldValue, newValue) -> {
