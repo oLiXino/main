@@ -13,7 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.dump.Address;
 import seedu.address.model.deck.dump.Email;
-import seedu.address.model.deck.dump.Name;
+import seedu.address.model.deck.Name;
 import seedu.address.model.deck.dump.Phone;
 import seedu.address.model.deck.dump.tag.Tag;
 
@@ -56,7 +56,7 @@ class JsonAdaptedDeck {
      * Converts a given {@code Deck} into this class for Jackson use.
      */
     public JsonAdaptedDeck(Deck source) {
-        name = source.getName().fullName;
+        name = source.getName().name;
         
         // todo remove vvv
         phone = source.getPhone().value;

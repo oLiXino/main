@@ -20,7 +20,7 @@ public class DeleteCardCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD +
-            ": Deletes a card from the current deck. "
+            ": Deletes a card from the current deck.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
