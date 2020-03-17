@@ -18,6 +18,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.Name;
 import seedu.address.model.deck.card.Card;
 import seedu.address.model.util.View;
 
@@ -157,6 +158,18 @@ public class ModelManager implements Model {
     public void selectDeck(Index targetIdx) {
         deckIndex = Optional.of(targetIdx);
         this.view = View.DECK;
+    }
+
+    @Override
+    public boolean renameDeck(Index targetIndex, Name name) {
+        Deck deck = library.getDeck(targetIndex);
+        Deck temp = new Deck(name);
+        if (library.hasDeck(temp)) {
+            return false;
+        } else {
+            deck.setName(name);
+            return true;
+        }
     }
 
     @Override

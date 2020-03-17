@@ -60,28 +60,25 @@ public class RenameDeckCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Deck deckToEdit = lastShownList.get(index.getZeroBased());
-        Deck editedDeck = renameDeck(deckToEdit, name);
-
-        if (!deckToEdit.isSameDeck(editedDeck) && model.hasPerson(editedDeck)) {
+        boolean result = model.renameDeck(index, name);
+        if (!result) {
             throw new CommandException(MESSAGE_DUPLICATE_DECK);
         }
-
-        model.setPerson(deckToEdit, editedDeck);
+        Deck editedDeck = lastShownList.get(index.getZeroBased());
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_RENAME_DECK_SUCCESS, editedDeck));
 
     }
 
-    /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
-     */
-    private static Deck renameDeck(Deck deckToEdit, Name name) {
-        assert deckToEdit != null;
-
-        return deckToEdit;
-    }
+//    /**
+//     * Creates and returns a {@code Person} with the details of {@code personToEdit}
+//     * edited with {@code editPersonDescriptor}.
+//     */
+//    private static Deck renameDeck(Deck deckToEdit, Name name) {
+//        assert deckToEdit != null;
+//
+//        return deckToEdit;
+//    }
 
     @Override
     public boolean equals(Object other) {
