@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.Name;
 import seedu.address.model.deck.card.Card;
 import seedu.address.model.util.View;
 
@@ -99,6 +100,13 @@ public interface Model {
      * Returns the current deck;
      */
     Deck getCurrentDeck();
+
+    /**
+     * Renames the a given deck.
+     *
+     * Returns true if there is no deck with the same name, false otherwise.
+     */
+    boolean renameDeck(Index targetIndex, Name name);
 
     /**
      * Returns the readonly property

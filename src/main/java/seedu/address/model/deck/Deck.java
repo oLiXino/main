@@ -16,7 +16,7 @@ public class Deck {
     
     // todo: what other fields represent unique identity of a deck?
     // Identity fields
-    private final Name name;
+    private  Name name;
 
     // Data fields
     private final UniqueCardList cards = new UniqueCardList();
@@ -56,6 +56,11 @@ public class Deck {
      */
     public void remove(Card toRemove) {
         cards.remove(toRemove);
+    }
+
+
+    public void setName(Name newName) {
+        this.name = newName;
     }
 
     /**
