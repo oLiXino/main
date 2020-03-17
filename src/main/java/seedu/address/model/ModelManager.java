@@ -201,6 +201,8 @@ public class ModelManager implements Model {
         Deck deck = library.getDeck(deckIndex.get());
         if (deck == null) return;
         deck.remove(cardToDelete);
+        setSelectedDeck(null);
+        setSelectedDeck(deck);
     }
 
     @Override
@@ -216,6 +218,8 @@ public class ModelManager implements Model {
         Deck deck = library.getDeck(deckIndex.get());
         if (deck == null) return;
         deck.replace(target, card);
+        setSelectedDeck(null);
+        setSelectedDeck(deck);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
