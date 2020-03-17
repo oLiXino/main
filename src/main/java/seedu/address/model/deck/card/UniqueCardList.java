@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.deck.exceptions.CardNotFoundException;
 import seedu.address.model.deck.exceptions.DuplicateCardException;
 import seedu.address.model.deck.exceptions.DuplicatePersonException;
@@ -47,6 +48,10 @@ public class UniqueCardList implements Iterable<Card> {
             throw new DuplicateCardException();
         }
         internalList.add(toAdd);
+    }
+
+    public Card getCard(Index index) {
+        return internalList.get(index.getZeroBased());
     }
 
     /**

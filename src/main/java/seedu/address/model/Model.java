@@ -175,4 +175,10 @@ public interface Model {
      */
     void setSelectedDeck(Deck deck);
 
+    /**
+     *
+     * @return
+     */
+    Card getCard(Index index);
+
 }

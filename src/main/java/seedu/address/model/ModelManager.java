@@ -205,10 +205,15 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteCard(Card target) {
+    public Card getCard(Index index) {
+        return library.getDeck(deckIndex.get()).getCard(index);
+    }
+
+    @Override
+    public void deleteCard(Card cardToDelete) {
         Deck deck = library.getDeck(deckIndex.get());
         if (deck == null) return;
-        deck.remove(target);
+        deck.remove(cardToDelete);
     }
 
     @Override
