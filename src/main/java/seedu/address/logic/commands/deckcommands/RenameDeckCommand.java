@@ -21,7 +21,7 @@ public class RenameDeckCommand extends Command {
     public static final String COMMAND_WORD = "rename";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the name of the deck identified "
-            + "by the index number used in the displayed deck list. "
+            + "by the index number used in the displayed deck list.\n"
             + "Existing name will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "NAME \n"
