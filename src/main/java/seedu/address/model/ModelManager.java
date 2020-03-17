@@ -10,6 +10,8 @@ import java.util.logging.Logger;
 
 import javax.swing.text.html.Option;
 
+import javafx.beans.property.ReadOnlyProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
@@ -32,6 +34,7 @@ public class ModelManager implements Model {
     private View view;
 
     private Optional<Index> deckIndex;
+    private final SimpleObjectProperty<Deck> selectedDeck = new SimpleObjectProperty<>();
 
     /**
      * Initializes a ModelManager with the given library and userPrefs.
@@ -80,6 +83,11 @@ public class ModelManager implements Model {
     @Override
     public GuiSettings getGuiSettings() {
         return userPrefs.getGuiSettings();
+    }
+
+    @Override
+    public ReadOnlyProperty<Deck> selectedDeckProperty() {
+        return selectedDeck;
     }
 
     @Override
@@ -156,8 +164,12 @@ public class ModelManager implements Model {
         if (deckIndex.equals(Optional.empty())) {
             return null;
         }
-        return library.getDeck(deckIndex.get());
+        Deck deck = library.getDeck(deckIndex.get());
+        selectedDeck.setValue(deck);
+        return deck;
     }
+
+
 
     @Override
     public void returnToLibrary() {

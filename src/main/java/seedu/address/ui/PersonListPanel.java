@@ -24,6 +24,7 @@ public class PersonListPanel extends UiPart<Region> {
         super(FXML);
         personListView.setItems(deckList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
+        //personListView.getSelectionModel().clearAndSelect(2);
     }
 
     /**
