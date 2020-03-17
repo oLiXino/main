@@ -106,4 +106,9 @@ public class LogicManager implements Logic {
         return model.selectedDeckProperty();
     }
 
+    @Override
+    public void setSelectedDeck(Deck deck) {
+        model.setSelectedDeck(deck);
+    }
+
 }

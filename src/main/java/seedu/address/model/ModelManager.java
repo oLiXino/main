@@ -165,9 +165,15 @@ public class ModelManager implements Model {
             return null;
         }
         Deck deck = library.getDeck(deckIndex.get());
-        selectedDeck.setValue(deck);
+        setSelectedDeck(deck);
         return deck;
     }
+
+    @Override
+    public void setSelectedDeck(Deck deck) {
+        selectedDeck.setValue(deck);
+    }
+
 
 
 

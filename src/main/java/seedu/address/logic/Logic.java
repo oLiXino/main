@@ -56,4 +56,6 @@ public interface Logic {
 
 
     ReadOnlyProperty<Deck> selectedDeckProperty();
+
+    void setSelectedDeck(Deck deck);
 }

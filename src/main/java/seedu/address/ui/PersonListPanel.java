@@ -1,7 +1,10 @@
 package seedu.address.ui;
 
+import java.util.Objects;
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -20,11 +23,37 @@ public class PersonListPanel extends UiPart<Region> {
     @FXML
     private ListView<Deck> personListView;
 
-    public PersonListPanel(ObservableList<Deck> deckList) {
+    public PersonListPanel(ObservableList<Deck> deckList, ObservableValue<Deck> selectedPerson,
+                           Consumer<Deck> onSelectedPersonChange) {
         super(FXML);
         personListView.setItems(deckList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
         //personListView.getSelectionModel().clearAndSelect(2);
+
+        personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            logger.fine("Selection in person list panel changed to : '" + newValue + "'");
+            onSelectedPersonChange.accept(newValue);
+        });
+
+        selectedPerson.addListener((observable, oldValue, newValue) -> {
+            logger.fine("Selected person changed to: " + newValue);
+
+            // Don't modify selection if we are already selecting the selected person,
+            // otherwise we would have an infinite loop.
+            if (Objects.equals(personListView.getSelectionModel().getSelectedItem(), newValue)) {
+                return;
+            }
+
+            if (newValue == null) {
+                personListView.getSelectionModel().clearSelection();
+            } else {
+                int index = personListView.getItems().indexOf(newValue);
+                personListView.scrollTo(index);
+                personListView.getSelectionModel().clearAndSelect(index);
+            }
+        });
+
+
     }
 
     /**
