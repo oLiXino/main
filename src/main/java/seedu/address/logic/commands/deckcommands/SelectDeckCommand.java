@@ -7,6 +7,9 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.deck.Deck;
+
+import java.util.List;
 
 /**
  * Selects a deck in the library.
@@ -46,7 +49,10 @@ public class SelectDeckCommand extends Command {
         }
         */
 
+        List<Deck> filteredDeckList = model.getFilteredDeckList();
+
         model.selectDeck(targetIdx);
+        model.setSelectedDeck(filteredDeckList.get(targetIdx.getZeroBased()));
 
         // should change targetIdx to Deck?
         // e.g. Deck selectedDeck = model.selectDeck(targetIdx);
