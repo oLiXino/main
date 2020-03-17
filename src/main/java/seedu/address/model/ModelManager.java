@@ -203,6 +203,8 @@ public class ModelManager implements Model {
         Deck deck = library.getDeck(deckIndex.get());
         if (deck == null) return;
         deck.add(card);
+        setSelectedDeck(null);
+        setSelectedDeck(deck);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
