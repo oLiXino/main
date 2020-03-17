@@ -6,11 +6,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.*;
 import seedu.address.logic.commands.RenameDeckCommand;
-import seedu.address.logic.commands.ReturnToLibraryCommand;
 import seedu.address.logic.commands.cardcommands.AddCardCommand;
 import seedu.address.logic.commands.cardcommands.DeleteCardCommand;
 import seedu.address.logic.commands.cardcommands.EditCardCommand;
@@ -100,6 +97,9 @@ public class MasterParser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case ClearLibraryCommand.COMMAND_WORD:
+            return new ClearLibraryCommand();
 
         case ReturnToLibraryCommand.COMMAND_WORD:
             return new ReturnToLibraryCommand();

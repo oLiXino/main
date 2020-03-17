@@ -61,11 +61,11 @@ public class LogicManager implements Logic {
         
         commandResult = command.execute(model);
 
-        try {
-            storage.saveAddressBook(model.getLibrary());
-        } catch (IOException ioe) {
-            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-        }
+//        try {
+//            storage.saveAddressBook(model.getLibrary());
+//        } catch (IOException ioe) {
+//            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+//        }
 
         return commandResult;
     }
