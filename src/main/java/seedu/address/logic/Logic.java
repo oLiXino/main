@@ -5,11 +5,13 @@ import java.nio.file.Path;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyLibrary;
 import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.card.Card;
 
 /**
  * API of the Logic component
@@ -53,6 +55,7 @@ public interface Logic {
      * Get the selected deck
      */
     Deck getCurrentDeck();
+
 
 
     ReadOnlyProperty<Deck> selectedDeckProperty();

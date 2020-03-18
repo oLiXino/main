@@ -18,6 +18,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.Name;
 import seedu.address.model.deck.card.Card;
 import seedu.address.model.util.View;
 
@@ -150,6 +151,7 @@ public class ModelManager implements Model {
     @Override
     public void createDeck(Deck deck) {
         library.createDeck(deck);
+        setSelectedDeck(deck);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -157,6 +159,18 @@ public class ModelManager implements Model {
     public void selectDeck(Index targetIdx) {
         deckIndex = Optional.of(targetIdx);
         this.view = View.DECK;
+    }
+
+    @Override
+    public boolean renameDeck(Index targetIndex, Name name) {
+        Deck deck = library.getDeck(targetIndex);
+        Deck temp = new Deck(name);
+        if (library.hasDeck(temp)) {
+            return false;
+        } else {
+            deck.setName(name);
+            return true;
+        }
     }
 
     @Override
@@ -195,10 +209,17 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteCard(Card target) {
+    public Card getCard(Index index) {
+        return library.getDeck(deckIndex.get()).getCard(index);
+    }
+
+    @Override
+    public void deleteCard(Card cardToDelete) {
         Deck deck = library.getDeck(deckIndex.get());
         if (deck == null) return;
-        deck.remove(target);
+        deck.remove(cardToDelete);
+        setSelectedDeck(null);
+        setSelectedDeck(deck);
     }
 
     @Override
@@ -206,6 +227,8 @@ public class ModelManager implements Model {
         Deck deck = library.getDeck(deckIndex.get());
         if (deck == null) return;
         deck.add(card);
+        setSelectedDeck(null);
+        setSelectedDeck(deck);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -214,6 +237,8 @@ public class ModelManager implements Model {
         Deck deck = library.getDeck(deckIndex.get());
         if (deck == null) return;
         deck.replace(target, card);
+        setSelectedDeck(null);
+        setSelectedDeck(deck);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
     }
 

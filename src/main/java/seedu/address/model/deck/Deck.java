@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.deck.card.Card;
 import seedu.address.model.deck.card.UniqueCardList;
 
@@ -16,7 +17,7 @@ public class Deck {
     
     // todo: what other fields represent unique identity of a deck?
     // Identity fields
-    private final Name name;
+    private  Name name;
 
     // Data fields
     private final UniqueCardList cards = new UniqueCardList();
@@ -42,6 +43,10 @@ public class Deck {
         return cards.contains(toCheck);
     }
 
+    public Card getCard(Index index) {
+        return cards.getCard(index);
+    }
+
     /**
      * Adds a person to the list.
      * The person must not already exist in the list.
@@ -56,6 +61,11 @@ public class Deck {
      */
     public void remove(Card toRemove) {
         cards.remove(toRemove);
+    }
+
+
+    public void setName(Name newName) {
+        this.name = newName;
     }
 
     /**

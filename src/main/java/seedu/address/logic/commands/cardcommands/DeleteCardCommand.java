@@ -36,13 +36,17 @@ public class DeleteCardCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        List<Card> lastShownList = model.getFilteredCardList();
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+        //List<Card> lastShownList = model.getFilteredCardList();
+        /*
+        if (targetIndex.getZeroBased() >= model.getDeck.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
         }
-        
-        Card cardToDelete = lastShownList.get(targetIndex.getZeroBased());
 
+         */
+
+
+        //Card cardToDelete = lastShownList.get(targetIndex.getZeroBased());
+        Card cardToDelete = model.getCard(targetIndex);
         model.deleteCard(cardToDelete);
         return new CommandResult(String.format(MESSAGE_SUCCESS, cardToDelete));
     }

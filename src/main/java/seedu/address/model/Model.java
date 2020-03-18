@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.Name;
 import seedu.address.model.deck.card.Card;
 import seedu.address.model.util.View;
 
@@ -105,6 +106,12 @@ public interface Model {
      */
     Deck getDeck(Index index);
 
+     /* Renames the a given deck.
+     *
+     * Returns true if there is no deck with the same name, false otherwise.
+     */
+    boolean renameDeck(Index targetIndex, Name name);
+
     /**
      * Returns the readonly property
      */
@@ -171,5 +178,11 @@ public interface Model {
      * Sets the selected person in the filtered person list.
      */
     void setSelectedDeck(Deck deck);
+
+    /**
+     *
+     * @return
+     */
+    Card getCard(Index index);
 
 }
