@@ -102,7 +102,11 @@ public interface Model {
     Deck getCurrentDeck();
 
     /**
-     * Renames the a given deck.
+     * Returns the deck at index of library;
+     */
+    Deck getDeck(Index index);
+
+     /* Renames the a given deck.
      *
      * Returns true if there is no deck with the same name, false otherwise.
      */

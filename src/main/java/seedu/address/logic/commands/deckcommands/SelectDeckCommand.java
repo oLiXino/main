@@ -53,10 +53,9 @@ public class SelectDeckCommand extends Command {
 
         model.selectDeck(targetIdx);
         model.setSelectedDeck(filteredDeckList.get(targetIdx.getZeroBased()));
-
-        // should change targetIdx to Deck?
-        // e.g. Deck selectedDeck = model.selectDeck(targetIdx);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, targetIdx));
+      
+        Deck selectedDeck = model.getDeck(targetIdx);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, selectedDeck));
     }
 
     @Override
