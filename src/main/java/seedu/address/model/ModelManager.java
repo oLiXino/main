@@ -309,15 +309,17 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Deck play(Index index) {
+    public Card play(Index index) {
         Deck deck = library.getDeck(index);
         if (deck == null) {
             return null;
         }
+        if (deck.asUnmodifiableObservableList().size() == 0) {
+            return new Card(null, null);
+        }
         this.game = new GameManager(deck);
         this.mode = Mode.PLAY;
-        setCurrentMode(Mode.PLAY);
-        return deck;
+        return deck.asUnmodifiableObservableList().get(0);
     }
 
     /**
