@@ -14,7 +14,6 @@ import seedu.address.model.deck.card.Card;
 
 import java.util.logging.Logger;
 
-
 /**
  * The Browser Panel of the App.
  */
@@ -27,7 +26,7 @@ public class PlayPanel extends UiPart<Region> {
     @FXML
     TableView itemTbl;
 
-    public PlayPanel(ObservableValue<Deck> selectedPerson) {
+    public PlayPanel(ObservableValue<Deck> selectedDeck) {
         super(FXML);
 
         TableColumn<Deck, Number> indexColumn = new TableColumn<Deck, Number>("ID");
@@ -54,15 +53,12 @@ public class PlayPanel extends UiPart<Region> {
         frontColumn.setResizable(false);
         backColumn.setResizable(false);
 
-        // Load person page when selected person changes.
-        selectedPerson.addListener((observable, oldValue, newValue) -> {
+        // Load deck page when selected deck changes.
+        selectedDeck.addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
-
                 return;
             }
             getCardList(newValue);
-
-
         });
     }
 
@@ -72,20 +68,10 @@ public class PlayPanel extends UiPart<Region> {
         for (int i = 0; i < cardList.size(); i++) {
             Card card = cardList.get(i);
             itemTbl.getItems().add(card);
-
         }
     }
 
     private void printCard(Card card) {
-        //loadPage(SEARCH_PAGE_URL + person.getName().fullName);
-
         itemTbl.getItems().add(card);
-
-
     }
-
-
-
-
-
 }

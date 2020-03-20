@@ -15,14 +15,15 @@ public class CreateDeckCommand extends Command {
 
     public static final String COMMAND_WORD = "create";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a deck to the library.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Creates a deck in the library.\n"
             + "Parameters: "
             + "NAME\n"
             + "Example: " + COMMAND_WORD + " "
             + "Japanese 2";
 
     public static final String MESSAGE_SUCCESS = "New deck added: %1$s";
-    public static final String MESSAGE_DUPLICATE_DECK = "This deck already exists in the library";
+    public static final String MESSAGE_DUPLICATE_DECK = "This deck already exists in the library.";
 
     private final Deck toAdd;
 

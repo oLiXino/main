@@ -10,7 +10,7 @@ import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.Name;
 
 /**
- * Parses input arguments and creates a new CreateDeckCommand object
+ * Parses input arguments and creates a new CreateDeckCommand object.
  */
 public class CreateDeckCommandParser implements Parser<CreateDeckCommand> {
 
@@ -20,13 +20,13 @@ public class CreateDeckCommandParser implements Parser<CreateDeckCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public CreateDeckCommand parse(String args) throws ParseException {
-        String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
+        String strippedArgs = args.strip();
+        if (strippedArgs.isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateDeckCommand.MESSAGE_USAGE));
         }
 
-        Name name = ParserUtil.parseName(trimmedArgs);
+        Name name = ParserUtil.parseName(strippedArgs);
 
         Deck deck = new Deck(name);
         return new CreateDeckCommand(deck);

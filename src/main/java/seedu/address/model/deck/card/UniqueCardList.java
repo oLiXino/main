@@ -11,13 +11,11 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.deck.exceptions.CardNotFoundException;
 import seedu.address.model.deck.exceptions.DuplicateCardException;
-import seedu.address.model.deck.exceptions.DuplicatePersonException;
-import seedu.address.model.deck.exceptions.PersonNotFoundException;
 
 /**
  * A list of cards that enforces uniqueness between its elements and does not allow nulls.
  * A card is considered unique by comparing using {@code Card#equals(Object)}. As such, adding and updating of
- * cards uses Card#equals(Object) for equality so as to ensure that the person being added or updated is
+ * cards uses Card#equals(Object) for equality so as to ensure that the card being added or updated is
  * unique in terms of content in the UniqueCardList. The removal of a card also uses Card#equals(Object)
  *
  * Supports a minimal set of list operations.
@@ -39,8 +37,8 @@ public class UniqueCardList implements Iterable<Card> {
     }
 
     /**
-     * Adds a person to the list.
-     * The person must not already exist in the list.
+     * Adds a card to the list.
+     * The card must not already exist in the list.
      */
     public void add(Card toAdd) throws DuplicateCardException {
         requireNonNull(toAdd);
@@ -106,19 +104,6 @@ public class UniqueCardList implements Iterable<Card> {
     }
 
     /**
-     * Replaces the contents of this list with {@code cards}.
-     * {@code cards} must not contain duplicate cards.
-     */
-    public void setPersons(List<Card> cards) {
-        requireAllNonNull(cards);
-        if (!cardsAreUnique(cards)) {
-            throw new DuplicateCardException();
-        }
-
-        internalList.setAll(cards);
-    }
-
-    /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Card> asUnmodifiableObservableList() {
@@ -143,7 +128,7 @@ public class UniqueCardList implements Iterable<Card> {
     }
 
     /**
-     * Returns true if {@code persons} contains only unique persons.
+     * Returns true if {@code cards} contains only unique cards.
      */
     private boolean cardsAreUnique(List<Card> cards) {
         for (int i = 0; i < cards.size() - 1; i++) {

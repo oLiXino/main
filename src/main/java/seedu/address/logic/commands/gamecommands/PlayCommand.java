@@ -8,25 +8,24 @@ import seedu.address.model.Model;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.card.Card;
 
-import java.util.List;
-
 import static java.util.Objects.requireNonNull;
 
 public class PlayCommand extends Command {
     public static final String COMMAND_WORD = "play";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Play a session with the deck identified by the index number used in the displayed deck list.\n"
+            + ": Plays a review session with a deck.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example:" + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SUCCESS = "Selected deck: %1$s";
     public static final String MESSAGE_DECK_NOT_FOUND = "Deck not found in the library!";
-    public static final String MESSAGE_NO_CARD = "Oops, there is no card in the selected deck.";
+    public static final String MESSAGE_NO_CARD = "Oops, there are no cards in the selected deck.";
+    
     private final Index targetIdx;
 
     /**
-     * Creates an PlayCommand with a specific {@code Deck}
+     * Creates an PlayCommand with a specific {@code Deck}.
      */
     public PlayCommand(Index targetIdx) {
         requireNonNull(targetIdx);
@@ -36,6 +35,7 @@ public class PlayCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        
         Deck deck = model.getDeck(targetIdx);
         Card card = model.play(targetIdx);
         if (card == null) {
@@ -44,6 +44,7 @@ public class PlayCommand extends Command {
         if (card.getFrontFace() == null && card.getBackFace() == null) {
             throw new CommandException(String.format(MESSAGE_NO_CARD));
         }
+        
         return new CommandResult(String.format(MESSAGE_SUCCESS, deck));
     }
 

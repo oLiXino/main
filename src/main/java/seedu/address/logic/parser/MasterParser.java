@@ -29,7 +29,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.gameparsers.PlayCommandParser;
 
 /**
- Parses input for FlashSpeed.
+ * Parses input for FlashSpeed.
  */
 public class MasterParser {
 
@@ -78,57 +78,57 @@ public class MasterParser {
          */
         switch (commandWord) {
 
-            // Deck functions
-            case CreateDeckCommand.COMMAND_WORD:
-                return new CreateDeckCommandParser().parse(arguments);
+        // Deck functions
+        case CreateDeckCommand.COMMAND_WORD:
+            return new CreateDeckCommandParser().parse(arguments);
 
-            case RemoveDeckCommand.COMMAND_WORD:
-                return new RemoveDeckCommandParser().parse(arguments);
+        case RemoveDeckCommand.COMMAND_WORD:
+            return new RemoveDeckCommandParser().parse(arguments);
 
-            case RenameDeckCommand.COMMAND_WORD:
-                return new RenameDeckCommandParser().parse(arguments);
+        case RenameDeckCommand.COMMAND_WORD:
+            return new RenameDeckCommandParser().parse(arguments);
 
-            case SelectDeckCommand.COMMAND_WORD:
-                return new SelectDeckCommandParser().parse(arguments);
+        case SelectDeckCommand.COMMAND_WORD:
+            return new SelectDeckCommandParser().parse(arguments);
 
-            // Card functions
-                case AddCardCommand.COMMAND_WORD:
-                return new AddCardCommandParser().parse(arguments);
+        // Card functions
+        case AddCardCommand.COMMAND_WORD:
+        return new AddCardCommandParser().parse(arguments);
 
-            case DeleteCardCommand.COMMAND_WORD:
-                return new DeleteCardCommandParser().parse(arguments);
+        case DeleteCardCommand.COMMAND_WORD:
+            return new DeleteCardCommandParser().parse(arguments);
 
-            case EditCardCommand.COMMAND_WORD:
-                return new EditCardCommandParser().parse(arguments);
+        case EditCardCommand.COMMAND_WORD:
+            return new EditCardCommandParser().parse(arguments);
 
-            // Game functions
-            case PlayCommand.COMMAND_WORD:
-                return new PlayCommandParser().parse(arguments);
+        // Game functions
+        case PlayCommand.COMMAND_WORD:
+            return new PlayCommandParser().parse(arguments);
 
-            case FlipCommand.COMMAND_WORD:
-                return new FlipCommand();
+        case FlipCommand.COMMAND_WORD:
+            return new FlipCommand();
 
-            case AnswerYesCommand.COMMAND_WORD:
-                return new AnswerYesCommand();
+        case AnswerYesCommand.COMMAND_WORD:
+            return new AnswerYesCommand();
 
-            case AnswerNoCommand.COMMAND_WORD:
-                return new AnswerNoCommand();
+        case AnswerNoCommand.COMMAND_WORD:
+            return new AnswerNoCommand();
 
-            // General
-            case ExitCommand.COMMAND_WORD:
-                return new ExitCommand();
+        // General
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
 
-            case HelpCommand.COMMAND_WORD:
-                return new HelpCommand();
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
 
-            case ClearLibraryCommand.COMMAND_WORD:
-                return new ClearLibraryCommand();
+        case ClearLibraryCommand.COMMAND_WORD:
+            return new ClearLibraryCommand();
 
-            case ReturnToLibraryCommand.COMMAND_WORD:
-                return new ReturnToLibraryCommand();
+        case ReturnToLibraryCommand.COMMAND_WORD:
+            return new ReturnToLibraryCommand();
 
-            default:
-                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
-            }
+        default:
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+        }
     }
 }

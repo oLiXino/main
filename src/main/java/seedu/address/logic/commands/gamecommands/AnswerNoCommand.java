@@ -17,16 +17,14 @@ public class AnswerNoCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Oops, you got it wrong!";
     public static final String MESSAGE_NOT_PLAY_MODE = "Not in play mode!";
     public static final String MESSAGE_NOT_FLIPPED = "Card has not flipped yet!";
-    public static final String MESSAGE_END_GAME = "Session ends";
-
-    /**
-     * Creates an NoCommand.
-     */
+    public static final String MESSAGE_END_GAME = "Session completed!";
+    
     public AnswerNoCommand() { }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        
         if (model.getMode() == Mode.VIEW) {
             throw new CommandException(MESSAGE_NOT_PLAY_MODE);
         }
@@ -37,6 +35,7 @@ public class AnswerNoCommand extends Command {
         if (nextCard.getFrontFace() == null && nextCard.getBackFace() == null) {
             return new CommandResult(String.format(MESSAGE_END_GAME));
         }
+        
         return new CommandResult(String.format(MESSAGE_SUCCESS));
     }
 

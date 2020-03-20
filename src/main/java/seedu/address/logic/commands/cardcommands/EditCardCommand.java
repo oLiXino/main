@@ -2,7 +2,6 @@ package seedu.address.logic.commands.cardcommands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -10,10 +9,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.deck.card.Card;
 
-import java.util.List;
-
 /**
- * Edits a card in the deck.
+ * Edits a card in the current deck.
  */
 public class EditCardCommand extends Command {
 
@@ -57,10 +54,9 @@ public class EditCardCommand extends Command {
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
         }
+        */
 
-         */
-
-        //Card oldCard = lastShownList.get(targetIndex.getZeroBased());
+        // Card oldCard = lastShownList.get(targetIndex.getZeroBased());
         Card oldCard = model.getCard(targetIndex);
 
         model.replaceCard(oldCard, editedCard);

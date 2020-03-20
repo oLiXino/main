@@ -5,13 +5,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.deck.Deck;
-import seedu.address.model.deck.Name;
 import seedu.address.model.deck.card.BackFace;
 import seedu.address.model.deck.card.Card;
 import seedu.address.model.deck.card.FrontFace;
 
 /**
- * Jackson-friendly version of {@link Deck}.
+ * Jackson-friendly version of {@link Card}.
  */
 class JsonAdaptedCard {
 
@@ -21,7 +20,7 @@ class JsonAdaptedCard {
     private final String backFace;
 
     /**
-     * Constructs a {@code JsonAdaptedDeck} with the given deck details.
+     * Constructs a {@code JsonAdaptedCard} with the given deck details.
      */
     @JsonCreator
     public JsonAdaptedCard(@JsonProperty("frontFace") String frontFace, @JsonProperty("backFace") String backFace) {
@@ -30,7 +29,7 @@ class JsonAdaptedCard {
     }
 
     /**
-     * Converts a given {@code Deck} into this class for Jackson use.
+     * Converts a given {@code Card} into this class for Jackson use.
      */
     public JsonAdaptedCard(Card card) {
         this.frontFace = card.getFrontFace().getValue();
@@ -52,7 +51,7 @@ class JsonAdaptedCard {
     }
 
     /**
-     * Converts this Jackson-friendly adapted deck object into the model's {@code Deck} object.
+     * Converts this Jackson-friendly adapted deck object into the model's {@code Card} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted deck.
      */

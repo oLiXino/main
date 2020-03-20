@@ -2,7 +2,7 @@ package seedu.address.logic.commands.deckcommands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_DECKS;
 
 import java.util.List;
 
@@ -16,14 +16,14 @@ import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.Name;
 
 /**
- * Edits the name of a deck in the library.
+ * Renames the name of a deck in the library.
  */
 public class RenameDeckCommand extends Command {
 
     public static final String COMMAND_WORD = "rename";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the name of the deck identified "
-            + "by the index number used in the displayed deck list.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Renames the name of a deck in the library.\n"
             + "Existing name will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "NAME \n"
@@ -54,31 +54,21 @@ public class RenameDeckCommand extends Command {
         requireNonNull(model);
 
         // to recode
-        List<Deck> lastShownList = model.getFilteredPersonList();
+        List<Deck> lastShownList = model.getFilteredDeckList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX);
         }
 
         boolean result = model.renameDeck(index, name);
         if (!result) {
             throw new CommandException(MESSAGE_DUPLICATE_DECK);
         }
+        
         Deck editedDeck = lastShownList.get(index.getZeroBased());
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.updateFilteredDeckList(PREDICATE_SHOW_ALL_DECKS);
         return new CommandResult(String.format(MESSAGE_RENAME_DECK_SUCCESS, editedDeck));
-
     }
-
-//    /**
-//     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-//     * edited with {@code editPersonDescriptor}.
-//     */
-//    private static Deck renameDeck(Deck deckToEdit, Name name) {
-//        assert deckToEdit != null;
-//
-//        return deckToEdit;
-//    }
 
     @Override
     public boolean equals(Object other) {

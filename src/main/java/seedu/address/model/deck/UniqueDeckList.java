@@ -5,19 +5,18 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.function.DoubleUnaryOperator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.deck.exceptions.DuplicatePersonException;
-import seedu.address.model.deck.exceptions.PersonNotFoundException;
+import seedu.address.model.deck.exceptions.DeckNotFoundException;
+import seedu.address.model.deck.exceptions.DuplicateDeckException;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A person is considered unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of
- * persons uses Person#isSamePerson(Person) for equality so as to ensure that the person being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a person uses Person#equals(Object) so
- * as to ensure that the person with exactly the same fields will be removed.
+ * A list of decks that enforces uniqueness between its elements and does not allow nulls.
+ * A deck is considered unique by comparing using {@code Deck#isSameDeck(Deck)}. As such, adding and updating of
+ * decks uses Deck#isSameDeck(Deck) for equality so as to ensure that the deck being added or updated is
+ * unique in terms of identity in the UniqueDeckList. However, the removal of a deck uses Deck#equals(Object) so
+ * as to ensure that the deck with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
@@ -30,7 +29,7 @@ public class UniqueDeckList implements Iterable<Deck> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent deck as the given argument.
      */
     public boolean contains(Deck toCheck) {
         requireNonNull(toCheck);
@@ -54,26 +53,26 @@ public class UniqueDeckList implements Iterable<Deck> {
     public void add(Deck toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateDeckException();
         }
         internalList.add(toAdd);
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * Replaces the deck {@code target} in the list with {@code editedDeck}.
      * {@code target} must exist in the list.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
+     * The deck identity of {@code editedDeck} must not be the same as another existing deck in the list.
      */
-    public void setPerson(Deck target, Deck editedDeck) {
+    public void setDeck(Deck target, Deck editedDeck) {
         requireAllNonNull(target, editedDeck);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
-            throw new PersonNotFoundException();
+            throw new DeckNotFoundException();
         }
 
         if (!target.isSameDeck(editedDeck) && contains(editedDeck)) {
-            throw new DuplicatePersonException();
+            throw new DuplicateDeckException();
         }
 
         internalList.set(index, editedDeck);
@@ -87,15 +86,9 @@ public class UniqueDeckList implements Iterable<Deck> {
     public void remove(Deck toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
-            throw new PersonNotFoundException();
+            throw new DeckNotFoundException();
         }
     }
-
-    public void setPersons(UniqueDeckList replacement) {
-        requireNonNull(replacement);
-        internalList.setAll(replacement.internalList);
-    }
-
 
     public void setDecks(UniqueDeckList replacement) {
         requireNonNull(replacement);
@@ -103,26 +96,13 @@ public class UniqueDeckList implements Iterable<Deck> {
     }
 
     /**
-     * Replaces the contents of this list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
-     */
-    public void setPersons(List<Deck> decks) {
-        requireAllNonNull(decks);
-        if (!personsAreUnique(decks)) {
-            throw new DuplicatePersonException();
-        }
-
-        internalList.setAll(decks);
-    }
-
-    /**
      * Replaces the contents of the library with {@code decks}.
-     * {@code decks} must not contain duplicate deck.
+     * {@code decks} must not contain duplicate decks.
      */
     public void setDecks(List<Deck> decks) {
         requireAllNonNull(decks);
-        if (!personsAreUnique(decks)) {
-            throw new DuplicatePersonException();
+        if (!decksAreUnique(decks)) {
+            throw new DuplicateDeckException();
         }
 
         internalList.setAll(decks);
@@ -153,9 +133,9 @@ public class UniqueDeckList implements Iterable<Deck> {
     }
 
     /**
-     * Returns true if {@code persons} contains only unique persons.
+     * Returns true if {@code decks} contains only unique decks.
      */
-    private boolean personsAreUnique(List<Deck> decks) {
+    private boolean decksAreUnique(List<Deck> decks) {
         for (int i = 0; i < decks.size() - 1; i++) {
             for (int j = i + 1; j < decks.size(); j++) {
                 if (decks.get(i).isSameDeck(decks.get(j))) {

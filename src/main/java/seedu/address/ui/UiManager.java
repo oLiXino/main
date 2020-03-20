@@ -45,14 +45,11 @@ public class UiManager implements Ui {
 
         try {
             mainWindow = new MainWindow(primaryStage, logic);
-            mainWindow.show(); //This should be called before creating other UI parts
+            mainWindow.show(); // this should be called before creating other UI parts
             mainWindow.fillInnerParts();
             this.mode.addListener((observable, oldValue, newValue) -> {
                 mainWindow.fillInnerParts();
             });
-
-
-
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
@@ -93,5 +90,4 @@ public class UiManager implements Ui {
         Platform.exit();
         System.exit(1);
     }
-
 }

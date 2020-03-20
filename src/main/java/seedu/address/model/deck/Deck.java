@@ -15,7 +15,6 @@ import seedu.address.model.deck.card.UniqueCardList;
  */
 public class Deck {
     
-    // todo: what other fields represent unique identity of a deck?
     // Identity fields
     private  Name name;
 
@@ -29,8 +28,6 @@ public class Deck {
         requireAllNonNull(name);
         this.name = name;
     }
-
-    // todo remove vvv
     
     public Name getName() {
         return name;
@@ -48,8 +45,8 @@ public class Deck {
     }
 
     /**
-     * Adds a person to the list.
-     * The person must not already exist in the list.
+     * Adds a card to the deck.
+     * The card must not already exist in the list.
      */
     public void add(Card toAdd) {
         cards.add(toAdd);
@@ -62,8 +59,7 @@ public class Deck {
     public void remove(Card toRemove) {
         cards.remove(toRemove);
     }
-
-
+    
     public void setName(Name newName) {
         this.name = newName;
     }
@@ -123,8 +119,7 @@ public class Deck {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(" Name: ")
-                .append(getName());
+        builder.append(getName());
 
         return builder.toString();
     }
