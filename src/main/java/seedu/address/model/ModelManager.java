@@ -17,6 +17,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.Name;
 import seedu.address.model.deck.card.Card;
@@ -152,6 +153,8 @@ public class ModelManager implements Model {
     public void createDeck(Deck deck) {
         library.createDeck(deck);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        Index currIndex = Index.fromZeroBased(library.getDeckList().indexOf(deck));
+        selectDeck(currIndex);
         setSelectedDeck(deck);
     }
 
