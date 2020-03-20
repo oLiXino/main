@@ -4,7 +4,6 @@ import javafx.collections.ObservableList;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.card.BackFace;
 import seedu.address.model.deck.card.Card;
-import seedu.address.model.deck.card.FrontFace;
 
 /**
  * Represents the model of the game session.
@@ -29,7 +28,7 @@ public class GameManager {
 
     /**
      * Flips the card to the back face.
-     * @return true if the card has not been flipped, false otherwise.
+     * @return true if the card has not been flipped, false otherwise
      */
     public BackFace flip() {
         if (flipped) {
@@ -40,8 +39,9 @@ public class GameManager {
     }
 
     /**
-     * Returns the next card after user answer yes.
-     * @return the next card or null if card list is empty.
+     * Returns the next card after user answers Yes.
+     * 
+     * @return the next card or null if card list is empty
      */
     public Card answerYes() {
         if (!flipped) {
@@ -57,8 +57,9 @@ public class GameManager {
     }
 
     /**
-     * Returns the next card after user answer no.
-     * @return the next card or null if card list is empty.
+     * Returns the next card after user answers No.
+     * 
+     * @return the next card or null if card list is empty
      */
     public Card answerNo() {
         if (!flipped) {

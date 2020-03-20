@@ -8,8 +8,6 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javax.swing.text.html.Option;
-
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
@@ -17,7 +15,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.Name;
 import seedu.address.model.deck.card.BackFace;
@@ -27,7 +24,7 @@ import seedu.address.model.util.View;
 import seedu.address.model.util.Mode;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the library data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -51,7 +48,7 @@ public class ModelManager implements Model {
         super();
         requireAllNonNull(library, userPrefs);
 
-        logger.fine("Initializing with address book: " + library + " and user prefs " + userPrefs);
+        logger.fine("Initializing with library: " + library + " and user prefs " + userPrefs);
 
         this.library = new Library(library);
         this.userPrefs = new UserPrefs(userPrefs);
@@ -105,9 +102,7 @@ public class ModelManager implements Model {
     public ReadOnlyProperty<Mode> currentModeProperty() {
         return currentMode;
     }
-
-
-
+    
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
@@ -115,17 +110,17 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getLibraryFilePath() {
+        return userPrefs.getLibraryFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setLibraryFilePath(Path libraryFilePath) {
+        requireNonNull(libraryFilePath);
+        userPrefs.setLibraryFilePath(libraryFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== Library ================================================================================
 
     @Override
     public void setLibrary(ReadOnlyLibrary library) {
@@ -138,20 +133,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Deck deck) {
-        requireNonNull(deck);
-        return library.hasDeck(deck);
-    }
-
-    @Override
     public boolean hasDeck(Deck deck) {
         requireNonNull(deck);
         return library.hasDeck(deck);
-    }
-
-    @Override
-    public void deletePerson(Deck target) {
-        library.deleteDeck(target);
     }
 
     @Override
@@ -160,15 +144,9 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void addPerson(Deck deck) {
-        library.createDeck(deck);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    }
-
-    @Override
     public void createDeck(Deck deck) {
         library.createDeck(deck);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredDeckList(PREDICATE_SHOW_ALL_DECKS);
         Index currIndex = Index.fromZeroBased(library.getDeckList().indexOf(deck));
         selectDeck(currIndex);
         setSelectedDeck(deck);
@@ -219,8 +197,7 @@ public class ModelManager implements Model {
     public Deck getDeck(Index targetIdx) {
         return library.getDeck(targetIdx);
     }
-
-
+    
     @Override
     public void returnToLibrary() {
         view = View.LIBRARY;
@@ -256,7 +233,7 @@ public class ModelManager implements Model {
         deck.add(card);
         setSelectedDeck(null);
         setSelectedDeck(deck);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredDeckList(PREDICATE_SHOW_ALL_DECKS);
     }
 
     @Override
@@ -266,29 +243,20 @@ public class ModelManager implements Model {
         deck.replace(target, card);
         setSelectedDeck(null);
         setSelectedDeck(deck);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        updateFilteredDeckList(PREDICATE_SHOW_ALL_DECKS);
     }
 
     @Override
-    public void setPerson(Deck target, Deck editedDeck) {
+    public void setDeck(Deck target, Deck editedDeck) {
         requireAllNonNull(target, editedDeck);
 
-        library.setPerson(target, editedDeck);
+        library.setDeck(target, editedDeck);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Deck List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Deck> getFilteredPersonList() {
-        return filteredDecks;
-    }
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Deck} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Deck} backed by the internal list.
      */
     @Override
     public ObservableList<Deck> getFilteredDeckList() {
@@ -296,7 +264,7 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Returns an unmodifiable view of the list of {@code Card} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Card} backed by the internal list.
      */
     @Override
     public ObservableList<Card> getFilteredCardList() {
@@ -304,7 +272,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Deck> predicate) {
+    public void updateFilteredDeckList(Predicate<Deck> predicate) {
         requireNonNull(predicate);
         filteredDecks.setPredicate(predicate);
     }
@@ -326,7 +294,8 @@ public class ModelManager implements Model {
 
     /**
      * Flips the card to the back face.
-     * @return true if the card has not been flipped, false otherwise.
+     * 
+     * @return true if the card has not been flipped, false otherwise
      */
     @Override
     public BackFace flip() {
@@ -334,8 +303,9 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Returns the next card after user answer yes.
-     * @return the next card or null if card list is empty.
+     * Returns the next card after user answers Yes.
+     * 
+     * @return the next card or null if card list is empty
      */
     @Override
     public Card answerYes() {
@@ -348,8 +318,8 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Returns the next card after user answer no.
-     * @return the next card or null if card list is empty.
+     * Returns the next card after user answers No.
+     * @return the next card or null if card list is empty
      */
     @Override
     public Card answerNo() {
@@ -384,5 +354,4 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredDecks.equals(other.filteredDecks);
     }
-
 }

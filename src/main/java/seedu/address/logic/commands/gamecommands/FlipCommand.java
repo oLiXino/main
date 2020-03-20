@@ -7,19 +7,19 @@ import seedu.address.model.Model;
 import seedu.address.model.deck.card.BackFace;
 import seedu.address.model.util.Mode;
 
-
 import static java.util.Objects.requireNonNull;
 
 public class FlipCommand extends Command {
     public static final String COMMAND_WORD = "flip";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Flip the card to see the back face.\n";
+            + ": Flips the card to see the back face.\n";
     public static final String MESSAGE_SUCCESS = "Back face: %1$s";
     public static final String MESSAGE_NOT_PLAY_MODE = "Not in play mode!";
     public static final String MESSAGE_ALREADY_FLIPPED = "Card already flipped!";
 
     private BackFace backFace;
+    
     /**
      * Creates an FlipCommand with a specific {@code Deck}
      */
@@ -30,6 +30,7 @@ public class FlipCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        
         if (model.getMode() == Mode.VIEW) {
             throw new CommandException(MESSAGE_NOT_PLAY_MODE);
         }
@@ -37,6 +38,7 @@ public class FlipCommand extends Command {
         if (backFace == null) {
             throw new CommandException(MESSAGE_ALREADY_FLIPPED);
         }
+        
         return new CommandResult(String.format(MESSAGE_SUCCESS, backFace));
     }
 

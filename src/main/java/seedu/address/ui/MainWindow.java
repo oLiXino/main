@@ -34,15 +34,12 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private PlayPanel playPanel;
-    private PersonListPanel personListPanel;
+    private DeckListPanel deckListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-
-
+    
     @FXML
     private StackPane rightPlaceholder;
-
-
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -51,7 +48,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane deckListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -61,9 +58,7 @@ public class MainWindow extends UiPart<Stage> {
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
-
-
-
+        
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
@@ -123,17 +118,17 @@ public class MainWindow extends UiPart<Stage> {
             browserPanel = new BrowserPanel(logic.selectedDeckProperty());
             rightPlaceholder.getChildren().add(browserPanel.getRoot());
         } else {
-
             playPanel = new PlayPanel(logic.selectedDeckProperty());
             rightPlaceholder.getChildren().add(playPanel.getRoot());
         }
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedDeckProperty(), logic::setSelectedDeck);
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        
+        deckListPanel = new DeckListPanel(logic.getFilteredDeckList(), logic.selectedDeckProperty(), logic::setSelectedDeck);
+        deckListPanelPlaceholder.getChildren().add(deckListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getLibraryFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -180,8 +175,8 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public DeckListPanel getDeckListPanel() {
+        return deckListPanel;
     }
 
     /**

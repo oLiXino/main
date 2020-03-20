@@ -17,12 +17,10 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.card.Card;
 
-
 import java.net.URL;
 import java.util.logging.Logger;
 
 import static java.util.Objects.requireNonNull;
-
 
 /**
  * The Browser Panel of the App.
@@ -36,12 +34,10 @@ public class BrowserPanel extends UiPart<Region> {
     @FXML
     TableView itemTbl;
 
-    public BrowserPanel(ObservableValue<Deck> selectedPerson) {
+    public BrowserPanel(ObservableValue<Deck> selectedDeck) {
         super(FXML);
 
-
         TableColumn<Deck, Number> indexColumn = new TableColumn<Deck, Number>("ID");
-       
 
         indexColumn.setCellValueFactory(column-> new ReadOnlyObjectWrapper<Number>(itemTbl.getItems().indexOf(column.getValue())+1));
 
@@ -65,15 +61,12 @@ public class BrowserPanel extends UiPart<Region> {
         frontColumn.setResizable(false);
         backColumn.setResizable(false);
 
-        // Load person page when selected person changes.
-        selectedPerson.addListener((observable, oldValue, newValue) -> {
+        // Load deck page when selected deck changes.
+        selectedDeck.addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
-
                 return;
             }
             getCardList(newValue);
-
-
         });
     }
 
@@ -83,20 +76,10 @@ public class BrowserPanel extends UiPart<Region> {
         for (int i = 0; i < cardList.size(); i++) {
             Card card = cardList.get(i);
             itemTbl.getItems().add(card);
-
         }
     }
 
     private void printCard(Card card) {
-        //loadPage(SEARCH_PAGE_URL + person.getName().fullName);
-
         itemTbl.getItems().add(card);
-
-
     }
-
-
-
-
-
 }

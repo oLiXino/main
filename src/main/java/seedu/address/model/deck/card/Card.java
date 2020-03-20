@@ -7,8 +7,7 @@ import java.util.Objects;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Card {
-
-    //New fields for FlashSpeed
+    
     private final FrontFace frontFace;
     private final BackFace backFace;
 

@@ -48,27 +48,26 @@ public class LogicManager implements Logic {
 
 
         try {
-            storage.saveAddressBook(model.getLibrary());
+            storage.saveLibrary(model.getLibrary());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
 
         return commandResult;
     }
-
-    @Override
-    public ReadOnlyLibrary getAddressBook() {
+    
+    public ReadOnlyLibrary getLibrary() {
         return model.getLibrary();
     }
 
     @Override
-    public ObservableList<Deck> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ObservableList<Deck> getFilteredDeckList() {
+        return model.getFilteredDeckList();
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public Path getLibraryFilePath() {
+        return model.getLibraryFilePath();
     }
 
     @Override
@@ -105,6 +104,4 @@ public class LogicManager implements Logic {
     public Mode getMode() {
         return model.getMode();
     }
-
-
 }

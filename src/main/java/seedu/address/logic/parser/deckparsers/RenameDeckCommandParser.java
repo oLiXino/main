@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 public class RenameDeckCommandParser implements Parser<RenameDeckCommand> {
 
     /**
-     * Used to get pattern INDEX NAME, spaces between INDEX and NAME is handled.
+     * Gets pattern INDEX NAME, spaces between INDEX and NAME is handled.
      */
     private final Pattern COMMAND_FORMAT = Pattern.compile("(?<index>\\d+)(\\s+)(?<name>.*)");
 

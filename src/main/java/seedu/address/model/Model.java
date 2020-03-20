@@ -19,7 +19,7 @@ import seedu.address.model.util.View;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Deck> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Deck> PREDICATE_SHOW_ALL_DECKS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -42,38 +42,27 @@ public interface Model {
     void setGuiSettings(GuiSettings guiSettings);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' library file path.
      */
-    Path getAddressBookFilePath();
+    Path getLibraryFilePath();
 
     /**
-     * Sets the user prefs' address book file path.
+     * Sets the user prefs' library file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setLibraryFilePath(Path libraryFilePath);
 
     /**
-     * Replaces address book data with the data in {@code addressBook}.
+     * Replaces library data with the data in {@code library}.
      */
     void setLibrary(ReadOnlyLibrary library);
 
-    /** Returns the AddressBook */
+    /** Returns the library */
     ReadOnlyLibrary getLibrary();
-
-    /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
-     */
-    boolean hasPerson(Deck deck);
 
     /**
      * Returns true if a deck with the same identity as {@code deck} exists in the library.
      */
     boolean hasDeck(Deck deck);
-
-    /**
-     * Deletes the given person.
-     * The person must exist in the address book.
-     */
-    void deletePerson(Deck target);
 
     /**
      * Deletes the given deck.
@@ -82,19 +71,13 @@ public interface Model {
     void deleteDeck(Deck target);
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
-     */
-    void addPerson(Deck deck);
-
-    /**
      * Adds the given deck.
      * {@code deck} must not already exist in the library.
      */
     void createDeck(Deck deck);
 
     /**
-     * Selects a deck and enter Deck Mode.
+     * Selects a deck.
      */
     void selectDeck(Index targetIdx);
 
@@ -108,29 +91,31 @@ public interface Model {
      */
     Deck getDeck(Index index);
 
-     /* Renames the a given deck.
-     *
-     * Returns true if there is no deck with the same name, false otherwise.
-     */
+     /** Renames the deck at index in library.
+      *
+      * @return true if there is no deck with the same name, false otherwise
+      */
     boolean renameDeck(Index targetIndex, Name name);
 
     /**
-     * Returns the readonly property
+     * Returns the readonly property.
      */
     ReadOnlyProperty<Deck> selectedDeckProperty();
 
     /**
-     * Returns the readonly property
+     * Returns the readonly property.
      */
     ReadOnlyProperty<Mode> currentModeProperty();
 
     /**
-     * Returns the user from Deck Mode to Library Mode.
+     * Brings the user from deck view to library view.
      */
     void returnToLibrary();
 
     /**
-     * Returns true if a card with the same identity as {@code card} exists in the deck.
+     * Checks if a card with the same identity as {@code card} exists in the deck.
+     * 
+     * @return true if {@code card} exists in the deck
      */
     boolean hasCard(Card card);
 
@@ -141,7 +126,7 @@ public interface Model {
     void deleteCard(Card target);
     
     /**
-     * Adds the given card.
+     * Adds the given card to the deck.
      * {@code card} must not already exist in the deck.
      */
     void addCard(Card card);
@@ -155,43 +140,38 @@ public interface Model {
 
     /**
      * Gets the current view of the model.
+     * 
      * @return The current view of the model.
      */
-    public View getView();
+    View getView();
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Replaces the given deck {@code target} with {@code editedDeck}.
+     * {@code target} must exist in the library.
+     * The deck identity of {@code editedDeck} must not be the same as another existing deck in the library.
      */
-    void setPerson(Deck target, Deck editedDeck);
+    void setDeck(Deck target, Deck editedDeck);
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Deck> getFilteredPersonList();
-
-    /** Returns an unmodifiable view of the filtered deck list */
+    /** Returns an unmodifiable view of the filtered deck list. */
     ObservableList<Deck> getFilteredDeckList();
 
-    /** Returns an unmodifiable view of the filtered card list */
+    /** Returns an unmodifiable view of the filtered card list. */
     ObservableList<Card> getFilteredCardList();
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered deck list to filter by the given {@code predicate}.
+     * 
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Deck> predicate);
+    void updateFilteredDeckList(Predicate<Deck> predicate);
 
     /**
-     * Sets the selected person in the filtered person list.
+     * Sets the selected deck in the filtered deck list.
      */
     void setSelectedDeck(Deck deck);
 
     void setCurrentMode(Mode mode);
-
-    /**
-     *
-     * @return
-     */
+    
     Card getCard(Index index);
 
     /**
@@ -201,25 +181,27 @@ public interface Model {
 
     /**
      * Flips the card to the back face.
-     * @return true if the card has not been flipped, false otherwise.
+     * 
+     * @return true if the card has not been flipped, false otherwise
      */
     BackFace flip();
 
     /**
-     * Returns the next card after user answer yes.
-     * @return the next card or null if card list is empty.
+     * Returns the next card after user answers Yes.
+     * 
+     * @return the next card or null if card list is empty
      */
     Card answerYes();
 
     /**
-     * Returns the next card after user answer no.
-     * @return the next card or null if card list is empty.
+     * Returns the next card after user answers No.
+     * 
+     * @return the next card or null if card list is empty
      */
     Card answerNo();
 
     /**
-     * Returns the mode of the model manager.
+     * Returns the current mode of the model
      */
     Mode getMode();
-
 }

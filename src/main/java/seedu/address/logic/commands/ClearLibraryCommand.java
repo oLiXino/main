@@ -6,7 +6,7 @@ import seedu.address.model.Library;
 import seedu.address.model.Model;
 
 /**
- * Clears the library
+ * Clears the library.
  */
 public class ClearLibraryCommand extends Command {
 
@@ -19,5 +19,4 @@ public class ClearLibraryCommand extends Command {
         model.setLibrary(new Library());
         return new CommandResult(MESSAGE_SUCCESS);
     }
-
 }

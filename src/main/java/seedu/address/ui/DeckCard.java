@@ -2,17 +2,16 @@ package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.deck.Deck;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Deck}.
  */
-public class PersonCard extends UiPart<Region> {
+public class DeckCard extends UiPart<Region> {
 
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "DeckListCard.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -34,7 +33,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label cardNo;
 
-    public PersonCard(Deck deck, int displayedIndex) {
+    public DeckCard(Deck deck, int displayedIndex) {
         super(FXML);
         this.deck = deck;
         id.setText(displayedIndex + ". ");
@@ -50,12 +49,12 @@ public class PersonCard extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof DeckCard)) {
             return false;
         }
 
         // state check
-        PersonCard card = (PersonCard) other;
+        DeckCard card = (DeckCard) other;
         return id.getText().equals(card.id.getText())
                 && deck.equals(card.deck);
     }

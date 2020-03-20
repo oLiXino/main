@@ -19,7 +19,7 @@ public class SelectDeckCommand extends Command {
     public static final String COMMAND_WORD = "select";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Selects the deck identified by the index number used in the displayed deck list.\n"
+            + ": Selects a deck in the library.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example:" + COMMAND_WORD + " 1";
 

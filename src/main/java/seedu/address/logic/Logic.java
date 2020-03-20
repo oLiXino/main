@@ -1,21 +1,18 @@
 package seedu.address.logic;
 
-import java.nio.file.Path;
-
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyLibrary;
 import seedu.address.model.deck.Deck;
-import seedu.address.model.deck.card.Card;
 import seedu.address.model.util.Mode;
 
+import java.nio.file.Path;
+
 /**
- * API of the Logic component
+ * API of the Logic component.
  */
 public interface Logic {
     /**
@@ -27,20 +24,13 @@ public interface Logic {
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
-    /**
-     * Returns the AddressBook.
-     *
-     * @see seedu.address.model.Model#getLibrary()
-     */
-    ReadOnlyLibrary getAddressBook();
-
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Deck> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered list of decks. */
+    ObservableList<Deck> getFilteredDeckList();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' library file path.
      */
-    Path getAddressBookFilePath();
+    Path getLibraryFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
@@ -56,8 +46,6 @@ public interface Logic {
      * Get the selected deck
      */
     Deck getCurrentDeck();
-
-
 
     ReadOnlyProperty<Deck> selectedDeckProperty();
 

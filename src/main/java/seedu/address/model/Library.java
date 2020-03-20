@@ -10,12 +10,11 @@ import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.UniqueDeckList;
 
 /**
- * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Wraps all data at the library level.
+ * Duplicates are not allowed (by .isSameDeck comparison).
  */
 public class Library implements ReadOnlyLibrary {
-
-
+    
     private final UniqueDeckList decks;
 
     /*
@@ -32,7 +31,7 @@ public class Library implements ReadOnlyLibrary {
     public Library() {}
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an Library using the Decks in {@code toBeCopied}.
      */
     public Library(ReadOnlyLibrary toBeCopied) {
         this();
@@ -42,41 +41,28 @@ public class Library implements ReadOnlyLibrary {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code decks}.
+     * Replaces the contents of the deck list with {@code decks}.
      * {@code decks} must not contain duplicate decks.
      */
-    //public void setDecks(List<Deck> decks) {
-    //this.decks.setPersons(decks);
-    //}
     public void setDecks(List<Deck> decks) {
         this.decks.setDecks(decks);
     }
 
 
     /**
-     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * Resets the existing data of this {@code Library} with {@code newData}.
      */
-//    public void resetData(ReadOnlyLibrary newData) {
-//        requireNonNull(newData);
-//
-//        setDecks(newData.getPersonList());
-//    }
     public void resetData(ReadOnlyLibrary newData) {
         requireNonNull(newData);
 
         setDecks(newData.getDeckList());
     }
 
-    //// person-level operations
+    //// deck-level operations
 
     /**
      * Returns true if a deck with the same identity as {@code deck} exists in the Library.
      */
-    public boolean hasPerson(Deck deck) {   // remove the code at the enc
-        requireNonNull(deck);
-        return decks.contains(deck);
-    }
-
     public boolean hasDeck(Deck deck) {
         requireNonNull(deck);
         return decks.contains(deck);
@@ -92,9 +78,9 @@ public class Library implements ReadOnlyLibrary {
      * Adds a deck to the library.
      * The deck must not already exist in the library.
      */
-    public void addPerson(Deck p) {
+    public void addDeck(Deck p) {
         decks.add(p);
-    }   // remove the code at the end
+    }
 
     public void createDeck(Deck p) {
         decks.add(p);
@@ -105,13 +91,12 @@ public class Library implements ReadOnlyLibrary {
      * {@code target} must exist in the library.
      * The deck identity of {@code editedDeck} must not be the same as another existing deck in the library.
      */
-    public void setPerson(Deck target, Deck editedDeck) { // remove the code at the end
+    public void setDeck(Deck target, Deck editedDeck) {
         requireNonNull(editedDeck);
 
-        decks.setPerson(target, editedDeck);
+        decks.setDeck(target, editedDeck);
     }
-
-
+    
     /**
      * Removes {@code key} from this {@code Library}.
      * {@code key} must exist in the library .
@@ -121,25 +106,16 @@ public class Library implements ReadOnlyLibrary {
         decks.remove(key);
     }
 
-
-
+    // TODO: refine
     @Override
     public String toString() {
         return decks.asUnmodifiableObservableList().size() + " decks";
-        // TODO: refine later
     }
 
     @Override
     public ObservableList<Deck> getDeckList() {   // remove the code at the end
         return decks.asUnmodifiableObservableList();
     }
-
-    /*
-    @Override
-    public ObservableList<Deck> getDeckList() {
-        return decks.asUnmodifiableObservableList();
-    }
-     */
 
     @Override
     public boolean equals(Object other) {

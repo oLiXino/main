@@ -13,14 +13,14 @@ import seedu.address.model.Model;
 import seedu.address.model.deck.Deck;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Removes a deck from the library.
  */
 public class RemoveDeckCommand extends Command {
 
     public static final String COMMAND_WORD = "remove";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the deck identified by the index number used in the displayed deck list.\n"
+            + ": Removes a deck from the library.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example:" + COMMAND_WORD + " 1";
 
@@ -35,10 +35,10 @@ public class RemoveDeckCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        List<Deck> lastShownList = model.getFilteredPersonList();
+        List<Deck> lastShownList = model.getFilteredDeckList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX);
         }
 
         Deck deckToDelete = lastShownList.get(targetIndex.getZeroBased());

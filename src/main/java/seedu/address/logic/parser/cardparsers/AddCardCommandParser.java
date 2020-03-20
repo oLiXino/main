@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 public class AddCardCommandParser implements Parser<AddCardCommand> {
 
     /**
-     * Used to get pattern FRONT:BACK, spaces before and after ":" is handled.
+     * Gets pattern FRONT:BACK, spaces before and after ":" are handled.
      */
     private final Pattern COMMAND_FORMAT = Pattern.compile("(?<front>.*)(\\s*:\\s*)(?<back>.*)");
 
@@ -29,22 +29,13 @@ public class AddCardCommandParser implements Parser<AddCardCommand> {
      * @throws ParseException if the user input does not conform to the expected format
      */
     public AddCardCommand parse(String args) throws ParseException {
-        final Matcher matcher = COMMAND_FORMAT.matcher(args.trim());
+        final Matcher matcher = COMMAND_FORMAT.matcher(args.strip());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCardCommand.MESSAGE_USAGE));
         }
 
         final String frontValue = matcher.group("front");
         final String backValue = matcher.group("back");
-
-//        // first occurrence of ":" will be used as the delineation between the front and back values
-//        int delinIdx = args.indexOf(":");
-//        if (delinIdx == -1) {
-//            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCardCommand.MESSAGE_USAGE));
-//        }
-//
-//        String frontValue = args.substring(0, delinIdx).strip();
-//        String backValue  = args.substring(delinIdx + 1).strip();
 
         if (frontValue.isBlank() || backValue.isBlank()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCardCommand.MESSAGE_USAGE));
