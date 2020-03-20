@@ -6,6 +6,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.card.Card;
 
 import java.util.List;
 
@@ -19,9 +20,9 @@ public class PlayCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example:" + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SUCCESS = "Deck selected: %1$s";
+    public static final String MESSAGE_SUCCESS = "Selected deck: %1$s";
     public static final String MESSAGE_DECK_NOT_FOUND = "Deck not found in the library!";
-
+    public static final String MESSAGE_NO_CARD = "Oops, there is no card in the selected deck.";
     private final Index targetIdx;
 
     /**
@@ -35,14 +36,14 @@ public class PlayCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
-        //List<Deck> filteredDeckList = model.getFilteredDeckList();
-
-        Deck deck = model.play(targetIdx);
-        if (deck == null) {
+        Deck deck = model.getDeck(targetIdx);
+        Card card = model.play(targetIdx);
+        if (card == null) {
             throw new CommandException(MESSAGE_DECK_NOT_FOUND);
         }
-        //model.setSelectedDeck(filteredDeckList.get(targetIdx.getZeroBased()));
+        if (card.getFrontFace() == null && card.getBackFace() == null) {
+            throw new CommandException(String.format(MESSAGE_NO_CARD));
+        }
         return new CommandResult(String.format(MESSAGE_SUCCESS, deck));
     }
 

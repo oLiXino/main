@@ -190,7 +190,7 @@ public interface Model {
     /**
      * Changes the mode to play mode.
      */
-    Deck play(Index index);
+    Card play(Index index);
 
     /**
      * Flips the card to the back face.
