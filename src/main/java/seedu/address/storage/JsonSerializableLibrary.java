@@ -21,14 +21,14 @@ class JsonSerializableLibrary {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
 
-    private final List<JsonAdaptedDeck> persons = new ArrayList<>();
+    private final List<JsonAdaptedDeck> decks = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonSerializableAddressBook} with the given decks.
      */
     @JsonCreator
     public JsonSerializableLibrary(@JsonProperty("decks") List<JsonAdaptedDeck> decks) {
-        this.persons.addAll(decks);
+        this.decks.addAll(decks);
     }
 
     /**
@@ -37,7 +37,7 @@ class JsonSerializableLibrary {
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
     public JsonSerializableLibrary(ReadOnlyLibrary source) {
-        persons.addAll(source.getDeckList().stream().map(JsonAdaptedDeck::new).collect(Collectors.toList()));
+        decks.addAll(source.getDeckList().stream().map(JsonAdaptedDeck::new).collect(Collectors.toList()));
     }
 
     /**
@@ -47,7 +47,7 @@ class JsonSerializableLibrary {
      */
     public Library toModelType() throws IllegalValueException {
         Library library = new Library();
-        for (JsonAdaptedDeck jsonAdaptedPerson : persons) {
+        for (JsonAdaptedDeck jsonAdaptedPerson : decks) {
             Deck deck = jsonAdaptedPerson.toModelType();
             if (library.hasPerson(deck)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
