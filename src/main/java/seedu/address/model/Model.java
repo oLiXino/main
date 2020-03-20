@@ -9,7 +9,9 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.Name;
+import seedu.address.model.deck.card.BackFace;
 import seedu.address.model.deck.card.Card;
+import seedu.address.model.util.Mode;
 import seedu.address.model.util.View;
 
 /**
@@ -184,5 +186,33 @@ public interface Model {
      * @return
      */
     Card getCard(Index index);
+
+    /**
+     * Changes the mode to play mode.
+     */
+    Deck play(Index index);
+
+    /**
+     * Flips the card to the back face.
+     * @return true if the card has not been flipped, false otherwise.
+     */
+    BackFace flip();
+
+    /**
+     * Returns the next card after user answer yes.
+     * @return the next card or null if card list is empty.
+     */
+    Card answerYes();
+
+    /**
+     * Returns the next card after user answer no.
+     * @return the next card or null if card list is empty.
+     */
+    Card answerNo();
+
+    /**
+     * Returns the mode of the model manager.
+     */
+    Mode getMode();
 
 }
