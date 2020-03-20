@@ -120,6 +120,11 @@ public interface Model {
     ReadOnlyProperty<Deck> selectedDeckProperty();
 
     /**
+     * Returns the readonly property
+     */
+    ReadOnlyProperty<Mode> currentModeProperty();
+
+    /**
      * Returns the user from Deck Mode to Library Mode.
      */
     void returnToLibrary();
@@ -180,6 +185,8 @@ public interface Model {
      * Sets the selected person in the filtered person list.
      */
     void setSelectedDeck(Deck deck);
+
+    void setCurrentMode(Mode mode);
 
     /**
      *

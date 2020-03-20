@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.Objects;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
@@ -11,6 +12,8 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
+import seedu.address.model.util.Mode;
+import javafx.beans.value.ObservableValue;
 
 /**
  * The manager of the UI component.
@@ -25,9 +28,12 @@ public class UiManager implements Ui {
     private Logic logic;
     private MainWindow mainWindow;
 
+    private ObservableValue<Mode> mode;
+
     public UiManager(Logic logic) {
         super();
         this.logic = logic;
+        this.mode = logic.currentModeProperty();
     }
 
     @Override
@@ -41,6 +47,11 @@ public class UiManager implements Ui {
             mainWindow = new MainWindow(primaryStage, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
+            this.mode.addListener((observable, oldValue, newValue) -> {
+                mainWindow.fillInnerParts();
+            });
+
+
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
