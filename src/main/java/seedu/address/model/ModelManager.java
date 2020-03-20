@@ -172,6 +172,9 @@ public class ModelManager implements Model {
             return false;
         } else {
             deck.setName(name);
+
+            selectDeck(targetIndex);
+            setSelectedDeck(deck);
             return true;
         }
     }
