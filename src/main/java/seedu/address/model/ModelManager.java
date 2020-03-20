@@ -19,8 +19,10 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.Name;
+import seedu.address.model.deck.card.BackFace;
 import seedu.address.model.deck.card.Card;
 import seedu.address.model.util.View;
+import seedu.address.model.util.Mode;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -33,9 +35,11 @@ public class ModelManager implements Model {
     private final FilteredList<Deck> filteredDecks;
 
     private View view;
+    private Mode mode;
 
     private Optional<Index> deckIndex;
     private final SimpleObjectProperty<Deck> selectedDeck = new SimpleObjectProperty<>();
+    private GameManager game;
 
     /**
      * Initializes a ModelManager with the given library and userPrefs.
@@ -52,6 +56,8 @@ public class ModelManager implements Model {
         this.deckIndex = Optional.empty();
 
         this.view = View.LIBRARY;  // 1st view will always be in library
+        this.mode = Mode.VIEW;     // 1st mode will always be in view mode
+        this.game = null;
     }
 
     public ModelManager() {
@@ -283,6 +289,59 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Deck play(Index index) {
+        Deck deck = library.getDeck(index);
+        if (deck == null) {
+            return null;
+        }
+        this.game = new GameManager(deck);
+        this.mode = Mode.PLAY;
+        return deck;
+    }
+
+    /**
+     * Flips the card to the back face.
+     * @return true if the card has not been flipped, false otherwise.
+     */
+    @Override
+    public BackFace flip() {
+        return this.game.flip();
+    }
+
+    /**
+     * Returns the next card after user answer yes.
+     * @return the next card or null if card list is empty.
+     */
+    @Override
+    public Card answerYes() {
+        Card card = this.game.answerYes();
+        if (card != null && card.getFrontFace() == null && card.getBackFace() == null) {
+            this.game = null;
+            this.mode = Mode.VIEW;
+        }
+        return card;
+    }
+
+    /**
+     * Returns the next card after user answer no.
+     * @return the next card or null if card list is empty.
+     */
+    @Override
+    public Card answerNo() {
+        Card card = this.game.answerNo();
+        if (card != null && card.getFrontFace() == null && card.getBackFace() == null) {
+            this.game = null;
+            this.mode = Mode.VIEW;
+        }
+        return card;
+    }
+
+    @Override
+    public Mode getMode() {
+        return this.mode;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
@@ -300,4 +359,5 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredDecks.equals(other.filteredDecks);
     }
+
 }
