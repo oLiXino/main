@@ -12,6 +12,6 @@ public interface ReadOnlyLibrary {
      * Returns an unmodifiable view of the persons list.
      * This list will not contain any duplicate persons.
      */
-    ObservableList<Deck> getPersonList();
+    //ObservableList<Deck> getPersonList();
     ObservableList<Deck> getDeckList();
 }

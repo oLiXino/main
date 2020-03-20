@@ -20,7 +20,7 @@ public class Deck {
     private  Name name;
 
     // Data fields
-    private final UniqueCardList cards = new UniqueCardList();
+    private UniqueCardList cards = new UniqueCardList();
 
     /**
      * Every field must be present and not null.

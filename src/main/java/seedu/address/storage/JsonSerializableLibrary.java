@@ -16,19 +16,19 @@ import seedu.address.model.deck.Deck;
 /**
  * An Immutable AddressBook that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
-class JsonSerializableAddressBook {
+@JsonRootName(value = "decks")
+class JsonSerializableLibrary {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
 
-    private final List<JsonAdaptedDeck> persons = new ArrayList<>();
+    private final List<JsonAdaptedDeck> decks = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons.
+     * Constructs a {@code JsonSerializableAddressBook} with the given decks.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedDeck> persons) {
-        this.persons.addAll(persons);
+    public JsonSerializableLibrary(@JsonProperty("decks") List<JsonAdaptedDeck> decks) {
+        this.decks.addAll(decks);
     }
 
     /**
@@ -36,8 +36,8 @@ class JsonSerializableAddressBook {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
-    public JsonSerializableAddressBook(ReadOnlyLibrary source) {
-        persons.addAll(source.getPersonList().stream().map(JsonAdaptedDeck::new).collect(Collectors.toList()));
+    public JsonSerializableLibrary(ReadOnlyLibrary source) {
+        decks.addAll(source.getDeckList().stream().map(JsonAdaptedDeck::new).collect(Collectors.toList()));
     }
 
     /**
@@ -47,7 +47,7 @@ class JsonSerializableAddressBook {
      */
     public Library toModelType() throws IllegalValueException {
         Library library = new Library();
-        for (JsonAdaptedDeck jsonAdaptedPerson : persons) {
+        for (JsonAdaptedDeck jsonAdaptedPerson : decks) {
             Deck deck = jsonAdaptedPerson.toModelType();
             if (library.hasPerson(deck)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);

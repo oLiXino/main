@@ -8,6 +8,9 @@ import seedu.address.model.Library;
 import seedu.address.model.ReadOnlyLibrary;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.Name;
+import seedu.address.model.deck.card.BackFace;
+import seedu.address.model.deck.card.Card;
+import seedu.address.model.deck.card.FrontFace;
 import seedu.address.model.deck.dump.tag.Tag;
 
 /**
@@ -15,13 +18,10 @@ import seedu.address.model.deck.dump.tag.Tag;
  */
 public class SampleDataUtil {
     public static Deck[] getSamplePersons() {
+        Deck sampleDeck = new Deck(new Name("Sample Deck 1"));
+        sampleDeck.add(new Card(new FrontFace("front"), new BackFace("back")));
         return new Deck[] {
-            new Deck(new Name("Alex Yeoh")),
-            new Deck(new Name("Bernice Yu")),
-            new Deck(new Name("Charlotte Oliveiro")),
-            new Deck(new Name("David Li")),
-            new Deck(new Name("Irfan Ibrahim")),
-            new Deck(new Name("Roy Balakrishnan"))
+            sampleDeck
         };
     }
 

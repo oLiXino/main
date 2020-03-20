@@ -130,14 +130,16 @@ public class Library implements ReadOnlyLibrary {
     }
 
     @Override
-    public ObservableList<Deck> getPersonList() {   // remove the code at the end
+    public ObservableList<Deck> getDeckList() {   // remove the code at the end
         return decks.asUnmodifiableObservableList();
     }
 
+    /*
     @Override
     public ObservableList<Deck> getDeckList() {
         return decks.asUnmodifiableObservableList();
     }
+     */
 
     @Override
     public boolean equals(Object other) {

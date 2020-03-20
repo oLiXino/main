@@ -1,5 +1,6 @@
 package seedu.address.logic;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
@@ -44,11 +45,12 @@ public class LogicManager implements Logic {
         command = masterParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
-//        try {
-//            storage.saveAddressBook(model.getLibrary());
-//        } catch (IOException ioe) {
-//            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
-//        }
+
+        try {
+            storage.saveAddressBook(model.getLibrary());
+        } catch (IOException ioe) {
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        }
 
         return commandResult;
     }
