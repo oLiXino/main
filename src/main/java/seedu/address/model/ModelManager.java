@@ -319,6 +319,7 @@ public class ModelManager implements Model {
         }
         this.game = new GameManager(deck);
         this.mode = Mode.PLAY;
+        setCurrentMode(Mode.PLAY);
         return deck.asUnmodifiableObservableList().get(0);
     }
 
