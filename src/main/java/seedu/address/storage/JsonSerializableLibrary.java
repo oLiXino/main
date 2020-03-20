@@ -16,19 +16,19 @@ import seedu.address.model.deck.Deck;
 /**
  * An Immutable AddressBook that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
-class JsonSerializableAddressBook {
+@JsonRootName(value = "decks")
+class JsonSerializableLibrary {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
 
     private final List<JsonAdaptedDeck> persons = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableAddressBook} with the given persons.
+     * Constructs a {@code JsonSerializableAddressBook} with the given decks.
      */
     @JsonCreator
-    public JsonSerializableAddressBook(@JsonProperty("persons") List<JsonAdaptedDeck> persons) {
-        this.persons.addAll(persons);
+    public JsonSerializableLibrary(@JsonProperty("decks") List<JsonAdaptedDeck> decks) {
+        this.persons.addAll(decks);
     }
 
     /**
@@ -36,8 +36,8 @@ class JsonSerializableAddressBook {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
-    public JsonSerializableAddressBook(ReadOnlyLibrary source) {
-        persons.addAll(source.getPersonList().stream().map(JsonAdaptedDeck::new).collect(Collectors.toList()));
+    public JsonSerializableLibrary(ReadOnlyLibrary source) {
+        persons.addAll(source.getDeckList().stream().map(JsonAdaptedDeck::new).collect(Collectors.toList()));
     }
 
     /**

@@ -28,7 +28,7 @@ public class LibraryTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), library.getPersonList());
+        assertEquals(Collections.emptyList(), library.getDeckList());
     }
 
     @Test
@@ -79,8 +79,8 @@ public class LibraryTest {
     }
 
     @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> library.getPersonList().remove(0));
+    public void getDeckList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> library.getDeckList().remove(0));
     }
 
     /**
@@ -96,6 +96,11 @@ public class LibraryTest {
         @Override
         public ObservableList<Deck> getPersonList() {
             return decks;
+        }
+
+        @Override
+        public ObservableList<Deck> getDeckList() {
+            return null;
         }
     }
 
