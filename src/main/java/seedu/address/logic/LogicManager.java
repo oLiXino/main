@@ -16,6 +16,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyLibrary;
 import seedu.address.model.deck.Deck;
+import seedu.address.model.util.Mode;
 import seedu.address.storage.Storage;
 
 /**
@@ -91,8 +92,19 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ReadOnlyProperty<Mode> currentModeProperty() {
+        return model.currentModeProperty();
+    }
+
+    @Override
     public void setSelectedDeck(Deck deck) {
         model.setSelectedDeck(deck);
     }
+
+    @Override
+    public Mode getMode() {
+        return model.getMode();
+    }
+
 
 }

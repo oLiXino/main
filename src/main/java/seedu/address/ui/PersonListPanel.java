@@ -33,7 +33,7 @@ public class PersonListPanel extends UiPart<Region> {
 
         personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             logger.fine("Selection in person list panel changed to : '" + newValue + "'");
-            onSelectedPersonChange.accept(newValue);
+            //onSelectedPersonChange.accept(newValue);
         });
 
         selectedPerson.addListener((observable, oldValue, newValue) -> {

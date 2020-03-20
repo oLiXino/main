@@ -41,6 +41,7 @@ public class ModelManager implements Model {
 
     private Optional<Index> deckIndex;
     private final SimpleObjectProperty<Deck> selectedDeck = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Mode> currentMode = new SimpleObjectProperty<>();
     private GameManager game;
 
     /**
@@ -59,6 +60,7 @@ public class ModelManager implements Model {
 
         this.view = View.LIBRARY;  // 1st view will always be in library
         this.mode = Mode.VIEW;     // 1st mode will always be in view mode
+        setCurrentMode(Mode.VIEW);
         this.game = null;
     }
 
@@ -98,6 +100,13 @@ public class ModelManager implements Model {
     public ReadOnlyProperty<Deck> selectedDeckProperty() {
         return selectedDeck;
     }
+
+    @Override
+    public ReadOnlyProperty<Mode> currentModeProperty() {
+        return currentMode;
+    }
+
+
 
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
@@ -199,6 +208,11 @@ public class ModelManager implements Model {
     @Override
     public void setSelectedDeck(Deck deck) {
         selectedDeck.setValue(deck);
+    }
+
+    @Override
+    public void setCurrentMode(Mode mode) {
+        currentMode.setValue(mode);
     }
     
     @Override

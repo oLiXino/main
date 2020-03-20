@@ -16,6 +16,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.util.Mode;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -32,13 +33,15 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
+    private PlayPanel playPanel;
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
 
 
     @FXML
-    private StackPane browserPlaceholder;
+    private StackPane rightPlaceholder;
+
 
 
     @FXML
@@ -115,9 +118,15 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        browserPanel = new BrowserPanel(logic.selectedDeckProperty());
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
+        if (logic.getMode() == Mode.VIEW) {
+            browserPanel = new BrowserPanel(logic.selectedDeckProperty());
+            rightPlaceholder.getChildren().add(browserPanel.getRoot());
+        } else {
+
+            playPanel = new PlayPanel(logic.selectedDeckProperty());
+            rightPlaceholder.getChildren().add(playPanel.getRoot());
+        }
         personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic.selectedDeckProperty(), logic::setSelectedDeck);
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 

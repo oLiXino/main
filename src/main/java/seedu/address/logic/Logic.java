@@ -12,6 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyLibrary;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.card.Card;
+import seedu.address.model.util.Mode;
 
 /**
  * API of the Logic component
@@ -59,6 +60,13 @@ public interface Logic {
 
 
     ReadOnlyProperty<Deck> selectedDeckProperty();
+
+    ReadOnlyProperty<Mode> currentModeProperty();
+
+    /**
+     * Returns the mode of the model manager.
+     */
+    Mode getMode();
 
     void setSelectedDeck(Deck deck);
 }
