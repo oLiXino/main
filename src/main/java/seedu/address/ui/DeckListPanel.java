@@ -28,9 +28,11 @@ public class DeckListPanel extends UiPart<Region> {
         super(FXML);
         deckListView.setItems(deckList);
         deckListView.setCellFactory(listView -> new DeckListViewCell());
+//        deckListView.getSelectionModel().clearAndSelect(2);
 
         deckListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             logger.fine("Selection in deck list panel changed to : '" + newValue + "'");
+            onSelectedDeckChange.accept(newValue);
         });
 
         selectedDeck.addListener((observable, oldValue, newValue) -> {
