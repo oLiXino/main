@@ -200,8 +200,9 @@ public class ModelManager implements Model {
     
     @Override
     public void returnToLibrary() {
-        view = View.LIBRARY;
+        selectedDeck.setValue(null);
         deckIndex = Optional.empty();
+        this.view = View.LIBRARY;
     }
 
     @Override

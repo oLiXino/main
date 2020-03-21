@@ -23,7 +23,7 @@ public class ReturnToLibraryCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (!model.getView().equals(View.LIBRARY)) {
+        if (model.getView().equals(View.LIBRARY)) {
             throw new CommandException(MESSAGE_ALREADY_IN_LIBRARY);
         }
 
