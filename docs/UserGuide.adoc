@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-W17-1/main
 
-By: `AY1920S2-CS2103T-W17-1`      Since: `Feb 2020`      Licence: `MIT`
+By: `FlashSpeed Foundation`      Since: `Feb 2020`      Licence: `MIT`
 
 == Introduction
 
@@ -35,9 +35,8 @@ We hope you enjoy using our app. Happy FlashSpeeding!
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all decks
-* **`create`**`Japanese 1` : creates a deck named `Japanese 1` in the FlashSpeed library.
-* **`delete`**`3` : deletes the 3rd deck shown in the deck list
+* **`create`**`Japanese 1` : creates a deck named `Japanese 1` in the library
+* **`remove`**`3` : removes the 3rd deck shown in the decks list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -52,16 +51,52 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 e.g. in `create <deck>`, `<deck>` is a parameter which can be used as `create Japanese 1`.
 ====
 
-=== Viewing help : `help`
+====
+*Different Views*
 
+FlashSpeed can be in one of 3 different views, namely:
+
+* Library view: when no deck is selected and no cards are shown
+* Deck view: when a deck has been selected and its cards are shown
+* Play view: when in a study session of a deck
+
+Note that some commands may only be valid in certain views.
+====
+
+=== General
+
+==== Viewing help : `help`
+
+Shows this user guide in a new window. +
 Format: `help`
 
-=== Listing all decks : `list`
+==== Exiting the program : `exit`
 
-Shows a list of all decks in the library. +
-Format: `list`
+Exits the FlashSpeed program. +
+Format: `exit`
 
-=== Creating a deck : `create` `[coming in v2.0]`
+==== Resetting the library : `reset`
+
+Resets the library by deleting all cards and decks. +
+Format: `reset`
+
+=== Library view
+
+==== Selecting a deck : `select`
+
+Selects a deck and shows all its cards. +
+Format: `select <index>`
+
+****
+* Selects and shows all cards in the deck at the specified `index`. The index refers to the index number shown in the displayed decks list. The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Example:
+
+* `select 2` +
+Selects and shows all cards in the 2nd deck.
+
+==== Creating a deck : `create`
 
 Creates a new deck in the library. +
 Format: `create <deck>`
@@ -71,42 +106,71 @@ Examples:
 * `create Japanese 1`
 * `create Japanese Verbs`
 
-=== Adding a card : `add`
+==== Removing a deck : `remove`
 
-Adds a new card to a deck. +
-Format: `add <index> <front>:<back>`
+Removes a deck from the library. +
+Format: `remove <index>`
 
 ****
-* Adds a card to the deck at the specified `index`. The index refers to the index number shown in the displayed decks list. The index *must be a positive integer* 1, 2, 3, ...
+* Removes the deck in the library at the specified `index`. The index refers to the index number shown in the displayed decks list. The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
-* `add 1 ありがとう:thanks`
-* `add 2 いい[お]てんきですね。:Nice weather, isn't it?`
+* `remove 2` +
+Removes the 2nd deck from the library.
 
-=== Showing all cards in a deck : `show` `[coming in v2.0]`
+==== Renaming a deck : `rename`
 
-Shows all cards in a deck. +
-Format: `show <index>`
-
-****
-* Shows all cards in the deck at the specified `index`. The index refers to the index number shown in the displayed decks list. The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Example:
-
-* `show 2` +
-Shows all cards in the 2nd deck.
-
-=== Editing a card : `edit`
-
-Edits an existing card in a deck. +
-Format: `edit <index> <front>:<back>` or `edit <index> :<back>` or `edit <index> <front>:`
+Renames a deck in the library. +
+Format: `rename <index> <deck>`
 
 ****
-* Edits the card in a deck at the specified `index`. The index refers to the index number shown in the displayed cards list. The index *must be a positive integer* 1, 2, 3, ...
-* Existing values will be updated to the input values.
+* Renames the deck in the library at the specified `index`. The index refers to the index number shown in the displayed decks list. The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `rename 2 Japanese Verbs` +
+Renames the 2nd deck in the library to "Japanese Verbs".
+
+==== Playing a deck : `play`
+
+Starts a review session with a deck. We "play" it because learning can be fun! +
+Format: `play <index>`
+
+****
+* Starts a review session with the deck in the library at the specified `index`. The index refers to the index number shown in the displayed decks list. The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `play 2` +
+Starts a review session with the 2nd deck in the library.
+
+=== Deck view
+
+==== Adding a card : `add`
+
+Adds a new card to the current deck. +
+Format: `add <front>:<back>`
+
+Examples:
+
+* `add ありがとう:thanks`
+* `add いい[お]てんきですね。:Nice weather, isn't it?`
+
+==== Editing a card : `edit`
+
+Edits the front and/or back values of an existing card in the current deck. +
+Format 1: `edit <index> <front>:<back>` +
+Format 2: `edit <index> :<back>` +
+Format 3: `edit <index> <front>:`
+
+****
+* Edits the card in the current deck at the specified `index`. The index refers to the index number shown in the displayed cards list. The index *must be a positive integer* 1, 2, 3, ...
+* Existing values will be updated to the given values.
+* Empty values for the `front` or `back` will leave the associated values intact.
 ****
 
 Examples:
@@ -118,63 +182,76 @@ Edits the back value of the 1st card in the deck to be `thanks`.
 * `edit 1 ありがとう:` +
 Edits the front value of the 1st card in the deck to be `ありがとう`.
 
-=== Deleting a deck / card : `delete`
+==== Deleting a card : `delete`
 
-Deletes the specified deck from the library when in List mode, or deletes the specified card from a deck when in Show mode. +
+Deletes a card from the current deck. +
 Format: `delete <index>`
 
 ****
-* Deletes the deck / card at the specified `index`.
-* The index refers to the index number shown in the displayed deck / card list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* Deletes the card in the current deck at the specified `index`. The index refers to the index number shown in the displayed cards list. The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd deck in the library.
-* `show 2` +
-`delete 1` +
-Deletes the 1st card in the 2nd deck.
+* `delete 2` +
+Deletes the 2nd card in the current deck.
 
-=== Clearing all decks / cards : `clear`
+==== Returning to the library : `return`
 
-Clears all decks when in List mode, or clears all cards in a deck when in Show mode. +
-Format: `clear`
+Goes out of the current deck and returns to the library, i.e. no deck is selected. +
+Format: `return`
 
-=== Exiting the program : `exit`
+=== Play view
 
-Exits the program. +
-Format: `exit`
+==== Flipping a card : `flip`
+
+Flips the current card to reveal its back value. +
+Format: `flip`
+
+==== Answering "yes" : `yes`
+
+Submits a "yes" answer when asked if you could remember the back face of a card. This is to be done after flipping the card. +
+Format: `yes`
+
+==== Answering "no" : `no`
+Submits a "no" answer when asked if you could remember the back face of a card. This is to be done after flipping the card. +
+Format: `no`
 
 === Saving the data
 
 All data in FlashSpeed (e.g. decks, cards) are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-=== Studying a deck `[coming in v2.0]`
-
-_{explain how the user can study a deck in Play mode}_
-
 == FAQ
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous FlashSpeed folder.
+*Q*: How do I transfer my data to another computer? +
+*A*: Install FlashSpeed in the other computer and overwrite the data folder it creates with your current data folder.
 
 == Command Summary
 
-* *Help* : `help`
-* *List* : `list`
+* *Help* : `help` +
+* *Exit* : `exit` +
+* *Reset* : `reset`
+
+* *Select* : `select <index>` +
+e.g. `select 2`
 * *Create* : `create <deck>` +
 e.g. `create Japanese 1`
-* *Add* `add <index> <front>:<back>` +
-e.g. `add 1 ありがとう:thanks`
-* *Show* `show <index>` +
-e.g. `show 2`
+* *Remove* : `remove <index>` +
+e.g. `remove 2`
+* *Rename* : `rename <index> <deck>` +
+e.g. `rename 2 Japanese Verbs`
+* *Play* : `play <index>` +
+e.g. `play 2`
+
+* *Add* `add <front>:<back>` +
+e.g. `add ありがとう:thanks`
 * *Edit* : `edit <index> <front>:<back>` or `edit <index> :<back>` or `edit <index> <front>:` +
 e.g. `edit 1 ありがとう:thanks` or `edit 1 :thanks` or `edit 1 ありがとう:`
 * *Delete* : `delete <index>` +
 e.g. `delete 3`
-* *Clear* : `clear`
-* *Exit* : `exit`
+* *Return* : `return`
+
+* *Flip* : `flip`
+* *Yes* : `yes`
+* *No* : `no`
