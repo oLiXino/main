@@ -8,11 +8,23 @@
 <?import javafx.scene.control.Label?>
 
 <?import javafx.collections.FXCollections?>
-<StackPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
-
-   <AnchorPane prefHeight="200.0" prefWidth="200.0" />
-   <TableView fx:id="itemTbl" prefHeight="200.0" prefWidth="200.0">
-
-   </TableView>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<StackPane xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-color: #ffffff" xmlns="http://javafx.com/javafx/11.0.1" fx:id="pane">
+   <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="94.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+      <children>
+         <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+         <Label fx:id="front" prefHeight="17.0" prefWidth="205.0"/>
+         <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+         <VBox alignment="CENTER_RIGHT" prefHeight="94.0" prefWidth="200.0">
+            <children>
+               <Label fx:id="back" prefHeight="17.0" prefWidth="200.0"  />
+            </children>
+         </VBox>
+      </children>
+   </HBox>
 
 </StackPane>

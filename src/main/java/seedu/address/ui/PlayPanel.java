@@ -4,10 +4,12 @@ import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.card.Card;
@@ -24,54 +26,47 @@ public class PlayPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML
-    TableView itemTbl;
+    Label front;
 
-    public PlayPanel(ObservableValue<Deck> selectedDeck) {
+    @FXML
+    Label back;
+
+    @FXML
+    StackPane pane;
+
+    public PlayPanel(ObservableValue<Card> playingCard, ObservableValue<Boolean> flipped) {
         super(FXML);
 
-        TableColumn<Deck, Number> indexColumn = new TableColumn<Deck, Number>("ID");
-        indexColumn.setCellValueFactory(column-> new ReadOnlyObjectWrapper<Number>(itemTbl.getItems().indexOf(column.getValue())+1));
 
-
-        TableColumn frontColumn = new TableColumn("Front");
-        frontColumn.setCellValueFactory(new PropertyValueFactory<>("frontFace"));
-
-        TableColumn backColumn = new TableColumn("Back");
-        backColumn.setCellValueFactory(new PropertyValueFactory<>("backFace"));
-
-        itemTbl.getColumns().addAll(indexColumn, frontColumn, backColumn);
-
-        indexColumn.prefWidthProperty().bind(itemTbl.widthProperty().multiply(0.2));
-        frontColumn.prefWidthProperty().bind(itemTbl.widthProperty().multiply(0.4));
-        backColumn.prefWidthProperty().bind(itemTbl.widthProperty().multiply(0.4));
-
-        indexColumn.setSortable(false);
-        frontColumn.setSortable(false);
-        backColumn.setSortable(false);
-        
-        indexColumn.setResizable(false);
-        frontColumn.setResizable(false);
-        backColumn.setResizable(false);
-
-        // Load deck page when selected deck changes.
-        selectedDeck.addListener((observable, oldValue, newValue) -> {
+        // Load deck page when selected card changes.
+        playingCard.addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
                 return;
             }
-            getCardList(newValue);
+            showPlayingCard(newValue);
+
+        });
+
+        flipped.addListener((observable, oldValue, newValue) -> {
+            if (newValue == false) {
+                back.setVisible(false);
+            }
+
+            else if (newValue == true) {
+                back.setVisible(true);
+            }
+
         });
     }
 
-    private void getCardList(Deck deck) {
-        itemTbl.getItems().clear();
-        ObservableList<Card> cardList = deck.asUnmodifiableObservableList();
-        for (int i = 0; i < cardList.size(); i++) {
-            Card card = cardList.get(i);
-            itemTbl.getItems().add(card);
-        }
+    public void showPlayingCard(Card card) {
+        front.setText(card.getFrontFace().toString());
+        back.setText(card.getBackFace().toString());
     }
 
-    private void printCard(Card card) {
-        itemTbl.getItems().add(card);
+    public void flipCard(Card card) {
+
     }
+
+
 }

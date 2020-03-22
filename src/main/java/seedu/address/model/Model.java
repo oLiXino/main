@@ -108,6 +108,16 @@ public interface Model {
     ReadOnlyProperty<Mode> currentModeProperty();
 
     /**
+     * Returns the readonly property.
+     */
+    ReadOnlyProperty<Card> playingCardProperty();
+
+    /**
+     * Returns the readonly property.
+     */
+    ReadOnlyProperty<Boolean> flippedProperty();
+
+    /**
      * Brings the user from deck view to library view.
      */
     void returnToLibrary();
@@ -170,7 +180,11 @@ public interface Model {
      */
     void setSelectedDeck(Deck deck);
 
+    void setFlipped(Boolean value);
+
     void setCurrentMode(Mode mode);
+
+    void setPlayingCard(Card card);
     
     Card getCard(Index index);
 
