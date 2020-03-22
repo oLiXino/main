@@ -39,7 +39,8 @@ public class BrowserPanel extends UiPart<Region> {
 
         TableColumn<Deck, Number> indexColumn = new TableColumn<Deck, Number>("ID");
 
-        indexColumn.setCellValueFactory(column-> new ReadOnlyObjectWrapper<Number>(itemTbl.getItems().indexOf(column.getValue())+1));
+        indexColumn.setCellValueFactory(column-> new ReadOnlyObjectWrapper<Number>(
+                itemTbl.getItems().indexOf(column.getValue()) + 1));
 
         TableColumn frontColumn = new TableColumn("Front");
         frontColumn.setCellValueFactory(new PropertyValueFactory<>("frontFace"));
@@ -64,9 +65,10 @@ public class BrowserPanel extends UiPart<Region> {
         // Load deck page when selected deck changes.
         selectedDeck.addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
-                return;
+                itemTbl.getItems().clear();
+            } else {
+                getCardList(newValue);   
             }
-            getCardList(newValue);
         });
     }
 
