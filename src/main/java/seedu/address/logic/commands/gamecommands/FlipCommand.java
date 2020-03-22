@@ -14,7 +14,7 @@ public class FlipCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Flips the card to see the back face.\n";
-    public static final String MESSAGE_SUCCESS = "Back face: %1$s";
+    public static final String MESSAGE_SUCCESS = "Did you get your answer right?";
     public static final String MESSAGE_NOT_PLAY_MODE = "Not in play mode!";
     public static final String MESSAGE_ALREADY_FLIPPED = "Card already flipped!";
 
@@ -39,7 +39,7 @@ public class FlipCommand extends Command {
             throw new CommandException(MESSAGE_ALREADY_FLIPPED);
         }
         
-        return new CommandResult(String.format(MESSAGE_SUCCESS, backFace));
+        return new CommandResult(String.format(MESSAGE_SUCCESS));
     }
 
     @Override
