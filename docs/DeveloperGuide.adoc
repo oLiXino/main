@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S2-CS2103T-W17-1/main
 
-By: `AY1920S2-CS2103T-W17-1`      Since: `Feb 2020`      Licence: `MIT`
+By: `FlashSpeed Foundation`      Since: `Feb 2020`      Licence: `MIT`
 
 == Setting up
 
@@ -28,7 +28,7 @@ Refer to the guide <<SettingUp#, here>>.
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of the FlashSpeed App. Given below is a quick overview of each component.
 
 [TIP]
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
@@ -64,9 +64,9 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 2`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `delete 2` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -152,6 +152,21 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+=== Editing of Card faces
+==== Current Implementation
+
+The `edit` command allows for the values of a card's face(s) to be changed. There are 3 valid command command
+formats accepted:
+
+* `edit INDEX FRONT:BACK` +
+* `edit INDEX :BACK` +
+* `edit INDEX FRONT:`
+
+This functionality is implemented by replacing the Card to be edited in the Deck with a new Card containing
+the new values.
+
+{to be continued}
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
