@@ -337,14 +337,21 @@ public class ModelManager implements Model {
     @Override
     public Card answerYes() {
         Card card = this.game.answerYes();
-        if (card != null && card.getFrontFace() == null && card.getBackFace() == null) {
+        
+        if (card == null) {
             this.game = null;
             this.mode = Mode.VIEW;
             setCurrentMode(Mode.VIEW);
         }
+        
         setPlayingCard(card);
         setFlipped(false);
+        
         return card;
+    }
+    
+    public GameManager getGame() {
+        return this.game;
     }
 
     /**
@@ -354,13 +361,16 @@ public class ModelManager implements Model {
     @Override
     public Card answerNo() {
         Card card = this.game.answerNo();
-        if (card != null && card.getFrontFace() == null && card.getBackFace() == null) {
+        
+        if (card == null) {
             this.game = null;
             this.mode = Mode.VIEW;
             setCurrentMode(Mode.VIEW);
         }
+        
         setPlayingCard(card);
         setFlipped(false);
+        
         return card;
     }
 

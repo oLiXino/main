@@ -206,6 +206,8 @@ public interface Model {
      * @return the next card or null if card list is empty
      */
     Card answerYes();
+    
+    GameManager getGame();
 
     /**
      * Returns the next card after user answers No.

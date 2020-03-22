@@ -25,6 +25,10 @@ public class GameManager {
         this.wrongAns = 0;
         this.counter = 0;
     }
+    
+    public boolean isFlipped() {
+        return this.flipped;
+    }
 
     /**
      * Flips the card to the back face.
@@ -44,15 +48,14 @@ public class GameManager {
      * @return the next card or null if card list is empty
      */
     public Card answerYes() {
-        if (!flipped) {
-            return null;
-        }
         this.correctAns++;
         counter++;
         flipped = false;
+        
         if (counter == cards.size()) {
-            return new Card(null, null);
+            return null;
         }
+        
         return cards.get(counter);
     }
 
@@ -62,15 +65,14 @@ public class GameManager {
      * @return the next card or null if card list is empty
      */
     public Card answerNo() {
-        if (!flipped) {
-            return null;
-        }
         this.wrongAns++;
         counter++;
         flipped = false;
+        
         if (counter == cards.size()) {
-            return new Card(null, null);
+            return null;
         }
+        
         return cards.get(counter);
     }
 }
