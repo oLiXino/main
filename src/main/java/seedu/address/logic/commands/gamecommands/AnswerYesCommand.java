@@ -28,11 +28,14 @@ public class AnswerYesCommand extends Command {
         if (model.getMode() == Mode.VIEW) {
             throw new CommandException(MESSAGE_NOT_PLAY_MODE);
         }
-        Card nextCard = model.answerYes();
-        if (nextCard == null) {
+        
+        if (!model.getGame().isFlipped()) {
             throw new CommandException(MESSAGE_NOT_FLIPPED);
         }
-        if (nextCard.getFrontFace() == null && nextCard.getBackFace() == null) {
+
+        Card nextCard = model.answerYes();
+        
+        if (nextCard == null) {
             return new CommandResult(String.format(MESSAGE_END_GAME));
         }
         

@@ -24,18 +24,21 @@ public class AnswerNoCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        
+
         if (model.getMode() == Mode.VIEW) {
             throw new CommandException(MESSAGE_NOT_PLAY_MODE);
         }
-        Card nextCard = model.answerNo();
-        if (nextCard == null) {
+
+        if (!model.getGame().isFlipped()) {
             throw new CommandException(MESSAGE_NOT_FLIPPED);
         }
-        if (nextCard.getFrontFace() == null && nextCard.getBackFace() == null) {
+
+        Card nextCard = model.answerNo();
+
+        if (nextCard == null) {
             return new CommandResult(String.format(MESSAGE_END_GAME));
         }
-        
+
         return new CommandResult(String.format(MESSAGE_SUCCESS));
     }
 

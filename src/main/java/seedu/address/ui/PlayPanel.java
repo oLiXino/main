@@ -36,26 +36,22 @@ public class PlayPanel extends UiPart<Region> {
 
     public PlayPanel(ObservableValue<Card> playingCard, ObservableValue<Boolean> flipped) {
         super(FXML);
-
-
+        
+        back.setVisible(false);
+        
         // Load deck page when selected card changes.
         playingCard.addListener((observable, oldValue, newValue) -> {
-            if (newValue == null) {
-                return;
-            }
-            showPlayingCard(newValue);
-
+            if (newValue != null) {
+                showPlayingCard(newValue);
+            }            
         });
 
         flipped.addListener((observable, oldValue, newValue) -> {
-            if (newValue == false) {
+            if (newValue) {
+                back.setVisible(true);
+            } else {
                 back.setVisible(false);
             }
-
-            else if (newValue == true) {
-                back.setVisible(true);
-            }
-
         });
     }
 
@@ -63,10 +59,4 @@ public class PlayPanel extends UiPart<Region> {
         front.setText(card.getFrontFace().toString());
         back.setText(card.getBackFace().toString());
     }
-
-    public void flipCard(Card card) {
-
-    }
-
-
 }
