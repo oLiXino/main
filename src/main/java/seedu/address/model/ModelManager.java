@@ -39,6 +39,8 @@ public class ModelManager implements Model {
     private Optional<Index> deckIndex;
     private final SimpleObjectProperty<Deck> selectedDeck = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Mode> currentMode = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Card> playingCard = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Boolean> flipped = new SimpleObjectProperty<>();
     private GameManager game;
 
     /**
@@ -101,6 +103,16 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyProperty<Mode> currentModeProperty() {
         return currentMode;
+    }
+
+    @Override
+    public ReadOnlyProperty<Card> playingCardProperty() {
+        return playingCard;
+    }
+
+    @Override
+    public ReadOnlyProperty<Boolean> flippedProperty() {
+        return flipped;
     }
     
     @Override
@@ -186,6 +198,16 @@ public class ModelManager implements Model {
     @Override
     public void setSelectedDeck(Deck deck) {
         selectedDeck.setValue(deck);
+    }
+
+    @Override
+    public void setFlipped(Boolean value) {
+        flipped.setValue(value);
+    }
+
+    @Override
+    public void setPlayingCard(Card card) {
+        playingCard.setValue(card);
     }
 
     @Override
@@ -290,7 +312,10 @@ public class ModelManager implements Model {
         this.game = new GameManager(deck);
         this.mode = Mode.PLAY;
         setCurrentMode(Mode.PLAY);
-        return deck.asUnmodifiableObservableList().get(0);
+        Card card = deck.asUnmodifiableObservableList().get(0);
+        setPlayingCard(card);
+        setFlipped(false);
+        return card;
     }
 
     /**
@@ -300,6 +325,7 @@ public class ModelManager implements Model {
      */
     @Override
     public BackFace flip() {
+        setFlipped(true);
         return this.game.flip();
     }
 
@@ -314,7 +340,10 @@ public class ModelManager implements Model {
         if (card != null && card.getFrontFace() == null && card.getBackFace() == null) {
             this.game = null;
             this.mode = Mode.VIEW;
+            setCurrentMode(Mode.VIEW);
         }
+        setPlayingCard(card);
+        setFlipped(false);
         return card;
     }
 
@@ -328,7 +357,10 @@ public class ModelManager implements Model {
         if (card != null && card.getFrontFace() == null && card.getBackFace() == null) {
             this.game = null;
             this.mode = Mode.VIEW;
+            setCurrentMode(Mode.VIEW);
         }
+        setPlayingCard(card);
+        setFlipped(false);
         return card;
     }
 

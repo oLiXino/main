@@ -7,6 +7,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.card.Card;
 import seedu.address.model.util.Mode;
 
 import java.nio.file.Path;
@@ -49,7 +50,11 @@ public interface Logic {
 
     ReadOnlyProperty<Deck> selectedDeckProperty();
 
+    ReadOnlyProperty<Card> playingCardProperty();
+
     ReadOnlyProperty<Mode> currentModeProperty();
+
+    ReadOnlyProperty<Boolean> flippedProperty();
 
     /**
      * Returns the mode of the model manager.
