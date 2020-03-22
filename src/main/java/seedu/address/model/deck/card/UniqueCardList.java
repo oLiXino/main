@@ -35,6 +35,10 @@ public class UniqueCardList implements Iterable<Card> {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::equals);
     }
+    
+    public int getSize() {
+        return internalList.size();
+    }
 
     /**
      * Adds a card to the list.
@@ -87,7 +91,7 @@ public class UniqueCardList implements Iterable<Card> {
      * Replaces the equivalent card from the list with the new card.
      * The old card must exist in the list and the new card must not already exist in the list.
      */
-    public void replace(Card toRemove, Card toAdd) throws DuplicateCardException {
+    public void replace(Card toRemove, Card toAdd) throws CardNotFoundException, DuplicateCardException {
         requireAllNonNull(toRemove, toAdd);
 
         int idx = internalList.indexOf(toRemove);
@@ -95,6 +99,26 @@ public class UniqueCardList implements Iterable<Card> {
             throw new CardNotFoundException();
         }
         
+        // leave the unedited face value intact
+        if (toAdd.getBackFace().getValue().isBlank()) {  // only change the front
+            FrontFace newFrontFace = toAdd.getFrontFace();
+            BackFace oldFrontFace = toRemove.getBackFace();
+            toAdd = new Card(newFrontFace, oldFrontFace);
+//            internalList.set(idx, new Card(newFrontFace, oldFrontFace));
+        } else if (toAdd.getFrontFace().getValue().isBlank()) {  // only change the back
+            FrontFace oldFrontFace = toRemove.getFrontFace();
+            BackFace newFrontFace = toAdd.getBackFace();
+            toAdd = new Card(oldFrontFace, newFrontFace);
+//            internalList.set(idx, new Card(oldFrontFace, newFrontFace));
+        }
+//        else {
+//            internalList.set(idx, toAdd);
+//        }
+        
+        if (contains(toAdd)) {
+            throw new DuplicateCardException();
+        }
+
         internalList.set(idx, toAdd);
     }
 

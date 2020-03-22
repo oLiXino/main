@@ -46,8 +46,7 @@ public class LogicManager implements Logic {
         
         command = masterParser.parseCommand(commandText);
         commandResult = command.execute(model);
-
-
+        
         try {
             storage.saveLibrary(model.getLibrary());
         } catch (IOException ioe) {
