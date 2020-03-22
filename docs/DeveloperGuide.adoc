@@ -153,102 +153,62 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-=== Editing of Card faces
+// tag::editcard[]
+=== Shortcut editing of Card face values
 ==== Current Implementation
 
-The `edit` command allows for the values of a card's face(s) to be changed. There are 3 valid command command
-formats accepted:
+The `edit` command allows for the values of a Card's face(s) to be changed. There are 3 command formats
+accepted:
 
 * `edit INDEX FRONT:BACK` +
 * `edit INDEX :BACK` +
 * `edit INDEX FRONT:`
 
 This functionality is implemented by replacing the Card to be edited in the Deck with a new Card containing
-the new values.
+the new face values (`FRONT` and `BACK`). The shortcut versions of the command (second and third formats above) allows
+for one face value of the Card to be edited while preserving the other face value. In this situation, the unedited face
+value in the new Card will be a blank string (since either `FRONT` or `BACK` will be a blank string). Subsequently, this
+blank value will be replaced by the associated value in the Card to be replaced.
 
-{to be continued}
+The validation of the arguments in the `edit` command is performed in `EditCommandParser#parse()`. Note that
+the validation only checks that the command is well-formed. It does not check for the validity of the command
+in the current environment (e.g. if we are currently in Deck view or not). This is for separation of parsing
+logic and model management logic.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+In `EditCommandParser#parse()`, the `INDEX` of the card to be edited and the new face value(s) are extracted
+from the arguments in the `edit` command. The `INDEX` is converted to an Index object. An `EditCardCommand`
+object is then constructed with the Index and the new Card as its parameters.
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+When `EditCardCommand#execute()` is executed, the environment is then checked. The `edit` command is only valid when
+we are currently in a Deck, thus a check on the current view is performed using `ModelManager#getView()`. Then
+the Index of the card to be edited is checked by ensuring it is in the range of [0, size of current Deck) using
+`ModelManager#getCurrentDeck().getSize()`.
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+To perform a replacement of a Card in the current Deck, we need the old Card and the new Card. The old Card is required
+so we can know which Card is to be replaced via an equality check and also to know the face value which needs to be
+preserved (if needed). We can get the Card to be edited using `ModelManager#getCard()` with the provided Index. We can
+then perform the replacement using `ModelManager#replaceCard()` with the old Card and the new Card as the parameters.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+`ModelManager#replaceCard()` will go through `Deck#replace()` and finally to `UniqueCardList#replace()`.
+In `UniqueCardList#replace()`, if the new Card has an empty string as its value in either face, the value is
+replaced with the face value of the Card in the current Deck to be replaced. This preserves the old face value
+which was expected from using the shortcut formats of the `edit` command.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+The following sequence diagram shows how the `edit` operation works:
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
+image::EditSequenceDiagram.png[]
 
 ==== Design Considerations
 
-===== Aspect: How undo & redo executes
+===== Aspect: How the replacement Card is formed during the start of execution
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+* **Alternative 1 (current choice):** A blank string in a face of the new Card means we use the face value in the Card to be replaced.
+** Pros: Easy to implement. Can use the extracted values in the arguments as is. Let the final step (`UniqueCardList#replace()`) handle the replacement logic.
+** Cons: From `EditCardCommandParser` until the end of the command execution in `LogicManager`, there may exist a Card with a face containing a blank string. May not be a desirable object to have.
+* **Alternative 2:** Get the Card to be edited directly in `EditCardCommandParser` so we can immediately produce the new Card with its final face values.
+** Pros: The Card to replace the old Card will be fully formed from the start.
+** Cons: No separation of parsing and model management logic since we would need to do a view check and get a Card from the current Deck all while in the parser.
+// end::editcard[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption

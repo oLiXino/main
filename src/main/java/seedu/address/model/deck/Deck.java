@@ -32,6 +32,10 @@ public class Deck {
     public Name getName() {
         return name;
     }
+    
+    public int getSize() {
+        return cards.getSize();
+    }
 
     /**
      * Returns true if the list contains an equivalent card as the given argument.
