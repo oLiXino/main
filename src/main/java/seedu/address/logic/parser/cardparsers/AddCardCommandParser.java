@@ -2,15 +2,15 @@ package seedu.address.logic.parser.cardparsers;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import seedu.address.logic.commands.cardcommands.AddCardCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.card.BackFace;
 import seedu.address.model.deck.card.Card;
 import seedu.address.model.deck.card.FrontFace;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Parses input arguments and creates a new AddCardCommand object.
@@ -40,9 +40,9 @@ public class AddCardCommandParser implements Parser<AddCardCommand> {
         if (frontValue.isBlank() || backValue.isBlank()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCardCommand.MESSAGE_USAGE));
         }
-        
+
         FrontFace front = new FrontFace(frontValue);
-        BackFace  back  = new BackFace(backValue);
+        BackFace back  = new BackFace(backValue);
         
         Card card = new Card(front, back);
         return new AddCardCommand(card);

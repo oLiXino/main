@@ -121,8 +121,8 @@ public class MasterParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case ClearLibraryCommand.COMMAND_WORD:
-            return new ClearLibraryCommand();
+        case ResetLibraryCommand.COMMAND_WORD:
+            return new ResetLibraryCommand();
 
         case ReturnToLibraryCommand.COMMAND_WORD:
             return new ReturnToLibraryCommand();

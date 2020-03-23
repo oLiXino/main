@@ -43,12 +43,6 @@ public class SelectDeckCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        /* not needed, parser handles invalid index
-        if (!model.hasDeck(toSelect)) {
-            throw new CommandException(MESSAGE_DECK_NOT_FOUND);
-        }
-        */
-
         List<Deck> filteredDeckList = model.getFilteredDeckList();
 
         model.selectDeck(targetIdx);
