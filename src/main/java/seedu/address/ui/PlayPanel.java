@@ -39,13 +39,14 @@ public class PlayPanel extends UiPart<Region> {
         
         back.setVisible(false);
         
-        // Load deck page when selected card changes.
+        //Load playing card
         playingCard.addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 showPlayingCard(newValue);
             }            
         });
 
+        //Show back face when flipped
         flipped.addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 back.setVisible(true);
@@ -57,6 +58,8 @@ public class PlayPanel extends UiPart<Region> {
 
     public void showPlayingCard(Card card) {
         front.setText(card.getFrontFace().toString());
+        front.setWrapText(true);
         back.setText(card.getBackFace().toString());
+        back.setWrapText(true);
     }
 }
