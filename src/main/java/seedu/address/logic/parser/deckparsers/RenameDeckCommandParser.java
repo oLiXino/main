@@ -3,15 +3,15 @@ package seedu.address.logic.parser.deckparsers;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.deckcommands.RenameDeckCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Name;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Parses input arguments and creates a new RenameDeckCommand object
@@ -21,7 +21,7 @@ public class RenameDeckCommandParser implements Parser<RenameDeckCommand> {
     /**
      * Gets pattern INDEX NAME, spaces between INDEX and NAME is handled.
      */
-    private final Pattern COMMAND_FORMAT = Pattern.compile("(?<index>\\d+)(\\s+)(?<name>.*)");
+    private static final Pattern COMMAND_FORMAT = Pattern.compile("(?<index>\\d+)(\\s+)(?<name>.*)");
 
     /**
      * Parses the given {@code String} of arguments in the context of the RenameDeckCommand

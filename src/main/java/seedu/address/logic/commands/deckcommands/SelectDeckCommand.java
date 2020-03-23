@@ -2,14 +2,14 @@ package seedu.address.logic.commands.deckcommands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Deck;
-
-import java.util.List;
 
 /**
  * Selects a deck in the library.

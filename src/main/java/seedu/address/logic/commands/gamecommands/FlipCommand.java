@@ -1,13 +1,13 @@
 package seedu.address.logic.commands.gamecommands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.deck.card.BackFace;
 import seedu.address.model.util.Mode;
-
-import static java.util.Objects.requireNonNull;
 
 public class FlipCommand extends Command {
     public static final String COMMAND_WORD = "flip";
@@ -34,7 +34,7 @@ public class FlipCommand extends Command {
         if (model.getMode() == Mode.VIEW) {
             throw new CommandException(MESSAGE_NOT_PLAY_MODE);
         }
-        BackFace backFace= model.flip();
+        BackFace backFace = model.flip();
         if (backFace == null) {
             throw new CommandException(MESSAGE_ALREADY_FLIPPED);
         }
