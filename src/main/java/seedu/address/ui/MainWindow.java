@@ -117,7 +117,7 @@ public class MainWindow extends UiPart<Stage> {
         if (logic.getMode() == Mode.VIEW) {
             browserPanel = new BrowserPanel(logic.selectedDeckProperty());
             rightPlaceholder.getChildren().add(browserPanel.getRoot());
-        } else {
+        } else if (logic.getMode() == Mode.PLAY) {
             playPanel = new PlayPanel(logic.playingCardProperty(), logic.flippedProperty());
             rightPlaceholder.getChildren().add(playPanel.getRoot());
         }

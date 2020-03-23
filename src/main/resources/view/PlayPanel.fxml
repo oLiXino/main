@@ -13,17 +13,20 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.shape.Rectangle?>
 <StackPane xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-color: #ffffff" xmlns="http://javafx.com/javafx/11.0.1" fx:id="pane">
-   <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="94.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
       <children>
-         <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-         <Label fx:id="front" prefHeight="17.0" prefWidth="205.0"/>
-         <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-         <VBox alignment="CENTER_RIGHT" prefHeight="94.0" prefWidth="200.0">
-            <children>
-               <Label fx:id="back" prefHeight="17.0" prefWidth="200.0"  />
-            </children>
-         </VBox>
+
+         <StackPane style="-fx-background-color: #4473c5" prefWidth="140.0" >
+         <Label alignment="CENTER" fx:id="front" style="-fx-text-fill: white;" />
+         </StackPane>
+         <Region prefHeight="200.0" maxWidth="200"  HBox.hgrow="ALWAYS" />
+
+         <StackPane style="-fx-background-color: #4473c5" prefWidth="140.0">
+                  <Label alignment="CENTER" fx:id="back" style="-fx-text-fill: white;"/>
+         </StackPane>
+
       </children>
    </HBox>
 
