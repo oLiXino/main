@@ -2,11 +2,13 @@ package seedu.address.logic.commands.cardcommands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.deck.card.Card;
+import seedu.address.model.util.View;
 
 /**
  * Adds a card to the deck.
@@ -38,6 +40,10 @@ public class AddCardCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (model.getView() != View.DECK) {
+            throw new CommandException(Messages.MESSAGE_NOT_IN_DECK_VIEW);
+        }
 
         if (model.hasCard(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_CARD);
