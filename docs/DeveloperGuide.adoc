@@ -295,6 +295,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |exit the program by typing | exit the program without using the mouse
 
+|`* *` |user |have a <<spaced-repetition-system,spaced-repetition system>> |memorize new words even more effectively
+
 |`* *` |user |find a deck by name |locate the deck without having to go through the entire list of decks
 
 |`* *` |user |find a specific card by name in any language |locate the card without having to go through the entire list of decks and cards
@@ -308,8 +310,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |user |clone a deck of cards |so that I can create custom sets of decks from existing decks quickly
 
 |`*` |user |add audio files to cards |add more information such as the correct pronunciation to the card
-
-|`*` |user |have a <<spaced-repetition-system,spaced-repetition system>> |memorize new words even more effectively
 
 |`*` |user |choose to have a card I appear more times |have cards that are harder to memorize appear more frequently
 
