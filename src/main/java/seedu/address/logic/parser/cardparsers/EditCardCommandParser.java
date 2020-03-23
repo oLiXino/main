@@ -24,7 +24,10 @@ public class EditCardCommandParser implements Parser<EditCardCommand> {
      * Also, can choose whether to allow no space between INDEX and FRONT:BACK.
      * Allows for fast edit (INDEX :BACK) or (INDEX FRONT:).
      */
-    private final Pattern COMMAND_FORMAT = Pattern.compile("(?<index>\\d+)(\\s+)(?<front>.*)(\\s*:\\s*)(?<back>.*)");
+    private final Pattern COMMAND_FORMAT = Pattern.compile(
+            "(?<index>\\d+)(\\s+)(?<front>.*)" +
+            "(\\s*[\u003a\u02d0\u02d1\u02f8\u05c3\u2236\u2360\ua789\ufe13\uff1a\ufe55]\\s*)" +
+            "(?<back>.*)");
 
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCardCommand
