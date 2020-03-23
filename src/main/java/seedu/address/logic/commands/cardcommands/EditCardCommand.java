@@ -8,7 +8,9 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.deck.card.BackFace;
 import seedu.address.model.deck.card.Card;
+import seedu.address.model.deck.card.FrontFace;
 import seedu.address.model.util.View;
 
 /**
@@ -40,11 +42,14 @@ public class EditCardCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Card edited: %1$s";
 
     private final Index targetIndex;
-    private final Card editedCard;
+    private final FrontFace front;
+    private final BackFace back;
+    private Card editedCard;
 
-    public EditCardCommand(Index targetIndex, Card editedCard) {
+    public EditCardCommand(Index targetIndex, FrontFace front, BackFace back) {
         this.targetIndex = targetIndex;
-        this.editedCard = editedCard;
+        this.front = front;
+        this.back = back;
     }
 
     @Override
@@ -58,8 +63,18 @@ public class EditCardCommand extends Command {
         if (targetIndex.getZeroBased() >= model.getCurrentDeck().getSize()) {
             throw new CommandException(Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
         }
-        
+
         Card oldCard = model.getCard(targetIndex);
+
+        if (front.toString().isBlank()) {
+            FrontFace newFront = new FrontFace(oldCard.getFrontFace().toString());
+            editedCard = new Card(newFront, back);
+        } else if (back.toString().isBlank()) {
+            BackFace newBack = new BackFace(oldCard.getBackFace().toString());
+            editedCard = new Card(front, newBack);
+        } else {
+            editedCard = new Card(front, back);
+        }
 
         model.replaceCard(oldCard, editedCard);
         return new CommandResult(String.format(MESSAGE_SUCCESS, editedCard));

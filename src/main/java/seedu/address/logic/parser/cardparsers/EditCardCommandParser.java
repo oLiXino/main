@@ -50,11 +50,10 @@ public class EditCardCommandParser implements Parser<EditCardCommand> {
 
         FrontFace front = new FrontFace(frontValue);
         BackFace back  = new BackFace(backValue);
-        Card card = new Card(front, back);
 
         try {
             Index index = ParserUtil.parseIndex(indexStr);
-            return new EditCardCommand(index, card);
+            return new EditCardCommand(index, front, back);
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCardCommand.MESSAGE_USAGE), pe);
