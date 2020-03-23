@@ -44,12 +44,6 @@ public class LogicManager implements Logic {
         CommandResult commandResult;
         Command command;
 
-        // sanitize input here
-
-
-
-        // end
-
         command = masterParser.parseCommand(commandText);
         commandResult = command.execute(model);
         
