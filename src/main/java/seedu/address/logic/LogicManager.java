@@ -43,7 +43,7 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command;
-        
+
         command = masterParser.parseCommand(commandText);
         commandResult = command.execute(model);
         

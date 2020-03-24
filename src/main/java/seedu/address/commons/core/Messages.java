@@ -12,4 +12,5 @@ public class Messages {
     public static final String MESSAGE_INVALID_CARD_DISPLAYED_INDEX = "The card index provided is invalid!";
     public static final String MESSAGE_DECKS_LISTED_OVERVIEW = "%1$d decks listed!";
     public static final String MESSAGE_NOT_IN_DECK_VIEW = "Currently not in a deck!";
+    public static final String MESSAGE_NOT_IN_LIBRARY_VIEW = "Currently not in library mode!";
 }

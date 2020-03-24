@@ -1,5 +1,7 @@
 package seedu.address.logic.commands.gamecommands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -7,8 +9,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.card.Card;
-
-import static java.util.Objects.requireNonNull;
 
 public class PlayCommand extends Command {
     public static final String COMMAND_WORD = "play";

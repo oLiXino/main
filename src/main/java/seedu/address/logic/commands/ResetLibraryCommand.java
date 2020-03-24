@@ -8,7 +8,7 @@ import seedu.address.model.Model;
 /**
  * Clears the library.
  */
-public class ClearLibraryCommand extends Command {
+public class ResetLibraryCommand extends Command {
 
     public static final String COMMAND_WORD = "reset";
     public static final String MESSAGE_SUCCESS = "Library has been cleared!";

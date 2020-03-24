@@ -2,15 +2,15 @@ package seedu.address.logic.parser.cardparsers;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import seedu.address.logic.commands.cardcommands.AddCardCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.card.BackFace;
 import seedu.address.model.deck.card.Card;
 import seedu.address.model.deck.card.FrontFace;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Parses input arguments and creates a new AddCardCommand object.
@@ -20,7 +20,10 @@ public class AddCardCommandParser implements Parser<AddCardCommand> {
     /**
      * Gets pattern FRONT:BACK, spaces before and after ":" are handled.
      */
-    private final Pattern COMMAND_FORMAT = Pattern.compile("(?<front>.*)(\\s*:\\s*)(?<back>.*)");
+    private final Pattern COMMAND_FORMAT = Pattern.compile(
+            "(?<front>.*)" +
+            "(\\s*[\u003a\u02d0\u02d1\u02f8\u05c3\u2236\u2360\ua789\ufe13\uff1a\ufe55]\\s*)" +
+            "(?<back>.*)");
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCardCommand
@@ -40,10 +43,10 @@ public class AddCardCommandParser implements Parser<AddCardCommand> {
         if (frontValue.isBlank() || backValue.isBlank()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCardCommand.MESSAGE_USAGE));
         }
-        
+
         FrontFace front = new FrontFace(frontValue);
-        BackFace  back  = new BackFace(backValue);
-        
+        BackFace back  = new BackFace(backValue);
+
         Card card = new Card(front, back);
         return new AddCardCommand(card);
     }

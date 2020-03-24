@@ -14,6 +14,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.Name;
+import seedu.address.model.util.View;
 
 /**
  * Renames the name of a deck in the library.
@@ -53,7 +54,10 @@ public class RenameDeckCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        // to recode
+        if (model.getView() != View.LIBRARY) {
+            throw new CommandException(Messages.MESSAGE_NOT_IN_LIBRARY_VIEW);
+        }
+
         List<Deck> lastShownList = model.getFilteredDeckList();
 
         if (index.getZeroBased() >= lastShownList.size()) {

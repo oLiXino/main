@@ -14,7 +14,7 @@ import seedu.address.model.deck.UniqueDeckList;
  * Duplicates are not allowed (by .isSameDeck comparison).
  */
 public class Library implements ReadOnlyLibrary {
-    
+
     private final UniqueDeckList decks;
 
     /*
@@ -96,7 +96,7 @@ public class Library implements ReadOnlyLibrary {
 
         decks.setDeck(target, editedDeck);
     }
-    
+
     /**
      * Removes {@code key} from this {@code Library}.
      * {@code key} must exist in the library .
@@ -113,7 +113,7 @@ public class Library implements ReadOnlyLibrary {
     }
 
     @Override
-    public ObservableList<Deck> getDeckList() {   // remove the code at the end
+    public ObservableList<Deck> getDeckList() { // remove the code at the end
         return decks.asUnmodifiableObservableList();
     }
 

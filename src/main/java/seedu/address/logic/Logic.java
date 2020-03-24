@@ -1,7 +1,10 @@
 package seedu.address.logic;
 
+import java.nio.file.Path;
+
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -9,8 +12,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.card.Card;
 import seedu.address.model.util.Mode;
-
-import java.nio.file.Path;
 
 /**
  * API of the Logic component.

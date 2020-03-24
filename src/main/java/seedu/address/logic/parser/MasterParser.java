@@ -6,13 +6,17 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.*;
-import seedu.address.logic.commands.deckcommands.RenameDeckCommand;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ResetLibraryCommand;
+import seedu.address.logic.commands.ReturnToLibraryCommand;
 import seedu.address.logic.commands.cardcommands.AddCardCommand;
 import seedu.address.logic.commands.cardcommands.DeleteCardCommand;
 import seedu.address.logic.commands.cardcommands.EditCardCommand;
 import seedu.address.logic.commands.deckcommands.CreateDeckCommand;
 import seedu.address.logic.commands.deckcommands.RemoveDeckCommand;
+import seedu.address.logic.commands.deckcommands.RenameDeckCommand;
 import seedu.address.logic.commands.deckcommands.SelectDeckCommand;
 import seedu.address.logic.commands.gamecommands.AnswerNoCommand;
 import seedu.address.logic.commands.gamecommands.AnswerYesCommand;
@@ -93,7 +97,7 @@ public class MasterParser {
 
         // Card functions
         case AddCardCommand.COMMAND_WORD:
-        return new AddCardCommandParser().parse(arguments);
+            return new AddCardCommandParser().parse(arguments);
 
         case DeleteCardCommand.COMMAND_WORD:
             return new DeleteCardCommandParser().parse(arguments);
@@ -121,8 +125,8 @@ public class MasterParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case ClearLibraryCommand.COMMAND_WORD:
-            return new ClearLibraryCommand();
+        case ResetLibraryCommand.COMMAND_WORD:
+            return new ResetLibraryCommand();
 
         case ReturnToLibraryCommand.COMMAND_WORD:
             return new ReturnToLibraryCommand();

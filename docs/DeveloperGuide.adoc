@@ -98,9 +98,9 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `MasterParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a card).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
@@ -295,6 +295,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |exit the program by typing | exit the program without using the mouse
 
+|`* *` |user |have a <<spaced-repetition-system,spaced-repetition system>> |memorize new words even more effectively
+
 |`* *` |user |find a deck by name |locate the deck without having to go through the entire list of decks
 
 |`* *` |user |find a specific card by name in any language |locate the card without having to go through the entire list of decks and cards
@@ -308,8 +310,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |user |clone a deck of cards |so that I can create custom sets of decks from existing decks quickly
 
 |`*` |user |add audio files to cards |add more information such as the correct pronunciation to the card
-
-|`*` |user |have a <<spaced-repetition-system,spaced-repetition system>> |memorize new words even more effectively
 
 |`*` |user |choose to have a card I appear more times |have cards that are harder to memorize appear more frequently
 

@@ -100,17 +100,17 @@ public class UniqueCardList implements Iterable<Card> {
         }
         
         // leave the unedited face value intact
-        if (toAdd.getBackFace().getValue().isBlank()) {  // only change the front
-            FrontFace newFrontFace = toAdd.getFrontFace();
-            BackFace oldFrontFace = toRemove.getBackFace();
-            toAdd = new Card(newFrontFace, oldFrontFace);
-//            internalList.set(idx, new Card(newFrontFace, oldFrontFace));
-        } else if (toAdd.getFrontFace().getValue().isBlank()) {  // only change the back
-            FrontFace oldFrontFace = toRemove.getFrontFace();
-            BackFace newFrontFace = toAdd.getBackFace();
-            toAdd = new Card(oldFrontFace, newFrontFace);
-//            internalList.set(idx, new Card(oldFrontFace, newFrontFace));
-        }
+//        if (toAdd.getBackFace().getValue().isBlank()) {  // only change the front
+//            FrontFace newFrontFace = toAdd.getFrontFace();
+//            BackFace oldFrontFace = toRemove.getBackFace();
+//            toAdd = new Card(newFrontFace, oldFrontFace);
+////            internalList.set(idx, new Card(newFrontFace, oldFrontFace));
+//        } else if (toAdd.getFrontFace().getValue().isBlank()) {  // only change the back
+//            FrontFace oldFrontFace = toRemove.getFrontFace();
+//            BackFace newFrontFace = toAdd.getBackFace();
+//            toAdd = new Card(oldFrontFace, newFrontFace);
+////            internalList.set(idx, new Card(oldFrontFace, newFrontFace));
+//        }
 //        else {
 //            internalList.set(idx, toAdd);
 //        }

@@ -19,9 +19,8 @@ import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.Name;
 import seedu.address.model.deck.card.BackFace;
 import seedu.address.model.deck.card.Card;
-import seedu.address.model.deck.card.FrontFace;
-import seedu.address.model.util.View;
 import seedu.address.model.util.Mode;
+import seedu.address.model.util.View;
 
 /**
  * Represents the in-memory model of the library data.
@@ -57,8 +56,8 @@ public class ModelManager implements Model {
         filteredDecks = new FilteredList<>(this.library.getDeckList());
         this.deckIndex = Optional.empty();
 
-        this.view = View.LIBRARY;  // 1st view will always be in library
-        this.mode = Mode.VIEW;     // 1st mode will always be in view mode
+        this.view = View.LIBRARY; // 1st view will always be in library
+        this.mode = Mode.VIEW; // 1st mode will always be in view mode
         setCurrentMode(Mode.VIEW);
         this.game = null;
     }
@@ -114,7 +113,7 @@ public class ModelManager implements Model {
     public ReadOnlyProperty<Boolean> flippedProperty() {
         return flipped;
     }
-    
+
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
@@ -214,12 +213,12 @@ public class ModelManager implements Model {
     public void setCurrentMode(Mode mode) {
         currentMode.setValue(mode);
     }
-    
+
     @Override
     public Deck getDeck(Index targetIdx) {
         return library.getDeck(targetIdx);
     }
-    
+
     @Override
     public void returnToLibrary() {
         selectedDeck.setValue(null);
@@ -230,7 +229,9 @@ public class ModelManager implements Model {
     @Override
     public boolean hasCard(Card card) {
         Deck deck = library.getDeck(deckIndex.get());
-        if (deck == null) return false;
+        if (deck == null) {
+            return false;
+        }
         requireNonNull(card);
         return deck.contains(card);
     }
@@ -243,7 +244,9 @@ public class ModelManager implements Model {
     @Override
     public void deleteCard(Card cardToDelete) {
         Deck deck = library.getDeck(deckIndex.get());
-        if (deck == null) return;
+        if (deck == null) {
+            return;
+        }
         deck.remove(cardToDelete);
         setSelectedDeck(null);
         setSelectedDeck(deck);
@@ -252,7 +255,9 @@ public class ModelManager implements Model {
     @Override
     public void addCard(Card card) {
         Deck deck = library.getDeck(deckIndex.get());
-        if (deck == null) return;
+        if (deck == null) {
+            return;
+        }
         deck.add(card);
         setSelectedDeck(null);
         setSelectedDeck(deck);
@@ -262,8 +267,11 @@ public class ModelManager implements Model {
     @Override
     public void replaceCard(Card target, Card card) {
         Deck deck = library.getDeck(deckIndex.get());
-        if (deck == null) return;
+        if (deck == null) {
+            return;
+        }
         deck.replace(target, card);
+        // refresh UI view
         setSelectedDeck(null);
         setSelectedDeck(deck);
         updateFilteredDeckList(PREDICATE_SHOW_ALL_DECKS);
@@ -291,7 +299,7 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Card> getFilteredCardList() {
-        return filteredDecks.get(Integer.parseInt(deckIndex.get().toString())).asUnmodifiableObservableList();
+        return filteredDecks.get(deckIndex.get().getZeroBased()).asUnmodifiableObservableList();
     }
 
     @Override

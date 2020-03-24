@@ -2,17 +2,16 @@ package seedu.address.logic.parser.cardparsers;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.cardcommands.EditCardCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.card.BackFace;
-import seedu.address.model.deck.card.Card;
 import seedu.address.model.deck.card.FrontFace;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Parses input arguments and creates a new EditCardCommand object.
@@ -24,7 +23,9 @@ public class EditCardCommandParser implements Parser<EditCardCommand> {
      * Also, can choose whether to allow no space between INDEX and FRONT:BACK.
      * Allows for fast edit (INDEX :BACK) or (INDEX FRONT:).
      */
-    private final Pattern COMMAND_FORMAT = Pattern.compile("(?<index>\\d+)(\\s+)(?<front>.*)(\\s*:\\s*)(?<back>.*)");
+    private static final Pattern COMMAND_FORMAT = Pattern.compile("(?<index>\\d+)(\\s+)(?<front>.*)"
+            + "(\\s*[\u003a\u02d0\u02d1\u02f8\u05c3\u2236\u2360\ua789\ufe13\uff1a\ufe55]\\s*)"
+            + "(?<back>.*)");
 
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCardCommand
@@ -47,11 +48,10 @@ public class EditCardCommandParser implements Parser<EditCardCommand> {
 
         FrontFace front = new FrontFace(frontValue);
         BackFace back  = new BackFace(backValue);
-        Card card = new Card(front, back);
 
         try {
             Index index = ParserUtil.parseIndex(indexStr);
-            return new EditCardCommand(index, card);
+            return new EditCardCommand(index, front, back);
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCardCommand.MESSAGE_USAGE), pe);
