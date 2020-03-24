@@ -171,6 +171,56 @@ object is then constructed with the Index as its parameter.
 
 When `SelectDeckCommand#execute()` is executed a list of currently available Deck is requested from the `ModelManager#getFilteredDeckList()` method. The `ModelManager#selectDeck()` command will be invoked to update the variable that keeps track of the current Deck. After that, `ModelManager#setSelectedDeck()` method will be called to update the UI and display the Deck content on the right panel. Lastly, the name of the selected Deck will be displayed together with the `MESSAGE_SUCCESS` on the `ResultDisplay` panel.
 
+=== Create A new Deck
+==== Current Implementation
+
+The `create` command allows user to create a new Deck in the current Library. The following syntax is accepted:
+
+`create DECK_NAME`
+
+This functionality is implemented by getting the Deck based on the index provided. Subsequently, the Card(s) that belongs to the selected Deck will be displayed on the right panel via a `TableView`.
+
+The validation of the arguments in the `create` command is performed in `CreateDeckCommandParser#parse()`. It ensures
+that the user has entered a non-null deck name.
+
+In `CreateDeckCommandParser#parse()`, the `DECK_NAME` of is extracted
+from the arguments in the `create` command. The `DECK_NAME` is converted to a Name object. An `CreateDeckCommand`
+object is then constructed with the Deck name as its parameter.
+
+When `CreateDeckCommand#execute()` is executed, an empty Deck with the Name parsed in the `CreateDeckCommand` will be
+created when the Model Manager invokes the `ModelManager#selectDeck()` command.
+After that, `ModelManager#setSelectedDeck()` method will be called to update the UI and display the Deck content
+on the right panel. Lastly, the name of the selected Deck will be displayed together with the
+`MESSAGE_SUCCESS` on the `ResultDisplay` panel.
+
+=== Create A new Card
+==== Current Implementation
+
+The `add` command allows user to create a new Card in the current Deck. The following syntax is accepted:
+
+`add FRONT_VALUE:BACK_VALUE`
+
+This functionality is implemented by getting the Deck based on the current deck selected.
+The Model Manager will be responsible of keeping track of the current deck.
+Subsequently, the Model Manager creates a new card  adds it to the current Deck.
+The display on the right panel will be updated via updating the `TableView`.
+
+The validation of the arguments in the `add` command is performed in `AddCardCommandParser#parse()`. It ensures
+that the user has entered a non-null front value as well as a non-null back value.
+The lack thereof will cause an `InvalidFaceValueException` to be thrown.
+
+In `AddCardCommandParser#parse()`, the `FRONT_VALUE` and the `BACK_VALUE` are extracted
+from the arguments in the `add` command.
+Both values will be converted to a `FrontFace` object and a `BackFace` object respectively.
+A `AddCardCommand` object is then constructed with the 'FrontFace' and 'BackFace' objects as its parameters.
+
+When `AddCardCommand#execute()` is called, a `Card` object with the `FrontFace` and `BackFace`
+parsed in the `CreateDeckCommand` will be
+created when the Model Manager invokes the `ModelManager#addCard()` command.
+After that, `ModelManager#setSelectedDeck()` method will be called to update the UI and display the Deck content
+on the right panel. Lastly, the name of the selected Deck will be displayed together with the
+`MESSAGE_SUCCESS` on the `ResultDisplay` panel.
+
 // tag::editcard[]
 === Shortcut editing of Card face values
 ==== Current Implementation
