@@ -153,6 +153,24 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+=== Select to view a Deck
+==== Current Implementation
+
+The `select` command allows user to view the Card content of a Deck. The following syntax is accepted:
+
+`select INDEX`
+
+This functionality is implemented by getting the Deck based on the index provided. Subsequently, the Card(s) that belongs to the selected Deck will be displayed on the right panel via a `TableView`.
+
+The validation of the arguments in the `select` command is performed in `SelectDeckCommandParser#parse()`. It ensures that the user has entered a valid index (valid data type and range). This is also used for separation of parsing
+logic and model management logic.
+
+In `SelectDeckCommandParser#parse()`, the `INDEX` of the selected Deck is extracted
+from the arguments in the `select` command. The `INDEX` is converted to an Index object. An `SelectCardCommand`
+object is then constructed with the Index as its parameter.
+
+When `SelectDeckCommand#execute()` is executed a list of currently available Deck is requested from the `ModelManager#getFilteredDeckList()` method. The `ModelManager#selectDeck()` command will be invoked to update the variable that keeps track of the current Deck. After that, `ModelManager#setSelectedDeck()` method will be called to update the UI and display the Deck content on the right panel. Lastly, the name of the selected Deck will be displayed together with the `MESSAGE_SUCCESS` on the `ResultDisplay` panel.
+
 // tag::editcard[]
 === Shortcut editing of Card face values
 ==== Current Implementation
