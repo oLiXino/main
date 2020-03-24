@@ -193,6 +193,29 @@ After that, `ModelManager#setSelectedDeck()` method will be called to update the
 on the right panel. Lastly, the name of the selected Deck will be displayed together with the
 `MESSAGE_SUCCESS` on the `ResultDisplay` panel.
 
+[[Anchor-1]]
+==== Design Considerations: Alternative
+Initially, both `CreateDeckCommand` and `AddCardCommand` share the same keyword, which is the `add` keyword.
+In order to distinguish these two commands from each other,
+the Model Manager will check if any deck is currently selected.
+If there is, `AddCardCommandParser#parse()` will be called to parse the arguments.
+Otherwise, `CreateDeckCommandParser#parse()` will be called.
+
+The benefit of this design is that it results in fewer number of command words.
+This helps the user on the navigability of the application due to a few number of command words to remember.
+
+However, the glaring disadvantage is that unexpected outcomes are more likely to occur.
+For example, assume that the user wants to create a new deck. So, he/she types in the following command:
+
+`create Deck 2`
+
+However, the user has forgotten that a deck is currently being selected.
+Therefore, the `AddCardCommandParser#parse()` will be invoked.
+This is certainly not the expected outcome that the user has expected.
+
+And so, our team has decided to implement the current approach,
+which is to assign different keywords to these two different feature.
+
 === Create A new Card
 ==== Current Implementation
 
@@ -220,6 +243,9 @@ created when the Model Manager invokes the `ModelManager#addCard()` command.
 After that, `ModelManager#setSelectedDeck()` method will be called to update the UI and display the Deck content
 on the right panel. Lastly, the name of the selected Deck will be displayed together with the
 `MESSAGE_SUCCESS` on the `ResultDisplay` panel.
+
+==== Design Considerations: Alternative
+See <<Anchor-1, 3.2.2>>.
 
 // tag::editcard[]
 === Shortcut editing of Card face values
