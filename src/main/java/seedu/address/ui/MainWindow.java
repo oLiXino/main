@@ -32,7 +32,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
+    private CardListPanel cardListPanel;
     private PlayPanel playPanel;
     private DeckListPanel deckListPanel;
     private ResultDisplay resultDisplay;
@@ -115,8 +115,8 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
 
         if (logic.getMode() == Mode.VIEW) {
-            browserPanel = new BrowserPanel(logic.selectedDeckProperty());
-            rightPlaceholder.getChildren().add(browserPanel.getRoot());
+            cardListPanel = new CardListPanel(logic.selectedDeckProperty());
+            rightPlaceholder.getChildren().add(cardListPanel.getRoot());
         } else if (logic.getMode() == Mode.PLAY) {
             playPanel = new PlayPanel(logic.playingCardProperty(), logic.flippedProperty());
             rightPlaceholder.getChildren().add(playPanel.getRoot());

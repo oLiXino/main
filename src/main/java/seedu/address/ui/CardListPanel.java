@@ -25,16 +25,16 @@ import static java.util.Objects.requireNonNull;
 /**
  * The Browser Panel of the App.
  */
-public class BrowserPanel extends UiPart<Region> {
+public class CardListPanel extends UiPart<Region> {
 
-    private static final String FXML = "BrowserPanel.fxml";
+    private static final String FXML = "CardListPanel.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML
     TableView itemTbl;
 
-    public BrowserPanel(ObservableValue<Deck> selectedDeck) {
+    public CardListPanel(ObservableValue<Deck> selectedDeck) {
         super(FXML);
 
         TableColumn<Deck, Number> indexColumn = new TableColumn<Deck, Number>("ID");
