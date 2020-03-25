@@ -32,7 +32,12 @@ public class CardListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML
+    Label defaultText;
+
+    @FXML
     TableView itemTbl;
+
+
 
     public CardListPanel(ObservableValue<Deck> selectedDeck) {
         super(FXML);
@@ -66,6 +71,7 @@ public class CardListPanel extends UiPart<Region> {
         selectedDeck.addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
                 itemTbl.getItems().clear();
+                defaultText.setText("No selected deck");
             } else {
                 getCardList(newValue);   
             }
@@ -75,6 +81,9 @@ public class CardListPanel extends UiPart<Region> {
     private void getCardList(Deck deck) {
         itemTbl.getItems().clear();
         ObservableList<Card> cardList = deck.asUnmodifiableObservableList();
+        if (cardList.size() == 0) {
+            defaultText.setText("Selected deck is empty");
+        }
         for (int i = 0; i < cardList.size(); i++) {
             Card card = cardList.get(i);
             itemTbl.getItems().add(card);
