@@ -351,7 +351,7 @@ A valid `flip` command returns the `BACK` face of the card that the user is curr
 
 The following sequence diagram shows how the `flip` operation works.
 
-image::FLipSequenceDiagram.png[]
+image::FlipSequenceDiagram.png[]
 
 // tag::answer[]
 === Answer to the card
