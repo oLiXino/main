@@ -96,6 +96,10 @@ public class Deck {
         return cards.asUnmodifiableObservableList();
     }
 
+    public ObservableList<Card> asObservableList() {
+        return cards.asObservableList();
+    }
+
     /**
      * Returns true if both decks have the same identity and data fields.
      * This defines a stronger notion of equality between two decks.

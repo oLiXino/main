@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.card.BackFace;
@@ -20,7 +21,8 @@ public class GameManager {
      */
     public GameManager(Deck deck) {
         this.flipped = false;
-        this.cards = deck.asUnmodifiableObservableList();
+//        this.cards = deck.asUnmodifiableObservableList();
+        this.cards = deck.asObservableList();
         this.correctAns = 0;
         this.wrongAns = 0;
         this.counter = 0;
@@ -49,7 +51,8 @@ public class GameManager {
      */
     public Card answerYes() {
         this.correctAns++;
-        counter++;
+//        counter++;
+        cards.remove(counter);
         flipped = false;
         
         if (counter == cards.size()) {
