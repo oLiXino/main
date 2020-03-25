@@ -122,20 +122,21 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Library data.
+* stores a `GameManager` object that represents one game session.
+* stores a `Deck` object that represents the deck that the user is viewing when user is in deck view.
+* stores a `Card` object that represents the card that the user is playing with when user is in play mode.
+* stores a `View` object that represents the view that the user is currently in.
+* stores a `Mode` object that represents the mode that the user is currently in.
+* exposes an unmodifiable `ObservableList<Deck>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
+
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -227,6 +228,80 @@ image::EditSequenceDiagram.png[]
 ** Pros: The Card to replace the old Card will be fully formed from the start.
 ** Cons: No separation of parsing and model management logic since we would need to do a view check and get a Card from the current Deck all while in the parser.
 // end::editcard[]
+
+// tag::play[]
+=== Play mode: create a new session with a specific deck
+==== Current Implementation
+
+The `play` command creates a new session to play with a specific deck. The format of the `play` command:
+`play INDEX`
+
+The play command changes the mode of the application to `PLAY` mode and creates a new session with the Deck at the given `INDEX`.
+The value of the `FRONT` of the selected `Deck` will be displayed to the user.
+
+The first validation of the `play` command is performed in `PlayCommandParser#parse()`.
+The validation only checks that the `play` command has the correct format as the `INDEX` argument is given by the user and it is performed on the login level.
+
+In `PlayCommandParser#parse()`, the `INDEX` of the deck is extracted from the arguments in the `play` command. The `INDEX` is converted to an Index object. An `PlayCommand`
+object is then constructed with the Index.
+
+After the object of the `PlayCommand' is constructed, `PlayCommand#execute()` will be executed and the second validation of the `play` command is performed.
+This validation firstly checks if the given `INDEX` argument is a non-negative integer and is within the number of cards in the selected Deck. Then the validation checks if
+there is any card currently in the selected deck by checking if the `FRONT` face and `BACK` face of the card returned by `ModelManager#play()` are both empty.
+
+A valid `play` command will change the `MODE` of the `ModelManager` to `PLAY` mode and an `GameManager` object will be constructed in `ModelManager`.
+The first card of the selected deck is obtained using `deck#asUnmodifiableObservableList().get(0)` and returned to UI. The `FRONT` face of the first card will be displayed to the user.
+
+The following sequence diagram shows how the `play` operation works.
+
+image::PlaySequenceDiagram.png[]
+
+// tag::flip[]
+=== Flip cards in the deck
+==== Current Implementation
+
+The `flip` command flips a card in the selected deck to view the `BACK` face of the card. The format of the `flip` command:
+`flip`
+
+The `flip` command displays the `BACK` face of the card that the user is currently playing with to the user so that user is able to check if his or her answer is correct.
+
+An `FlipCommand` object is constructed and `FlipCommand#execute()` is executed. In `FlipCommand#execute()`, validation for the `flip` command is performed.
+The validation will check if `ModelManager` is in `PLAY` mode using `ModelManager#getMode()`. if `ModelManager` is in `PLAY` mode, then the validation will check if the card has been flipped
+by checking if the returned `BACK` face of the card is empty since a card can only be flipped once.
+
+After that, `ModelManager#flip()` will be executed. In `ModelManager#flip()`, `GameManager#flip()` will be executed and the `BACK` face of the card is obtained using `GameManager#cards.get(counter).getBackFace()` and returned to `ModelManager`.
+
+A valid `flip` command returns the `BACK` face of the card that the user is currently playing to the UI and displays it to the user.
+
+The following sequence diagram shows how the `flip` operation works.
+
+image::FLipSequenceDiagram.png[]
+
+// tag::answer[]
+=== Answer to the card
+==== Current Implementation
+
+User answers to the card that he or she is currently playing with using `yes` or `no` command. The formats of the commands are `yes` and `no` respectively.
+
+After flipping the card, users indicates if he or she gets the correct answer by using `yes` and `no` command.
+
+An `AnswerYesCommand` or `AnswerNoCommand` object is constructed and `AnswerYesCommand#execute()` or `AnswerNoCommand#execute()` is executed accordingly. Validation for the `yes` and `no` command is performed to check
+if if `ModelManager` is in `PLAY` mode using `ModelManager#getMode()`. if `ModelManager` is in `PLAY` mode, then the validation will check if the card has been flipped
+using `ModelManager#getGame().isFlipped()` since a card should not have been flipped before user answers to the card.
+
+After that, `ModelManager#answerYes()` or `ModelManager#answerNo()` will be executed accordingly. In `ModelManager#answerYes()` and `ModelManager#answerNo()`, `GameManager#answerYes()` and `GameManager#answerNo()` will be executed accordingly
+and the next card is obtained using `GameManager#cards.get(counter)` and returned to `ModelManager`. `ModelManager` will check if `ModelManager` will check if the session has ended as the user have run through every card in the deck by checking
+if the returned card is empty.
+
+A valid `yes` or `no` command returns the next card to the UI and the `FRONT` face of the card is displayed to the user.
+
+The following sequence diagrams show how the `yes` and `no` operation work.
+
+image::AnswerYesSequenceDiagram.png[]
+image::AnswerNoSequenceDiagram.png[]
+
+
+
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
