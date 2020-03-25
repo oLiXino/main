@@ -134,6 +134,10 @@ public class UniqueCardList implements Iterable<Card> {
         return internalUnmodifiableList;
     }
 
+    public ObservableList<Card> asObservableList() {
+        return FXCollections.observableArrayList(internalList);
+    }
+
     @Override
     public Iterator<Card> iterator() {
         return internalList.iterator();
