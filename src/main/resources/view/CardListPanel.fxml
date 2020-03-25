@@ -12,7 +12,7 @@
 
    <AnchorPane prefHeight="200.0" prefWidth="200.0" />
    <TableView fx:id="itemTbl" prefHeight="200.0" prefWidth="200.0">
-      <placeholder><Label fx:id="defaultText" text="No selected deck" style="-fx-text-fill:white" /></placeholder>
+      <placeholder><Label fx:id="defaultText" text="No deck selected" style="-fx-text-fill:white" /></placeholder>
    </TableView>
 
 </StackPane>

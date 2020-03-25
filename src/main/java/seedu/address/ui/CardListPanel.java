@@ -71,7 +71,7 @@ public class CardListPanel extends UiPart<Region> {
         selectedDeck.addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
                 itemTbl.getItems().clear();
-                defaultText.setText("No selected deck");
+                defaultText.setText("No deck selected");
             } else {
                 getCardList(newValue);   
             }
