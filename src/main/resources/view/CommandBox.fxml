@@ -2,7 +2,18 @@
 
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
 <StackPane styleClass="stack-pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-  <TextField fx:id="commandTextField" onAction="#handleCommandEntered" promptText="Enter command here..."/>
+  <HBox >
+    <VBox style="-fx-background-color: #4473c5">
+      <padding>
+        <Insets top="10" right="5" bottom="5" left="5" />
+      </padding>
+  <Label text="Enter command: " minWidth="100" style="-fx-text-fill:white"></Label></VBox>
+  <TextField fx:id="commandTextField" onAction="#handleCommandEntered" minWidth="1130"  promptText="Enter command here..."/>
+  </HBox>
 </StackPane>
 
