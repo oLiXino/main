@@ -172,6 +172,9 @@ object is then constructed with the Index as its parameter.
 
 When `SelectDeckCommand#execute()` is executed a list of currently available Deck is requested from the `ModelManager#getFilteredDeckList()` method. The `ModelManager#selectDeck()` command will be invoked to update the variable that keeps track of the current Deck. After that, `ModelManager#setSelectedDeck()` method will be called to update the UI and display the Deck content on the right panel. Lastly, the name of the selected Deck will be displayed together with the `MESSAGE_SUCCESS` on the `ResultDisplay` panel.
 
+==== Design Considerations
+As the UI will have to be constantly updated when we select to view a deck. An
+
 === Create A new Deck
 ==== Current Implementation
 
@@ -193,6 +196,7 @@ created when the Model Manager invokes the `ModelManager#selectDeck()` command.
 After that, `ModelManager#setSelectedDeck()` method will be called to update the UI and display the Deck content
 on the right panel. Lastly, the name of the selected Deck will be displayed together with the
 `MESSAGE_SUCCESS` on the `ResultDisplay` panel.
+
 
 [[Anchor-1]]
 ==== Design Considerations: Alternative

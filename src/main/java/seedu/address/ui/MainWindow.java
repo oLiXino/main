@@ -113,7 +113,6 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-
         if (logic.getMode() == Mode.VIEW) {
             cardListPanel = new CardListPanel(logic.selectedDeckProperty());
             rightPlaceholder.getChildren().add(cardListPanel.getRoot());
