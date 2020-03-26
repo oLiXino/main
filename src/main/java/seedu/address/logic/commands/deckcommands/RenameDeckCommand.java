@@ -54,9 +54,9 @@ public class RenameDeckCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.getView() != View.LIBRARY) {
-            throw new CommandException(Messages.MESSAGE_NOT_IN_LIBRARY_VIEW);
-        }
+//        if (model.getView() != View.LIBRARY) {
+//            throw new CommandException(Messages.MESSAGE_NOT_IN_LIBRARY_VIEW);
+//        }
 
         List<Deck> lastShownList = model.getFilteredDeckList();
 

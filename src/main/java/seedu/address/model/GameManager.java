@@ -34,6 +34,7 @@ public class GameManager {
 
     /**
      * Flips the card to the back face.
+     *
      * @return true if the card has not been flipped, false otherwise
      */
     public BackFace flip() {

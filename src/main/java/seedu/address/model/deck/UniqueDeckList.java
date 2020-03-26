@@ -145,4 +145,8 @@ public class UniqueDeckList implements Iterable<Deck> {
         }
         return true;
     }
+
+    public int getSize() {
+        return internalList.size();
+    }
 }

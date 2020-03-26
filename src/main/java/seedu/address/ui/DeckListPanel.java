@@ -40,9 +40,9 @@ public class DeckListPanel extends UiPart<Region> {
 
             // Don't modify selection if we are already selecting the selected deck,
             // otherwise we would have an infinite loop.
-            if (Objects.equals(deckListView.getSelectionModel().getSelectedItem(), newValue)) {
-                return;
-            }
+//            if (Objects.equals(deckListView.getSelectionModel().getSelectedItem(), newValue)) {
+//                return;
+//            }
 
             if (newValue == null) {
                 deckListView.getSelectionModel().clearSelection();
