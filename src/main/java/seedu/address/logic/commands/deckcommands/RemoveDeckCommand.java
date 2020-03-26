@@ -37,10 +37,6 @@ public class RemoveDeckCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.getView() != View.LIBRARY) {
-            throw new CommandException(Messages.MESSAGE_NOT_IN_LIBRARY_VIEW);
-        }
-
         List<Deck> lastShownList = model.getFilteredDeckList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -49,6 +45,7 @@ public class RemoveDeckCommand extends Command {
 
         Deck deckToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteDeck(deckToDelete);
+
         return new CommandResult(String.format(MESSAGE_DELETE_DECK_SUCCESS, deckToDelete));
     }
 

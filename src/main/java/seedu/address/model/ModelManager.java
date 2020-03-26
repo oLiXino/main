@@ -152,6 +152,9 @@ public class ModelManager implements Model {
     @Override
     public void deleteDeck(Deck target) {
         library.deleteDeck(target);
+        if (library.getSize() == 0) {
+            returnToLibrary();
+        }
     }
 
     @Override
@@ -167,6 +170,7 @@ public class ModelManager implements Model {
     public void selectDeck(Index targetIdx) {
         deckIndex = Optional.of(targetIdx);
         this.view = View.DECK;
+        setSelectedDeck(library.getDeck(targetIdx));
     }
 
     @Override
@@ -350,6 +354,9 @@ public class ModelManager implements Model {
             this.game = null;
             this.mode = Mode.VIEW;
             setCurrentMode(Mode.VIEW);
+
+            setSelectedDeck(null);
+            this.view = View.LIBRARY;
         }
         
         setPlayingCard(card);
@@ -374,6 +381,9 @@ public class ModelManager implements Model {
             this.game = null;
             this.mode = Mode.VIEW;
             setCurrentMode(Mode.VIEW);
+
+            setSelectedDeck(null);
+            this.view = View.LIBRARY;
         }
         
         setPlayingCard(card);

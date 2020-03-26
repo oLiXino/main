@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -25,10 +26,6 @@ public class SelectDeckCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Deck selected: %1$s";
 
-    // not needed, parser handles invalid index, unless for invalid list, but
-    // remove deck also doesnt has this, so should not need
-    public static final String MESSAGE_DECK_NOT_FOUND = "Deck not found in the library!";
-
     private final Index targetIdx;
 
     /**
@@ -43,10 +40,13 @@ public class SelectDeckCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        List<Deck> filteredDeckList = model.getFilteredDeckList();
+        List<Deck> lastShownList = model.getFilteredDeckList();
+
+        if (targetIdx.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX);
+        }
 
         model.selectDeck(targetIdx);
-        model.setSelectedDeck(filteredDeckList.get(targetIdx.getZeroBased()));
       
         Deck selectedDeck = model.getDeck(targetIdx);
         return new CommandResult(String.format(MESSAGE_SUCCESS, selectedDeck));

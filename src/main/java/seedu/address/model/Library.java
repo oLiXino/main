@@ -128,4 +128,8 @@ public class Library implements ReadOnlyLibrary {
     public int hashCode() {
         return decks.hashCode();
     }
+
+    public int getSize() {
+        return decks.getSize();
+    }
 }
