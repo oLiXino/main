@@ -15,6 +15,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.Name;
 import seedu.address.model.deck.card.BackFace;
@@ -160,7 +161,6 @@ public class ModelManager implements Model {
     @Override
     public void createDeck(Deck deck) {
         library.createDeck(deck);
-        updateFilteredDeckList(PREDICATE_SHOW_ALL_DECKS);
         Index currIndex = Index.fromZeroBased(library.getDeckList().indexOf(deck));
         selectDeck(currIndex);
         setSelectedDeck(deck);
@@ -200,7 +200,13 @@ public class ModelManager implements Model {
 
     @Override
     public void setSelectedDeck(Deck deck) {
+
         selectedDeck.setValue(deck);
+        Index currIndex = Index.fromZeroBased(library.getDeckList().indexOf(deck));
+        deckIndex = Optional.of(currIndex);
+        this.view = View.DECK;
+
+
     }
 
     @Override
@@ -252,7 +258,8 @@ public class ModelManager implements Model {
             return;
         }
         deck.remove(cardToDelete);
-        setSelectedDeck(null);
+        returnToLibrary();
+        //setSelectedDeck(null);
         setSelectedDeck(deck);
     }
 
@@ -263,9 +270,10 @@ public class ModelManager implements Model {
             return;
         }
         deck.add(card);
-        setSelectedDeck(null);
+        //setSelectedDeck(null);
+        returnToLibrary();
         setSelectedDeck(deck);
-        updateFilteredDeckList(PREDICATE_SHOW_ALL_DECKS);
+
     }
 
     @Override
@@ -276,9 +284,9 @@ public class ModelManager implements Model {
         }
         deck.replace(target, card);
         // refresh UI view
-        setSelectedDeck(null);
+        //setSelectedDeck(null);
+        returnToLibrary();
         setSelectedDeck(deck);
-        updateFilteredDeckList(PREDICATE_SHOW_ALL_DECKS);
     }
 
     @Override
@@ -355,7 +363,8 @@ public class ModelManager implements Model {
             this.mode = Mode.VIEW;
             setCurrentMode(Mode.VIEW);
 
-            setSelectedDeck(null);
+            //setSelectedDeck(null);
+            returnToLibrary();
             this.view = View.LIBRARY;
         }
         
@@ -382,7 +391,8 @@ public class ModelManager implements Model {
             this.mode = Mode.VIEW;
             setCurrentMode(Mode.VIEW);
 
-            setSelectedDeck(null);
+            //setSelectedDeck(null);
+            returnToLibrary();
             this.view = View.LIBRARY;
         }
         

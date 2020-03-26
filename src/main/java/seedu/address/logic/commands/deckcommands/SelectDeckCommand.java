@@ -47,7 +47,6 @@ public class SelectDeckCommand extends Command {
         }
 
         model.selectDeck(targetIdx);
-      
         Deck selectedDeck = model.getDeck(targetIdx);
         return new CommandResult(String.format(MESSAGE_SUCCESS, selectedDeck));
     }
