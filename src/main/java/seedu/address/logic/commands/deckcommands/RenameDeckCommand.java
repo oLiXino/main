@@ -71,6 +71,7 @@ public class RenameDeckCommand extends Command {
         
         Deck editedDeck = lastShownList.get(index.getZeroBased());
         model.updateFilteredDeckList(PREDICATE_SHOW_ALL_DECKS);
+
         return new CommandResult(String.format(MESSAGE_RENAME_DECK_SUCCESS, editedDeck));
     }
 
