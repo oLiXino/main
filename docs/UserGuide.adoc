@@ -67,28 +67,41 @@ Note that some commands may only be valid in certain views.
 
 ==== Viewing help : `help`
 
-Shows this user guide in a new window. +
+You can get the link to this user guide in a new window by 
+typing `help` in the input box and pressing Enter. +
 Format: `help`
 
 ==== Exiting the program : `exit`
 
-Exits the FlashSpeed program. +
+You can exit FlashSpeed by typing `exit` in the input box 
+and pressing Enter. +
 Format: `exit`
 
 ==== Resetting the library : `reset`
 
-Resets the library by deleting all cards and decks. +
+If you want to delete everything in the library to start fresh,
+you can choose to reset the library.
+You can do so by typing `reset` in the input 
+and pressing Enter. +
 Format: `reset`
 
 === Library view
 
+[[selectDeck]]
 ==== Selecting a deck : `select`
 
-Selects a deck and shows all its cards. +
+If you want to view the cards in a particular deck or make some changes to it, you can use the
+`select` keyword with the deck's index number. After selecting a certain deck, FlashSpeed will enter the Deck view, and
+the right panel will show all the cards in the deck. +
+
+In the Deck view, you can use any of the Deck mode commands listed in <<deckViewAnchor, 3.3>>.
+
 Format: `select <index>`
 
 ****
-* Selects and shows all cards in the deck at the specified `index`. The index refers to the index number shown in the displayed decks list. The index *must be a positive integer* 1, 2, 3, ...
+* *Formal definition*:
+Selects and shows all cards in the deck at the specified `index`.
+The index refers to the index number shown in the displayed decks list. The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Example:
@@ -98,7 +111,9 @@ Selects and shows all cards in the 2nd deck.
 
 ==== Creating a deck : `create`
 
-Creates a new deck in the library. +
+You can create a new deck in the library by using the `create` command with the name of the new deck.
+Note that you can use this commmand in both the Deck view and Library view.+
+
 Format: `create <deck>`
 
 Examples:
@@ -108,11 +123,14 @@ Examples:
 
 ==== Removing a deck : `remove`
 
-Removes a deck from the library. +
+Similarly, you can remove a deck in the library using the `remove` command and the index number of the deck.
+
 Format: `remove <index>`
 
 ****
-* Removes the deck in the library at the specified `index`. The index refers to the index number shown in the displayed decks list. The index *must be a positive integer* 1, 2, 3, ...
+* *Formal definition*: Removes the deck in the library at the specified `index`.
+The index refers to the index number shown in the displayed decks list.
+The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
@@ -122,7 +140,8 @@ Removes the 2nd deck from the library.
 
 ==== Renaming a deck : `rename`
 
-Renames a deck in the library. +
+You can rename a deck in the library using the `rename` command with the index number of the deck and the new name of the deck.
+Note that the name of the deck cannot be empty. +
 Format: `rename <index> <deck>`
 
 ****
@@ -136,23 +155,31 @@ Renames the 2nd deck in the library to "Japanese Verbs".
 
 ==== Playing a deck : `play`
 
-Starts a review session with a deck. We "play" it because learning can be fun! +
+Here comes the single most important command in FlashSpeed. In order to start playing with a certain deck,
+you can use the `play` command to start a game session with a deck. We "play" it because learning can be fun! +
+
 Format: `play <index>`
 
 ****
-* Starts a review session with the deck in the library at the specified `index`. The index refers to the index number shown in the displayed decks list. The index *must be a positive integer* 1, 2, 3, ...
+* *Formal definition*: Starts a game session with the deck in the library at the specified `index`. The index refers to the index number shown in the displayed decks list. The index *must be a positive integer* 1, 2, 3, ...
 ****
 
-Examples:
+Example:
 
 * `play 2` +
-Starts a review session with the 2nd deck in the library.
+Starts a game session with the 2nd deck in the library.
 
+[[deckViewAnchor]]
 === Deck view
+
+**Important: All commands in this section can only be used in Deck view.**
+**To enter Deck view, you must <<selectDeck,select a deck>>.**
 
 ==== Adding a card : `add`
 
-Adds a new card to the current deck. +
+You can add a new card to the selected deck by using the `add` command. +
+Note that the colon character (":") is used to separate the front value of the card with the back value.
+
 Format: `add <front>:<back>`
 
 Examples:
@@ -162,10 +189,14 @@ Examples:
 
 ==== Editing a card : `edit`
 
-Edits the front and/or back values of an existing card in the current deck. +
+You can edit the front and/or back values of any cards in the current deck. +
+
 Format 1: `edit <index> <front>:<back>` +
 Format 2: `edit <index> :<back>` +
 Format 3: `edit <index> <front>:`
+
+Note that you don't have to supply both front and back values of a card,
+i.e. if you only wish to change the back of a card, the front can be left blank, and vice versa.
 
 ****
 * Edits the card in the current deck at the specified `index`. The index refers to the index number shown in the displayed cards list. The index *must be a positive integer* 1, 2, 3, ...
@@ -184,7 +215,8 @@ Edits the front value of the 1st card in the deck to be `ありがとう`.
 
 ==== Deleting a card : `delete`
 
-Deletes a card from the current deck. +
+You can delete a card from the selected deck by using the `delete` command and the index number of the card. +
+
 Format: `delete <index>`
 
 ****
@@ -198,29 +230,37 @@ Deletes the 2nd card in the current deck.
 
 ==== Returning to the library : `return`
 
-Goes out of the current deck and returns to the library, i.e. no deck is selected. +
+Once you're done modifying the selected deck,
+you can return back to the library with the `return` command, i.e. no deck will be selected. +
+
 Format: `return`
 
 === Play view
 
 ==== Flipping a card : `flip`
 
-Flips the current card to reveal its back value. +
+To flip a card in Play view to see the back of a card, simply type `flip` into the input box
+and press Enter.+
+
 Format: `flip`
 
 ==== Answering "yes" : `yes`
 
-Submits a "yes" answer when asked if you could remember the back face of a card. This is to be done after flipping the card. +
+If you could remember the back face of a card, type `yes` into the input box and press Enter.
+Note that you can only do this after flipping the card. +
+
 Format: `yes`
 
 ==== Answering "no" : `no`
-Submits a "no" answer when asked if you could remember the back face of a card. This is to be done after flipping the card. +
+On the other hand, if you could not remember the back face of a card, type `no` into the input box and press Enter.
+Note that you can only do this after flipping the card. +
+
 Format: `no`
 
 === Saving the data
 
 All data in FlashSpeed (e.g. decks, cards) are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+You dont have to save your decks and cards manually!
 
 == FAQ
 
