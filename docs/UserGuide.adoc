@@ -67,20 +67,20 @@ Note that some commands may only be valid in certain views.
 
 ==== Viewing help : `help`
 
-You can get the link to this this user guide in a new window by typing `help`
-in the command line and hit Enter. +
+You can get the link to this user guide in a new window by typing `help`
+in the input box and pressing Enter. +
 Format: `help`
 
 ==== Exiting the program : `exit`
 
-You can exit FlashSpeed just by typing `exit` in the command line and hit Enter. +
+You can exit FlashSpeed by typing `exit` in the input box and pressing Enter. +
 Format: `exit`
 
 ==== Resetting the library : `reset`
 
-If you want to delete everything in the library start start afresh,
+If you want to delete everything in the library to start fresh,
 you can choose to reset the library.
-You can do so by typing typing `reset` in the command line and hit Enter. +
+You can do so by typing `reset` in the input and pressing Enter. +
 Format: `reset`
 
 === Library view
@@ -89,10 +89,10 @@ Format: `reset`
 ==== Selecting a deck : `select`
 
 If you want to view the cards in a particular deck or make some changes to it, you can use the
-`select` keyword. After selecting a certain deck, Flashspeed will enter the Deck View, and
-the right panel of Flashspeed will show all the cards in the deck. +
+`select` keyword with the deck's index number. After selecting a certain deck, FlashSpeed will enter the Deck view, and
+the right panel will show all the cards in the deck. +
 
-In Deck View, you can use any of the Deck mode commands listed in <<deckViewAnchor, 3.3>>.
+In the Deck view, you can use any of the Deck mode commands listed in <<deckViewAnchor, 3.3>>.
 
 Format: `select <index>`
 
@@ -109,8 +109,8 @@ Selects and shows all cards in the 2nd deck.
 
 ==== Creating a deck : `create`
 
-You can creates a new deck in the library just by using this `create` command.
-Note that you can use this commmand in both Deck View and Library View.+
+You can create a new deck in the library by using the `create` command with the name of the new deck.
+Note that you can use this commmand in both the Deck view and Library view.+
 
 Format: `create <deck>`
 
@@ -121,7 +121,7 @@ Examples:
 
 ==== Removing a deck : `remove`
 
-Similarly, you can remove a deck in the library by using the `remove` command.
+Similarly, you can remove a deck in the library using the `remove` command and the index number of the deck.
 
 Format: `remove <index>`
 
@@ -138,7 +138,8 @@ Removes the 2nd deck from the library.
 
 ==== Renaming a deck : `rename`
 
-You can remove a deck in the library by using the `remove` command. Note that the the name of the deck cannot be empty.
+You can rename a deck in the library using the `rename` command with the index number of the deck and the new name of the deck.
+Note that the name of the deck cannot be empty. +
 Format: `rename <index> <deck>`
 
 ****
@@ -169,12 +170,13 @@ Starts a game session with the 2nd deck in the library.
 [[deckViewAnchor]]
 === Deck view
 
-**Important: All commands in this section can only be used in Deck View.**
-**To enter Deck View, you must <<selectDeck,select a deck>>.**
+**Important: All commands in this section can only be used in Deck view.**
+**To enter Deck view, you must <<selectDeck,select a deck>>.**
 
 ==== Adding a card : `add`
 
 You can add a new card to the selected deck by using the `add` command. +
+Note that the colon character (":") is used to separate the front value of the card with the back value.
 
 Format: `add <front>:<back>`
 
@@ -192,7 +194,7 @@ Format 2: `edit <index> :<back>` +
 Format 3: `edit <index> <front>:`
 
 Note that you don't have to supply both front and back values of a card,
-ie if you only wish to change the back of a card, the front cant be left blank, vice versa.
+i.e. if you only wish to change the back of a card, the front can be left blank, and vice versa.
 
 ****
 * Edits the card in the current deck at the specified `index`. The index refers to the index number shown in the displayed cards list. The index *must be a positive integer* 1, 2, 3, ...
@@ -211,7 +213,7 @@ Edits the front value of the 1st card in the deck to be `ありがとう`.
 
 ==== Deleting a card : `delete`
 
-You can delete a card from the current deck by using the `delete` command. +
+You can delete a card from the selected deck by using the `delete` command and the index number of the card. +
 
 Format: `delete <index>`
 
@@ -235,21 +237,21 @@ Format: `return`
 
 ==== Flipping a card : `flip`
 
-To flip a card in Play View and get the back of a card, simply type `flip` into the command line
-and hit Enter.+
+To flip a card in Play view to see the back of a card, simply type `flip` into the input box
+and press Enter.+
 
 Format: `flip`
 
 ==== Answering "yes" : `yes`
 
-If you could remember the back face of a card, type `yes` into the command line and hit Enter.
-You can only do this after flipping the card. +
+If you could remember the back face of a card, type `yes` into the input box and press Enter.
+Note that you can only do this after flipping the card. +
 
 Format: `yes`
 
 ==== Answering "no" : `no`
-On the other hand, if you could not remember the back face of a card, type `no` into the command line and hit Enter.
-You can only do this after flipping the card. +
+On the other hand, if you could not remember the back face of a card, type `no` into the input box and press Enter.
+Note that you can only do this after flipping the card. +
 
 Format: `no`
 
