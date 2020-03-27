@@ -13,7 +13,7 @@
         <Insets top="10" right="5" bottom="5" left="5" />
       </padding>
   <Label text="Enter command: " minWidth="100" style="-fx-text-fill:white"></Label></VBox>
-  <TextField fx:id="commandTextField" onAction="#handleCommandEntered" minWidth="1130"  promptText="Enter command here..."/>
+  <TextField fx:id="commandTextField" onAction="#handleCommandEntered" minWidth="1133"  promptText="Enter command here..."/>
   </HBox>
 </StackPane>
 
