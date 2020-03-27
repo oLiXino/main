@@ -67,20 +67,22 @@ Note that some commands may only be valid in certain views.
 
 ==== Viewing help : `help`
 
-You can get the link to this user guide in a new window by typing `help`
-in the input box and pressing Enter. +
+You can get the link to this user guide in a new window by 
+typing `help` in the input box and pressing Enter. +
 Format: `help`
 
 ==== Exiting the program : `exit`
 
-You can exit FlashSpeed by typing `exit` in the input box and pressing Enter. +
+You can exit FlashSpeed by typing `exit` in the input box 
+and pressing Enter. +
 Format: `exit`
 
 ==== Resetting the library : `reset`
 
 If you want to delete everything in the library to start fresh,
 you can choose to reset the library.
-You can do so by typing `reset` in the input and pressing Enter. +
+You can do so by typing `reset` in the input 
+and pressing Enter. +
 Format: `reset`
 
 === Library view
