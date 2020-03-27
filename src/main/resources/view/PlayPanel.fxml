@@ -15,19 +15,18 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.shape.Rectangle?>
 <StackPane xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-color: #ffffff" xmlns="http://javafx.com/javafx/11.0.1" fx:id="pane">
-   <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
       <children>
 
-         <StackPane style="-fx-background-color: #4473c5" prefWidth="140.0" >
-         <Label alignment="CENTER" fx:id="front" style="-fx-text-fill: white;" />
+         <StackPane style="-fx-background-color: #4473c5; -fx-border-width: 1;-fx-border-color: black; " minWidth="911" prefWidth="911" prefHeight="210" minHeight="210">
+         <Label alignment="CENTER" fx:id="front" style="-fx-text-fill: white; -fx-font-size: 60;" />
          </StackPane>
-         <Region prefHeight="200.0" maxWidth="200"  HBox.hgrow="ALWAYS" />
 
-         <StackPane style="-fx-background-color: #4473c5" prefWidth="140.0">
-                  <Label alignment="CENTER" fx:id="back" style="-fx-text-fill: white;"/>
+         <StackPane style="-fx-background-color: #ff5722; -fx-border-width: 0 1 1 1; -fx-border-color: black" minWidth="911" prefWidth="911" prefHeight="210" minHeight="210">
+                  <Label alignment="CENTER" fx:id="back" style="-fx-text-fill: white; -fx-font-size: 60;"/>
          </StackPane>
 
       </children>
-   </HBox>
+   </VBox>
 
 </StackPane>
