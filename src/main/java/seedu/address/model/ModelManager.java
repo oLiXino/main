@@ -408,6 +408,7 @@ public class ModelManager implements Model {
         this.game = null;
         this.mode = Mode.VIEW;
         setCurrentMode(Mode.VIEW);
+        setPlayingCard(null);
         returnToLibrary();
         this.view = View.LIBRARY;
         return statistics;
