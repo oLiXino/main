@@ -12,12 +12,9 @@ import seedu.address.model.Statistics;
 import java.util.logging.Logger;
 
 /**
- * Controller for a help page
+ * Controller for a statistics page
  */
 public class StatisticsPopUp extends UiPart<Stage> {
-
-    public static final String USERGUIDE_URL = "https://ay1920s2-cs2103t-w17-1.github.io/main/UserGuide.html";
-    public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
 
     private static final Logger logger = LogsCenter.getLogger(StatisticsPopUp.class);
     private static final String FXML = "StatisticsPopUp.fxml";
@@ -46,7 +43,7 @@ public class StatisticsPopUp extends UiPart<Stage> {
     }
 
     /**
-     * Shows the help window.
+     * Shows the statistics window.
      * @throws IllegalStateException
      * <ul>
      *     <li>
@@ -64,40 +61,30 @@ public class StatisticsPopUp extends UiPart<Stage> {
      * </ul>
      */
     public void show() {
-        logger.fine("Showing help page about the application.");
+        logger.fine("Showing statistics of the previous play session");
         getRoot().show();
         getRoot().centerOnScreen();
     }
 
     /**
-     * Returns true if the help window is currently being shown.
+     * Returns true if the statistics window is currently being shown.
      */
     public boolean isShowing() {
         return getRoot().isShowing();
     }
 
     /**
-     * Hides the help window.
+     * Hides the statistics window.
      */
     public void hide() {
         getRoot().hide();
     }
 
     /**
-     * Focuses on the help window.
+     * Focuses on the statistics window.
      */
     public void focus() {
         getRoot().requestFocus();
     }
-
-    /**
-     * Copies the URL to the user guide to the clipboard.
-     */
-    @FXML
-    private void copyUrl() {
-        final Clipboard clipboard = Clipboard.getSystemClipboard();
-        final ClipboardContent url = new ClipboardContent();
-        url.putString(USERGUIDE_URL);
-        clipboard.setContent(url);
-    }
+    
 }
