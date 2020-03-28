@@ -14,6 +14,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.Name;
+import seedu.address.model.util.Mode;
 import seedu.address.model.util.View;
 
 /**
@@ -34,6 +35,7 @@ public class RenameDeckCommand extends Command {
     public static final String MESSAGE_RENAME_DECK_SUCCESS = "Edited Deck: %1$s";
     public static final String MESSAGE_NOT_EDITED = "New deck name must be provided.";
     public static final String MESSAGE_DUPLICATE_DECK = "This deck name already exists in the library.";
+    public static final String MESSAGE_NOT_IN_VIEW_MODE = "Not in View Mode";
 
     private final Index index;
     private final Name name;
@@ -54,9 +56,9 @@ public class RenameDeckCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-//        if (model.getView() != View.LIBRARY) {
-//            throw new CommandException(Messages.MESSAGE_NOT_IN_LIBRARY_VIEW);
-//        }
+        if (model.getMode() == Mode.PLAY) {
+            throw new CommandException(MESSAGE_NOT_IN_VIEW_MODE);
+        }
 
         List<Deck> lastShownList = model.getFilteredDeckList();
 
