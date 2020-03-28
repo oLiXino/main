@@ -32,7 +32,8 @@ public class StopCommand extends Command {
             throw new CommandException(MESSAGE_NOT_PLAY_MODE);
         }
         statistics = model.stop();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, statistics));
+        //return new CommandResult(String.format(MESSAGE_SUCCESS, statistics));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, statistics), false, false, true, statistics);
     }
 
     @Override

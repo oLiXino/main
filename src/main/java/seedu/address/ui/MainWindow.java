@@ -37,6 +37,7 @@ public class MainWindow extends UiPart<Stage> {
     private DeckListPanel deckListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatisticsPopUp statisticsPopUp;
     
     @FXML
     private StackPane rightPlaceholder;
@@ -69,6 +70,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        statisticsPopUp = new StatisticsPopUp();
     }
 
     public Stage getPrimaryStage() {
@@ -158,6 +160,15 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    @FXML
+    public void handleStop() {
+        if (!statisticsPopUp.isShowing()) {
+            statisticsPopUp.show();
+        } else {
+            statisticsPopUp.focus();
+        }
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -171,6 +182,7 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        statisticsPopUp.hide();
         primaryStage.hide();
     }
 
@@ -195,6 +207,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isStop()) {
+                handleStop();
             }
 
             return commandResult;

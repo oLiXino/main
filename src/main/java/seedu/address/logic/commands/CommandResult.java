@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import seedu.address.model.Statistics;
+
 import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
@@ -17,21 +19,28 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** The play mode is stopped */
+    private final boolean stop;
+
+    private Statistics statistics;
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean stop, Statistics statistics) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.stop = stop;
+        this.statistics = statistics;
     }
+
 
     /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+        this(feedbackToUser, false, false, false, null);
     }
 
     public String getFeedbackToUser() {
@@ -44,6 +53,12 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isStop() {return stop; }
+
+    public Statistics getStatistics(){
+        return statistics;
     }
 
     @Override
@@ -65,6 +80,6 @@ public class CommandResult {
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, showHelp, exit, stop);
     }
 }
