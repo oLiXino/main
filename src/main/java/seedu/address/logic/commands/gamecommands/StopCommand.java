@@ -14,7 +14,7 @@ public class StopCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Stop the current game session.\n";
-    public static final String MESSAGE_SUCCESS = "Statistics Report: %1$s";
+    public static final String MESSAGE_SUCCESS = "Session stopped!";
     public static final String MESSAGE_NOT_PLAY_MODE = "Not in play mode!";
 
     Statistics statistics;
@@ -33,7 +33,7 @@ public class StopCommand extends Command {
         }
         statistics = model.stop();
         //return new CommandResult(String.format(MESSAGE_SUCCESS, statistics));
-        return new CommandResult(String.format(MESSAGE_SUCCESS, statistics), false, false, true, statistics);
+        return new CommandResult(String.format(MESSAGE_SUCCESS), false, false, true, statistics);
     }
 
     @Override
