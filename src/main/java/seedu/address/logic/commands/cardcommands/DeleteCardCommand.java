@@ -9,6 +9,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.deck.card.Card;
+import seedu.address.model.util.Mode;
 import seedu.address.model.util.View;
 
 /**
@@ -24,6 +25,7 @@ public class DeleteCardCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SUCCESS = "Deleted Card: %1$s";
+    public static final String MESSAGE_NOT_IN_VIEW_MODE = "Not in View Mode";
 
     private final Index targetIndex;
 
@@ -34,6 +36,9 @@ public class DeleteCardCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (model.getMode() == Mode.PLAY) {
+            throw new CommandException(MESSAGE_NOT_IN_VIEW_MODE);
+        }
 
         if (model.getView() != View.DECK) {
             throw new CommandException(Messages.MESSAGE_NOT_IN_DECK_VIEW);

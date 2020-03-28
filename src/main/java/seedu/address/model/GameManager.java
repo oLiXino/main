@@ -12,8 +12,7 @@ import seedu.address.model.deck.card.Card;
 public class GameManager {
     private boolean flipped;
     private ObservableList<Card> cards;
-    private int correctAns;
-    private int wrongAns;
+    private Statistics statistics;
     private int counter;
 
     /**
@@ -23,8 +22,7 @@ public class GameManager {
         this.flipped = false;
 //        this.cards = deck.asUnmodifiableObservableList();
         this.cards = deck.asObservableList();
-        this.correctAns = 0;
-        this.wrongAns = 0;
+        this.statistics = new Statistics(this);
         this.counter = 0;
     }
     
@@ -51,12 +49,11 @@ public class GameManager {
      * @return the next card or null if card list is empty
      */
     public Card answerYes() {
-        this.correctAns++;
-//        counter++;
+        statistics.answerYes(cards.get(counter));
         cards.remove(counter);
         flipped = false;
         
-        if (counter == cards.size()) {
+        if (cards.size() == 0) {
             return null;
         }
         
@@ -69,14 +66,19 @@ public class GameManager {
      * @return the next card or null if card list is empty
      */
     public Card answerNo() {
-        this.wrongAns++;
-        counter++;
+        statistics.answerNo(cards.get(counter));
         flipped = false;
-        
-        if (counter == cards.size()) {
-            return null;
-        }
-        
         return cards.get(counter);
+    }
+
+    public Statistics stop() {
+        return this.statistics;
+    }
+
+    /**
+     * Returns the card list.
+     */
+    public ObservableList<Card> getCards() {
+        return this.cards;
     }
 }
