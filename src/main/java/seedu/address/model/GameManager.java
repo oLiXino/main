@@ -9,6 +9,7 @@ import seedu.address.model.deck.card.Card;
 /**
  * Represents the model of the game session.
  */
+
 public class GameManager {
     private boolean flipped;
     private ObservableList<Card> cards;
