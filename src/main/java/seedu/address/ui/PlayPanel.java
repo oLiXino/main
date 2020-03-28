@@ -13,7 +13,6 @@ import javafx.scene.layout.StackPane;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.card.Card;
-
 import java.util.logging.Logger;
 
 /**

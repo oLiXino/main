@@ -16,6 +16,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.Statistics;
 import seedu.address.model.util.Mode;
 
 /**
@@ -37,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     private DeckListPanel deckListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private StatisticsPopUp statisticsPopUp;
     
     @FXML
     private StackPane rightPlaceholder;
@@ -69,6 +71,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+
     }
 
     public Stage getPrimaryStage() {
@@ -158,6 +161,13 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    @FXML
+    public void handleStop(Statistics statistics) {
+        statisticsPopUp = new StatisticsPopUp(statistics);
+        statisticsPopUp.show();
+
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -171,6 +181,7 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+        statisticsPopUp.hide();
         primaryStage.hide();
     }
 
@@ -195,6 +206,10 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isStop()) {
+                handleStop(commandResult.getStatistics());
             }
 
             return commandResult;
