@@ -7,6 +7,7 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.Statistics;
 
 import java.util.logging.Logger;
 
@@ -19,29 +20,29 @@ public class StatisticsPopUp extends UiPart<Stage> {
     public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
 
     private static final Logger logger = LogsCenter.getLogger(StatisticsPopUp.class);
-    private static final String FXML = "HelpWindow.fxml";
+    private static final String FXML = "StatisticsPopUp.fxml";
+
+
 
     @FXML
-    private Button copyButton;
-
-    @FXML
-    private Label helpMessage;
+    private Label stats;
 
     /**
      * Creates a new HelpWindow.
      *
      * @param root Stage to use as the root of the HelpWindow.
      */
-    public StatisticsPopUp(Stage root) {
+    public StatisticsPopUp(Stage root, Statistics statistics) {
         super(FXML, root);
-        helpMessage.setText(HELP_MESSAGE);
+        stats.setText(statistics.toString());
+
     }
 
     /**
      * Creates a new HelpWindow.
      */
-    public StatisticsPopUp() {
-        this(new Stage());
+    public StatisticsPopUp(Statistics statistics) {
+        this(new Stage(), statistics);
     }
 
     /**
