@@ -8,6 +8,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.deck.card.Card;
+import seedu.address.model.util.Mode;
 import seedu.address.model.util.View;
 
 /**
@@ -26,6 +27,7 @@ public class AddCardCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New card added: %1$s";
     public static final String MESSAGE_DUPLICATE_CARD = "This card already exists in the deck";
+    public static final String MESSAGE_NOT_IN_VIEW_MODE = "Not in View Mode";
 
     private final Card toAdd;
 
@@ -40,6 +42,9 @@ public class AddCardCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (model.getMode() == Mode.PLAY) {
+            throw new CommandException(MESSAGE_NOT_IN_VIEW_MODE);
+        }
 
         if (model.getView() != View.DECK) {
             throw new CommandException(Messages.MESSAGE_NOT_IN_DECK_VIEW);

@@ -206,7 +206,14 @@ public interface Model {
      * @return the next card or null if card list is empty
      */
     Card answerYes();
-    
+
+    /**
+     * Returns the statistics report when user stop the game session.
+     *
+     * @return the statistics object.
+     */
+    Statistics stop();
+
     GameManager getGame();
 
     /**

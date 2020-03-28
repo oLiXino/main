@@ -18,10 +18,7 @@ import seedu.address.logic.commands.deckcommands.CreateDeckCommand;
 import seedu.address.logic.commands.deckcommands.RemoveDeckCommand;
 import seedu.address.logic.commands.deckcommands.RenameDeckCommand;
 import seedu.address.logic.commands.deckcommands.SelectDeckCommand;
-import seedu.address.logic.commands.gamecommands.AnswerNoCommand;
-import seedu.address.logic.commands.gamecommands.AnswerYesCommand;
-import seedu.address.logic.commands.gamecommands.FlipCommand;
-import seedu.address.logic.commands.gamecommands.PlayCommand;
+import seedu.address.logic.commands.gamecommands.*;
 import seedu.address.logic.parser.cardparsers.AddCardCommandParser;
 import seedu.address.logic.parser.cardparsers.DeleteCardCommandParser;
 import seedu.address.logic.parser.cardparsers.EditCardCommandParser;
@@ -74,6 +71,7 @@ public class MasterParser {
           - Flip
           - AnswerYes
           - AnswerNO
+          - Stop
         General:
           - Help
           - Exit
@@ -82,57 +80,59 @@ public class MasterParser {
          */
         switch (commandWord) {
 
-        // Deck functions
-        case CreateDeckCommand.COMMAND_WORD:
-            return new CreateDeckCommandParser().parse(arguments);
+            // Deck functions
+            case CreateDeckCommand.COMMAND_WORD:
+                return new CreateDeckCommandParser().parse(arguments);
 
-        case RemoveDeckCommand.COMMAND_WORD:
-            return new RemoveDeckCommandParser().parse(arguments);
+            case RemoveDeckCommand.COMMAND_WORD:
+                return new RemoveDeckCommandParser().parse(arguments);
 
-        case RenameDeckCommand.COMMAND_WORD:
-            return new RenameDeckCommandParser().parse(arguments);
+            case RenameDeckCommand.COMMAND_WORD:
+                return new RenameDeckCommandParser().parse(arguments);
 
-        case SelectDeckCommand.COMMAND_WORD:
-            return new SelectDeckCommandParser().parse(arguments);
+            case SelectDeckCommand.COMMAND_WORD:
+                return new SelectDeckCommandParser().parse(arguments);
 
-        // Card functions
-        case AddCardCommand.COMMAND_WORD:
-            return new AddCardCommandParser().parse(arguments);
+            // Card functions
+            case AddCardCommand.COMMAND_WORD:
+                return new AddCardCommandParser().parse(arguments);
 
-        case DeleteCardCommand.COMMAND_WORD:
-            return new DeleteCardCommandParser().parse(arguments);
+            case DeleteCardCommand.COMMAND_WORD:
+                return new DeleteCardCommandParser().parse(arguments);
 
-        case EditCardCommand.COMMAND_WORD:
-            return new EditCardCommandParser().parse(arguments);
+            case EditCardCommand.COMMAND_WORD:
+                return new EditCardCommandParser().parse(arguments);
 
-        // Game functions
-        case PlayCommand.COMMAND_WORD:
-            return new PlayCommandParser().parse(arguments);
+            // Game functions
+            case PlayCommand.COMMAND_WORD:
+                return new PlayCommandParser().parse(arguments);
 
-        case FlipCommand.COMMAND_WORD:
-            return new FlipCommand();
+            case FlipCommand.COMMAND_WORD:
+                return new FlipCommand();
 
-        case AnswerYesCommand.COMMAND_WORD:
-            return new AnswerYesCommand();
+            case AnswerYesCommand.COMMAND_WORD:
+                return new AnswerYesCommand();
 
-        case AnswerNoCommand.COMMAND_WORD:
-            return new AnswerNoCommand();
+            case AnswerNoCommand.COMMAND_WORD:
+                return new AnswerNoCommand();
+            case StopCommand.COMMAND_WORD:
+                return new StopCommand();
 
-        // General
-        case ExitCommand.COMMAND_WORD:
-            return new ExitCommand();
+            // General
+            case ExitCommand.COMMAND_WORD:
+                return new ExitCommand();
 
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
+            case HelpCommand.COMMAND_WORD:
+                return new HelpCommand();
 
-        case ResetLibraryCommand.COMMAND_WORD:
-            return new ResetLibraryCommand();
+            case ResetLibraryCommand.COMMAND_WORD:
+                return new ResetLibraryCommand();
 
-        case ReturnToLibraryCommand.COMMAND_WORD:
-            return new ReturnToLibraryCommand();
+            case ReturnToLibraryCommand.COMMAND_WORD:
+                return new ReturnToLibraryCommand();
 
-        default:
-            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
+            default:
+                throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 }

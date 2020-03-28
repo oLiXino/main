@@ -403,6 +403,17 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Statistics stop() {
+        Statistics statistics = this.game.stop();
+        this.game = null;
+        this.mode = Mode.VIEW;
+        setCurrentMode(Mode.VIEW);
+        returnToLibrary();
+        this.view = View.LIBRARY;
+        return statistics;
+    }
+
+    @Override
     public Mode getMode() {
         return this.mode;
     }
