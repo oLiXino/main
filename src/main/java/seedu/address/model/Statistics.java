@@ -69,7 +69,7 @@ public class Statistics {
     /**
      * Increments the number of attempts of a certain card.
      */
-    public void increment(Card card) {
+    public void incrementCardAttempt(Card card) {
         cardAttempts.merge(card, 1, Integer::sum);
     }
 

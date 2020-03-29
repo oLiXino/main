@@ -1,6 +1,5 @@
 package seedu.address.model;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.card.BackFace;
@@ -50,7 +49,7 @@ public class GameManager {
      * @return the next card or null if card list is empty
      */
     public Card answerYes() {
-        statistics.increment(cards.get(counter));
+        statistics.incrementCardAttempt(cards.get(counter));
         cards.remove(counter);
         flipped = false;
         
@@ -67,7 +66,7 @@ public class GameManager {
      * @return the next card or null if card list is empty
      */
     public Card answerNo() {
-        statistics.increment(cards.get(counter));
+        statistics.incrementCardAttempt(cards.get(counter));
         flipped = false;
         return cards.get(counter);
     }
