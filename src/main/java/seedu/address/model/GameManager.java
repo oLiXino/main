@@ -23,7 +23,7 @@ public class GameManager {
         this.flipped = false;
 //        this.cards = deck.asUnmodifiableObservableList();
         this.cards = deck.asObservableList();
-        this.statistics = new Statistics(this);
+        this.statistics = new Statistics(cards);
         this.counter = 0;
     }
     
@@ -50,7 +50,7 @@ public class GameManager {
      * @return the next card or null if card list is empty
      */
     public Card answerYes() {
-        statistics.answerYes(cards.get(counter));
+        statistics.increment(cards.get(counter));
         cards.remove(counter);
         flipped = false;
         
@@ -67,7 +67,7 @@ public class GameManager {
      * @return the next card or null if card list is empty
      */
     public Card answerNo() {
-        statistics.answerNo(cards.get(counter));
+        statistics.increment(cards.get(counter));
         flipped = false;
         return cards.get(counter);
     }
