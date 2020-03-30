@@ -183,6 +183,7 @@ public class ModelManager implements Model {
             deck.setName(name);
 
             selectDeck(targetIndex);
+            returnToLibrary();
             setSelectedDeck(deck);
             return true;
         }
@@ -359,13 +360,7 @@ public class ModelManager implements Model {
         Card card = this.game.answerYes();
         
         if (card == null) {
-            this.game = null;
-            this.mode = Mode.VIEW;
-            setCurrentMode(Mode.VIEW);
-
-            //setSelectedDeck(null);
-            returnToLibrary();
-            this.view = View.LIBRARY;
+            Statistics statistics = stop();
         }
         
         setPlayingCard(card);
@@ -387,13 +382,7 @@ public class ModelManager implements Model {
         Card card = this.game.answerNo();
         
         if (card == null) {
-            this.game = null;
-            this.mode = Mode.VIEW;
-            setCurrentMode(Mode.VIEW);
-
-            //setSelectedDeck(null);
-            returnToLibrary();
-            this.view = View.LIBRARY;
+            Statistics statistics = stop();
         }
         
         setPlayingCard(card);
