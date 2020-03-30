@@ -98,6 +98,9 @@ In the Deck view, you can use any of the Deck mode commands listed in <<deckView
 
 Format: `select <index>`
 
+.Selecting a deck
+image::Ui.png[]
+
 ****
 * *Formal definition*:
 Selects and shows all cards in the deck at the specified `index`.
@@ -236,6 +239,9 @@ you can return back to the library with the `return` command, i.e. no deck will 
 Format: `return`
 
 === Play view
+
+.Play view
+image::Ui2.png[]
 
 ==== Flipping a card : `flip`
 
