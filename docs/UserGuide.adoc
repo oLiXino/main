@@ -57,8 +57,19 @@ e.g. in `create <deck>`, `<deck>` is a parameter which can be used as `create Ja
 FlashSpeed can be in one of 3 different views, namely:
 
 * Library view: when no deck is selected and no cards are shown
+
+.Library view
+image::library.png[]
+
 * Deck view: when a deck has been selected and its cards are shown
+
+.Deck view
+image::Ui.png[]
+
 * Play view: when in a study session of a deck
+
+.Play view
+image::Ui2.png[]
 
 Note that some commands may only be valid in certain views.
 ====
@@ -70,6 +81,9 @@ Note that some commands may only be valid in certain views.
 You can get the link to this user guide in a new window by 
 typing `help` in the input box and pressing Enter. +
 Format: `help`
+
+.Help Window
+image::help.png[]
 
 ==== Exiting the program : `exit`
 
@@ -85,6 +99,10 @@ You can do so by typing `reset` in the input
 and pressing Enter. +
 Format: `reset`
 
+.After resetting
+image::reset.png[]
+
+
 === Library view
 
 [[selectDeck]]
@@ -98,8 +116,6 @@ In the Deck view, you can use any of the Deck mode commands listed in <<deckView
 
 Format: `select <index>`
 
-.Selecting a deck
-image::Ui.png[]
 
 ****
 * *Formal definition*:
@@ -111,6 +127,9 @@ Example:
 
 * `select 2` +
 Selects and shows all cards in the 2nd deck.
+
+.Selecting a deck
+image::Ui.png[]
 
 ==== Creating a deck : `create`
 
@@ -124,11 +143,15 @@ Examples:
 * `create Japanese 1`
 * `create Japanese Verbs`
 
+.Creating Japanese Verbs deck"
+image::create.png[]
+
 ==== Removing a deck : `remove`
 
 Similarly, you can remove a deck in the library using the `remove` command and the index number of the deck.
 
 Format: `remove <index>`
+
 
 ****
 * *Formal definition*: Removes the deck in the library at the specified `index`.
@@ -140,6 +163,9 @@ Examples:
 
 * `remove 2` +
 Removes the 2nd deck from the library.
+
+.Remove Japanese Verbs deck"
+image::remove.png[]
 
 ==== Renaming a deck : `rename`
 
@@ -156,6 +182,9 @@ Examples:
 * `rename 2 Japanese Verbs` +
 Renames the 2nd deck in the library to "Japanese Verbs".
 
+.Rename Korean deck to Japanese Verbs"
+image::rename.png[]
+
 ==== Playing a deck : `play`
 
 Here comes the single most important command in FlashSpeed. In order to start playing with a certain deck,
@@ -169,8 +198,11 @@ Format: `play <index>`
 
 Example:
 
-* `play 2` +
-Starts a game session with the 2nd deck in the library.
+* `play 1` +
+Starts a game session with the first deck in the library.
+
+.Playing the Japanese deck
+image::Ui2.png[]
 
 [[deckViewAnchor]]
 === Deck view
@@ -189,6 +221,9 @@ Examples:
 
 * `add ありがとう:thanks`
 * `add いい[お]てんきですね。:Nice weather, isn't it?`
+
+.Adding a new card into the Japanese deck
+image::add.png[]
 
 ==== Editing a card : `edit`
 
@@ -209,12 +244,16 @@ i.e. if you only wish to change the back of a card, the front can be left blank,
 
 Examples:
 
-* `edit 1 ありがとう:thanks` +
+* `edit 2 ありがとう:thanks` +
 Edits the front and back values of the 1st card in the deck to be `ありがとう` and `thanks` respectively.
-* `edit 1 :thanks` +
+* `edit 2 :thanks` +
 Edits the back value of the 1st card in the deck to be `thanks`.
-* `edit 1 ありがとう:` +
+* `edit 2 ありがとう:` +
 Edits the front value of the 1st card in the deck to be `ありがとう`.
+
+
+.Editing the second card back face from "thank you" to "thanks"
+image::edit.png[]
 
 ==== Deleting a card : `delete`
 
@@ -228,8 +267,11 @@ Format: `delete <index>`
 
 Examples:
 
-* `delete 2` +
-Deletes the 2nd card in the current deck.
+* `delete 3` +
+Deletes the 3rd card in the current deck.
+
+.Deleting the 3rd card in the current deck
+image::delete.png[]
 
 ==== Returning to the library : `return`
 
@@ -238,9 +280,13 @@ you can return back to the library with the `return` command, i.e. no deck will 
 
 Format: `return`
 
+.Returning to Library view
+image::library.png[]
+
+
 === Play view
 
-.Play view
+.Playing the Japanese deck
 image::Ui2.png[]
 
 ==== Flipping a card : `flip`
@@ -250,18 +296,18 @@ and press Enter.+
 
 Format: `flip`
 
-==== Answering "yes" : `yes`
+.Flipping to reveal the back face of the card
+image::flip.png[]
 
-If you could remember the back face of a card, type `yes` into the input box and press Enter.
-Note that you can only do this after flipping the card. +
 
-Format: `yes`
+==== Answering "yes/no" : `yes`/`no`
 
-==== Answering "no" : `no`
-On the other hand, if you could not remember the back face of a card, type `no` into the input box and press Enter.
-Note that you can only do this after flipping the card. +
+If you could remember the back face of a card, type `yes` into the input box and press Enter. On the other hand, if you could not remember the back face of a card, type `no` into the input box and press Enter. Note that you can only do this after flipping the card. +
 
-Format: `no`
+Format: `yes` or `no`
+
+.Showing the next card after answering "yes"
+image::yes.png[]
 
 === Saving the data
 
