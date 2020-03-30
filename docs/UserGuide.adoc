@@ -210,6 +210,9 @@ image::Ui2.png[]
 **Important: All commands in this section can only be used in Deck view.**
 **To enter Deck view, you must <<selectDeck,select a deck>>.**
 
+.Selecting a deck
+image::Ui.png[]
+
 ==== Adding a card : `add`
 
 You can add a new card to the selected deck by using the `add` command. +
