@@ -24,22 +24,6 @@ FlashSpeed enhances the revision process by adopting the Space Repetition System
 
 We hope you enjoy using our app. Happy FlashSpeeding!
 
-ifdef::env-github[]
-image::docs/images/Ui.png[width="600"]
-endif::[]
-
-ifndef::env-github[]
-image::images/Ui.png[width="600"]
-endif::[]
-
-
-ifdef::env-github[]
-image::docs/images/Ui2.png[width="600"]
-endif::[]
-
-ifndef::env-github[]
-image::images/Ui2.png[width="600"]
-endif::[]
 
 == Quick Start
 
