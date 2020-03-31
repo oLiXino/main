@@ -1,29 +1,37 @@
 package seedu.address.model;
 
+import java.util.Random;
+
 import javafx.collections.ObservableList;
+
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.card.BackFace;
 import seedu.address.model.deck.card.Card;
+
+
 
 /**
  * Represents the model of the game session.
  */
 
 public class GameManager {
+    private Random randGen;
     private boolean flipped;
     private ObservableList<Card> cards;
     private Statistics statistics;
-    private int counter;
+    private int deckSize;
+    private int currCardIdx;
 
     /**
      * Initializes a GameManager with the given deck.
      */
     public GameManager(Deck deck) {
+        randGen = new Random();
         this.flipped = false;
-//        this.cards = deck.asUnmodifiableObservableList();
         this.cards = deck.asObservableList();
         this.statistics = new Statistics(cards);
-        this.counter = 0;
+        this.deckSize = this.cards.size();
+        this.currCardIdx = randGen.nextInt(this.deckSize);
     }
     
     public boolean isFlipped() {
@@ -40,35 +48,44 @@ public class GameManager {
             return null;
         }
         flipped = true;
-        return cards.get(counter).getBackFace();
+        return cards.get(currCardIdx).getBackFace();
     }
 
     /**
-     * Returns the next card after user answers Yes.
+     * Returns a random next card after user answers Yes.
+     * Removes the correct card from the deck.
      * 
      * @return the next card or null if card list is empty
      */
     public Card answerYes() {
-        statistics.incrementCardAttempt(cards.get(counter));
-        cards.remove(counter);
+        statistics.incrementCardAttempt(cards.get(currCardIdx));
+        cards.remove(currCardIdx);
+        this.deckSize -= 1;
         flipped = false;
         
-        if (cards.size() == 0) {
+        if (this.deckSize == 0) {
             return null;
         }
-        
-        return cards.get(counter);
+
+        this.currCardIdx = randGen.nextInt(this.deckSize);
+        return cards.get(currCardIdx);
     }
 
     /**
      * Returns the next card after user answers No.
+     * Adds a duplicate wrong card to the deck.
      * 
      * @return the next card or null if card list is empty
      */
     public Card answerNo() {
-        statistics.incrementCardAttempt(cards.get(counter));
+        statistics.incrementCardAttempt(cards.get(currCardIdx));
+        Card currCard = cards.get(currCardIdx);
+        cards.add(currCard);
+        this.deckSize += 1;
         flipped = false;
-        return cards.get(counter);
+
+        this.currCardIdx = randGen.nextInt(this.deckSize);
+        return cards.get(currCardIdx);
     }
 
     public Statistics stop() {
