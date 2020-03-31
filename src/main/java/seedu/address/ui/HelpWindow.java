@@ -12,7 +12,7 @@ import seedu.address.commons.core.LogsCenter;
  */
 public class HelpWindow extends UiPart<Stage> {
 
-    public static final String USERGUIDE_FILE_PATH = "docs/HelpWindow.adoc";
+    public static final String USERGUIDE_FILE_PATH = "/docs/HelpWindow.html";
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
@@ -28,8 +28,8 @@ public class HelpWindow extends UiPart<Stage> {
     public HelpWindow(Stage root) {
         super(FXML, root);
 
-//        String userGuideUrl = getClass().getResource(USERGUIDE_FILE_PATH).toString();
-        String userGuideUrl = "https://ay1920s2-cs2103t-w17-1.github.io/main/UserGuide.html";
+        String userGuideUrl = getClass().getResource(USERGUIDE_FILE_PATH).toString();
+        //String userGuideUrl = "https://ay1920s2-cs2103t-w17-1.github.io/main/UserGuide.html";
         browser.getEngine().load(userGuideUrl);
     }
 
