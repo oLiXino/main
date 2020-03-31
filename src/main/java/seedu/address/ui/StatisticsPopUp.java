@@ -31,7 +31,9 @@ public class StatisticsPopUp extends UiPart<Stage> {
      */
     public StatisticsPopUp(Stage root, Statistics statistics) {
         super(FXML, root);
-        stats.setText(statistics.toString());
+        if (statistics != null) {
+            stats.setText(statistics.toString());
+        }
 
     }
 
@@ -41,6 +43,7 @@ public class StatisticsPopUp extends UiPart<Stage> {
     public StatisticsPopUp(Statistics statistics) {
         this(new Stage(), statistics);
     }
+
 
     /**
      * Shows the statistics window.

@@ -71,6 +71,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        statisticsPopUp = new StatisticsPopUp(null);
 
     }
 
@@ -163,8 +164,15 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     public void handleStop(Statistics statistics) {
-        statisticsPopUp = new StatisticsPopUp(statistics);
-        statisticsPopUp.show();
+        if (!statisticsPopUp.isShowing()) {
+            statisticsPopUp = new StatisticsPopUp(statistics);
+            statisticsPopUp.show();
+        } else {
+            statisticsPopUp.hide();
+            statisticsPopUp = new StatisticsPopUp(statistics);
+            statisticsPopUp.show();
+        }
+
 
     }
 
