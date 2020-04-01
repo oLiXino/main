@@ -15,6 +15,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.gamecommands.StopCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Statistics;
 import seedu.address.model.util.Mode;
@@ -164,6 +165,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     public void handleStop(Statistics statistics) {
+        if (statistics == null) {
+            return;
+        }
         if (!statisticsPopUp.isShowing()) {
             statisticsPopUp = new StatisticsPopUp(statistics);
             statisticsPopUp.show();
