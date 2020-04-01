@@ -14,6 +14,8 @@ import javafx.scene.layout.StackPane;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.card.Card;
+
+import java.text.DecimalFormat;
 import java.util.logging.Logger;
 
 /**
@@ -108,7 +110,7 @@ public class PlayPanel extends UiPart<Region> {
     private void setProgress() {
         double currentProgress = Double.valueOf(attempted)/(attempted+remaining);
         double prog = currentProgress * 100;
-        progressPercent.setText(String.valueOf(prog)+"%");
+        progressPercent.setText(String.format("%.1f", prog)+"%");
         progress.setProgress(currentProgress);
     }
 
