@@ -42,7 +42,8 @@ public class PlayPanel extends UiPart<Region> {
         playingCard.addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 showPlayingCard(newValue);
-            }            
+            }
+
         });
 
         //Show back face when flipped
@@ -61,4 +62,6 @@ public class PlayPanel extends UiPart<Region> {
         back.setText(card.getBackFace().toString());
         back.setWrapText(true);
     }
+
+
 }
