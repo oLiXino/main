@@ -122,7 +122,7 @@ public class MainWindow extends UiPart<Stage> {
             cardListPanel = new CardListPanel(logic.selectedDeckProperty());
             rightPlaceholder.getChildren().add(cardListPanel.getRoot());
         } else if (logic.getMode() == Mode.PLAY) {
-            playPanel = new PlayPanel(logic.playingCardProperty(), logic.flippedProperty());
+            playPanel = new PlayPanel(logic.playingCardProperty(), logic.flippedProperty(), logic.cardAttemptedProperty(), logic.cardRemainingProperty());
             rightPlaceholder.getChildren().add(playPanel.getRoot());
         }
         

@@ -57,6 +57,10 @@ public interface Logic {
 
     ReadOnlyProperty<Boolean> flippedProperty();
 
+    ReadOnlyProperty<Integer> cardAttemptedProperty();
+
+    ReadOnlyProperty<Integer> cardRemainingProperty();
+
     /**
      * Returns the mode of the model manager.
      */
