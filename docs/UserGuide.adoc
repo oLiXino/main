@@ -105,6 +105,33 @@ image::reset.png[]
 
 === Library view
 
+==== Creating a deck : `create`
+
+****
+* *Formal definition*: Creates a deck with the deck name specified by the user. The deck name canont be null.
+****
+Format: `create <deck>`
+
+After downloading and setting up FlashSpeed, you're all set to go!
+But before anything else, you will have to first *create a deck*.
+The process of creating a deck in FlashSpeed is very straightforward.
+
+Let's say you want to create a deck to revise on some Japanese verbs
+to prepare for you upcoming Japanese assessment.
+To do so:
+
+. First, type `create` followed by the deck name into the input box.
+
+* `create Japanese Verbs`
+
+.Typing in a command to create the Japanese Verbs deck"
+image::create1.png[]
+. Hit Enter.
+. Voila!
+
+.Creating Japanese Verbs deck"
+image::create2.png[]
+
 [[selectDeck]]
 ==== Selecting a deck : `select`
 
@@ -130,21 +157,6 @@ Selects and shows all cards in the 2nd deck.
 
 .Selecting a deck
 image::Ui.png[]
-
-==== Creating a deck : `create`
-
-You can create a new deck in the library by using the `create` command with the name of the new deck.
-Note that you can use this commmand in both the Deck view and Library view.+
-
-Format: `create <deck>`
-
-Examples:
-
-* `create Japanese 1`
-* `create Japanese Verbs`
-
-.Creating Japanese Verbs deck"
-image::create.png[]
 
 ==== Removing a deck : `remove`
 
@@ -214,16 +226,35 @@ image::Ui2.png[]
 image::Ui.png[]
 
 ==== Adding a card : `add`
-
-You can add a new card to the selected deck by using the `add` command. +
-Note that the colon character (":") is used to separate the front value of the card with the back value.
-
+****
+* *Formal definition*: Creates a card and adds it into a deck,
+with the front and back values of the card being specified by the user.
+Both the front and back values canont be null.
+****
 Format: `add <front>:<back>`
 
-Examples:
+Alright, you have now created a new and have given it the perfect name. What's next?
+*Adding cards* into the deck, of course!
 
-* `add ありがとう:thanks`
-* `add いい[お]てんきですね。:Nice weather, isn't it?`
+Once again, the process is easy as a piece of cake:
+
+. Select the deck to which you want to add cards, with the `select` command.
+
+Example: `select 1`
+
+. Inside the input box, type:
+* the keyword `add` into the input box,
+* the word/phrase that you would want to show on the front face of the card,
+* a colon(:) right after, and
+* the word/phrase that you would want to show on the back face of the card,
+
+ Example:
+ * `add ありがとう:thanks`
+
+ *INSERT THE SCREENSHOT HERE*
+
+. Hit Enter.
+. Voila!
 
 .Adding a new card into the Japanese deck
 image::add.png[]
