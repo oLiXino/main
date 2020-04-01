@@ -20,19 +20,20 @@ By: `FlashSpeed Foundation`      Since: `Feb 2020`      Licence: `MIT`
 
 FlashSpeed is a text-based flashcard application specifically designed for university students who are learning a foreign language. University students often have hectic schedules. With this in mind, FlashSpeed was created to allow students to be able to study and revise foreign vocabulary on the fly. With a single command, you can start a quick study session on FlashSpeed whenever!
 
-FlashSpeed enhances the revision process by adopting the Space Repetition System (SRS) in its design. Users will be tested more frequently on new words, or words that they have gotten wrong in previous sessions. This system benefits from the psychological spacing effect. SRS has been scientifically proven to increase the rate of learning and memorisation [1]. By using FlashSpeed, you will learn faster and remember for longer!
+Keeping, flipping, and tracking physical flashcards can be a pain. FlashSpeed enhances the studying process by having virtual flashcards and a smarter review system. Users will be tested more frequently on flashcards that they had trouble memorizing previously. By using FlashSpeed, you will learn faster and remember for longer!
 
 We hope you enjoy using our app. Happy FlashSpeeding!
 
-
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `flashspeed.jar` link:https://github.com/AY1920S2-CS2103T-W17-1/main/releases[here].
-.  Copy the file to the folder you want to use as the home folder for FlashSpeed.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+Getting FlashSpeed up and running is fast and easy. Follow these simple steps to get started!
+
+.  Ensure you have Java `11` or above installed in your computer.
+.  Download the latest `flashspeed.jar` file link:https://github.com/AY1920S2-CS2103T-W17-1/main/releases[here]. This is the entire FlashSpeed app in one convenient package.
+.  Copy `flashspeed.jar` to a folder of your choice. This will be FlashSpeed's home folder. All files created by FlashSpeed will be automatically stored here.
+.  Double-click `flashspeed.jar` to start it. FlashSpeed will appear in a few seconds.
+.  Type a command in the command box and press kbd:[Enter] to execute it. +
+e.g. typing *`help`* and pressing kbd:[Enter] will open the Help window.
 .  Some example commands you can try:
 
 * **`create`**`Japanese 1` : creates a deck named `Japanese 1` in the library
@@ -45,236 +46,261 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 == Features
 
 ====
+[TIP]
 *Command Format*
 
 * Words in `<>` are the parameters to be supplied by the user. +
-e.g. in `create <deck>`, `<deck>` is a parameter which can be used as `create Japanese 1`.
+e.g. in `create <deck>`, `<deck>` is a parameter which can be used such as `create Japanese 1`.
 ====
 
 ====
+[TIP]
 *Different Views*
+
+[NOTE]
+Some commands only work in certain views, but don't worry, this guide will tell you all you need to know!
 
 FlashSpeed can be in one of 3 different views, namely:
 
-* Library view: when no deck is selected and no cards are shown
+* *Library* view: when no deck is selected and no cards are shown
 
-.Library view
+.In Library view. No deck is selected.
 image::library.png[]
 
-* Deck view: when a deck has been selected and its cards are shown
+{empty} +
 
-.Deck view
+* *Deck* view: when a deck has been selected and its cards are shown
+
+.In Deck view. A deck has been selected.
 image::Ui.png[]
 
-* Play view: when in a study session of a deck
+{empty} +
 
-.Play view
+* *Play* view: when in a study session of a deck
+
+.In Play view. A deck is being studied.
 image::Ui2.png[]
 
-Note that some commands may only be valid in certain views.
 ====
 
 === General
 
 ==== Viewing help : `help`
 
-You can get the link to this user guide in a new window by 
-typing `help` in the input box and pressing Enter. +
 Format: `help`
 
-.Help Window
+You can get the link to this user guide in a new window by 
+typing `help` in the input box and pressing kbd:[Enter]. +
+
+
+.The helpful Help window.
 image::help.png[]
+
+{empty} +
 
 ==== Exiting the program : `exit`
 
-You can exit FlashSpeed by typing `exit` in the input box 
-and pressing Enter. +
 Format: `exit`
+
+You can exit FlashSpeed by typing `exit` in the input box 
+and pressing kbd:[Enter]. +
+
+{empty} +
 
 ==== Resetting the library : `reset`
 
-If you want to delete everything in the library to start fresh,
-you can choose to reset the library.
-You can do so by typing `reset` in the input 
-and pressing Enter. +
 Format: `reset`
 
-.After resetting
+If you want to delete everything in the library to start fresh, you can choose to reset the library.
+You can do so by typing `reset` in the input and pressing kbd:[Enter]. +
+
+.After resetting. A new start!
 image::reset.png[]
 
+{empty} +
 
 === Library view
 
 ==== Creating a deck : `create`
 
-****
-* *Formal definition*: Creates a deck with the deck name specified by the user. The deck name canont be null.
-****
 Format: `create <deck>`
+****
+* *Formal definition*: Creates a deck with the deck name specified by the user. The deck name cannot be empty.
+****
 
 After downloading and setting up FlashSpeed, you're all set to go!
 But before anything else, you will have to first *create a deck*.
-The process of creating a deck in FlashSpeed is very straightforward.
+The process of creating a deck in FlashSpeed is very simple.
 
-Let's say you want to create a deck to revise on some Japanese verbs
-to prepare for you upcoming Japanese assessment.
+Let's say you want to create a deck to revise some Japanese verbs
+to prepare for you upcoming Japanese test.
 To do so:
 
-. First, type `create` followed by the deck name into the input box.
+. Firstly, type `create` followed by the deck name into the input box.
 
-* `create Japanese Verbs`
-
-.Typing in a command to create the Japanese Verbs deck"
+* e.g. `create Japanese Verbs`
++
+.Typing in the command to create the Japanese Verbs deck.
 image::create1.png[]
-. Hit Enter.
+. Press kbd:[Enter].
 . Voila!
-
-.Creating Japanese Verbs deck"
++
+.After creating the Japanese Verbs deck.
 image::create2.png[]
+
+{empty} +
 
 [[selectDeck]]
 ==== Selecting a deck : `select`
 
-If you want to view the cards in a particular deck or make some changes to it, you can use the
-`select` keyword with the deck's index number. After selecting a certain deck, FlashSpeed will enter the Deck view, and
-the right panel will show all the cards in the deck. +
-
-In the Deck view, you can use any of the Deck mode commands listed in <<deckViewAnchor, 3.3>>.
-
 Format: `select <index>`
-
-
 ****
 * *Formal definition*:
 Selects and shows all cards in the deck at the specified `index`.
 The index refers to the index number shown in the displayed decks list. The index *must be a positive integer* 1, 2, 3, ...
 ****
 
+If you want to view the cards in a particular deck, you can use `select` followed by the deck's index number.
+The index number is the number to the left of its name!
+After selecting a certain deck, FlashSpeed will enter the Deck view and
+show all the cards in that deck. +
+
+In the Deck view, you can use any of the Deck mode commands listed in <<deckViewAnchor, 3.3. Deck view>>.
+
 Example:
 
 * `select 2` +
 Selects and shows all cards in the 2nd deck.
 
-.Selecting a deck
+.Selecting a deck and showing its cards.
 image::Ui.png[]
+
+{empty} +
 
 ==== Removing a deck : `remove`
 
-Similarly, you can remove a deck in the library using the `remove` command and the index number of the deck.
-
 Format: `remove <index>`
-
-
 ****
 * *Formal definition*: Removes the deck in the library at the specified `index`.
 The index refers to the index number shown in the displayed decks list.
 The index *must be a positive integer* 1, 2, 3, ...
 ****
 
+Similarly, you can remove a deck in the library using `remove` followed by the index number of that deck. Bye bye, deck!
+
 Examples:
 
 * `remove 2` +
 Removes the 2nd deck from the library.
 
-.Remove Japanese Verbs deck"
+.After removing the Japanese Verbs deck.
 image::remove.png[]
+
+{empty} +
 
 ==== Renaming a deck : `rename`
 
-You can rename a deck in the library using the `rename` command with the index number of the deck and the new name of the deck.
-Note that the name of the deck cannot be empty. +
 Format: `rename <index> <deck>`
+****
+* *Formal definition*: Renames the deck in the library at the specified `index`. The index refers to the index number shown in the displayed decks list. The index *must be a positive integer* 1, 2, 3, ...
+* The deck name cannot by empty.
+****
 
-****
-* Renames the deck in the library at the specified `index`. The index refers to the index number shown in the displayed decks list. The index *must be a positive integer* 1, 2, 3, ...
-****
+You can rename a deck in the library using `rename` followed by the index number of the deck and the new name of the deck. +
 
 Examples:
 
 * `rename 2 Japanese Verbs` +
 Renames the 2nd deck in the library to "Japanese Verbs".
 
-.Rename Korean deck to Japanese Verbs"
+.After renaming a deck from "Korean" to "Japanese Verbs". Wow.
 image::rename.png[]
+
+{empty} +
 
 ==== Playing a deck : `play`
 
-Here comes the single most important command in FlashSpeed. In order to start playing with a certain deck,
-you can use the `play` command to start a game session with a deck. We "play" it because learning can be fun! +
-
 Format: `play <index>`
+****
+* *Formal definition*: Starts a study session with the deck in the library at the specified `index`. The index refers to the index number shown in the displayed decks list. The index *must be a positive integer* 1, 2, 3, ...
+****
 
-****
-* *Formal definition*: Starts a game session with the deck in the library at the specified `index`. The index refers to the index number shown in the displayed decks list. The index *must be a positive integer* 1, 2, 3, ...
-****
+Alright, this may be what you've been waiting for! In order to start a study session with a certain deck,
+you can use `play` followed by the deck's index number. Good luck! +
+(FYI, we "play" a deck because learning is fun!) +
 
 Example:
 
 * `play 1` +
-Starts a game session with the first deck in the library.
+Starts a study session with the first deck in the library.
 
-.Playing the Japanese deck
+.Studying/Playing the Japanese deck.
 image::Ui2.png[]
+
+{empty} +
 
 [[deckViewAnchor]]
 === Deck view
 
+****
+[NOTE]
 **Important: All commands in this section can only be used in Deck view.**
 **To enter Deck view, you must <<selectDeck,select a deck>>.**
 
-.Selecting a deck
+.Selecting a deck. You're now in Deck view.
 image::Ui.png[]
+****
 
 ==== Adding a card : `add`
-****
-* *Formal definition*: Creates a card and adds it into a deck,
-with the front and back values of the card being specified by the user.
-Both the front and back values canont be null.
-****
+
 Format: `add <front>:<back>`
+****
+* *Formal definition*: Creates a card and adds it to a deck,
+with the front and back values of the card being specified by the user.
+Both the front and back values cannot be empty.
+****
 
-Alright, you have now created a new and have given it the perfect name. What's next?
-*Adding cards* into the deck, of course!
+Alright, after creating a new deck and giving it a great name, what's next?
+*Adding cards* into that deck, of course!
 
-Once again, the process is easy as a piece of cake:
+Once again, the process is easy:
 
 . Select the deck to which you want to add cards, with the `select` command.
-
-Example: `select 1`
++
+e.g. `select 1`
 
 . Inside the input box, type:
-* the keyword `add` into the input box,
-* the word/phrase that you would want to show on the front face of the card,
-* a colon(:) right after, and
-* the word/phrase that you would want to show on the back face of the card,
+* `add`, followed by
+*  the word/sentence that you want as the front of the card, then
+*  a colon ":" right after, and finally
+*  the word/sentence that you want as the back of the card.
++
+e.g. `add ありがとう:thanks`
 
- Example:
- * `add ありがとう:thanks`
-
- *INSERT THE SCREENSHOT HERE*
-
-. Hit Enter.
+. Press kbd:[Enter].
 . Voila!
-
-.Adding a new card into the Japanese deck
++
+.Adding a new card into the Japanese deck.
 image::add.png[]
 
-==== Editing a card : `edit`
+{empty} +
 
-You can edit the front and/or back values of any cards in the current deck. +
+==== Editing a card : `edit`
 
 Format 1: `edit <index> <front>:<back>` +
 Format 2: `edit <index> :<back>` +
 Format 3: `edit <index> <front>:`
+****
+* *Formal definition*: Edits the card in the current deck at the specified `index`. The index refers to the index number shown in the displayed cards list. The index *must be a positive integer* 1, 2, 3, ...
+* Existing values will be updated to the given values.
+* Empty values for the `front` or `back` will leave the original `front` or `back` intact.
+****
 
+You can edit the front and/or back values of any card in the current deck. +
+
+[TIP]
 Note that you don't have to supply both front and back values of a card,
 i.e. if you only wish to change the back of a card, the front can be left blank, and vice versa.
-
-****
-* Edits the card in the current deck at the specified `index`. The index refers to the index number shown in the displayed cards list. The index *must be a positive integer* 1, 2, 3, ...
-* Existing values will be updated to the given values.
-* Empty values for the `front` or `back` will leave the associated values intact.
-****
 
 Examples:
 
@@ -285,73 +311,88 @@ Edits the back value of the 1st card in the deck to be `thanks`.
 * `edit 2 ありがとう:` +
 Edits the front value of the 1st card in the deck to be `ありがとう`.
 
-
-.Editing the second card back face from "thank you" to "thanks"
+.Editing the second card's back value from "thank you" to "thanks".
 image::edit.png[]
+
+{empty} +
 
 ==== Deleting a card : `delete`
 
-You can delete a card from the selected deck by using the `delete` command and the index number of the card. +
-
 Format: `delete <index>`
+****
+* *Formal definition*: Deletes the card in the current deck at the specified `index`. The index refers to the index number shown in the displayed cards list. The index *must be a positive integer* 1, 2, 3, ...
+****
 
-****
-* Deletes the card in the current deck at the specified `index`. The index refers to the index number shown in the displayed cards list. The index *must be a positive integer* 1, 2, 3, ...
-****
+You can delete a card from the selected deck by using `delete` followed by the index number of that card. +
 
 Examples:
 
 * `delete 3` +
 Deletes the 3rd card in the current deck.
 
-.Deleting the 3rd card in the current deck
+.After deleting the 3rd card in the selected deck.
 image::delete.png[]
+
+{empty} +
 
 ==== Returning to the library : `return`
 
-Once you're done modifying the selected deck,
-you can return back to the library with the `return` command, i.e. no deck will be selected. +
-
 Format: `return`
 
-.Returning to Library view
+Once you're done modifying the selected deck,
+you can return back to the Library view with `return`, i.e. no deck will be selected. +
+
+.Returned to the Library view. No deck selected!
 image::library.png[]
 
+{empty} +
 
 === Play view
 
-.Playing the Japanese deck
+****
+Time to start testing yourself! When playing a deck, each card will initially show only its front face to allow you to recall its back face. (It's to test you, after all!)
+
+.Playing the Japanese deck. Ganbatte kudasai!
 image::Ui2.png[]
+****
 
 ==== Flipping a card : `flip`
 
-To flip a card in Play view to see the back of a card, simply type `flip` into the input box
-and press Enter.+
-
 Format: `flip`
 
-.Flipping to reveal the back face of the card
+Are you ready? To flip a card to see its back face, simply type `flip` into the input box
+and press kbd:[Enter]. +
+
+.Flipping to reveal the back face of the card.
 image::flip.png[]
 
+{empty} +
 
-==== Answering "yes/no" : `yes`/`no`
-
-If you could remember the back face of a card, type `yes` into the input box and press Enter. On the other hand, if you could not remember the back face of a card, type `no` into the input box and press Enter. Note that you can only do this after flipping the card. +
+==== Answering "yes" or "no" : `yes`/`no`
 
 Format: `yes` or `no`
 
-.Showing the next card after answering "yes"
+Were you able to recall the back face of the card? +
+If you could, type `yes` into the input box and press kbd:[Enter]. +
+If not, type `no` into the input box and press kbd:[Enter]. (Don't give up!) +
+
+[NOTE]
+You can only do this after flipping the card.
+
+.The next card (if any) will be immediately shown after answering.
 image::yes.png[]
 
-=== Saving the data
+{empty} +
 
-All data in FlashSpeed (e.g. decks, cards) are saved in the hard disk automatically after any command that changes the data. +
-You dont have to save your decks and cards manually!
+=== Save data
+
+All data in FlashSpeed (e.g. decks, cards) is saved automatically. It is all neatly placed in the folder you put FlashSpeed in. +
+You don't have to save your precious flashcards manually!
 
 == FAQ
 
 *Q*: How do I transfer my data to another computer? +
-*A*: Install FlashSpeed in the other computer and overwrite the data folder it creates with your current data folder.
+*A*: Copy the `data` folder in FlashSpeed's home folder over to the home folder in the other computer.
 
 == Command Summary
 
