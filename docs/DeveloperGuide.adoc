@@ -16,9 +16,44 @@ endif::[]
 
 By: `FlashSpeed Foundation`      Since: `Feb 2020`      Licence: `MIT`
 
+== Introduction
+FlashSpeed is a text-based flashcard application specifically designed for university students who are learning a foreign language.
+
+FlashSpeed enhances the revision process by adopting the <<spaced-repetition-system,Space Repetition System>> (SRS) in its design. Users will be tested more frequently on new words, or words that they have gotten wrong in previous sessions.
+
+The main features of FlashSpeed allows users to
+
+* create their own <<deck, decks>> of flashcards (or <<card, cards>>)
+* choose a deck to revise (or <<play, play>>) which uses the SRS design mentioned above.
+
+[[Purpose]]
+=== Purpose
+
+This document specifies architecture, software design decisions and implementation for the flashcard app, FlashSpeed.
+
+=== Audience
+This document is intended for anyone who wants to understand the system architecture, design and implementation of FlashSpeed.
+
+The following groups are in particular the intended audience of this document.
+
+* FlashSpeed developers
+* FlashSpeed features enhancement team members
+
+=== How to use
+
+* Section 3 - Design contains information about the main components of FlashSpeed.
+ ** First, refer to <<#Design-Architecture, 3.1 Architecture>> section to learn more about the overall architecture.
+ ** Then proceed to further sections 3.2 - 3.6 to learn more about each individual components of the architecture.
+
+* Section 4 - Implementation contains information about the main commands and the implementation of each command used in FlashSpeed.
+
+* Appendix Section - Any miscellaneous information that is not essential for the implementation of FlashSpeed but is good to know.
+
+
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
+
 
 == Design
 
@@ -62,7 +97,7 @@ For example, the `Logic` component (see the class diagram given below) defines i
 image::LogicClassDiagram.png[]
 
 [discrete]
-==== How the architecture components interact with each other
+==== 3.1.1 How the architecture components interact with each other
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 2`.
 
@@ -123,11 +158,10 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Library data.
-* stores a `GameManager` object that represents one game session.
-* stores a `Deck` object that represents the deck that the user is viewing when user is in deck view.
-* stores a `Card` object that represents the card that the user is playing with when user is in play mode.
-* stores a `View` object that represents the view that the user is currently in.
-* stores a `Mode` object that represents the mode that the user is currently in.
+* stores and manipulates a `GameManager` object that represents one game session.
+* stores and manipulates a `Deck` object that represents the deck that the user is viewing when user is in <<deck-view, deck view>>.
+* stores and manipulates a  `Card` object that represents the card that the user is playing with when user is in <<play, play view>>.
+* stores and manipulates `View` object that represents the <<view, view>> that the user is currently in.
 * exposes an unmodifiable `ObservableList<Deck>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -148,7 +182,7 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.address.commons` package.
 
 == Implementation
 
@@ -235,7 +269,7 @@ The display on the right panel will be updated via updating the `TableView`.
 
 The validation of the arguments in the `add` command is performed in `AddCardCommandParser#parse()`. It ensures
 that the user has entered a non-null front value as well as a non-null back value.
-The lack thereof will cause an `InvalidFaceValueException` to be thrown.
+The lack thereof will cause a `InvalidFaceValueException` to be thrown.
 
 In `AddCardCommandParser#parse()`, the `FRONT_VALUE` and the `BACK_VALUE` are extracted
 from the arguments in the `add` command.
@@ -329,7 +363,7 @@ After the object of the `PlayCommand' is constructed, `PlayCommand#execute()` wi
 This validation firstly checks if the given `INDEX` argument is a non-negative integer and is within the number of cards in the selected Deck. Then the validation checks if
 there is any card currently in the selected deck by checking if the `FRONT` face and `BACK` face of the card returned by `ModelManager#play()` are both empty.
 
-A valid `play` command will change the `MODE` of the `ModelManager` to `PLAY` mode and an `GameManager` object will be constructed in `ModelManager`.
+A valid `play` command will change the `MODE` of the `ModelManager` to `PLAY` mode and a `GameManager` object will be constructed in `ModelManager`.
 The first card of the selected deck is obtained using `deck#asUnmodifiableObservableList().get(0)` and returned to UI. The `FRONT` face of the first card will be displayed to the user.
 
 The following sequence diagram shows how the `play` operation works.
@@ -741,8 +775,24 @@ A Deck holds cards
 [[card]] Card::
 A Card has two faces. One side for prompting the user and the other side for the content the user wants to memorize
 
-[[spaced-repetition-system]] Spaced-repetition System::
+[[spaced-repetition-system]] Space Repetition System::
 Spaced repetition is an evidence-based learning technique that is usually performed with flashcards. Newly introduced and more difficult flashcards are shown more frequently while older and less difficult flashcards are shown less frequently in order to exploit the psychological spacing effect
+
+[[view]] View::
+There are three different views in FlashSpeed.
+
+* <<library-view, Library View>>
+* <<deck-view, Deck View>>
+* <<play, Play View>>
+
+[[library-view]] Library View::
+The current screen where FlashSpeed shows the list of decks.
+
+[[deck-view]] Deck View::
+The current screen where FlashSpeed shows the list of cards in a selected deck.
+
+[[play]] Play View (Play)::
+Enters the play view (mode) of FlashSpeed. In this mode, users will be able to take advantage of the SRS to revise/memorise their flashcards.
 
 [appendix]
 == Product Survey
