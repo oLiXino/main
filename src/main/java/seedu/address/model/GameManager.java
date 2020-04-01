@@ -88,8 +88,15 @@ public class GameManager {
         return cards.get(currCardIdx);
     }
 
+    /**
+     * Returns the statistics report when user stops the sessions.
+     */
     public Statistics stop() {
         return this.statistics;
+    }
+
+    public int getCurrCardIdx() {
+        return this.currCardIdx;
     }
 
     /**
