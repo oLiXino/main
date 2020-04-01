@@ -106,6 +106,16 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ReadOnlyProperty<Integer> cardAttemptedProperty() {
+        return model.cardAttemptedProperty();
+    }
+
+    @Override
+    public ReadOnlyProperty<Integer> cardRemainingProperty() {
+        return model.cardRemainingProperty();
+    }
+
+    @Override
     public void setSelectedDeck(Deck deck) {
         model.setSelectedDeck(deck);
     }

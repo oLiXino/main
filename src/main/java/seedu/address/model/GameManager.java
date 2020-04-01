@@ -21,6 +21,8 @@ public class GameManager {
     private Statistics statistics;
     private int deckSize;
     private int currCardIdx;
+    private int cardAttempted;
+    private int cardRemaining;
 
     /**
      * Initializes a GameManager with the given deck.
@@ -32,6 +34,7 @@ public class GameManager {
         this.statistics = new Statistics(cards);
         this.deckSize = this.cards.size();
         this.currCardIdx = randGen.nextInt(this.deckSize);
+        this.cardAttempted = 0;
     }
     
     public boolean isFlipped() {
@@ -68,6 +71,7 @@ public class GameManager {
         }
 
         this.currCardIdx = randGen.nextInt(this.deckSize);
+        cardAttempted++;
         return cards.get(currCardIdx);
     }
 
@@ -85,6 +89,7 @@ public class GameManager {
         flipped = false;
 
         this.currCardIdx = randGen.nextInt(this.deckSize);
+        cardAttempted++;
         return cards.get(currCardIdx);
     }
 
@@ -97,6 +102,14 @@ public class GameManager {
 
     public int getCurrCardIdx() {
         return this.currCardIdx;
+    }
+
+    public int getCardAttempted() {
+        return cardAttempted;
+    }
+
+    public int getDeckSize() {
+        return deckSize;
     }
 
     /**

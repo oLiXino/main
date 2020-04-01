@@ -40,6 +40,8 @@ public class ModelManager implements Model {
     private final SimpleObjectProperty<Mode> currentMode = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Card> playingCard = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Boolean> flipped = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Integer> cardAttempted = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<Integer> cardRemaining = new SimpleObjectProperty<>();
     private GameManager game;
 
     /**
@@ -112,6 +114,16 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyProperty<Boolean> flippedProperty() {
         return flipped;
+    }
+
+    @Override
+    public ReadOnlyProperty<Integer> cardAttemptedProperty() {
+        return cardAttempted;
+    }
+
+    @Override
+    public ReadOnlyProperty<Integer> cardRemainingProperty() {
+        return cardRemaining;
     }
 
     @Override
@@ -212,6 +224,17 @@ public class ModelManager implements Model {
     @Override
     public void setFlipped(Boolean value) {
         flipped.setValue(value);
+    }
+
+    @Override
+    public void setCardAttempted(int value) {
+        cardAttempted.setValue(value);
+    }
+
+
+    @Override
+    public void setCardRemaining(int value) {
+        cardRemaining.setValue(value);
     }
 
     @Override
@@ -334,6 +357,8 @@ public class ModelManager implements Model {
         setCurrentMode(Mode.PLAY);
         Card card = deck.asUnmodifiableObservableList().get(game.getCurrCardIdx());
         setPlayingCard(card);
+        setCardAttempted(0);
+        setCardRemaining(game.getDeckSize());
         setFlipped(false);
         return card;
     }
@@ -364,6 +389,8 @@ public class ModelManager implements Model {
         
         setPlayingCard(card);
         setFlipped(false);
+        setCardAttempted(game.getCardAttempted());
+        setCardRemaining(game.getDeckSize());
         
         return card;
     }
@@ -386,6 +413,8 @@ public class ModelManager implements Model {
         
         setPlayingCard(card);
         setFlipped(false);
+        setCardAttempted(game.getCardAttempted());
+        setCardRemaining(game.getDeckSize());
         
         return card;
     }

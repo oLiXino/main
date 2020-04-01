@@ -118,6 +118,16 @@ public interface Model {
     ReadOnlyProperty<Boolean> flippedProperty();
 
     /**
+     * Returns the readonly property.
+     */
+    ReadOnlyProperty<Integer> cardAttemptedProperty();
+
+    /**
+     * Returns the readonly property.
+     */
+    ReadOnlyProperty<Integer> cardRemainingProperty();
+
+    /**
      * Brings the user from deck view to library view.
      */
     void returnToLibrary();
@@ -181,6 +191,10 @@ public interface Model {
     void setSelectedDeck(Deck deck);
 
     void setFlipped(Boolean value);
+
+    void setCardAttempted(int value);
+
+    void setCardRemaining(int value);
 
     void setCurrentMode(Mode mode);
 

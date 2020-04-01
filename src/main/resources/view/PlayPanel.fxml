@@ -14,15 +14,29 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.control.ProgressBar?>
 <StackPane xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-color: #ffffff" xmlns="http://javafx.com/javafx/11.0.1" fx:id="pane">
    <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
       <children>
 
-         <StackPane style="-fx-background-color: #4473c5; -fx-border-width: 1;-fx-border-color: black; " minWidth="911" prefWidth="911" prefHeight="210" minHeight="210">
+         <StackPane style="-fx-background-color: #f4b184; -fx-border-width: 1;-fx-border-color: black; " minWidth="911" prefWidth="911" prefHeight="80" minHeight="80">
+
+            <ProgressBar fx:id="progress" minWidth="811" prefWidth="811"></ProgressBar>
+            <HBox>
+               <Region prefWidth="20"></Region>
+               <Label alignment="CENTER" text="Cards attempted: " style="-fx-text-fill: black; -fx-font-size: 15;" />
+               <Label alignment="CENTER" fx:id="noAttempted" text="0" style="-fx-text-fill: black; -fx-font-size: 15;" />
+               <Region prefWidth="600"></Region>
+               <Label alignment="CENTER" fx:id="stats2" text="Cards remaining: " style="-fx-text-fill: black; -fx-font-size: 15;" />
+               <Label alignment="CENTER" fx:id="noRemaining" text="0" style="-fx-text-fill: black; -fx-font-size: 15;" />
+            </HBox>
+         </StackPane>
+
+         <StackPane style="-fx-background-color: #4473c5; -fx-border-width: 0 1 1 1;-fx-border-color: black; " minWidth="911" prefWidth="911" prefHeight="170" minHeight="170">
          <Label alignment="CENTER" fx:id="front" style="-fx-text-fill: white; -fx-font-size: 60;" />
          </StackPane>
 
-         <StackPane style="-fx-background-color: #ff5722; -fx-border-width: 0 1 1 1; -fx-border-color: black" minWidth="911" prefWidth="911" prefHeight="210" minHeight="210">
+         <StackPane style="-fx-background-color: #ff5722; -fx-border-width: 0 1 1 1; -fx-border-color: black" minWidth="911" prefWidth="911" prefHeight="170" minHeight="170">
                   <Label alignment="CENTER" fx:id="back" style="-fx-text-fill: white; -fx-font-size: 60;"/>
          </StackPane>
 

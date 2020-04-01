@@ -5,6 +5,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -24,6 +25,10 @@ public class PlayPanel extends UiPart<Region> {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
+    private int attempted;
+
+    private int remaining;
+
     @FXML
     Label front;
 
@@ -33,16 +38,28 @@ public class PlayPanel extends UiPart<Region> {
     @FXML
     StackPane pane;
 
-    public PlayPanel(ObservableValue<Card> playingCard, ObservableValue<Boolean> flipped) {
+    @FXML
+    ProgressBar progress;
+
+    @FXML
+    Label noAttempted;
+
+    @FXML
+    Label noRemaining;
+
+
+
+    public PlayPanel(ObservableValue<Card> playingCard, ObservableValue<Boolean> flipped, ObservableValue<Integer> cardAttempted, ObservableValue<Integer> cardRemaining) {
         super(FXML);
         
         back.setVisible(false);
-        
+
         //Load playing card
         playingCard.addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 showPlayingCard(newValue);
-            }            
+            }
+
         });
 
         //Show back face when flipped
@@ -53,12 +70,35 @@ public class PlayPanel extends UiPart<Region> {
                 back.setVisible(false);
             }
         });
+
+        cardAttempted.addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                attempted = newValue;
+                setProgress();
+                noAttempted.setText(String.valueOf(newValue));
+            }
+        });
+
+        cardRemaining.addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                remaining = newValue;
+                setProgress();
+                noRemaining.setText(String.valueOf(newValue));
+            }
+        });
     }
 
-    public void showPlayingCard(Card card) {
+    private void showPlayingCard(Card card) {
         front.setText(card.getFrontFace().toString());
         front.setWrapText(true);
         back.setText(card.getBackFace().toString());
         back.setWrapText(true);
     }
+
+    private void setProgress() {
+        double currentProgress = Double.valueOf(attempted)/(attempted+remaining);
+        progress.setProgress(currentProgress);
+    }
+
+
 }
