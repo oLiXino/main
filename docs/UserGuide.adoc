@@ -46,7 +46,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the Help window.
 == Features
 
 ====
-[TIP]
 *Command Format*
 
 * Words in `<>` are the parameters to be supplied by the user. +
@@ -54,7 +53,6 @@ e.g. in `create <deck>`, `<deck>` is a parameter which can be used such as `crea
 ====
 
 ====
-[TIP]
 *Different Views*
 
 [NOTE]
@@ -83,7 +81,11 @@ image::Ui2.png[]
 
 ====
 
+{empty} +
+
 === General
+
+{empty} +
 
 ==== Viewing help : `help`
 
@@ -120,6 +122,8 @@ image::reset.png[]
 {empty} +
 
 === Library view
+
+{empty} +
 
 ==== Creating a deck : `create`
 
@@ -251,6 +255,8 @@ image::Ui2.png[]
 image::Ui.png[]
 ****
 
+{empty} +
+
 ==== Adding a card : `add`
 
 Format: `add <front>:<back>`
@@ -355,6 +361,8 @@ Time to start testing yourself! When playing a deck, each card will initially sh
 .Playing the Japanese deck. Ganbatte kudasai!
 image::Ui2.png[]
 ****
+
+{empty} +
 
 ==== Flipping a card : `flip`
 
