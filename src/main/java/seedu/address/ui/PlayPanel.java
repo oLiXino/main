@@ -62,6 +62,9 @@ public class PlayPanel extends UiPart<Region> {
         super(FXML);
         
         back.setVisible(false);
+        progress.setProgress(0);
+        progressPercent.setText("0.0%");
+
 
         //Load playing card
         playingCard.addListener((observable, oldValue, newValue) -> {
