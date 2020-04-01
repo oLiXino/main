@@ -61,7 +61,7 @@ public class GameManager {
      * @return the next card or null if card list is empty
      */
     public Card answerYes() {
-        statistics.incrementCardAttempt(cards.get(currCardIdx));
+        statistics.incrementCorrectAttempt(cards.get(currCardIdx));
         cards.remove(currCardIdx);
         this.deckSize -= 1;
         flipped = false;
@@ -82,7 +82,7 @@ public class GameManager {
      * @return the next card or null if card list is empty
      */
     public Card answerNo() {
-        statistics.incrementCardAttempt(cards.get(currCardIdx));
+        statistics.incrementWrongAttempt(cards.get(currCardIdx));
         Card currCard = cards.get(currCardIdx);
         cards.add(currCard);
         this.deckSize += 1;

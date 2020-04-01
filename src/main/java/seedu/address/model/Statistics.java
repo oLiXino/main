@@ -2,7 +2,6 @@ package seedu.address.model;
 
 
 import javafx.collections.ObservableList;
-import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.card.Card;
 
 import java.util.HashMap;
@@ -15,7 +14,6 @@ public class Statistics {
 
     // number of correct answers
     private int correctAns;
-
     // number of wrong answer
     private int wrongAns;
 
@@ -23,17 +21,23 @@ public class Statistics {
     private int totalQns;
 
     // hash map to keep track the number of attempts to get the correct answer for each card
-    private HashMap<Card, Integer> cardAttempts;
+    private HashMap<Card, Integer> totalAttempts;
+    private HashMap<Card, Integer> correctAttempts;
+    private HashMap<Card, Integer> wrongAttempts;
 
     public Statistics(ObservableList<Card> cards) {
         this.correctAns = 0;
         this.wrongAns = 0;
         this.totalQns = 0;
-        this.cardAttempts = new HashMap<>();
+        this.totalAttempts = new HashMap<>();
+        this.correctAttempts = new HashMap<>();
+        this.wrongAttempts = new HashMap<>();
 
         // initialize the number of attempt for each card as 0
         for (int i = 0; i < cards.size(); i++) {
-            cardAttempts.put(cards.get(i), 0);
+            totalAttempts.put(cards.get(i), 0);
+            correctAttempts.put(cards.get(i), 0);
+            wrongAttempts.put(cards.get(i), 0);
         }
     }
 
@@ -69,19 +73,40 @@ public class Statistics {
     /**
      * Increments the number of attempts of a certain card.
      */
-    public void incrementCardAttempt(Card card) {
-        cardAttempts.merge(card, 1, Integer::sum);
+    private void incrementAttempt(Card card) {
+        totalAttempts.merge(card, 1, Integer::sum);
+    }
+
+
+    /**
+     * Increments the number of correct attempts of a certain card.
+     */
+    public void incrementCorrectAttempt(Card card) {
+        ++correctAns;
+        ++totalQns;
+        correctAttempts.merge(card, 1, Integer::sum);
+        incrementAttempt(card);
+    }
+
+    /**
+     * Increments the number of correct attempts of a certain card.
+     */
+    public void incrementWrongAttempt(Card card) {
+        ++wrongAns;
+        ++totalQns;
+        wrongAttempts.merge(card, 1, Integer::sum);
+        incrementAttempt(card);
     }
 
     @Override
     public String toString() {
         String output = "Rounds played: " + this.totalQns + "\n" +
-                "Correct Answer: " + this.correctAns + "\n" +
-                "Wrong Answer: " + this.wrongAns + "\n" +
-                "Score= " + getScore() + "% \n" +
+                "Correct Attempts: " + this.correctAns + "\n" +
+                "Wrong Attempts: " + this.wrongAns + "\n" +
+                "Score= " + String.format("%2d", getScore()) + "% \n" +
                 "Here is a list of cards you guessed incorrectly:" + "\n";
 
-        for (Map.Entry<Card, Integer> entry: cardAttempts.entrySet()) {
+        for (Map.Entry<Card, Integer> entry: wrongAttempts.entrySet()) {
            if (entry.getValue() > 0) {
                output += String.format("%S : %S (%d times)\n",
                        entry.getKey().getFrontFace().getValue(),
