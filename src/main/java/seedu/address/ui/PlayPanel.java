@@ -47,6 +47,13 @@ public class PlayPanel extends UiPart<Region> {
     @FXML
     Label noRemaining;
 
+    @FXML
+    Label progressPercent;
+
+    @FXML
+    Label instruction;
+
+
 
 
     public PlayPanel(ObservableValue<Card> playingCard, ObservableValue<Boolean> flipped, ObservableValue<Integer> cardAttempted, ObservableValue<Integer> cardRemaining) {
@@ -58,6 +65,7 @@ public class PlayPanel extends UiPart<Region> {
         playingCard.addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 showPlayingCard(newValue);
+
             }
 
         });
@@ -66,6 +74,7 @@ public class PlayPanel extends UiPart<Region> {
         flipped.addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 back.setVisible(true);
+                instruction.setText("Did you get your answer right? Answer 'yes' or 'no'");
             } else {
                 back.setVisible(false);
             }
@@ -93,10 +102,13 @@ public class PlayPanel extends UiPart<Region> {
         front.setWrapText(true);
         back.setText(card.getBackFace().toString());
         back.setWrapText(true);
+        instruction.setText("Type 'flip' to reveal back face");
     }
 
     private void setProgress() {
         double currentProgress = Double.valueOf(attempted)/(attempted+remaining);
+        double prog = currentProgress * 100;
+        progressPercent.setText(String.valueOf(prog)+"%");
         progress.setProgress(currentProgress);
     }
 
