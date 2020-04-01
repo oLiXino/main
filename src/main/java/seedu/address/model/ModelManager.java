@@ -333,7 +333,7 @@ public class ModelManager implements Model {
         this.game = new GameManager(deck);
         this.mode = Mode.PLAY;
         setCurrentMode(Mode.PLAY);
-        Card card = deck.asUnmodifiableObservableList().get(0);
+        Card card = deck.asUnmodifiableObservableList().get(game.getCurrCardIdx());
         setPlayingCard(card);
         setFlipped(false);
         return card;
