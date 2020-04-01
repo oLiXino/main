@@ -6,6 +6,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.Statistics;
 import seedu.address.model.deck.card.Card;
 import seedu.address.model.util.Mode;
 
@@ -18,6 +19,7 @@ public class AnswerYesCommand extends Command {
     public static final String MESSAGE_NOT_PLAY_MODE = "Not in play mode!";
     public static final String MESSAGE_NOT_FLIPPED = "Card has not flipped yet!";
     public static final String MESSAGE_END_GAME = "Session completed!";
+    Statistics statistics;
     
     public AnswerYesCommand() { }
 
@@ -34,9 +36,11 @@ public class AnswerYesCommand extends Command {
         }
 
         Card nextCard = model.answerYes();
-        
+
+
         if (nextCard == null) {
-            return new CommandResult(String.format(MESSAGE_END_GAME));
+            statistics = model.stop();
+            return new CommandResult(String.format(MESSAGE_END_GAME), false, false, true, statistics);
         }
         
         return new CommandResult(String.format(MESSAGE_SUCCESS));

@@ -360,7 +360,7 @@ public class ModelManager implements Model {
         Card card = this.game.answerYes();
         
         if (card == null) {
-            Statistics statistics = stop();
+            //Statistics statistics = stop();
         }
         
         setPlayingCard(card);
@@ -382,7 +382,7 @@ public class ModelManager implements Model {
         Card card = this.game.answerNo();
         
         if (card == null) {
-            Statistics statistics = stop();
+            //Statistics statistics = stop();
         }
         
         setPlayingCard(card);
