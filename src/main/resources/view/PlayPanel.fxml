@@ -23,7 +23,7 @@
 
             <ProgressBar fx:id="progress" minWidth="811" prefWidth="811"></ProgressBar>
             <HBox>
-               <Region prefWidth="10"></Region>
+               <Region prefWidth="20"></Region>
                <Label alignment="CENTER" text="Cards attempted: " style="-fx-text-fill: black; -fx-font-size: 15;" />
                <Label alignment="CENTER" fx:id="noAttempted" text="0" style="-fx-text-fill: black; -fx-font-size: 15;" />
                <Region prefWidth="600"></Region>
