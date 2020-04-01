@@ -38,10 +38,10 @@ public class PlayCommand extends Command {
         requireNonNull(model);
         
         Deck deck = model.getDeck(targetIdx);
-        Card card = model.play(targetIdx);
         if (model.getGame() != null) {
             throw new CommandException(MESSAGE_ALREADY_PLAY);
         }
+        Card card = model.play(targetIdx);
         if (card == null) {
             throw new CommandException(MESSAGE_DECK_NOT_FOUND);
         }
