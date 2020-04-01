@@ -21,7 +21,8 @@ public class PlayCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Selected deck: %1$s";
     public static final String MESSAGE_DECK_NOT_FOUND = "Deck not found in the library!";
     public static final String MESSAGE_NO_CARD = "Oops, there are no cards in the selected deck.";
-    
+    public static final String MESSAGE_ALREADY_PLAY = "You should complete or end this session before playing a new one.";
+
     private final Index targetIdx;
 
     /**
@@ -38,6 +39,9 @@ public class PlayCommand extends Command {
         
         Deck deck = model.getDeck(targetIdx);
         Card card = model.play(targetIdx);
+        if (model.getGame() != null) {
+            throw new CommandException(MESSAGE_ALREADY_PLAY);
+        }
         if (card == null) {
             throw new CommandException(MESSAGE_DECK_NOT_FOUND);
         }
