@@ -388,21 +388,31 @@ If not, type `no` into the input box and press kbd:[Enter]. Don't give up! +
 [NOTE]
 You can only do this after flipping the card.
 
+[NOTE]
+If you answered `no` for a card, you will have an opportunity to see it again later in the same session.
+FlashSpeed optimizes for cards you find difficult.
+
 .The next card (if any) will be immediately shown after answering.
 image::yes.png[]
 
 {empty} +
 
-==== Stopping a play session: `stop`
+==== Stopping a session: `stop`
 
-Format: `yes` or `no`
+Format: `stop`
 
-A play session will end after you answer all the cards in that deck correctly. However, if you get bored of playing it, you can always stop the session immediately by typing `stop` into the input box and press kbd:[Enter]. We don't want you to get lazy and use this feature too often though!
+A play session will end automatically when there are no more cards to review.
+However, you can always stop an ongoing session immediately by typing `stop` into the input box and pressing kbd:[Enter].
+But of course, don't give up and try not to use this too often!
 
 [NOTE]
-The session statistics will be shown after ending or stopping a play session.
+The session statistics will be shown after completing a session or even when manually stopping.
 
-.Statistics are shown after stopping the session
+[NOTE]
+Each card may appear more than once.
+You may see the same card a number of times in the same session according to your `yes` or `no` answers.
+
+.Statistics shown after manually stopping the session.
 image::stop.png[]
 
 {empty} +
@@ -449,5 +459,6 @@ e.g. `delete 3`
 * *Flip* : `flip`
 * *Yes* : `yes`
 * *No* : `no`
+* *Stop* : `stop`
 
 {empty} +
