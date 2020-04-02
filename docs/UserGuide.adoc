@@ -87,8 +87,6 @@ image::Ui2.png[]
 
 === General
 
-{empty} +
-
 ==== Viewing help : `help`
 
 Format: `help`
@@ -124,8 +122,6 @@ image::reset.png[]
 {empty} +
 
 === Library view
-
-{empty} +
 
 ==== Creating a deck : `create`
 
