@@ -28,15 +28,9 @@ endif::[]
 
 FlashSpeed is a text-based flashcard application specifically designed for university students who are learning a foreign language. University students often have hectic schedules. With this in mind, FlashSpeed was created to allow students to be able to study and revise foreign vocabulary on the fly. With a single command, you can start a quick study session on FlashSpeed whenever!
 
-FlashSpeed enhances the revision process by adopting the Space Repetition System (SRS) in its design. Users will be tested more frequently on new words, or words that they have gotten wrong in previous sessions. This system benefits from the psychological spacing effect. SRS has been scientifically proven to increase the rate of learning and memorisation.
+Keeping, flipping, and tracking physical flashcards can be a pain. FlashSpeed enhances the studying process by having virtual flashcards and a smarter review system. Users will be tested more frequently on flashcards that they had trouble memorizing previously.
 
 By using FlashSpeed, you will learn faster and remember for longer!
-
-// We hope you enjoy using our app. Happy FlashSpeeding!
-
-//* This is a desktop Flashcard application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-//* It is a Java sample application intended for students learning a new language.
-//* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
 
 == Who is it for?
 
