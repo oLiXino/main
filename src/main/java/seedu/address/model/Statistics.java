@@ -100,20 +100,32 @@ public class Statistics {
 
     @Override
     public String toString() {
+        int wrongCounter = 0;
         String output = "Cards Attempted: " + this.totalQns + "\n" +
                 "Correct Attempts: " + this.correctAns + "\n" +
                 "Wrong Attempts: " + this.wrongAns + "\n" +
-                "Score: " + String.format("%2d", getScore()) + "% \n" +
-                "Here is a list of cards you guessed incorrectly:" + "\n";
+                "Score: " + String.format("%2d", getScore()) + "% \n";
 
         for (Map.Entry<Card, Integer> entry: wrongAttempts.entrySet()) {
-           if (entry.getValue() > 0) {
-               output += String.format("%S : %S (%d times)\n",
-                       entry.getKey().getFrontFace().getValue(),
-                       entry.getKey().getBackFace().getValue(),
-                       entry.getValue());
-           }
+            if (entry.getValue() > 0) {
+                wrongCounter++;
+            }
         }
+
+        if (wrongCounter > 0) {
+            output += "Here is a list of cards you guessed incorrectly:" + "\n";
+            for (Map.Entry<Card, Integer> entry: wrongAttempts.entrySet()) {
+                if (entry.getValue() > 0) {
+                    output += String.format("%S : %S (%d times)\n",
+                            entry.getKey().getFrontFace().getValue(),
+                            entry.getKey().getBackFace().getValue(),
+                            entry.getValue());
+                }
+            }
+        } else {
+            output += "Congratulations! You got them all correct!" +"\n";
+        }
+
 
         return output;
     }
