@@ -100,10 +100,10 @@ public class Statistics {
 
     @Override
     public String toString() {
-        String output = "Rounds played: " + this.totalQns + "\n" +
+        String output = "Cards Attempted: " + this.totalQns + "\n" +
                 "Correct Attempts: " + this.correctAns + "\n" +
                 "Wrong Attempts: " + this.wrongAns + "\n" +
-                "Score= " + String.format("%2d", getScore()) + "% \n" +
+                "Score: " + String.format("%2d", getScore()) + "% \n" +
                 "Here is a list of cards you guessed incorrectly:" + "\n";
 
         for (Map.Entry<Card, Integer> entry: wrongAttempts.entrySet()) {
