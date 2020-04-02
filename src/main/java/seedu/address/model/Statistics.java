@@ -116,16 +116,16 @@ public class Statistics {
             output += "Here is a list of cards you guessed incorrectly:" + "\n";
             for (Map.Entry<Card, Integer> entry: wrongAttempts.entrySet()) {
                 if (entry.getValue() > 0) {
-                    output += String.format("%S : %S (%d times)\n",
+                    output += String.format("%S : %S (%d %s)\n",
                             entry.getKey().getFrontFace().getValue(),
                             entry.getKey().getBackFace().getValue(),
-                            entry.getValue());
+                            entry.getValue(),
+                            entry.getValue() == 1 ? "time" : "times");
                 }
             }
         } else {
             output += "Congratulations! You got them all correct!" +"\n";
         }
-
 
         return output;
     }
