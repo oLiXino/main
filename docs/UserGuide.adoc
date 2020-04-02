@@ -396,6 +396,18 @@ image::yes.png[]
 
 {empty} +
 
+==== Stopping a play session: `stop`
+
+Format: `yes` or `no`
+
+A play session will end after you answer all the cards in that deck correctly. However, if you get bored of playing it, you can always stop the session immediately by typing `stop` into the input box and press kbd:[Enter]. We don't want you to get lazy and use this feature too often though!
+
+[NOTE]
+The session statistics will be shown after ending or stopping a play session.
+
+.Statistics are shown after stopping the session
+image::stop.png[]
+
 === Save data
 
 All data in FlashSpeed (e.g. decks, cards) is saved automatically. It is all neatly placed in the folder you put FlashSpeed in. +
