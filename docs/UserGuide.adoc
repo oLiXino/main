@@ -408,15 +408,21 @@ The session statistics will be shown after ending or stopping a play session.
 .Statistics are shown after stopping the session
 image::stop.png[]
 
+{empty} +
+
 === Save data
 
 All data in FlashSpeed (e.g. decks, cards) is saved automatically. It is all neatly placed in the folder you put FlashSpeed in. +
 You don't have to save your precious flashcards manually!
 
+{empty} +
+
 == FAQ
 
 *Q*: How do I transfer my data to another computer? +
 *A*: Copy the `data` folder in FlashSpeed's home folder over to the home folder in the other computer.
+
+{empty} +
 
 == Command Summary
 
