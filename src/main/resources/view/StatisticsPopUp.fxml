@@ -13,9 +13,9 @@
   </icons>
   <scene>
     <Scene>
-         <HBox alignment="CENTER" minWidth="200" minHeight="200">
+         <HBox alignment="CENTER" maxWidth="800" maxHeight="800">
             <children>
-               <Label fx:id="stats" text="Label" style="-fx-font-size: 20;">
+               <Label fx:id="stats" text="Label" style="-fx-font-size: 20;" wrapText="true">
                   <HBox.margin>
                      <Insets right="5.0" />
                   </HBox.margin>
