@@ -29,15 +29,18 @@
 
             </rowConstraints>
 
-         <StackPane GridPane.rowIndex="0" style="-fx-background-color: #f4b184; -fx-border-width: 1 1 0 1;-fx-border-color: black; -fx-padding: 0 0 0 0 ;" >
-            <ProgressBar style="-fx-padding: 20 0 0 0 ;" fx:id="progress" minWidth="811" prefWidth="811" ></ProgressBar>
-            <HBox >
-               <Region prefWidth="12.5"></Region>
-               <Label alignment="CENTER" text="Cards attempted: " style="-fx-text-fill: black; -fx-font-size: 15;" />
-               <Label alignment="CENTER" fx:id="noAttempted" text="0" style="-fx-text-fill: black; -fx-font-size: 15;" />
-               <Region prefWidth="625"></Region>
-               <Label alignment="CENTER" fx:id="stats2" text="Cards remaining: " style="-fx-text-fill: black; -fx-font-size: 15;" />
-               <Label alignment="CENTER" fx:id="noRemaining" text="0" style="-fx-text-fill: black; -fx-font-size: 15;" />
+             <columnConstraints>
+                <ColumnConstraints percentWidth="100" />
+             </columnConstraints>
+         <StackPane GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-background-color: #f4b184; -fx-border-width: 1 1 0 1;-fx-border-color: black; -fx-padding: 0 0 0 0 ;" >
+            <ProgressBar style="-fx-padding: 20 0 0 0 ;" fx:id="progress" minWidth="820" prefWidth="820" ></ProgressBar>
+            <HBox alignment="TOP_LEFT">
+                <Region prefWidth="12.5"></Region>
+               <Label  text="Cards attempted: " style="-fx-text-fill: black; -fx-font-size: 15;" />
+               <Label  fx:id="noAttempted" text="0" style="-fx-text-fill: black; -fx-font-size: 15;" />
+            </HBox><HBox alignment="TOP_RIGHT">
+               <Label fx:id="stats2" text="Cards remaining: " style="-fx-text-fill: black; -fx-font-size: 15;" />
+               <Label  fx:id="noRemaining" text="0" style="-fx-text-fill: black; -fx-font-size: 15;" />
                <Region prefWidth="12.5"></Region>
             </HBox>
             <Label alignment="CENTER" fx:id="progressPercent"  style="-fx-text-fill: black; -fx-font-size: 15; -fx-padding: 20 0 0 0 ;" />
