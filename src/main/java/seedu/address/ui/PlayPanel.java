@@ -38,9 +38,6 @@ public class PlayPanel extends UiPart<Region> {
     Label back;
 
     @FXML
-    StackPane pane;
-
-    @FXML
     ProgressBar progress;
 
     @FXML
