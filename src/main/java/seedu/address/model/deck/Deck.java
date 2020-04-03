@@ -86,7 +86,7 @@ public class Deck {
         }
 
         return otherDeck != null
-                && otherDeck.getName().equals(getName());
+                && otherDeck.getName().equalsLowerCase(getName());
     }
 
     /**
@@ -115,7 +115,7 @@ public class Deck {
         }
 
         Deck otherDeck = (Deck) other;
-        return otherDeck.getName().equals(getName());
+        return otherDeck.getName().equalsLowerCase(getName());
     }
 
     @Override

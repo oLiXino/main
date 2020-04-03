@@ -10,13 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Name {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
-
-    /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+            "Names should contain at least one (non-whitespace) character, i.e. should not be blank";
 
     public final String name;
 
@@ -27,6 +21,7 @@ public class Name {
      */
     public Name(String name) {
         requireNonNull(name);
+        name = name.strip();
         checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
         this.name = name;
     }
@@ -35,9 +30,8 @@ public class Name {
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidName(String test) {
-        return test.matches(VALIDATION_REGEX);
+        return !test.isEmpty();
     }
-
 
     @Override
     public String toString() {
@@ -49,6 +43,12 @@ public class Name {
         return other == this // short circuit if same object
                 || (other instanceof Name // instanceof handles nulls
                 && name.equals(((Name) other).name)); // state check
+    }
+
+    public boolean equalsLowerCase(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Name // instanceof handles nulls
+                && name.toLowerCase().equals(((Name) other).name.toLowerCase())); // state check
     }
 
     @Override
