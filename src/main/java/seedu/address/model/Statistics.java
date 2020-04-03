@@ -112,7 +112,11 @@ public class Statistics {
             }
         }
 
-        if (wrongCounter > 0) {
+        if (this.totalQns == 0) {
+            output += "You did not attempt any card!"+"\n";
+
+        }
+        else if (wrongCounter > 0) {
             output += "Here is a list of cards you guessed incorrectly:" + "\n";
             for (Map.Entry<Card, Integer> entry: wrongAttempts.entrySet()) {
                 if (entry.getValue() > 0) {
@@ -123,7 +127,7 @@ public class Statistics {
                             entry.getValue() == 1 ? "time" : "times");
                 }
             }
-        } else if (wrongCounter == 0 && this.totalQns != 0) {
+        } else {
             output += "Congratulations! You got them all correct!" +"\n";
         }
 
