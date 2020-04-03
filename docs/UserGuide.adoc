@@ -355,8 +355,11 @@ image::library.png[]
 
 === Play view
 
+Format: `play <index>`
+
 ****
-Time to start testing yourself! When playing a deck, each card will initially show only its front face to allow you to recall its back face. (It's to test you, after all!)
+Time to start testing yourself! You can start a game session with a selected deck when you want to test how well you memorize the cards or just to enhance
+your memory of the cards in a specific deck. When playing a deck, each card will initially show only its front face to allow you to recall its back face. (It's to test you, after all!)
 
 .Playing the Japanese deck. Ganbatte kudasai!
 image::Ui2.png[]
@@ -368,7 +371,8 @@ image::Ui2.png[]
 
 Format: `flip`
 
-Are you ready? To flip a card to see its back face, simply type `flip` into the input box
+Are you ready? When you have a guess which you are confident with of the back face of the card, try to flip the card to see
+if your guess is correct. To flip a card to see its back face, simply type `flip` into the input box
 and press kbd:[Enter]. +
 
 .Flipping to reveal the back face of the card.
@@ -380,9 +384,9 @@ image::flip.png[]
 
 Format: `yes` or `no`
 
-Were you able to recall the back face of the card? +
-If you could, type `yes` into the input box and press kbd:[Enter]. +
-If not, type `no` into the input box and press kbd:[Enter]. (Don't give up!) +
+Are you able to recall the back face of the card? +
+If you could, type `yes` into the input box and press kbd:[Enter]. (Congratulations!) +
+If you could not or your guess is wrong, type `no` into the input box and press kbd:[Enter]. (Don't give up!) +
 
 [NOTE]
 You can only do this after flipping the card.
