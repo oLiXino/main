@@ -23,4 +23,21 @@ public abstract class Face {
     public String toString() {
         return value;
     }
+
+    /**
+     * Returns true if both faces have the same value.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Face)) {
+            return false;
+        }
+
+        Face otherFace = (Face) other;
+        return otherFace.getValue().equals(getValue());
+    }
 }
