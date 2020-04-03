@@ -41,7 +41,7 @@ public class EditCardCommand extends Command {
             + ":thanks";
 
     public static final String MESSAGE_SUCCESS = "Card edited: %1$s";
-    public static final String MESSAGE_NOT_IN_VIEW_MODE = "Not in View Mode";
+    public static final String MESSAGE_NOT_IN_VIEW_MODE = "Cannot edit card in the play view";
 
     private final Index targetIndex;
     private final FrontFace front;

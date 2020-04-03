@@ -15,7 +15,7 @@ public class StopCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Stop the current game session.\n";
     public static final String MESSAGE_SUCCESS = "Session stopped!";
-    public static final String MESSAGE_NOT_PLAY_MODE = "Not in play mode!";
+    public static final String MESSAGE_NOT_PLAY_MODE = "You have not started a new game session";
 
     Statistics statistics;
     /**

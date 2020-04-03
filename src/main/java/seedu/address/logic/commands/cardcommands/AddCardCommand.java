@@ -27,7 +27,7 @@ public class AddCardCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New card added: %1$s";
     public static final String MESSAGE_DUPLICATE_CARD = "This card already exists in the deck";
-    public static final String MESSAGE_NOT_IN_VIEW_MODE = "Not in View Mode";
+    public static final String MESSAGE_NOT_IN_VIEW_MODE = "Cannot add card in the play view";
 
     private final Card toAdd;
 

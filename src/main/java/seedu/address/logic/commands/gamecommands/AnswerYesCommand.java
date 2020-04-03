@@ -16,7 +16,7 @@ public class AnswerYesCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Answer yes if you have the correct answer.\n";
     public static final String MESSAGE_SUCCESS = "Nice, you got it right!";
-    public static final String MESSAGE_NOT_PLAY_MODE = "Not in play mode!";
+    public static final String MESSAGE_NOT_PLAY_MODE = "Cannot answer card in non-play view";
     public static final String MESSAGE_NOT_FLIPPED = "Card has not flipped yet!";
     public static final String MESSAGE_END_GAME = "Session completed!";
     Statistics statistics;

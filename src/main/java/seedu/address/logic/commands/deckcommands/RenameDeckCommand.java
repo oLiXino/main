@@ -35,7 +35,7 @@ public class RenameDeckCommand extends Command {
     public static final String MESSAGE_RENAME_DECK_SUCCESS = "Edited Deck: %1$s";
     public static final String MESSAGE_NOT_EDITED = "New deck name must be provided.";
     public static final String MESSAGE_DUPLICATE_DECK = "This deck name already exists in the library.";
-    public static final String MESSAGE_NOT_IN_VIEW_MODE = "Not in View Mode";
+    public static final String MESSAGE_NOT_IN_VIEW_MODE = "Cannot rename deck in the play view";
 
     private final Index index;
     private final Name name;

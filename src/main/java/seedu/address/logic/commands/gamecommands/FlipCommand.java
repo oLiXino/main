@@ -15,7 +15,7 @@ public class FlipCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Flips the card to see the back face.\n";
     public static final String MESSAGE_SUCCESS = "Did you get your answer right?";
-    public static final String MESSAGE_NOT_PLAY_MODE = "Not in play mode!";
+    public static final String MESSAGE_NOT_PLAY_MODE = "Cannot flip card in non-play view";
     public static final String MESSAGE_ALREADY_FLIPPED = "Card already flipped!";
 
     private BackFace backFace;
