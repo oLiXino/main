@@ -16,7 +16,7 @@ public class AnswerNoCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Answer no if you have the wrong answer.\n";
     public static final String MESSAGE_SUCCESS = "Oops, you got it wrong!";
-    public static final String MESSAGE_NOT_PLAY_MODE = "Not in play mode!";
+    public static final String MESSAGE_NOT_PLAY_MODE = "Cannot answer card in non-play view";
     public static final String MESSAGE_NOT_FLIPPED = "Card has not flipped yet!";
     public static final String MESSAGE_END_GAME = "Session completed!";
     Statistics statistics;

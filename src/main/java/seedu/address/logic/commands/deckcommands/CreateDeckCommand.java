@@ -27,7 +27,7 @@ public class CreateDeckCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New deck added: %1$s";
     public static final String MESSAGE_DUPLICATE_DECK = "This deck already exists in the library.";
-    public static final String MESSAGE_NOT_IN_VIEW_MODE = "Not in View Mode";
+    public static final String MESSAGE_NOT_IN_VIEW_MODE = "Cannot create deck in the play view";
 
     private final Deck toAdd;
 

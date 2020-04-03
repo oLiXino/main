@@ -25,7 +25,7 @@ public class DeleteCardCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SUCCESS = "Deleted Card: %1$s";
-    public static final String MESSAGE_NOT_IN_VIEW_MODE = "Not in View Mode";
+    public static final String MESSAGE_NOT_IN_VIEW_MODE = "Cannot delete card in the play view";
 
     private final Index targetIndex;
 

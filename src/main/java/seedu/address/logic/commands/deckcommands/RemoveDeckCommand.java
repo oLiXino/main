@@ -27,7 +27,7 @@ public class RemoveDeckCommand extends Command {
             + "Example:" + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_DECK_SUCCESS = "Deleted Deck: %1$s";
-    public static final String MESSAGE_NOT_IN_VIEW_MODE = "Not in View Mode";
+    public static final String MESSAGE_NOT_IN_VIEW_MODE = "Cannot remove deck in the play view";
 
     private final Index targetIndex;
 
