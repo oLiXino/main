@@ -8,10 +8,10 @@
 <?import javafx.scene.control.Label?>
 
 <?import javafx.collections.FXCollections?>
-<StackPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+<StackPane  xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
 
-   <AnchorPane prefHeight="200.0" prefWidth="200.0" />
-   <TableView fx:id="itemTbl" prefHeight="200.0" prefWidth="200.0">
+   <AnchorPane  />
+   <TableView fx:id="itemTbl" >
       <placeholder><Label fx:id="defaultText" text="No deck selected" style="-fx-text-fill:white" /></placeholder>
    </TableView>
 

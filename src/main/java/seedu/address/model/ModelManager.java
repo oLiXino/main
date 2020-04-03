@@ -212,12 +212,13 @@ public class ModelManager implements Model {
 
     @Override
     public void setSelectedDeck(Deck deck) {
-        selectedDeck.setValue(deck);
         if (deck != null) {
+            selectedDeck.setValue(deck);
             Index currIndex = Index.fromZeroBased(library.getDeckList().indexOf(deck));
             deckIndex = Optional.of(currIndex);
+            this.view = View.DECK;
         }
-        this.view = View.DECK;
+
     }
 
     @Override
