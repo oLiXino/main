@@ -67,11 +67,7 @@ public class MainWindow extends UiPart<Stage> {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         primaryStage.setX(primaryScreenBounds.getMinX());
         primaryStage.setY(primaryScreenBounds.getMinY());
-
-        primaryStage.setMaxWidth(primaryScreenBounds.getWidth());
         primaryStage.setMinWidth(primaryScreenBounds.getWidth());
-
-        primaryStage.setMaxHeight(primaryScreenBounds.getHeight());
         primaryStage.setMinHeight(primaryScreenBounds.getHeight());
 
 
