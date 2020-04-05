@@ -11,6 +11,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.card.Card;
@@ -38,29 +39,32 @@ public class PlayPanel extends UiPart<Region> {
     Label back;
 
     @FXML
-    ProgressBar progress;
-
-    @FXML
     Label noAttempted;
 
     @FXML
     Label noRemaining;
 
     @FXML
+    ProgressBar progress;
+
+    @FXML
     Label progressPercent;
+
+    @FXML
+    VBox progressRoot;
 
     @FXML
     Label instruction;
 
 
-
-
     public PlayPanel(ObservableValue<Card> playingCard, ObservableValue<Boolean> flipped, ObservableValue<Integer> cardAttempted, ObservableValue<Integer> cardRemaining) {
         super(FXML);
-        
+
         back.setVisible(false);
         progress.setProgress(0);
         progressPercent.setText("0.0%");
+        progress.prefWidthProperty().bind(progressRoot.widthProperty().subtract(40));
+
 
 
         //Load playing card
