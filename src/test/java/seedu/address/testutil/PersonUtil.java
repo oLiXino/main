@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import java.util.Set;
 
+import seedu.address.logic.commands.deckcommands.CreateDeckCommand;
 import seedu.address.model.deck.Deck;
 
 /**
