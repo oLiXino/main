@@ -1,0 +1,58 @@
+package seedu.address.testutil;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.Name;
+import seedu.address.model.deck.card.BackFace;
+import seedu.address.model.deck.card.Card;
+import seedu.address.model.deck.card.Face;
+import seedu.address.model.deck.card.FrontFace;
+
+/**
+ * A utility class to help with building Person objects.
+ */
+public class CardBuilder {
+
+    public static final String DEFAULT_NAME = "Japanese";
+    public static final Deck DEFAULT_DECK = new Deck(new Name("Default deck"));
+
+    private FrontFace frontFace;
+    private BackFace backFace;
+
+    /**
+     * Initializes the CardBuilder with the data of {@code cardToCopy}.
+     */
+    public CardBuilder(Card cardToCopy) {
+        this.frontFace = cardToCopy.getFrontFace();
+        this.backFace = cardToCopy.getBackFace();
+    }
+
+    /**
+     * Default constructor.
+     */
+    public CardBuilder() {
+    }
+
+    /**
+     * Sets the front face of the card that we are building.
+     */
+    public CardBuilder withFrontFace(FrontFace frontFace) {
+        this.frontFace = frontFace;
+        return this;
+    }
+
+    /**
+     * Sets the back face of the card that we are building.
+     */
+    public CardBuilder withBackFace(BackFace backFace) {
+        this.backFace = backFace;
+       return this;
+    }
+
+    public Card build() {
+        return new Card(frontFace, backFace);
+    }
+
+}

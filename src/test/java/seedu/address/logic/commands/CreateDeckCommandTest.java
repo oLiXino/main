@@ -22,7 +22,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyLibrary;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.deck.Deck;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.DeckBuilder;
 
 public class CreateDeckCommandTest {
 
@@ -34,7 +34,7 @@ public class CreateDeckCommandTest {
     @Test
     public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Deck validDeck = new PersonBuilder().build();
+        Deck validDeck = new DeckBuilder().build();
 
         CommandResult commandResult = new CreateDeckCommand(validDeck).execute(modelStub);
 
@@ -44,7 +44,7 @@ public class CreateDeckCommandTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Deck validDeck = new PersonBuilder().build();
+        Deck validDeck = new DeckBuilder().build();
         CreateDeckCommand createDeckCommand = new CreateDeckCommand(validDeck);
         ModelStub modelStub = new ModelStubWithPerson(validDeck);
 
@@ -53,8 +53,8 @@ public class CreateDeckCommandTest {
 
     @Test
     public void equals() {
-        Deck alice = new PersonBuilder().withName("Alice").build();
-        Deck bob = new PersonBuilder().withName("Bob").build();
+        Deck alice = new DeckBuilder().withName("Alice").build();
+        Deck bob = new DeckBuilder().withName("Bob").build();
         CreateDeckCommand addAliceCommand = new CreateDeckCommand(alice);
         CreateDeckCommand addBobCommand = new CreateDeckCommand(bob);
 
