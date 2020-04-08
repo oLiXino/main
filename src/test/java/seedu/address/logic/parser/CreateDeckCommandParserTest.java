@@ -26,8 +26,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalDecks.AMY;
+import static seedu.address.testutil.TypicalDecks.BOB;
 
 import org.junit.jupiter.api.Test;
 
@@ -39,14 +39,14 @@ import seedu.address.model.deck.dump.Email;
 import seedu.address.model.deck.Name;
 import seedu.address.model.deck.dump.Phone;
 import seedu.address.model.deck.dump.tag.Tag;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.DeckBuilder;
 
 public class CreateDeckCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Deck expectedDeck = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
+        Deck expectedDeck = new DeckBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
@@ -69,7 +69,7 @@ public class CreateDeckCommandParserTest {
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new CreateDeckCommand(expectedDeck));
 
         // multiple tags - all accepted
-        Deck expectedDeckMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+        Deck expectedDeckMultipleTags = new DeckBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
                 + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new CreateDeckCommand(expectedDeckMultipleTags));
@@ -78,7 +78,7 @@ public class CreateDeckCommandParserTest {
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Deck expectedDeck = new PersonBuilder(AMY).withTags().build();
+        Deck expectedDeck = new DeckBuilder(AMY).withTags().build();
         assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY,
                 new CreateDeckCommand(expectedDeck));
     }

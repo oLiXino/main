@@ -12,7 +12,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalDecks.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -27,7 +27,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.deck.Deck;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.DeckBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
@@ -38,7 +38,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Deck editedDeck = new PersonBuilder().build();
+        Deck editedDeck = new DeckBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedDeck).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
 
@@ -55,7 +55,7 @@ public class EditCommandTest {
         Index indexLastPerson = Index.fromOneBased(model.getFilteredPersonList().size());
         Deck lastDeck = model.getFilteredPersonList().get(indexLastPerson.getZeroBased());
 
-        PersonBuilder personInList = new PersonBuilder(lastDeck);
+        DeckBuilder personInList = new DeckBuilder(lastDeck);
         Deck editedDeck = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
                 .withTags(VALID_TAG_HUSBAND).build();
 
@@ -88,7 +88,7 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Deck deckInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Deck editedDeck = new PersonBuilder(deckInFilteredList).withName(VALID_NAME_BOB).build();
+        Deck editedDeck = new DeckBuilder(deckInFilteredList).withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
 

@@ -27,7 +27,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.dump.NameContainsKeywordsPredicate;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.DeckBuilder;
 import seedu.address.testutil.PersonUtil;
 
 public class LibraryParserTest {
@@ -36,7 +36,7 @@ public class LibraryParserTest {
 
     @Test
     public void parseCommand_add() throws Exception {
-        Deck deck = new PersonBuilder().build();
+        Deck deck = new DeckBuilder().build();
         CreateDeckCommand command = (CreateDeckCommand) parser.parseCommand(PersonUtil.getAddCommand(deck));
         assertEquals(new CreateDeckCommand(deck), command);
     }
@@ -56,7 +56,7 @@ public class LibraryParserTest {
 
     @Test
     public void parseCommand_edit() throws Exception {
-        Deck deck = new PersonBuilder().build();
+        Deck deck = new DeckBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(deck).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));

@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalDecks.ALICE;
+import static seedu.address.testutil.TypicalDecks.BOB;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.model.deck.exceptions.DuplicatePersonException;
 import seedu.address.model.deck.exceptions.PersonNotFoundException;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.DeckBuilder;
 
 public class UniqueDeckListTest {
 
@@ -42,7 +42,7 @@ public class UniqueDeckListTest {
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniqueDeckList.add(ALICE);
-        Deck editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Deck editedAlice = new DeckBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(uniqueDeckList.contains(editedAlice));
     }
@@ -85,7 +85,7 @@ public class UniqueDeckListTest {
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
         uniqueDeckList.add(ALICE);
-        Deck editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Deck editedAlice = new DeckBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         uniqueDeckList.setPerson(ALICE, editedAlice);
         UniqueDeckList expectedUniqueDeckList = new UniqueDeckList();
