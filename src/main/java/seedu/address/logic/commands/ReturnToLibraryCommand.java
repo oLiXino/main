@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.util.Mode;
 import seedu.address.model.util.View;
 
 /**
@@ -18,10 +19,14 @@ public class ReturnToLibraryCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Returned to library view.";
     public static final String MESSAGE_ALREADY_IN_LIBRARY = "Already in library view!";
+    public static final String MESSAGE_NOT_IN_VIEW_MODE = "Cannot return to library in the play view";
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (model.getMode() == Mode.PLAY) {
+            throw new CommandException(MESSAGE_NOT_IN_VIEW_MODE);
+        }
 
         if (model.getView().equals(View.LIBRARY)) {
             throw new CommandException(MESSAGE_ALREADY_IN_LIBRARY);
