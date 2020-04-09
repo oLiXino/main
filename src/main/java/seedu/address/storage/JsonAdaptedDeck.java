@@ -44,6 +44,13 @@ class JsonAdaptedDeck {
                 .collect(Collectors.toList());
     }
 
+    public JsonAdaptedDeck(Name name, List<Card> cards) {
+        this.name = name.name;
+        this.cards = cards.stream().map(card -> new JsonAdaptedCard(card))
+                .collect(Collectors.toList());
+
+    }
+
     /**
      * Converts this Jackson-friendly adapted deck object into the model's {@code Deck} object.
      *
