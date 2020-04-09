@@ -1,5 +1,6 @@
 package seedu.address.logic.parser.cardparsers;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INPUT_CONTAINS_COLON;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.regex.Matcher;
@@ -46,6 +47,10 @@ public class EditCardCommandParser implements Parser<EditCardCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCardCommand.MESSAGE_USAGE));
         }
 
+        if (frontValue.contains(":") || backValue.contains(":")) {
+            throw new ParseException(String.format(MESSAGE_INPUT_CONTAINS_COLON, EditCardCommand.MESSAGE_USAGE));
+        }
+
         FrontFace front = new FrontFace(frontValue);
         BackFace back  = new BackFace(backValue);
 
@@ -53,8 +58,7 @@ public class EditCardCommandParser implements Parser<EditCardCommand> {
             Index index = ParserUtil.parseIndex(indexStr);
             return new EditCardCommand(index, front, back);
         } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCardCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCardCommand.MESSAGE_USAGE), pe);
         }
     }
 }
