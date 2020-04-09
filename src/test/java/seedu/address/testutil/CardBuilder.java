@@ -1,17 +1,13 @@
 package seedu.address.testutil;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.Name;
 import seedu.address.model.deck.card.BackFace;
 import seedu.address.model.deck.card.Card;
-import seedu.address.model.deck.card.Face;
 import seedu.address.model.deck.card.FrontFace;
 
 /**
- * A utility class to help with building Person objects.
+ * A utility class to help with building Card objects.
  */
 public class CardBuilder {
 
@@ -48,7 +44,7 @@ public class CardBuilder {
      */
     public CardBuilder withBackFace(BackFace backFace) {
         this.backFace = backFace;
-       return this;
+        return this;
     }
 
     public Card build() {

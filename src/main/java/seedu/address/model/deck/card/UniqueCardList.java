@@ -57,26 +57,6 @@ public class UniqueCardList implements Iterable<Card> {
     }
 
     /**
-     * Replaces the card {@code target} in the list with {@code editedCard}.
-     * {@code target} must exist in the list.
-     * The card identity of {@code editedCard} must not be the same as another existing card in the list.
-     */
-    public void setCard(Card target, Card editedCard) {
-        requireAllNonNull(target, editedCard);
-
-        int index = internalList.indexOf(target);
-        if (index == -1) {
-            throw new CardNotFoundException();
-        }
-
-        if (!target.equals(editedCard) && contains(editedCard)) {
-            throw new DuplicateCardException();
-        }
-
-        internalList.set(index, editedCard);
-    }
-
-    /**
      * Removes the equivalent card from the list.
      * The card must exist in the list.
      */
@@ -88,8 +68,8 @@ public class UniqueCardList implements Iterable<Card> {
     }
 
     /**
-     * Replaces the equivalent card from the list with the new card.
-     * The old card must exist in the list and the new card must not already exist in the list.
+     * Replaces the card {@code toRemove} in the list with {@code toAdd}. {@code toRemove} must exist in the list.
+     * The card identity of {@code toAdd} must not be the same as another existing card in the list.
      */
     public void replace(Card toRemove, Card toAdd) throws CardNotFoundException, DuplicateCardException {
         requireAllNonNull(toRemove, toAdd);
@@ -99,23 +79,7 @@ public class UniqueCardList implements Iterable<Card> {
             throw new CardNotFoundException();
         }
         
-        // leave the unedited face value intact
-//        if (toAdd.getBackFace().getValue().isBlank()) {  // only change the front
-//            FrontFace newFrontFace = toAdd.getFrontFace();
-//            BackFace oldFrontFace = toRemove.getBackFace();
-//            toAdd = new Card(newFrontFace, oldFrontFace);
-////            internalList.set(idx, new Card(newFrontFace, oldFrontFace));
-//        } else if (toAdd.getFrontFace().getValue().isBlank()) {  // only change the back
-//            FrontFace oldFrontFace = toRemove.getFrontFace();
-//            BackFace newFrontFace = toAdd.getBackFace();
-//            toAdd = new Card(oldFrontFace, newFrontFace);
-////            internalList.set(idx, new Card(oldFrontFace, newFrontFace));
-//        }
-//        else {
-//            internalList.set(idx, toAdd);
-//        }
-        
-        if (contains(toAdd)) {
+        if (!toRemove.equals(toAdd) && contains(toAdd)) {
             throw new DuplicateCardException();
         }
 
