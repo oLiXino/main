@@ -13,7 +13,7 @@ import seedu.address.model.deck.card.FrontFace;
  */
 public class CardUtils {
 
-    public static final String EMPTY_FACE = "":
+    public static final String EMPTY_FACE = "";
 
     public static final Card cardJap1 = new CardBuilder()
             .withFrontFace(new FrontFace("Hello"))
