@@ -1,6 +1,6 @@
 package seedu.address.model.deck;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
@@ -25,7 +25,7 @@ public class Deck {
      * Every field must be present and not null.
      */
     public Deck(Name name) {
-        requireAllNonNull(name);
+        requireNonNull(name);
         this.name = name;
     }
     
