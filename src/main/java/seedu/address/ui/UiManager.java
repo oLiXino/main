@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.util.Objects;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
@@ -23,7 +22,7 @@ public class UiManager implements Ui {
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
-    private static final String ICON_APPLICATION = "/images/address_book_32.png";
+    private static final String ICON_APPLICATION = "/images/flashspeed_logo.png";
 
     private Logic logic;
     private MainWindow mainWindow;
