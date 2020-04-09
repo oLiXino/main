@@ -19,7 +19,7 @@ class BackFace
 
 
 Class HiddenOutside #FFFFFF
-HiddenOutside ..> UniqueDeckList
+HiddenOutside --> UniqueDeckList
 
 UniqueDeckList o--> "*" Deck
 Deck *--> Name
