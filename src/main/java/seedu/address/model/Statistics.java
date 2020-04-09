@@ -2,6 +2,7 @@ package seedu.address.model;
 
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.deck.card.Card;
 
 import java.util.HashMap;
@@ -24,6 +25,7 @@ public class Statistics {
     private HashMap<Card, Integer> totalAttempts;
     private HashMap<Card, Integer> correctAttempts;
     private HashMap<Card, Integer> wrongAttempts;
+    private HashMap<Card, Integer> cardTracker;
 
     public Statistics(ObservableList<Card> cards) {
         this.correctAns = 0;
@@ -32,12 +34,14 @@ public class Statistics {
         this.totalAttempts = new HashMap<>();
         this.correctAttempts = new HashMap<>();
         this.wrongAttempts = new HashMap<>();
+        this.cardTracker = new HashMap<>();
 
         // initialize the number of attempt for each card as 0
         for (int i = 0; i < cards.size(); i++) {
             totalAttempts.put(cards.get(i), 0);
             correctAttempts.put(cards.get(i), 0);
             wrongAttempts.put(cards.get(i), 0);
+            cardTracker.put(cards.get(i), 1);
         }
     }
 
@@ -77,7 +81,6 @@ public class Statistics {
         totalAttempts.merge(card, 1, Integer::sum);
     }
 
-
     /**
      * Increments the number of correct attempts of a certain card.
      */
@@ -85,17 +88,33 @@ public class Statistics {
         ++correctAns;
         ++totalQns;
         correctAttempts.merge(card, 1, Integer::sum);
+        cardTracker.merge(card, -1, Integer::sum);
         incrementAttempt(card);
     }
 
     /**
      * Increments the number of correct attempts of a certain card.
+     *
+     * @return whether there are 2 cards in the current game
      */
-    public void incrementWrongAttempt(Card card) {
+    public boolean incrementWrongAttempt(Card card) {
         ++wrongAns;
         ++totalQns;
         wrongAttempts.merge(card, 1, Integer::sum);
         incrementAttempt(card);
+        int numCardsInDeck = cardTracker.get(card);
+
+        if (numCardsInDeck > 2) {
+            // should never happen, but reset to 2 so no cards can be added.
+            numCardsInDeck = 2;
+        }
+
+        if (numCardsInDeck < 2) {
+            cardTracker.merge(card, 1, Integer::sum);
+            return false;
+        } else {
+            return true;
+        }
     }
 
     @Override
