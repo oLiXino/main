@@ -1,6 +1,5 @@
 package seedu.address.model;
 
-import java.util.HashMap;
 import java.util.Random;
 
 import javafx.collections.ObservableList;
