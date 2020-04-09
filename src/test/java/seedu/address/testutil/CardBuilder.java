@@ -29,12 +29,14 @@ public class CardBuilder {
      * Default constructor.
      */
     public CardBuilder() {
+
     }
 
     /**
      * Sets the front face of the card that we are building.
      */
-    public CardBuilder withFrontFace(FrontFace frontFace) {
+    public CardBuilder withFrontFace(String front) {
+        FrontFace frontFace = new FrontFace(front);
         this.frontFace = frontFace;
         return this;
     }
@@ -42,7 +44,8 @@ public class CardBuilder {
     /**
      * Sets the back face of the card that we are building.
      */
-    public CardBuilder withBackFace(BackFace backFace) {
+    public CardBuilder withBackFace(String back) {
+        BackFace backFace = new BackFace(back);
         this.backFace = backFace;
         return this;
     }
