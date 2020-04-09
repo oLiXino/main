@@ -6,8 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalDecks.ALICE;
-import static seedu.address.testutil.TypicalDecks.BOB;
+import static seedu.address.testutil.TypicalCards.getTypicalJapCards;
+import static seedu.address.testutil.TypicalDecks.JAPANESE_DECK;
+import static seedu.address.testutil.TypicalDecks.MALAY_DECK;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -15,8 +16,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.deck.exceptions.DuplicatePersonException;
-import seedu.address.model.deck.exceptions.PersonNotFoundException;
 import seedu.address.testutil.DeckBuilder;
 
 public class UniqueDeckListTest {
@@ -24,143 +23,108 @@ public class UniqueDeckListTest {
     private final UniqueDeckList uniqueDeckList = new UniqueDeckList();
 
     @Test
-    public void contains_nullPerson_throwsNullPointerException() {
+    public void contains_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueDeckList.contains(null));
     }
 
     @Test
-    public void contains_personNotInList_returnsFalse() {
-        assertFalse(uniqueDeckList.contains(ALICE));
+    public void contains_deckNotInList_returnsFalse() {
+        assertFalse(uniqueDeckList.contains(JAPANESE_DECK));
     }
 
     @Test
-    public void contains_personInList_returnsTrue() {
-        uniqueDeckList.add(ALICE);
-        assertTrue(uniqueDeckList.contains(ALICE));
+    public void contains_deckInList_returnsTrue() {
+        uniqueDeckList.add(JAPANESE_DECK);
+        assertTrue(uniqueDeckList.contains(JAPANESE_DECK));
     }
 
     @Test
-    public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
-        uniqueDeckList.add(ALICE);
-        Deck editedAlice = new DeckBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
-        assertTrue(uniqueDeckList.contains(editedAlice));
+    public void contains_deckWithSameIdentityFieldsInList_returnsTrue() {
+        uniqueDeckList.add(JAPANESE_DECK);
+        Deck newDeck = new DeckBuilder()
+                .withName("Japanese")
+                .withCards(getTypicalJapCards()).build();
+        assertTrue(uniqueDeckList.contains(newDeck));
     }
 
     @Test
-    public void add_nullPerson_throwsNullPointerException() {
+    public void add_nullDeck_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueDeckList.add(null));
     }
 
     @Test
-    public void add_duplicatePerson_throwsDuplicatePersonException() {
-        uniqueDeckList.add(ALICE);
-        assertThrows(DuplicatePersonException.class, () -> uniqueDeckList.add(ALICE));
-    }
-
-    @Test
-    public void setPerson_nullTargetPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueDeckList.setPerson(null, ALICE));
-    }
-
-    @Test
-    public void setPerson_nullEditedPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueDeckList.setPerson(ALICE, null));
-    }
-
-    @Test
-    public void setPerson_targetPersonNotInList_throwsPersonNotFoundException() {
-        assertThrows(PersonNotFoundException.class, () -> uniqueDeckList.setPerson(ALICE, ALICE));
-    }
-
-    @Test
-    public void setPerson_editedPersonIsSamePerson_success() {
-        uniqueDeckList.add(ALICE);
-        uniqueDeckList.setPerson(ALICE, ALICE);
+    public void add_duplicateDeck_doNotAdd() {
+        uniqueDeckList.add(JAPANESE_DECK);
+        uniqueDeckList.add(JAPANESE_DECK);
         UniqueDeckList expectedUniqueDeckList = new UniqueDeckList();
-        expectedUniqueDeckList.add(ALICE);
+        expectedUniqueDeckList.add(JAPANESE_DECK);
         assertEquals(expectedUniqueDeckList, uniqueDeckList);
     }
 
+
+
+
     @Test
-    public void setPerson_editedPersonHasSameIdentity_success() {
-        uniqueDeckList.add(ALICE);
-        Deck editedAlice = new DeckBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
-                .build();
-        uniqueDeckList.setPerson(ALICE, editedAlice);
+    public void setDeck_editedDeckIsSameDeck_success() {
+        uniqueDeckList.add(JAPANESE_DECK);
+        uniqueDeckList.setDeck(JAPANESE_DECK, MALAY_DECK);
         UniqueDeckList expectedUniqueDeckList = new UniqueDeckList();
-        expectedUniqueDeckList.add(editedAlice);
+        expectedUniqueDeckList.add(MALAY_DECK);
         assertEquals(expectedUniqueDeckList, uniqueDeckList);
     }
 
-    @Test
-    public void setPerson_editedPersonHasDifferentIdentity_success() {
-        uniqueDeckList.add(ALICE);
-        uniqueDeckList.setPerson(ALICE, BOB);
-        UniqueDeckList expectedUniqueDeckList = new UniqueDeckList();
-        expectedUniqueDeckList.add(BOB);
-        assertEquals(expectedUniqueDeckList, uniqueDeckList);
-    }
 
     @Test
-    public void setPerson_editedPersonHasNonUniqueIdentity_throwsDuplicatePersonException() {
-        uniqueDeckList.add(ALICE);
-        uniqueDeckList.add(BOB);
-        assertThrows(DuplicatePersonException.class, () -> uniqueDeckList.setPerson(ALICE, BOB));
-    }
-
-    @Test
-    public void remove_nullPerson_throwsNullPointerException() {
+    public void remove_nullDeck_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueDeckList.remove(null));
     }
 
     @Test
-    public void remove_personDoesNotExist_throwsPersonNotFoundException() {
-        assertThrows(PersonNotFoundException.class, () -> uniqueDeckList.remove(ALICE));
+    public void remove_deckDoesNotExist_donotremove() {
+        uniqueDeckList.add(JAPANESE_DECK);
+        uniqueDeckList.remove(MALAY_DECK);
+        UniqueDeckList expectedUniqueDeckList = new UniqueDeckList();
+        expectedUniqueDeckList.add(JAPANESE_DECK);
+        assertEquals(expectedUniqueDeckList, uniqueDeckList);
     }
 
     @Test
-    public void remove_existingPerson_removesPerson() {
-        uniqueDeckList.add(ALICE);
-        uniqueDeckList.remove(ALICE);
+    public void remove_existingDeck_removesDeck() {
+        uniqueDeckList.add(JAPANESE_DECK);
+        uniqueDeckList.remove(JAPANESE_DECK);
         UniqueDeckList expectedUniqueDeckList = new UniqueDeckList();
         assertEquals(expectedUniqueDeckList, uniqueDeckList);
     }
 
     @Test
-    public void setPersons_nullUniquePersonList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueDeckList.setPersons((UniqueDeckList) null));
+    public void setDecks_nullUniqueDeckList_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniqueDeckList.setDecks((UniqueDeckList) null));
     }
 
     @Test
-    public void setPersons_uniquePersonList_replacesOwnListWithProvidedUniquePersonList() {
-        uniqueDeckList.add(ALICE);
+    public void setDecks_uniqueDeckList_replacesOwnListWithProvidedUniqueDeckList() {
+        uniqueDeckList.add(JAPANESE_DECK);
         UniqueDeckList expectedUniqueDeckList = new UniqueDeckList();
-        expectedUniqueDeckList.add(BOB);
-        uniqueDeckList.setPersons(expectedUniqueDeckList);
+        expectedUniqueDeckList.add(MALAY_DECK);
+        uniqueDeckList.setDecks(expectedUniqueDeckList);
         assertEquals(expectedUniqueDeckList, uniqueDeckList);
     }
 
     @Test
-    public void setPersons_nullList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueDeckList.setPersons((List<Deck>) null));
+    public void setDecks_nullList_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> uniqueDeckList.setDecks((List<Deck>) null));
     }
 
     @Test
-    public void setPersons_list_replacesOwnListWithProvidedList() {
-        uniqueDeckList.add(ALICE);
-        List<Deck> deckList = Collections.singletonList(BOB);
-        uniqueDeckList.setPersons(deckList);
+    public void setDecks_list_replacesOwnListWithProvidedList() {
+        uniqueDeckList.add(JAPANESE_DECK);
+        List<Deck> deckList = Collections.singletonList(MALAY_DECK);
+        uniqueDeckList.setDecks(deckList);
         UniqueDeckList expectedUniqueDeckList = new UniqueDeckList();
-        expectedUniqueDeckList.add(BOB);
+        expectedUniqueDeckList.add(MALAY_DECK);
         assertEquals(expectedUniqueDeckList, uniqueDeckList);
     }
 
-    @Test
-    public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
-        List<Deck> listWithDuplicateDecks = Arrays.asList(ALICE, ALICE);
-        assertThrows(DuplicatePersonException.class, () -> uniqueDeckList.setPersons(listWithDuplicateDecks));
-    }
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
