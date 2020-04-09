@@ -49,19 +49,15 @@ public class CardUtils {
 
     /**
      * Gets the Japanese test deck.
-     *
-     * @return A List of Card Objects.
      */
-    public static List<Card> getTypicalJapCards() {
-        return new ArrayList<>(Arrays.asList(cardJap1, cardJap2, cardJap3));
-    }
+    public static List<Card> japCards = new ArrayList<>(
+            Arrays.asList(cardJap1, cardJap2, cardJap3));
+
 
     /**
      * Gets the Malay test deck.
-     *
-     * @return A List of Card Objects.
      */
-    public static List<Card> getTypicalMalayCards() {
-        return new ArrayList<>(Arrays.asList(cardMalay1, cardMalay2, cardMalay3));
-    }
+    public static List<Card> malayCards = new ArrayList<>(
+            Arrays.asList(cardMalay1, cardMalay2, cardMalay3));
+
 }

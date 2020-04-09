@@ -3,12 +3,14 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.storage.JsonAdaptedDeck.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.DeckUtils.EMPTY_DECK_NAME;
 import static seedu.address.testutil.DeckUtils.MALAY_DECK;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.deck.Name;
+import seedu.address.testutil.CardUtils;
 
 public class JsonAdaptedDeckTest {
     @Test
@@ -20,7 +22,7 @@ public class JsonAdaptedDeckTest {
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
         JsonAdaptedDeck person =
-                new JsonAdaptedDeck(, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+                new JsonAdaptedDeck(EMPTY_DECK_NAME, CardUtils.getTypicalMalayCards());
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }
