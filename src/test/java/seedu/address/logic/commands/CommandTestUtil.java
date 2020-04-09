@@ -20,7 +20,6 @@ import seedu.address.model.Library;
 import seedu.address.model.Model;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.dump.NameContainsKeywordsPredicate;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.

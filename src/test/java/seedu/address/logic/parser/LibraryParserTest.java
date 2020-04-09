@@ -26,9 +26,7 @@ import seedu.address.logic.parser.dump.LibraryParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.dump.NameContainsKeywordsPredicate;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.DeckBuilder;
-import seedu.address.testutil.PersonUtil;
 
 public class LibraryParserTest {
 

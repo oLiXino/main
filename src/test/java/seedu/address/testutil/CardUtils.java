@@ -9,53 +9,55 @@ import seedu.address.model.deck.card.Card;
 import seedu.address.model.deck.card.FrontFace;
 
 /**
- * A utility class containing a list of {@code Person} objects to be used in tests.
+ * A utility class containing a list of {@code Card} objects to be used in tests.
  */
-public class TypicalCards {
+public class CardUtils {
 
-    public static final Card cardJap1 = new CardBuilder()
+    public static final String EMPTY_FACE = "";
+
+    public static final Card JAP_CARD_1 = new CardBuilder()
             .withFrontFace(new FrontFace("Hello"))
             .withBackFace(new BackFace(" こんにちは"))
             .build();
 
-    public static final Card cardJap2 = new CardBuilder()
+    public static final Card JAP_CARD_2 = new CardBuilder()
             .withFrontFace(new FrontFace("Goodbye"))
             .withBackFace(new BackFace(" さよなら"))
             .build();
 
-    public static final Card cardJap3 = new CardBuilder()
+    public static final Card JAP_CARD_3 = new CardBuilder()
             .withFrontFace(new FrontFace("Thank you"))
             .withBackFace(new BackFace(" ありがとう"))
             .build();
 
-    public static final Card cardMalay1 = new CardBuilder()
+    public static final Card MALAY_CARD_1 = new CardBuilder()
             .withFrontFace(new FrontFace("I"))
             .withBackFace(new BackFace("Saya"))
             .build();
 
-    public static final Card cardMalay2 = new CardBuilder()
+    public static final Card MALAY_CARD_2 = new CardBuilder()
             .withFrontFace(new FrontFace("You"))
             .withBackFace(new BackFace("Awak"))
             .build();
 
-    public static final Card cardMalay3 = new CardBuilder()
+    public static final Card MALAY_CARD_3 = new CardBuilder()
             .withFrontFace(new FrontFace("Chicken"))
             .withBackFace(new BackFace("Ayam"))
             .build();
 
-    // Manually added
+    private CardUtils() {} // prevents instantiation
 
-    // Manually added - Person's details found in {@code CommandTestUtil}
+    /**
+     * Gets the Japanese test deck.
+     */
+    public static List<Card> JAP_CARDS = new ArrayList<>(
+            Arrays.asList(JAP_CARD_1, JAP_CARD_2, JAP_CARD_3));
 
-    public static final String KEYWORD_MATCHING_MEIER = "Hello"; // A keyword that matches MEIER
 
-    private TypicalCards() {} // prevents instantiation
+    /**
+     * Gets the Malay test deck.
+     */
+    public static List<Card> MALAY_CARDS = new ArrayList<>(
+            Arrays.asList(MALAY_CARD_1, MALAY_CARD_2, MALAY_CARD_3));
 
-    public static List<Card> getTypicalJapCards() {
-        return new ArrayList<>(Arrays.asList(cardJap1, cardJap2, cardJap3));
-    }
-
-    public static List<Card> getTypicalMalayCards() {
-        return new ArrayList<>(Arrays.asList(cardMalay1, cardMalay2, cardMalay3));
-    }
 }

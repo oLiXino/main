@@ -1,6 +1,6 @@
 package seedu.address.testutil;
-import static seedu.address.testutil.TypicalCards.getTypicalJapCards;
-import static seedu.address.testutil.TypicalCards.getTypicalMalayCards;
+import static seedu.address.testutil.CardUtils.JAP_CARDS;
+import static seedu.address.testutil.CardUtils.MALAY_CARDS;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,19 +8,19 @@ import java.util.List;
 
 import seedu.address.model.Library;
 import seedu.address.model.deck.Deck;
-import seedu.address.model.deck.card.Card;
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
  */
-public class TypicalDecks {
+public class DeckUtils {
 
     public static final Deck JAPANESE_DECK = new DeckBuilder()
             .withName("Japanese")
-            .withCards(getTypicalJapCards()).build();
+            .withCards(JAP_CARDS).build();
     public static final Deck MALAY_DECK = new DeckBuilder()
             .withName("Malay")
-            .withCards(getTypicalMalayCards()).build();
+            .withCards(MALAY_CARDS).build();
+    public static final String EMPTY_DECK_NAME = "";
 
     // Manually added
 
@@ -28,13 +28,13 @@ public class TypicalDecks {
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
-    private TypicalDecks() {} // prevents instantiation
+    private DeckUtils() {} // prevents instantiation
 
-    public Deck getTypicalJapDeck() {
+    public static Deck getTypicalJapDeck() {
         return JAPANESE_DECK;
     }
 
-    public Deck getTypicalMalayDeck() {
+    public static Deck getTypicalMalayDeck() {
         return MALAY_DECK;
     }
     /**
