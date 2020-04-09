@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.util.HashMap;
 import java.util.Random;
 
 import javafx.collections.ObservableList;
@@ -23,6 +24,7 @@ public class GameManager {
     private int currCardIdx;
     private int cardAttempted;
     private int cardRemaining;
+    private HashMap<Card, Integer> cardTracker;
 
     /**
      * Initializes a GameManager with the given deck.
@@ -35,6 +37,11 @@ public class GameManager {
         this.deckSize = this.cards.size();
         this.currCardIdx = randGen.nextInt(this.deckSize);
         this.cardAttempted = 0;
+        this.cardTracker = new HashMap<>();
+
+        for (Card card : this.cards) {
+            this.cardTracker.put(card, 1);
+        }
     }
     
     public boolean isFlipped() {
@@ -62,6 +69,10 @@ public class GameManager {
      */
     public Card answerYes() {
         statistics.incrementCorrectAttempt(cards.get(currCardIdx));
+        // minus 1 from card tracker hash map
+        int numCardsInDeck = cardTracker.get(cards.get(currCardIdx));
+        cardTracker.replace(cards.get(currCardIdx), numCardsInDeck - 1);
+
         cards.remove(currCardIdx);
         this.deckSize -= 1;
         flipped = false;
@@ -83,9 +94,16 @@ public class GameManager {
      */
     public Card answerNo() {
         statistics.incrementWrongAttempt(cards.get(currCardIdx));
-        Card currCard = cards.get(currCardIdx);
-        cards.add(currCard);
-        this.deckSize += 1;
+
+        int numCardsInDeck = cardTracker.get(cards.get(currCardIdx));
+
+        if (numCardsInDeck < 2) {
+            Card currCard = cards.get(currCardIdx);
+            cards.add(currCard);
+            this.deckSize += 1;
+            cardTracker.replace(cards.get(currCardIdx), numCardsInDeck + 1);
+        }
+
         flipped = false;
 
         this.currCardIdx = randGen.nextInt(this.deckSize);
