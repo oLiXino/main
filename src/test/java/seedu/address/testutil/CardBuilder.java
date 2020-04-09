@@ -47,6 +47,11 @@ public class CardBuilder {
         return this;
     }
 
+    /**
+     * Builds the card with the intended front face and back face value.
+     *
+     * @return A Card object.
+     */
     public Card build() {
         return new Card(frontFace, backFace);
     }

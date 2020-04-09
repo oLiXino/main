@@ -12,7 +12,7 @@ import seedu.address.model.deck.card.UniqueCardList;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
- * A utility class to help with building Person objects.
+ * A utility class to help with building Deck objects.
  */
 public class DeckBuilder {
 
@@ -34,7 +34,7 @@ public class DeckBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code Name} of the {@code Deck} that we are building.
      */
     public DeckBuilder withName(String name) {
         this.name = new Name(name);
@@ -59,6 +59,11 @@ public class DeckBuilder {
        return this;
     }
 
+    /**
+     * Builds a deck for testing purposes.
+     *
+     * @return The deck object built.
+     */
     public Deck build() {
         Deck deck = new Deck(name);
         for (Card card : cards) {

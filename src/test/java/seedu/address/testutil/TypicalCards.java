@@ -9,7 +9,7 @@ import seedu.address.model.deck.card.Card;
 import seedu.address.model.deck.card.FrontFace;
 
 /**
- * A utility class containing a list of {@code Person} objects to be used in tests.
+ * A utility class containing a list of {@code Card} objects to be used in tests.
  */
 public class TypicalCards {
 
@@ -43,18 +43,22 @@ public class TypicalCards {
             .withBackFace(new BackFace("Ayam"))
             .build();
 
-    // Manually added
-
-    // Manually added - Person's details found in {@code CommandTestUtil}
-
-    public static final String KEYWORD_MATCHING_MEIER = "Hello"; // A keyword that matches MEIER
-
     private TypicalCards() {} // prevents instantiation
 
+    /**
+     * Gets the Japanese test deck.
+     *
+     * @return A List of Card Objects.
+     */
     public static List<Card> getTypicalJapCards() {
         return new ArrayList<>(Arrays.asList(cardJap1, cardJap2, cardJap3));
     }
 
+    /**
+     * Gets the Malay test deck.
+     *
+     * @return A List of Card Objects.
+     */
     public static List<Card> getTypicalMalayCards() {
         return new ArrayList<>(Arrays.asList(cardMalay1, cardMalay2, cardMalay3));
     }

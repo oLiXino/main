@@ -42,7 +42,6 @@ import seedu.address.model.deck.dump.Email;
 import seedu.address.model.deck.Name;
 import seedu.address.model.deck.dump.Phone;
 import seedu.address.model.deck.dump.tag.Tag;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 public class EditCommandParserTest {
 

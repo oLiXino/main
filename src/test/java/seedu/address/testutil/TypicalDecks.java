@@ -30,11 +30,11 @@ public class TypicalDecks {
 
     private TypicalDecks() {} // prevents instantiation
 
-    public Deck getTypicalJapDeck() {
+    public static Deck getTypicalJapDeck() {
         return JAPANESE_DECK;
     }
 
-    public Deck getTypicalMalayDeck() {
+    public static Deck getTypicalMalayDeck() {
         return MALAY_DECK;
     }
     /**
