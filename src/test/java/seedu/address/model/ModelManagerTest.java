@@ -1,22 +1,33 @@
 package seedu.address.model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+import static org.junit.jupiter.api.Assertions.*;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalDecks.ALICE;
-import static seedu.address.testutil.TypicalDecks.BENSON;
+import static seedu.address.testutil.TypicalDecks.JAPANESE_DECK;
+import static seedu.address.testutil.TypicalDecks.MALAY_DECK;
+import static seedu.address.testutil.TypicalCards.cardJap1;
+import static seedu.address.testutil.TypicalCards.cardJap2;
+import static seedu.address.testutil.TypicalCards.cardJap3;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
+import java.util.Optional;
 
+import javafx.beans.property.SimpleObjectProperty;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.deck.dump.NameContainsKeywordsPredicate;
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.deckcommands.SelectDeckCommand;
+import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.card.BackFace;
+import seedu.address.model.deck.card.Card;
+import seedu.address.model.deck.card.FrontFace;
+import seedu.address.model.util.Mode;
+import seedu.address.testutil.CardBuilder;
+import seedu.address.testutil.LibraryBuilder;
 
 public class ModelManagerTest {
 
@@ -27,6 +38,12 @@ public class ModelManagerTest {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new Library(), new Library(modelManager.getLibrary()));
+        assertEquals(Optional.empty(), modelManager.getDeckIndex());
+        assertEquals(new SimpleObjectProperty<Deck>(), modelManager.selectedDeckProperty());
+        assertEquals(new SimpleObjectProperty<Card>(), modelManager.playingCardProperty());
+        assertEquals(new SimpleObjectProperty<Boolean>(), modelManager.flippedProperty());
+        assertEquals(new SimpleObjectProperty<Integer>(), modelManager.cardAttemptedProperty());
+        assertEquals(new SimpleObjectProperty<Integer>(), modelManager.cardRemainingProperty());
     }
 
     @Test
@@ -37,14 +54,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setAddressBookFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setLibraryFilePath(Paths.get("address/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setAddressBookFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setLibraryFilePath(Paths.get("new/address/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -61,41 +78,227 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setAddressBookFilePath(null));
+    public void setLibraryFilePath_nullPath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setLibraryFilePath(null));
     }
 
     @Test
-    public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
+    public void setLibraryFilePath_validPath_setsLibraryPath() {
         Path path = Paths.get("address/book/file/path");
-        modelManager.setAddressBookFilePath(path);
-        assertEquals(path, modelManager.getAddressBookFilePath());
+        modelManager.setLibraryFilePath(path);
+        assertEquals(path, modelManager.getLibraryFilePath());
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.hasPerson(null));
+    public void getFilteredDeckList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredDeckList().remove(0));
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasPerson(ALICE));
+    public void hasDeck_nullDeck_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasDeck(null));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        modelManager.addPerson(ALICE);
-        assertTrue(modelManager.hasPerson(ALICE));
+    public void hasDeck_deckNotInLibrary_returnsFalse() {
+        assertFalse(modelManager.hasDeck(JAPANESE_DECK));
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
+    public void hasDeck_deckInLibrary_returnsTrue() {
+        modelManager.createDeck(JAPANESE_DECK);
+        assertTrue(modelManager.hasDeck(JAPANESE_DECK));
+    }
+
+    @Test
+    public void hasDeck_deckNotInLibrary_afterDeleteDeck_returnsFalse() {
+        modelManager.createDeck(JAPANESE_DECK);
+        modelManager.deleteDeck(JAPANESE_DECK);
+        assertFalse(modelManager.hasDeck(JAPANESE_DECK));
+    }
+
+    @Test
+    public void getCurrentDeck_returnsNull() {
+        assertNull(modelManager.getCurrentDeck());
+    }
+
+    @Test
+    public void getCurrentDeck_returnsCurrentDeck() throws ParseException{
+        modelManager.createDeck(JAPANESE_DECK);
+        try {
+            Index index = ParserUtil.parseIndex("0");
+            modelManager.selectDeck(index);
+            assertEquals(modelManager.getCurrentDeck(), JAPANESE_DECK);
+        }  catch (ParseException pe) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectDeckCommand.MESSAGE_USAGE), pe);
+        }
+    }
+
+    @Test
+    public void setSelectedDeck_returnsSelectedDeckValue() {
+        modelManager.createDeck(JAPANESE_DECK);
+        modelManager.setSelectedDeck(JAPANESE_DECK);
+        assertEquals(modelManager.selectedDeckProperty().getValue(), JAPANESE_DECK);
+    }
+
+
+    @Test
+    public void hasCard_cardInDeck_returnsTrue() throws ParseException{
+        modelManager.createDeck(JAPANESE_DECK);
+        try {
+            Index index = ParserUtil.parseIndex("0");
+            modelManager.selectDeck(index);
+            assertTrue(modelManager.hasCard(cardJap1));
+        } catch (ParseException pe) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectDeckCommand.MESSAGE_USAGE), pe);
+        }
+    }
+
+    @Test
+    public void getCard_returnsTrue() throws  ParseException {
+        modelManager.createDeck(JAPANESE_DECK);
+        try {
+            Index deckIndex = ParserUtil.parseIndex("0");
+            modelManager.selectDeck(deckIndex);
+            Index cardIndex = ParserUtil.parseIndex("0");
+            assertEquals(modelManager.getCard(cardIndex), cardJap1);
+        } catch (ParseException pe) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectDeckCommand.MESSAGE_USAGE), pe);
+        }
+
+    }
+
+    @Test
+    public void hasCard_cardNotINDeck_afterDeleteCard_returnsFalse() throws ParseException {
+        modelManager.createDeck(JAPANESE_DECK);
+        try {
+            Index index = ParserUtil.parseIndex("0");
+            modelManager.selectDeck(index);
+            modelManager.deleteCard(cardJap1);
+            assertFalse(modelManager.hasCard(cardJap1));
+        } catch (ParseException pe) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectDeckCommand.MESSAGE_USAGE), pe);
+        }
+    }
+
+    @Test
+    public void hasCard_cardNotInDeck_afterReplaceCard_returnsFalse() throws ParseException {
+        modelManager.createDeck(JAPANESE_DECK);
+        Card newCard = new CardBuilder().withFrontFace(new FrontFace("newFront1")).withBackFace(new BackFace("newBack1")).build();
+        try {
+            Index index = ParserUtil.parseIndex("0");
+            modelManager.selectDeck(index);
+            modelManager.replaceCard(cardJap2, newCard);
+            assertFalse(modelManager.hasCard(cardJap2));
+        } catch (ParseException pe) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectDeckCommand.MESSAGE_USAGE), pe);
+        }
+    }
+
+    @Test
+    public void hasCard_cardInDeck_afterReplaceCard_returnsTrue() throws ParseException {
+        modelManager.createDeck(JAPANESE_DECK);
+        Card newCard = new CardBuilder().withFrontFace(new FrontFace("newFront2")).withBackFace(new BackFace("newBack2")).build();
+        try {
+            Index index = ParserUtil.parseIndex("0");
+            modelManager.selectDeck(index);
+            modelManager.replaceCard(cardJap3, newCard);
+            assertTrue(modelManager.hasCard(newCard));
+        } catch (ParseException pe) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectDeckCommand.MESSAGE_USAGE), pe);
+        }
+    }
+
+    @Test
+    public void cardReturned_afterPlay_returnsNull() throws ParseException{
+        modelManager.createDeck(JAPANESE_DECK);
+        try {
+            Index index = ParserUtil.parseIndex("10");
+            Card card = modelManager.play(index);
+            assertEquals(card, null);
+        } catch (ParseException pe) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectDeckCommand.MESSAGE_USAGE), pe);
+        }
+    }
+
+
+    @Test
+    public void gameCreated_afterPlay_returnsTrue() throws ParseException{
+        modelManager.createDeck(JAPANESE_DECK);
+        try {
+            Index index = ParserUtil.parseIndex("0");
+            modelManager.selectDeck(index);
+            Card card = modelManager.play(index);
+            assertEquals(modelManager.getGame(), new GameManager(JAPANESE_DECK));
+            assertEquals(modelManager.getMode(), Mode.PLAY);
+            assertEquals(modelManager.playingCardProperty().getValue(), card);
+            assertEquals(modelManager.flippedProperty().getValue(), false);
+        } catch (ParseException pe) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectDeckCommand.MESSAGE_USAGE), pe);
+        }
+    }
+
+    @Test
+    public void getBackFace_afterFlip_returnsTrue() throws ParseException{
+        modelManager.createDeck(JAPANESE_DECK);
+        try {
+            Index index = ParserUtil.parseIndex("0");
+            modelManager.selectDeck(index);
+            Card card = modelManager.play(index);
+            BackFace backFace = modelManager.flip();
+            assertEquals(modelManager.flippedProperty().getValue(), true);
+            assertEquals(backFace, card.getBackFace());
+        } catch (ParseException pe) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectDeckCommand.MESSAGE_USAGE), pe);
+        }
+    }
+
+    @Test
+    public void getNextCard_afterAnswerYes_returnsTrue() throws ParseException {
+        modelManager.createDeck(JAPANESE_DECK);
+        try {
+            Index index = ParserUtil.parseIndex("0");
+            modelManager.selectDeck(index);
+            modelManager.play(index);
+            modelManager.flip();
+            Card card = modelManager.answerYes();
+            assertEquals(modelManager.flippedProperty().getValue(), false);
+            assertEquals(modelManager.playingCardProperty().getValue(), card);
+        } catch (ParseException pe) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectDeckCommand.MESSAGE_USAGE), pe);
+        }
+    }
+
+    @Test
+    public void getNextCard_afterAnswerNo_returnsTrue() throws ParseException {
+        modelManager.createDeck(JAPANESE_DECK);
+        try {
+            Index index = ParserUtil.parseIndex("0");
+            modelManager.selectDeck(index);
+            modelManager.play(index);
+            modelManager.flip();
+            Card card = modelManager.answerNo();
+            assertEquals(modelManager.flippedProperty().getValue(), false);
+            assertEquals(modelManager.playingCardProperty().getValue(), card);
+        } catch (ParseException pe) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectDeckCommand.MESSAGE_USAGE), pe);
+        }
     }
 
     @Test
     public void equals() {
-        Library library = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        Library library = new LibraryBuilder().withDeck(JAPANESE_DECK).withDeck(MALAY_DECK).build();
         Library differentLibrary = new Library();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -116,17 +319,9 @@ public class ModelManagerTest {
         // different addressBook -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentLibrary, userPrefs)));
 
-        // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(library, userPrefs)));
-
-        // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
+        differentUserPrefs.setLibraryFilePath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(library, differentUserPrefs)));
     }
 }

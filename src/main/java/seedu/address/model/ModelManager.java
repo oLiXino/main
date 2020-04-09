@@ -80,6 +80,10 @@ public class ModelManager implements Model {
 
     //=========== UserPrefs ==================================================================================
 
+    public Optional<Index> getDeckIndex() {
+        return this.deckIndex;
+    }
+
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         requireNonNull(userPrefs);
@@ -343,6 +347,12 @@ public class ModelManager implements Model {
         filteredDecks.setPredicate(predicate);
     }
 
+    /**
+     * Starts a game session with a given deck index.
+     * @param index index of the deck to play with.
+     *
+     * @return a randomly selected card from the deck
+     */
     @Override
     public Card play(Index index) {
         Deck deck = library.getDeck(index);
@@ -419,6 +429,11 @@ public class ModelManager implements Model {
         return card;
     }
 
+    /**
+     * Stops the game session.
+     *
+     * @return the statistics report.
+     */
     @Override
     public Statistics stop() {
         Statistics statistics = this.game.stop();
@@ -431,6 +446,10 @@ public class ModelManager implements Model {
         return statistics;
     }
 
+    /**
+     * Returns the mode of the model.
+     * @return the mode of the model.
+     */
     @Override
     public Mode getMode() {
         return this.mode;
