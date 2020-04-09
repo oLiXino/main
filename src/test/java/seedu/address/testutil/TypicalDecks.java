@@ -38,9 +38,9 @@ public class TypicalDecks {
         return MALAY_DECK;
     }
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     * Returns an {@code Libary} with all the typical decks.
      */
-    public static Library getTypicalAddressBook() {
+    public static Library getTypicalLibrary() {
         Library library = new Library();
         for (Deck deck : getTypicalDecks()) {
             library.addDeck(deck);
