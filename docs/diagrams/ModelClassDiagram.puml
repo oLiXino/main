@@ -18,18 +18,10 @@ Class GameManager
 Class Mode
 Class View
 
-Package Deck {
 Class Deck
-Class Name
 Class UniqueDeckList
-Package Card {
 Class UniqueCardList
 Class Card
-Class FrontFace
-class BackFace
-}
-}
-
 
 
 Class HiddenOutside #FFFFFF
@@ -52,13 +44,8 @@ UserPrefs .up.|> ReadOnlyUserPrefs
 Library *--> "1" UniqueDeckList
 GameManager *--> "1" UniqueCardList
 UniqueDeckList o--> "*" Deck
-Deck *--> Name
 Deck *--> "1" UniqueCardList
 UniqueCardList o--> "*" Card
-Card *--> FrontFace
-Card *--> BackFace
 
-
-ModelManager -->"1" Deck : filtered list
 
 @enduml
