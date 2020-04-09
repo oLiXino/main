@@ -3,7 +3,7 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
-import static seedu.address.testutil.TypicalDecks.JAPANESE_DECK;
+import static seedu.address.testutil.DeckUtils.JAPANESE_DECK;
 
 import seedu.address.model.deck.card.BackFace;
 import seedu.address.model.deck.card.Card;

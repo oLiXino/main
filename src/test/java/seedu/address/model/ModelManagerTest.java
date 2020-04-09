@@ -3,11 +3,11 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.*;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalDecks.JAPANESE_DECK;
-import static seedu.address.testutil.TypicalDecks.MALAY_DECK;
-import static seedu.address.testutil.TypicalCards.cardJap1;
-import static seedu.address.testutil.TypicalCards.cardJap2;
-import static seedu.address.testutil.TypicalCards.cardJap3;
+import static seedu.address.testutil.DeckUtils.JAPANESE_DECK;
+import static seedu.address.testutil.DeckUtils.MALAY_DECK;
+import static seedu.address.testutil.CardUtils.cardJap1;
+import static seedu.address.testutil.CardUtils.cardJap2;
+import static seedu.address.testutil.CardUtils.cardJap3;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

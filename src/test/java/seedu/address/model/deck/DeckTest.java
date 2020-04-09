@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_FRENCH;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalCards.getTypicalJapCards;
-import static seedu.address.testutil.TypicalDecks.JAPANESE_DECK;
-import static seedu.address.testutil.TypicalDecks.MALAY_DECK;
+import static seedu.address.testutil.CardUtils.getTypicalJapCards;
+import static seedu.address.testutil.DeckUtils.JAPANESE_DECK;
+import static seedu.address.testutil.DeckUtils.MALAY_DECK;
 
 import org.junit.jupiter.api.Test;
 

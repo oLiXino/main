@@ -11,7 +11,9 @@ import seedu.address.model.deck.card.FrontFace;
 /**
  * A utility class containing a list of {@code Card} objects to be used in tests.
  */
-public class TypicalCards {
+public class CardUtils {
+
+    public static final String EMPTY_FACE = "":
 
     public static final Card cardJap1 = new CardBuilder()
             .withFrontFace(new FrontFace("Hello"))
@@ -43,7 +45,7 @@ public class TypicalCards {
             .withBackFace(new BackFace("Ayam"))
             .build();
 
-    private TypicalCards() {} // prevents instantiation
+    private CardUtils() {} // prevents instantiation
 
     /**
      * Gets the Japanese test deck.

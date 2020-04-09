@@ -3,14 +3,11 @@ package seedu.address.model.deck;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalCards.getTypicalJapCards;
-import static seedu.address.testutil.TypicalDecks.JAPANESE_DECK;
-import static seedu.address.testutil.TypicalDecks.MALAY_DECK;
+import static seedu.address.testutil.CardUtils.getTypicalJapCards;
+import static seedu.address.testutil.DeckUtils.JAPANESE_DECK;
+import static seedu.address.testutil.DeckUtils.MALAY_DECK;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
