@@ -22,7 +22,7 @@ public class JsonAdaptedDeckTest {
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
         JsonAdaptedDeck person =
-                new JsonAdaptedDeck(EMPTY_DECK_NAME, CardUtils.getTypicalMalayCards());
+                new JsonAdaptedDeck(EMPTY_DECK_NAME, JAP);
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
     }

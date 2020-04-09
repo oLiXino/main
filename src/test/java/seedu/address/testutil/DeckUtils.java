@@ -1,6 +1,6 @@
 package seedu.address.testutil;
-import static seedu.address.testutil.CardUtils.japCards;
-import static seedu.address.testutil.CardUtils.malayCards;
+import static seedu.address.testutil.CardUtils.JAP_CARDS;
+import static seedu.address.testutil.CardUtils.MALAY_CARDS;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,10 +16,10 @@ public class DeckUtils {
 
     public static final Deck JAPANESE_DECK = new DeckBuilder()
             .withName("Japanese")
-            .withCards(japCards).build();
+            .withCards(JAP_CARDS).build();
     public static final Deck MALAY_DECK = new DeckBuilder()
             .withName("Malay")
-            .withCards(malayCards).build();
+            .withCards(MALAY_CARDS).build();
     public static final String EMPTY_DECK_NAME = "";
 
     // Manually added

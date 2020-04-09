@@ -5,9 +5,9 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.DeckUtils.JAPANESE_DECK;
 import static seedu.address.testutil.DeckUtils.MALAY_DECK;
-import static seedu.address.testutil.CardUtils.cardJap1;
-import static seedu.address.testutil.CardUtils.cardJap2;
-import static seedu.address.testutil.CardUtils.cardJap3;
+import static seedu.address.testutil.CardUtils.JAP_CARD_1;
+import static seedu.address.testutil.CardUtils.JAP_CARD_2;
+import static seedu.address.testutil.CardUtils.JAP_CARD_3;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -149,7 +149,7 @@ public class ModelManagerTest {
         try {
             Index index = ParserUtil.parseIndex("0");
             modelManager.selectDeck(index);
-            assertTrue(modelManager.hasCard(cardJap1));
+            assertTrue(modelManager.hasCard(JAP_CARD_1));
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectDeckCommand.MESSAGE_USAGE), pe);
@@ -163,7 +163,7 @@ public class ModelManagerTest {
             Index deckIndex = ParserUtil.parseIndex("0");
             modelManager.selectDeck(deckIndex);
             Index cardIndex = ParserUtil.parseIndex("0");
-            assertEquals(modelManager.getCard(cardIndex), cardJap1);
+            assertEquals(modelManager.getCard(cardIndex), JAP_CARD_1);
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectDeckCommand.MESSAGE_USAGE), pe);
@@ -177,8 +177,8 @@ public class ModelManagerTest {
         try {
             Index index = ParserUtil.parseIndex("0");
             modelManager.selectDeck(index);
-            modelManager.deleteCard(cardJap1);
-            assertFalse(modelManager.hasCard(cardJap1));
+            modelManager.deleteCard(JAP_CARD_1);
+            assertFalse(modelManager.hasCard(JAP_CARD_1));
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectDeckCommand.MESSAGE_USAGE), pe);
@@ -192,8 +192,8 @@ public class ModelManagerTest {
         try {
             Index index = ParserUtil.parseIndex("0");
             modelManager.selectDeck(index);
-            modelManager.replaceCard(cardJap2, newCard);
-            assertFalse(modelManager.hasCard(cardJap2));
+            modelManager.replaceCard(JAP_CARD_2, newCard);
+            assertFalse(modelManager.hasCard(JAP_CARD_2));
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectDeckCommand.MESSAGE_USAGE), pe);
@@ -207,7 +207,7 @@ public class ModelManagerTest {
         try {
             Index index = ParserUtil.parseIndex("0");
             modelManager.selectDeck(index);
-            modelManager.replaceCard(cardJap3, newCard);
+            modelManager.replaceCard(JAP_CARD_3, newCard);
             assertTrue(modelManager.hasCard(newCard));
         } catch (ParseException pe) {
             throw new ParseException(
