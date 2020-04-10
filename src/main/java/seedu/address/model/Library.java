@@ -54,7 +54,6 @@ public class Library implements ReadOnlyLibrary {
      */
     public void resetData(ReadOnlyLibrary newData) {
         requireNonNull(newData);
-
         setDecks(newData.getDeckList());
     }
 
