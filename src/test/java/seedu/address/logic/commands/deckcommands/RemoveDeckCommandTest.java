@@ -1,14 +1,11 @@
 package seedu.address.logic.commands.deckcommands;
 
-import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalIndexes.*;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -16,9 +13,11 @@ import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Library;
 import seedu.address.model.Model;
 import seedu.address.model.GameManager;
 import seedu.address.model.ReadOnlyLibrary;
@@ -30,69 +29,65 @@ import seedu.address.model.deck.card.BackFace;
 import seedu.address.model.deck.card.Card;
 import seedu.address.model.util.Mode;
 import seedu.address.model.util.View;
-import seedu.address.testutil.DeckBuilder;
+import seedu.address.testutil.DeckUtils;
 
-public class CreateDeckCommandTest {
-
+public class RemoveDeckCommandTest {
     @Test
     public void constructor_nullDeck_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new CreateDeckCommand(null));
+        assertThrows(NullPointerException.class, () -> new RemoveDeckCommand(null));
     }
 
     @Test
-    public void execute_deckAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingDeckAdded modelStub = new ModelStubAcceptingDeckAdded();
-        Deck validDeck = new DeckBuilder().withName("Test").build();
+    public void execute_deckAcceptedByModel_deleteSuccessful() throws Exception {
+        ModelStubAcceptingDeckDeleted modelStub = new ModelStubAcceptingDeckDeleted();
+        Deck validDeckToDelete = DeckUtils.getTypicalLibrary().getDeck(Index.fromZeroBased(1));
+        CommandResult commandResult = new RemoveDeckCommand(Index.fromZeroBased(1)).execute(modelStub);
 
-        CommandResult commandResult = new CreateDeckCommand(validDeck).execute(modelStub);
-
-        assertEquals(String.format(CreateDeckCommand.MESSAGE_SUCCESS, validDeck), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validDeck), modelStub.decksAdded);
+        assertEquals(String.format(RemoveDeckCommand.MESSAGE_DELETE_DECK_SUCCESS, validDeckToDelete), commandResult.getFeedbackToUser());
     }
 
     @Test
     public void execute_notInViewMode_throwsCommandException() {
         ModelStubPlayMode modelStub = new ModelStubPlayMode();
-        Deck validDeck = new DeckBuilder().withName("Test").build();
-        CreateDeckCommand createDeckCommand = new CreateDeckCommand(validDeck);
+        RemoveDeckCommand removeDeckCommand = new RemoveDeckCommand(Index.fromZeroBased(1));
 
-        assertThrows(CommandException.class, CreateDeckCommand.MESSAGE_NOT_IN_VIEW_MODE,
-                () -> createDeckCommand.execute(modelStub));
+        assertThrows(CommandException.class, RemoveDeckCommand.MESSAGE_NOT_IN_VIEW_MODE,
+                () -> removeDeckCommand.execute(modelStub));
     }
 
     @Test
-    public void execute_duplicateDeck_throwsCommandException() {
-        Deck validDeck = new DeckBuilder().withName("Test").build();
-        ModelStub modelStub = new ModelStubWithDeck(validDeck);
-        CreateDeckCommand createDeckCommand = new CreateDeckCommand(validDeck);
+    public void execute_targetIndexLargerThanDeckSize_throwsCommandException() {
+        ModelStubAcceptingDeckDeleted modelStub = new ModelStubAcceptingDeckDeleted();
+        Index invalidIndex = INDEX_THIRD_DECK;
+        RemoveDeckCommand removeDeckCommand = new RemoveDeckCommand(invalidIndex);
 
-        assertThrows(CommandException.class,
-                CreateDeckCommand.MESSAGE_DUPLICATE_DECK, () -> createDeckCommand.execute(modelStub));
+        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX,
+                () -> removeDeckCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Deck deck1 = new DeckBuilder().withName("Malay").build();
-        Deck deck2 = new DeckBuilder().withName("Japanese").build();
+        Index first = INDEX_FIRST_DECK;
+        Index second = INDEX_SECOND_DECK;
         
-        CreateDeckCommand createDeck1Command = new CreateDeckCommand(deck1);
-        CreateDeckCommand createDeck2Command = new CreateDeckCommand(deck2);
+        RemoveDeckCommand removeFirstCommand = new RemoveDeckCommand(first);
+        RemoveDeckCommand removeSecondCommand = new RemoveDeckCommand(second);
 
         // same object -> returns true
-        assertTrue(createDeck1Command.equals(createDeck1Command));
+        assertTrue(removeFirstCommand.equals(removeFirstCommand));
 
         // same values -> returns true
-        CreateDeckCommand createDeck1CommandCopy = new CreateDeckCommand(deck1);
-        assertTrue(createDeck1Command.equals(createDeck1CommandCopy));
+        RemoveDeckCommand removeFirstCommandCopy = new RemoveDeckCommand(first);
+        assertTrue(removeFirstCommand.equals(removeFirstCommandCopy));
 
         // different types -> returns false
-        assertFalse(createDeck1Command.equals(1));
+        assertFalse(removeFirstCommand.equals(1));
 
         // null -> returns false
-        assertFalse(createDeck1Command.equals(null));
+        assertFalse(removeFirstCommand.equals(null));
 
         // different deck -> returns false
-        assertFalse(createDeck1Command.equals(createDeck2Command));
+        assertFalse(removeFirstCommand.equals(removeSecondCommand));
     }
 
     /**
@@ -334,8 +329,7 @@ public class CreateDeckCommandTest {
     /**
      * A Model stub that always accepts a card being added.
      */
-    private class ModelStubAcceptingDeckAdded extends ModelStub {
-        final ArrayList<Deck> decksAdded = new ArrayList<>();
+    private class ModelStubAcceptingDeckDeleted extends ModelStub {
 
         @Override
         public Mode getMode() {
@@ -343,15 +337,9 @@ public class CreateDeckCommandTest {
         }
 
         @Override
-        public boolean hasDeck(Deck deck) {
-            requireNonNull(deck);
-            return decksAdded.stream().anyMatch(deck::equals);
-        }
-
-        @Override
-        public void createDeck(Deck deck) {
-            requireNonNull(deck);
-            decksAdded.add(deck);
+        public void deleteDeck(Deck target) {
+            Library library = DeckUtils.getTypicalLibrary();
+            library.deleteDeck(target);
         }
     }
 
@@ -359,7 +347,6 @@ public class CreateDeckCommandTest {
      * A Model stub that cannot add a deck due to being in Play Mode
      */
     private class ModelStubPlayMode extends ModelStub {
-        final ArrayList<Deck> decksAdded = new ArrayList<>();
 
         @Override
         public Mode getMode() {
@@ -367,43 +354,9 @@ public class CreateDeckCommandTest {
         }
 
         @Override
-        public boolean hasDeck(Deck deck) {
-            requireNonNull(deck);
-            return decksAdded.stream().anyMatch(deck::equals);
-        }
-
-        @Override
-        public void createDeck(Deck deck) {
-            requireNonNull(deck);
-            decksAdded.add(deck);
-        }
-    }
-
-    /**
-     * A Model stub that always accepts a card being added.
-     */
-    private class ModelStubWithDeck extends ModelStub {
-        final ArrayList<Deck> decksAdded = new ArrayList<>();
-
-        public ModelStubWithDeck(Deck deck) {
-            decksAdded.add(deck);
-        }
-
-        @Override
-        public Mode getMode() {
-            return Mode.VIEW;
-        }
-
-        @Override
-        public boolean hasDeck(Deck deck) {
-            requireNonNull(deck);
-            return decksAdded.stream().anyMatch(deck::equals);
-        }
-
-        @Override
-        public void createDeck(Deck deck) {
-            requireNonNull(deck);
-            decksAdded.add(deck);
+        public void deleteDeck(Deck target) {
+            Library library = DeckUtils.getTypicalLibrary();
+            library.deleteDeck(target);
         }
     }
 }
