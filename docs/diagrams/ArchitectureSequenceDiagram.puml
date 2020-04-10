@@ -7,13 +7,13 @@ Participant ":Logic" as logic LOGIC_COLOR
 Participant ":Model" as model MODEL_COLOR
 Participant ":Storage" as storage STORAGE_COLOR
 
-user -[USER_COLOR]> ui : "delete 2"
+user -[USER_COLOR]> ui : "remove 2"
 activate ui UI_COLOR
 
-ui -[UI_COLOR]> logic : execute("delete 2")
+ui -[UI_COLOR]> logic : execute("remove 2")
 activate logic LOGIC_COLOR
 
-logic -[LOGIC_COLOR]> model : deleteCard(c)
+logic -[LOGIC_COLOR]> model : removeDeck(d)
 activate model MODEL_COLOR
 
 model -[MODEL_COLOR]-> logic

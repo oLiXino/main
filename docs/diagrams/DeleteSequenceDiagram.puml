@@ -4,8 +4,8 @@
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":MasterParser" as MasterParser LOGIC_COLOR
-participant ":DeleteCardCommandParser" as DeleteCardCommandParser LOGIC_COLOR
-participant "d:DeleteCardCommand" as DeleteCardCommand LOGIC_COLOR
+participant ":RemoveDeckCommandParser" as RemoveDeckCommandParser LOGIC_COLOR
+participant "r:RemoveDeckCommand" as RemoveDeckCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -13,56 +13,56 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("delete 1")
+[-> LogicManager : execute("remove 2")
 activate LogicManager
 
-LogicManager -> MasterParser : parseCommand("delete 1")
+LogicManager -> MasterParser : parseCommand("remove 2")
 activate MasterParser
 
-create DeleteCardCommandParser
-MasterParser -> DeleteCardCommandParser
-activate DeleteCardCommandParser
+create RemoveDeckCommandParser
+MasterParser -> RemoveDeckCommandParser
+activate RemoveDeckCommandParser
 
-DeleteCardCommandParser --> MasterParser
-deactivate DeleteCardCommandParser
+RemoveDeckCommandParser --> MasterParser
+deactivate RemoveDeckCommandParser
 
-MasterParser -> DeleteCardCommandParser : parse("1")
-activate DeleteCardCommandParser
+MasterParser -> RemoveDeckCommandParser : parse("2")
+activate RemoveDeckCommandParser
 
-create DeleteCardCommand
-DeleteCardCommandParser -> DeleteCardCommand
-activate DeleteCardCommand
+create RemoveDeckCommand
+RemoveDeckCommandParser -> RemoveDeckCommand
+activate RemoveDeckCommand
 
-DeleteCardCommand --> DeleteCardCommandParser : d
-deactivate DeleteCardCommand
+RemoveDeckCommand --> RemoveDeckCommandParser : r
+deactivate RemoveDeckCommand
 
-DeleteCardCommandParser --> MasterParser : d
-deactivate DeleteCardCommandParser
+RemoveDeckCommandParser --> MasterParser : r
+deactivate RemoveDeckCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-DeleteCardCommandParser -[hidden]-> MasterParser
-destroy DeleteCardCommandParser
+RemoveDeckCommandParser -[hidden]-> MasterParser
+destroy RemoveDeckCommandParser
 
-MasterParser --> LogicManager : d
+MasterParser --> LogicManager : r
 deactivate MasterParser
 
-LogicManager -> DeleteCardCommand : execute()
-activate DeleteCardCommand
+LogicManager -> RemoveDeckCommand : execute()
+activate RemoveDeckCommand
 
-DeleteCardCommand -> Model : deleteCard(1)
+RemoveDeckCommand -> Model : removeDeck(2)
 activate Model
 
-Model --> DeleteCardCommand
+Model --> RemoveDeckCommand
 deactivate Model
 
 create CommandResult
-DeleteCardCommand -> CommandResult
+RemoveDeckCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> DeleteCardCommand
+CommandResult --> RemoveDeckCommand
 deactivate CommandResult
 
-DeleteCardCommand --> LogicManager : result
-deactivate DeleteCardCommand
+RemoveDeckCommand --> LogicManager : result
+deactivate RemoveDeckCommand
 
 [<--LogicManager
 deactivate LogicManager
