@@ -1,9 +1,21 @@
 package seedu.address.logic.commands.gamecommands;
 
+import java.nio.file.Path;
+import java.util.function.Predicate;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
+
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
+import org.junit.jupiter.api.Test;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.GameManager;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyLibrary;
@@ -15,13 +27,45 @@ import seedu.address.model.deck.card.BackFace;
 import seedu.address.model.deck.card.Card;
 import seedu.address.model.util.Mode;
 import seedu.address.model.util.View;
-import seedu.address.testutil.CardUtils;
-import seedu.address.testutil.DeckUtils;
-
-import java.nio.file.Path;
-import java.util.function.Predicate;
 
 public class StopCommandTest {
+
+    @Test
+    public void execute_Stop_successful() throws Exception {
+        ModelStubAcceptingStop modelStub = new ModelStubAcceptingStop();
+        CommandResult commandResult = new StopCommand().execute(modelStub);
+
+        assertEquals(String.format(StopCommand.MESSAGE_SUCCESS),
+                commandResult.getFeedbackToUser());
+    }
+
+    @Test
+    public void execute_notInPlayMode_throwsCommandException() {
+        ModelStubNotInPlayMode modelStub = new ModelStubNotInPlayMode();
+        StopCommand stopCommand = new StopCommand();
+
+        assertThrows(CommandException.class, StopCommand.MESSAGE_NOT_PLAY_MODE,
+                () -> stopCommand.execute(modelStub));
+    }
+
+    @Test
+    public void equals() {
+        StopCommand stopCommand = new StopCommand();
+
+        // same object -> returns true
+        assertTrue(stopCommand.equals(stopCommand));
+
+        // same values -> returns true
+        StopCommand stopCommandCopy = new StopCommand();
+        assertTrue(stopCommand.equals(stopCommandCopy));
+
+        // different types -> returns false
+        assertFalse(stopCommand.equals(0));
+
+        // null -> returns false
+        assertFalse(stopCommand.equals(null));
+    }
+
     /**
      * A default model stub that have all of the methods failing.
      */
@@ -259,23 +303,34 @@ public class StopCommandTest {
     }
 
     /**
-     * A Model stub that always accepts play.
+     * A Model stub that always accepts stop.
      */
-    private class ModelStubAcceptingPlay extends PlayCommandTest.ModelStub {
+    private class ModelStubAcceptingStop extends ModelStub {
 
         @Override
-        public Deck getDeck(Index targetIdx) {
-            return DeckUtils.getTypicalJapDeck();
+        public Mode getMode() {
+            return Mode.PLAY;
         }
 
         @Override
-        public GameManager getGame() {
+        public Statistics stop() {
             return null;
         }
+    }
+
+    /**
+     * A Model stub that cannot stop because its not even in play mode.
+     */
+    private class ModelStubNotInPlayMode extends ModelStub {
 
         @Override
-        public Card play(Index index) {
-            return CardUtils.JAP_CARD_1;
+        public Mode getMode() {
+            return Mode.VIEW;
+        }
+
+        @Override
+        public Statistics stop() {
+            return null;
         }
     }
 }
