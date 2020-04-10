@@ -39,7 +39,7 @@ public class CardBuilder {
      * Sets the front face of the card that we are building.
      * @param front
      */
-    public CardBuilder withFrontFace(FrontFace front) {
+    public CardBuilder withFrontFace(String front) {
         FrontFace frontFace = new FrontFace(front);
         this.frontFace = frontFace;
         return this;
@@ -49,7 +49,7 @@ public class CardBuilder {
      * Sets the back face of the card that we are building.
      * @param back
      */
-    public CardBuilder withBackFace(BackFace back) {
+    public CardBuilder withBackFace(String back) {
         BackFace backFace = new BackFace(back);
         this.backFace = backFace;
         return this;

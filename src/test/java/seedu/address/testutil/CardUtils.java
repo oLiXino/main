@@ -16,33 +16,33 @@ public class CardUtils {
     public static final String EMPTY_FACE = "";
 
     public static final Card JAP_CARD_1 = new CardBuilder()
-            .withFrontFace(new FrontFace("Hello"))
-            .withBackFace(new BackFace(" こんにちは"))
+            .withFrontFace("Hello")
+            .withBackFace(" こんにちは")
             .build();
 
     public static final Card JAP_CARD_2 = new CardBuilder()
-            .withFrontFace(new FrontFace("Goodbye"))
-            .withBackFace(new BackFace(" さよなら"))
+            .withFrontFace("Goodbye")
+            .withBackFace(" さよなら")
             .build();
 
     public static final Card JAP_CARD_3 = new CardBuilder()
-            .withFrontFace(new FrontFace("Thank you"))
-            .withBackFace(new BackFace(" ありがとう"))
+            .withFrontFace("Thank you")
+            .withBackFace(" ありがとう")
             .build();
 
     public static final Card MALAY_CARD_1 = new CardBuilder()
-            .withFrontFace(new FrontFace("I"))
-            .withBackFace(new BackFace("Saya"))
+            .withFrontFace("I")
+            .withBackFace("Saya")
             .build();
 
     public static final Card MALAY_CARD_2 = new CardBuilder()
-            .withFrontFace(new FrontFace("You"))
-            .withBackFace(new BackFace("Awak"))
+            .withFrontFace("You")
+            .withBackFace("Awak")
             .build();
 
     public static final Card MALAY_CARD_3 = new CardBuilder()
-            .withFrontFace(new FrontFace("Chicken"))
-            .withBackFace(new BackFace("Ayam"))
+            .withFrontFace("Chicken")
+            .withBackFace("Ayam")
             .build();
 
     private CardUtils() {} // prevents instantiation
