@@ -27,6 +27,29 @@ This guide will walk you through the many exciting features of FlashSpeed as wel
 
 We hope you enjoy using our app. Happy FlashSpeeding!
 
+== Language Support
+
+FlashSpeed can support almost every popular language and their associated script. You can even use emojis in your cards! +
+
+You can use FlashSpeed to study: +
+
+- Japanese
+- Korean
+- French
+- Spanish
+- German
+- Hindi
+- Russian
+- ...and many more!
+
+[NOTE]
+The display of the characters may be limited to your own operating systems's language support. Please refer to
+your operating system's manual or user guide to find out the languages and scripts supported.
+
+[NOTE]
+Technical info: FlashSpeed, which is built on Java, supports the Unicode standard with UTF-16 character encoding for
+textual representation.
+
 == Quick Start
 
 Getting FlashSpeed up and running is fast and easy. Follow these simple steps to get started!
@@ -95,7 +118,6 @@ Format: `help`
 You can get the link to this user guide in a new window by 
 typing `help` in the input box and pressing kbd:[Enter]. +
 
-
 .The helpful Help window.
 image::help.png[]
 
@@ -123,6 +145,16 @@ image::reset.png[]
 {empty} +
 
 === Library view
+
+****
+[NOTE]
+**Even though the commands in this section are mainly library based, you can use them in both the Library view and Deck view!**
+
+.No deck selected. You're now in Library view.
+image::library.png[]
+****
+
+{empty} +
 
 ==== Creating a deck : `create`
 
@@ -223,6 +255,7 @@ image::rename.png[]
 
 {empty} +
 
+[[playDeck]]
 ==== Playing a deck : `play`
 
 Format: `play <index>`
@@ -250,7 +283,7 @@ image::Ui2.png[]
 ****
 [NOTE]
 **Important: All commands in this section can only be used in Deck view.**
-**To enter Deck view, you must <<selectDeck,select a deck>>.**
+**To enter Deck view, you must <<selectDeck, select a deck>>.**
 
 .Selecting a deck. You're now in Deck view.
 image::Ui.png[]
@@ -265,6 +298,11 @@ Format: `add <front>:<back>`
 * *Formal definition*: Creates a card and adds it to a deck,
 with the front and back values of the card being specified by the user.
 Both the front and back values cannot be empty.
+****
+[NOTE]
+****
+* *One and only one* colon (":") can be used in this command.
+Since a colon is used as the separator, there should not be any colons in the `front` or `back` values.
 ****
 
 Alright, after creating a new deck and giving it a great name, what's next?
@@ -301,6 +339,11 @@ Format 3: `edit <index> <front>:`
 * *Formal definition*: Edits the card in the current deck at the specified `index`. The index refers to the index number shown in the displayed cards list. The index *must be a positive integer* 1, 2, 3, ...
 * Existing values will be updated to the given values.
 * Empty values for the `front` or `back` will leave the original `front` or `back` intact.
+****
+[NOTE]
+****
+* *One and only one* colon (":") can be used in this command.
+Since a colon is used as the separator, there should not be any colons in the `front` or `back` values.
 ****
 
 You can edit the front and/or back values of any card in the current deck. +
@@ -359,6 +402,10 @@ image::library.png[]
 Format: `play <index>`
 
 ****
+[NOTE]
+**Important: All commands in this section can only be used in Play view.**
+**To enter Play view, you must <<playDeck,play a deck>>.**
+
 Time to start testing yourself! You can start a game session with a selected deck when you want to test how well you memorize the cards or just to enhance
 your memory of the cards in a specific deck. When playing a deck, each card will initially show only its front face to allow you to recall its back face. (It's to test you, after all!)
 
@@ -464,5 +511,45 @@ e.g. `delete 3`
 * *Yes* : `yes`
 * *No* : `no`
 * *Stop* : `stop`
+
+{empty} +
+
+[width="60%",cols="30%,10%,10%,10%",options="header",]
+|=======================================================================
+|       3+|View
+|Command  |Library |Deck |Play
+|`help`   |✓      |✓    |✓
+
+|`exit`   |✓       |✓    |✓
+
+|`reset`  |✓       |✓    |
+
+|`select` |✓       |✓    |
+
+|`create` |✓       |✓    |
+
+|`remove` |✓       |✓    |
+
+|`rename` |✓       |✓    |
+
+|`play`   |✓       |✓    |
+
+|`add`    |        |✓    |
+
+|`edit`   |        |✓    |
+
+|`delete` |        |✓    |
+
+|`return` |        |✓    |
+
+|`flip`   |        |     |✓
+
+|`yes`    |        |     |✓
+
+|`no`     |        |     |✓
+
+|`stop`   |        |     |✓
+
+|=======================================================================
 
 {empty} +
