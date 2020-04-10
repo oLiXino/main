@@ -115,11 +115,8 @@ image::Ui2.png[]
 
 Format: `help`
 
-You can get the link to this user guide in a new window by 
+You can view this user guide in a new window by
 typing `help` in the input box and pressing kbd:[Enter]. +
-
-.The helpful Help window.
-image::help.png[]
 
 {empty} +
 
@@ -128,7 +125,7 @@ image::help.png[]
 Format: `exit`
 
 You can exit FlashSpeed by typing `exit` in the input box 
-and pressing kbd:[Enter]. +
+and pressing kbd:[Enter]. Bye! +
 
 {empty} +
 
