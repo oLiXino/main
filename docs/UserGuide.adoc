@@ -29,7 +29,7 @@ We hope you enjoy using our app. Happy FlashSpeeding!
 
 == Language Support
 
-FlashSpeed can support almost every popular language and their associated script. You can even use emojis in your cards! +
+FlashSpeed can support almost every popular language and their associated script. You can even use emojis in your cards! 😍 +
 
 You can use FlashSpeed to study: +
 
@@ -66,7 +66,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the Help window.
 * **`remove`**`3` : removes the 3rd deck shown in the decks list
 * *`exit`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
+.  Refer to <<Features>> for details of each command or <<Command Summary>> for a condensed view of all commands.
 
 [[Features]]
 == Features
@@ -482,6 +482,7 @@ You don't have to save your precious flashcards manually!
 
 {empty} +
 
+[[commandSummary]]
 == Command Summary
 
 * *Help* : `help` +
@@ -511,8 +512,6 @@ e.g. `delete 3`
 * *Yes* : `yes`
 * *No* : `no`
 * *Stop* : `stop`
-
-{empty} +
 
 [width="60%",cols="30%,10%,10%,10%",options="header",]
 |=======================================================================
