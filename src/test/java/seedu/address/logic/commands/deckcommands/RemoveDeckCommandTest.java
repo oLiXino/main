@@ -1,9 +1,12 @@
 package seedu.address.logic.commands.deckcommands;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalIndexes.*;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_DECK;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_DECK;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_DECK;
 
 import java.nio.file.Path;
 import java.util.function.Predicate;
@@ -32,6 +35,7 @@ import seedu.address.model.util.View;
 import seedu.address.testutil.DeckUtils;
 
 public class RemoveDeckCommandTest {
+
     @Test
     public void constructor_nullDeck_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new RemoveDeckCommand(null));
@@ -327,7 +331,7 @@ public class RemoveDeckCommandTest {
     }
 
     /**
-     * A Model stub that always accepts a card being added.
+     * A Model stub that always accepts a deck being removed.
      */
     private class ModelStubAcceptingDeckDeleted extends ModelStub {
 
@@ -344,7 +348,7 @@ public class RemoveDeckCommandTest {
     }
 
     /**
-     * A Model stub that cannot add a deck due to being in Play Mode
+     * A Model stub that cannot delete a deck due to being in Play Mode
      */
     private class ModelStubPlayMode extends ModelStub {
 

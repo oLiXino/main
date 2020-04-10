@@ -1,26 +1,20 @@
-package seedu.address.logic.commands.deckcommands;
+package seedu.address.logic.commands.gamecommands;
 
-import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
-
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
 import seedu.address.model.GameManager;
+import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyLibrary;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.Statistics;
@@ -30,69 +24,34 @@ import seedu.address.model.deck.card.BackFace;
 import seedu.address.model.deck.card.Card;
 import seedu.address.model.util.Mode;
 import seedu.address.model.util.View;
-import seedu.address.testutil.DeckBuilder;
+import seedu.address.testutil.DeckUtils;
 
-public class CreateDeckCommandTest {
+public class AnswerNoCommandTest {
 
     @Test
-    public void constructor_nullDeck_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new CreateDeckCommand(null));
+    public void execute_AnswerNoSuccessful() throws Exception {
+        ModelStubAcceptingGameAnswerNo modelStub = new ModelStubAcceptingGameAnswerNo();
+        CommandResult commandResult = new AnswerNoCommand().execute(modelStub);
+
+        assertEquals(String.format(AnswerNoCommand.MESSAGE_SUCCESS), commandResult.getFeedbackToUser());
     }
 
     @Test
-    public void execute_deckAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingDeckAdded modelStub = new ModelStubAcceptingDeckAdded();
-        Deck validDeck = new DeckBuilder().withName("Test").build();
+    public void execute_notInPlayMode_throwsCommandException() {
+        ModelStubNotPlayMode modelStub = new ModelStubNotPlayMode();
+        AnswerNoCommand answerNoCommand = new AnswerNoCommand();
 
-        CommandResult commandResult = new CreateDeckCommand(validDeck).execute(modelStub);
-
-        assertEquals(String.format(CreateDeckCommand.MESSAGE_SUCCESS, validDeck), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validDeck), modelStub.decksAdded);
+        assertThrows(CommandException.class, AnswerNoCommand.MESSAGE_NOT_PLAY_MODE,
+                () -> answerNoCommand.execute(modelStub));
     }
 
     @Test
-    public void execute_notInViewMode_throwsCommandException() {
-        ModelStubPlayMode modelStub = new ModelStubPlayMode();
-        Deck validDeck = new DeckBuilder().withName("Test").build();
-        CreateDeckCommand createDeckCommand = new CreateDeckCommand(validDeck);
+    public void execute_gameNotFlipped_throwsCommandException() {
+        ModelStubCardNotFlipped modelStub = new ModelStubCardNotFlipped();
+        AnswerNoCommand answerNoCommand = new AnswerNoCommand();
 
-        assertThrows(CommandException.class, CreateDeckCommand.MESSAGE_NOT_IN_VIEW_MODE,
-                () -> createDeckCommand.execute(modelStub));
-    }
-
-    @Test
-    public void execute_duplicateDeck_throwsCommandException() {
-        Deck validDeck = new DeckBuilder().withName("Test").build();
-        ModelStub modelStub = new ModelStubWithDeck(validDeck);
-        CreateDeckCommand createDeckCommand = new CreateDeckCommand(validDeck);
-
-        assertThrows(CommandException.class,
-                CreateDeckCommand.MESSAGE_DUPLICATE_DECK, () -> createDeckCommand.execute(modelStub));
-    }
-
-    @Test
-    public void equals() {
-        Deck deck1 = new DeckBuilder().withName("Malay").build();
-        Deck deck2 = new DeckBuilder().withName("Japanese").build();
-        
-        CreateDeckCommand createDeck1Command = new CreateDeckCommand(deck1);
-        CreateDeckCommand createDeck2Command = new CreateDeckCommand(deck2);
-
-        // same object -> returns true
-        assertTrue(createDeck1Command.equals(createDeck1Command));
-
-        // same values -> returns true
-        CreateDeckCommand createDeck1CommandCopy = new CreateDeckCommand(deck1);
-        assertTrue(createDeck1Command.equals(createDeck1CommandCopy));
-
-        // different types -> returns false
-        assertFalse(createDeck1Command.equals(1));
-
-        // null -> returns false
-        assertFalse(createDeck1Command.equals(null));
-
-        // different deck -> returns false
-        assertFalse(createDeck1Command.equals(createDeck2Command));
+        assertThrows(CommandException.class, AnswerNoCommand.MESSAGE_NOT_FLIPPED,
+                () -> answerNoCommand.execute(modelStub));
     }
 
     /**
@@ -332,34 +291,9 @@ public class CreateDeckCommandTest {
     }
 
     /**
-     * A Model stub that always accepts a deck being created.
+     * A Model stub that always answer no.
      */
-    private class ModelStubAcceptingDeckAdded extends ModelStub {
-        final ArrayList<Deck> decksAdded = new ArrayList<>();
-
-        @Override
-        public Mode getMode() {
-            return Mode.VIEW;
-        }
-
-        @Override
-        public boolean hasDeck(Deck deck) {
-            requireNonNull(deck);
-            return decksAdded.stream().anyMatch(deck::equals);
-        }
-
-        @Override
-        public void createDeck(Deck deck) {
-            requireNonNull(deck);
-            decksAdded.add(deck);
-        }
-    }
-
-    /**
-     * A Model stub that cannot add a deck due to being in Play Mode
-     */
-    private class ModelStubPlayMode extends ModelStub {
-        final ArrayList<Deck> decksAdded = new ArrayList<>();
+    private class ModelStubAcceptingGameAnswerNo extends ModelStub {
 
         @Override
         public Mode getMode() {
@@ -367,27 +301,18 @@ public class CreateDeckCommandTest {
         }
 
         @Override
-        public boolean hasDeck(Deck deck) {
-            requireNonNull(deck);
-            return decksAdded.stream().anyMatch(deck::equals);
-        }
-
-        @Override
-        public void createDeck(Deck deck) {
-            requireNonNull(deck);
-            decksAdded.add(deck);
+        public GameManager getGame() {
+            Deck testDeck = DeckUtils.getTypicalJapDeck();
+            GameManager newGame = new GameManager(testDeck);
+            newGame.flip();
+            return newGame;
         }
     }
 
     /**
-     * A Model stub that always accepts a card being added.
+     * A Model stub that cannot play due to not in play mode.
      */
-    private class ModelStubWithDeck extends ModelStub {
-        final ArrayList<Deck> decksAdded = new ArrayList<>();
-
-        public ModelStubWithDeck(Deck deck) {
-            decksAdded.add(deck);
-        }
+    private class ModelStubNotPlayMode extends ModelStub {
 
         @Override
         public Mode getMode() {
@@ -395,15 +320,29 @@ public class CreateDeckCommandTest {
         }
 
         @Override
-        public boolean hasDeck(Deck deck) {
-            requireNonNull(deck);
-            return decksAdded.stream().anyMatch(deck::equals);
+        public GameManager getGame() {
+            Deck testDeck = DeckUtils.getTypicalJapDeck();
+            GameManager newGame = new GameManager(testDeck);
+            newGame.flip();
+            return newGame;
+        }
+    }
+
+    /**
+     * A Model stub that cannot answer no since card is not flipped.
+     */
+    private class ModelStubCardNotFlipped extends ModelStub {
+
+        @Override
+        public Mode getMode() {
+            return Mode.PLAY;
         }
 
         @Override
-        public void createDeck(Deck deck) {
-            requireNonNull(deck);
-            decksAdded.add(deck);
+        public GameManager getGame() {
+            Deck testDeck = DeckUtils.getTypicalJapDeck();
+            GameManager newGame = new GameManager(testDeck);
+            return newGame;
         }
     }
 }
