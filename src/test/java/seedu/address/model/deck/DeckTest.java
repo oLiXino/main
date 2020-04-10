@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_FRENCH;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.CardUtils.getTypicalJapCards;
+import static seedu.address.testutil.CardUtils.JAP_CARDS;
 import static seedu.address.testutil.DeckUtils.JAPANESE_DECK;
 import static seedu.address.testutil.DeckUtils.MALAY_DECK;
 
@@ -30,7 +30,7 @@ public class DeckTest {
         // new deck with same name, same cards -> returns true
         Deck newDeck = new DeckBuilder()
                 .withName("Japanese")
-                .withCards(getTypicalJapCards()).build();
+                .withCards(JAP_CARDS).build();
         assertTrue(JAPANESE_DECK.isSameDeck(newDeck));
 
         // new deck with same name, no cards -> return true
