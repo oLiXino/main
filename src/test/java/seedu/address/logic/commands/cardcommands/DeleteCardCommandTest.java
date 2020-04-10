@@ -1,10 +1,11 @@
 package seedu.address.logic.commands.cardcommands;
 
-import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_CARD;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
@@ -27,48 +28,57 @@ import seedu.address.model.deck.card.Card;
 import seedu.address.model.util.Mode;
 import seedu.address.model.util.View;
 import seedu.address.testutil.CardBuilder;
+import seedu.address.testutil.DeckBuilder;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.function.Predicate;
 
-public class AddCardCommandTest {
+public class DeleteCardCommandTest {
 
     @Test
-    public void constructor_nullCard_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCardCommand(null));
+    public void constructor_nullIndex_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new DeleteCardCommand(null));
     }
 
     @Test
-    public void execute_cardAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingCardAdded modelStub = new ModelStubAcceptingCardAdded();
-        Card validCard = new CardBuilder().build();
+    public void execute_deleteAcceptedByModel_Successful() throws Exception {
+        ModelStubAcceptingCardDeleted modelStub = new ModelStubAcceptingCardDeleted();
 
-        CommandResult commandResult = new AddCardCommand(validCard).execute(modelStub);
+        Index validIndex = INDEX_FIRST_CARD;
+        Card cardToDelete = modelStub.getCard(validIndex);
+        CommandResult commandResult = new DeleteCardCommand(validIndex).execute(modelStub);
 
-        assertEquals(String.format(AddCardCommand.MESSAGE_SUCCESS, validCard), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validCard), modelStub.cardsAdded);
+        assertEquals(String.format(AddCardCommand.MESSAGE_SUCCESS, cardToDelete), commandResult.getFeedbackToUser());
     }
 
     @Test
     public void execute_notInViewMode_throwsCommandException() {
         ModelStubPlayMode modelStub = new ModelStubPlayMode();
-        Card validCard = new CardBuilder().build();
-        AddCardCommand addCardCommand = new AddCardCommand(validCard);
+        Index validIndex = INDEX_FIRST_CARD;
+        DeleteCardCommand deleteCardCommand = new DeleteCardCommand(validIndex);
 
         assertThrows(CommandException.class, AddCardCommand.MESSAGE_NOT_IN_VIEW_MODE,
-                () -> addCardCommand.execute(modelStub));
+                () -> deleteCardCommand.execute(modelStub));
     }
 
     @Test
     public void execute_notInDeckView_throwsCommandException() {
         ModelStubLibraryView modelStub = new ModelStubLibraryView();
-        Card validCard = new CardBuilder().build();
-        AddCardCommand addCardCommand = new AddCardCommand(validCard);
+        DeleteCardCommand deleteCardCommand = new DeleteCardCommand(INDEX_FIRST_CARD);
 
         assertThrows(CommandException.class, Messages.MESSAGE_NOT_IN_DECK_VIEW,
-                () -> addCardCommand.execute(modelStub));
+                () -> deleteCardCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_targetIndexLargerThanDeckSize_throwsCommandException() {
+        ModelStubAcceptingCardDeleted modelStub = new ModelStubAcceptingCardDeleted();
+        Index invalidIndex = INDEX_THIRD_CARD;
+        DeleteCardCommand deleteCardCommand = new DeleteCardCommand(invalidIndex);
+
+        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX,
+                () -> deleteCardCommand.execute(modelStub));
     }
 
     @Test
@@ -333,10 +343,20 @@ public class AddCardCommandTest {
     }
 
     /**
-     * A Model stub that always accepts a card being added.
+     * A Model stub that always accepts a card being deleted.
+     * The Deck in this model contains 2 cards
      */
-    private class ModelStubAcceptingCardAdded extends ModelStub {
-        final ArrayList<Card> cardsAdded = new ArrayList<>();
+    private class ModelStubAcceptingCardDeleted extends ModelStub {
+        final ArrayList<Card> cardsList = new ArrayList<>();
+        final Deck deck;
+
+        public ModelStubAcceptingCardDeleted() {
+            Card card1 = new CardBuilder().withFrontFace("Hello").withBackFace("안녕하세요").build();
+            Card card2 = new CardBuilder().withFrontFace("Yes").withBackFace("네").build();
+            cardsList.add(card1);
+            cardsList.add(card2);
+            deck = new DeckBuilder().withCards(cardsList).build();
+        }
 
         @Override
         public Mode getMode() {
@@ -349,15 +369,16 @@ public class AddCardCommandTest {
         }
 
         @Override
-        public boolean hasCard(Card card) {
-            requireNonNull(card);
-            return cardsAdded.stream().anyMatch(card::equals);
+        public Card getCard(Index index) {
+            return deck.getCard(index);
         }
 
         @Override
-        public void addCard(Card card) {
-            requireNonNull(card);
-            cardsAdded.add(card);
+        public void deleteCard(Card cardToDelete) {
+            if (deck == null) {
+                return;
+            }
+            deck.remove(cardToDelete);
         }
     }
 
@@ -365,7 +386,16 @@ public class AddCardCommandTest {
      * A Model stub that cannot add a card due to being in Play Mode
      */
     private class ModelStubPlayMode extends ModelStub {
-        final ArrayList<Card> cardsAdded = new ArrayList<>();
+        final ArrayList<Card> cardsList = new ArrayList<>();
+        final Deck deck;
+
+        public ModelStubPlayMode() {
+            Card card1 = new CardBuilder().withFrontFace("Hello").withBackFace("안녕하세요").build();
+            Card card2 = new CardBuilder().withFrontFace("Yes").withBackFace("네").build();
+            cardsList.add(card1);
+            cardsList.add(card2);
+            deck = new DeckBuilder().withCards(cardsList).build();
+        }
 
         @Override
         public Mode getMode() {
@@ -378,15 +408,16 @@ public class AddCardCommandTest {
         }
 
         @Override
-        public boolean hasCard(Card card) {
-            requireNonNull(card);
-            return cardsAdded.stream().anyMatch(card::equals);
+        public Card getCard(Index index) {
+            return deck.getCard(index);
         }
 
         @Override
-        public void addCard(Card card) {
-            requireNonNull(card);
-            cardsAdded.add(card);
+        public void deleteCard(Card cardToDelete) {
+            if (deck == null) {
+                return;
+            }
+            deck.remove(cardToDelete);
         }
     }
 
@@ -394,28 +425,38 @@ public class AddCardCommandTest {
      * A Model stub that cannot add a card due to being in Library View
      */
     private class ModelStubLibraryView extends ModelStub {
-        final ArrayList<Card> cardsAdded = new ArrayList<>();
+        final ArrayList<Card> cardsList = new ArrayList<>();
+        final Deck deck;
+
+        public ModelStubLibraryView() {
+            Card card1 = new CardBuilder().withFrontFace("Hello").withBackFace("안녕하세요").build();
+            Card card2 = new CardBuilder().withFrontFace("Yes").withBackFace("네").build();
+            cardsList.add(card1);
+            cardsList.add(card2);
+            deck = new DeckBuilder().withCards(cardsList).build();
+        }
 
         @Override
         public Mode getMode() {
-            return Mode.VIEW;
+            return Mode.PLAY;
         }
 
         @Override
         public View getView() {
-            return View.LIBRARY;
+            return View.DECK;
         }
 
         @Override
-        public boolean hasCard(Card card) {
-            requireNonNull(card);
-            return cardsAdded.stream().anyMatch(card::equals);
+        public Card getCard(Index index) {
+            return deck.getCard(index);
         }
 
         @Override
-        public void addCard(Card card) {
-            requireNonNull(card);
-            cardsAdded.add(card);
+        public void deleteCard(Card cardToDelete) {
+            if (deck == null) {
+                return;
+            }
+            deck.remove(cardToDelete);
         }
     }
 }
