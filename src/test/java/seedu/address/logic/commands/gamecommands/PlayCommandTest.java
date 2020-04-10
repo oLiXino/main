@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_DECK;
 
 import java.nio.file.Path;
 import java.util.function.Predicate;
@@ -26,52 +27,66 @@ import seedu.address.model.deck.card.BackFace;
 import seedu.address.model.deck.card.Card;
 import seedu.address.model.util.Mode;
 import seedu.address.model.util.View;
+import seedu.address.testutil.CardUtils;
 import seedu.address.testutil.DeckUtils;
 
-public class AnswerNoCommandTest {
+public class PlayCommandTest {
 
     @Test
-    public void execute_AnswerNoSuccessful() throws Exception {
-        ModelStubAcceptingGameAnswerNo modelStub = new ModelStubAcceptingGameAnswerNo();
-        CommandResult commandResult = new AnswerNoCommand().execute(modelStub);
+    public void execute_PlaySuccessful() throws Exception {
+        ModelStubAcceptingPlay modelStub = new ModelStubAcceptingPlay();
+        CommandResult commandResult = new PlayCommand(INDEX_FIRST_DECK).execute(modelStub);
+        Deck chosenDeck = DeckUtils.getTypicalJapDeck();
 
-        assertEquals(String.format(AnswerNoCommand.MESSAGE_SUCCESS), commandResult.getFeedbackToUser());
+        assertEquals(String.format(PlayCommand.MESSAGE_SUCCESS, chosenDeck),
+                commandResult.getFeedbackToUser());
     }
 
     @Test
-    public void execute_notInPlayMode_throwsCommandException() {
-        ModelStubNotPlayMode modelStub = new ModelStubNotPlayMode();
-        AnswerNoCommand answerNoCommand = new AnswerNoCommand();
+    public void execute_alreadyInPlay_throwsCommandException() {
+        ModelStubNotAlreadyInPlay modelStub = new ModelStubNotAlreadyInPlay();
+        PlayCommand playCommand = new PlayCommand(INDEX_FIRST_DECK);
 
-        assertThrows(CommandException.class, AnswerNoCommand.MESSAGE_NOT_PLAY_MODE,
-                () -> answerNoCommand.execute(modelStub));
+        assertThrows(CommandException.class, PlayCommand.MESSAGE_ALREADY_PLAY,
+                () -> playCommand.execute(modelStub));
     }
 
     @Test
-    public void execute_gameNotFlipped_throwsCommandException() {
-        ModelStubCardNotFlipped modelStub = new ModelStubCardNotFlipped();
-        AnswerNoCommand answerNoCommand = new AnswerNoCommand();
+    public void execute_deckNotFound_throwsCommandException() {
+        ModelStubDeckNotFound modelStub = new ModelStubDeckNotFound();
+        PlayCommand playCommand = new PlayCommand(INDEX_FIRST_DECK);
 
-        assertThrows(CommandException.class, AnswerNoCommand.MESSAGE_NOT_FLIPPED,
-                () -> answerNoCommand.execute(modelStub));
+        assertThrows(CommandException.class, PlayCommand.MESSAGE_DECK_NOT_FOUND,
+                () -> playCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_emptyDeck_throwsCommandException() {
+        ModelStubDeckEmpty modelStub = new ModelStubDeckEmpty();
+        PlayCommand playCommand = new PlayCommand(INDEX_FIRST_DECK);
+
+        assertThrows(CommandException.class, PlayCommand.MESSAGE_NO_CARD,
+                () -> playCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        AnswerNoCommand answerNoCommand = new AnswerNoCommand();
+        Index validIndex = INDEX_FIRST_DECK;
+
+        PlayCommand playCommand = new PlayCommand(validIndex);
 
         // same object -> returns true
-        assertTrue(answerNoCommand.equals(answerNoCommand));
+        assertTrue(playCommand.equals(playCommand));
 
         // same values -> returns true
-        AnswerNoCommand answerNoCommandCopy = new AnswerNoCommand();
-        assertTrue(answerNoCommand.equals(answerNoCommandCopy));
+        PlayCommand playCommandCopy = new PlayCommand(validIndex);
+        assertTrue(playCommand.equals(playCommandCopy));
 
         // different types -> returns false
-        assertFalse(answerNoCommand.equals(1));
+        assertFalse(playCommand.equals(0));
 
         // null -> returns false
-        assertFalse(answerNoCommand.equals(null));
+        assertFalse(playCommand.equals(null));
     }
 
     /**
@@ -311,13 +326,34 @@ public class AnswerNoCommandTest {
     }
 
     /**
-     * A Model stub that always answer no.
+     * A Model stub that always accepts play.
      */
-    private class ModelStubAcceptingGameAnswerNo extends ModelStub {
+    private class ModelStubAcceptingPlay extends ModelStub {
 
         @Override
-        public Mode getMode() {
-            return Mode.PLAY;
+        public Deck getDeck(Index targetIdx) {
+            return DeckUtils.getTypicalJapDeck();
+        }
+
+        @Override
+        public GameManager getGame() {
+            return null;
+        }
+
+        @Override
+        public Card play(Index index) {
+            return CardUtils.JAP_CARD_1;
+        }
+    }
+
+    /**
+     * A Model stub that cannot play due to already being in play mode.
+     */
+    private class ModelStubNotAlreadyInPlay extends ModelStub {
+
+        @Override
+        public Deck getDeck(Index targetIdx) {
+            return DeckUtils.getTypicalJapDeck();
         }
 
         @Override
@@ -327,35 +363,21 @@ public class AnswerNoCommandTest {
             newGame.flip();
             return newGame;
         }
-    }
-
-    /**
-     * A Model stub that cannot play due to not in play mode.
-     */
-    private class ModelStubNotPlayMode extends ModelStub {
 
         @Override
-        public Mode getMode() {
-            return Mode.VIEW;
-        }
-
-        @Override
-        public GameManager getGame() {
-            Deck testDeck = DeckUtils.getTypicalJapDeck();
-            GameManager newGame = new GameManager(testDeck);
-            newGame.flip();
-            return newGame;
+        public Card play(Index index) {
+            return CardUtils.JAP_CARD_1;
         }
     }
 
     /**
-     * A Model stub that cannot answer no since card is not flipped.
+     * A Model stub that cannot answer no since deck is not found
      */
-    private class ModelStubCardNotFlipped extends ModelStub {
+    private class ModelStubDeckNotFound extends ModelStub {
 
         @Override
-        public Mode getMode() {
-            return Mode.PLAY;
+        public Deck getDeck(Index targetIdx) {
+            return DeckUtils.getTypicalJapDeck();
         }
 
         @Override
@@ -363,6 +385,34 @@ public class AnswerNoCommandTest {
             Deck testDeck = DeckUtils.getTypicalJapDeck();
             GameManager newGame = new GameManager(testDeck);
             return newGame;
+        }
+
+        @Override
+        public Card play(Index index) {
+            return null;
+        }
+    }
+
+    /**
+     * A Model stub that cannot answer no since deck is not found
+     */
+    private class ModelStubDeckEmpty extends ModelStub {
+
+        @Override
+        public Deck getDeck(Index targetIdx) {
+            return DeckUtils.getTypicalJapDeck();
+        }
+
+        @Override
+        public GameManager getGame() {
+            Deck testDeck = DeckUtils.getTypicalJapDeck();
+            GameManager newGame = new GameManager(testDeck);
+            return newGame;
+        }
+
+        @Override
+        public Card play(Index index) {
+            return new Card(null, null);
         }
     }
 }

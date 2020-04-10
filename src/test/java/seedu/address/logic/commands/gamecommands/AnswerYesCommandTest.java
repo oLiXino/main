@@ -1,6 +1,8 @@
 package seedu.address.logic.commands.gamecommands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
@@ -54,6 +56,24 @@ public class AnswerYesCommandTest {
                 () -> answerYesCommand.execute(modelStub));
     }
 
+    @Test
+    public void equals() {
+        AnswerYesCommand answerYesCommand = new AnswerYesCommand();
+
+        // same object -> returns true
+        assertTrue(answerYesCommand.equals(answerYesCommand));
+
+        // same values -> returns true
+        AnswerYesCommand answerYesCommandCopy = new AnswerYesCommand();
+        assertTrue(answerYesCommand.equals(answerYesCommandCopy));
+
+        // different types -> returns false
+        assertFalse(answerYesCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(answerYesCommand.equals(null));
+    }
+    
     /**
      * A default model stub that have all of the methods failing.
      */

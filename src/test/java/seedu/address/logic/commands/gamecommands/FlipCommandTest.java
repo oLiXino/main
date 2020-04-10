@@ -4,11 +4,14 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
+
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
@@ -51,6 +54,24 @@ public class FlipCommandTest {
 
         assertThrows(CommandException.class, FlipCommand.MESSAGE_ALREADY_FLIPPED,
                 () -> flipCommand.execute(modelStub));
+    }
+
+    @Test
+    public void equals() {
+        FlipCommand flipCommand = new FlipCommand();
+
+        // same object -> returns true
+        assertTrue(flipCommand.equals(flipCommand));
+
+        // same values -> returns true
+        FlipCommand flipCommandCopy = new FlipCommand();
+        assertTrue(flipCommand.equals(flipCommandCopy));
+
+        // different types -> returns false
+        assertFalse(flipCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(flipCommand.equals(null));
     }
 
     /**
