@@ -8,6 +8,7 @@ import java.util.List;
 
 import seedu.address.model.Library;
 import seedu.address.model.deck.Deck;
+import seedu.address.model.deck.Name;
 
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
@@ -21,6 +22,8 @@ public class DeckUtils {
             .withName("Malay")
             .withCards(MALAY_CARDS).build();
     public static final String EMPTY_DECK_NAME = "";
+
+    public static final Deck NEW_EMPTY_DECK = new Deck(new Name("Empty deck"));
 
     // Manually added
 
