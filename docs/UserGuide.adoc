@@ -192,7 +192,7 @@ Format: `select <index>`
 ****
 * *Formal definition*:
 Selects and shows all cards in the deck at the specified `index`.
-The index refers to the index number shown in the displayed decks list. The index *must be a positive integer* 1, 2, 3, ...
+The `index` refers to the index number shown in the displayed decks list. The `index` *must be a positive integer* 1, 2, 3, ...
 ****
 
 If you want to view the cards in a particular deck, you can use `select` followed by the deck's index number.
@@ -217,8 +217,8 @@ image::Ui.png[]
 Format: `remove <index>`
 ****
 * *Formal definition*: Removes the deck in the library at the specified `index`.
-The index refers to the index number shown in the displayed decks list.
-The index *must be a positive integer* 1, 2, 3, ...
+The `index` refers to the index number shown in the displayed decks list.
+The `index` *must be a positive integer* 1, 2, 3, ...
 ****
 
 Similarly, you can remove a deck in the library using `remove` followed by the index number of that deck. Bye bye, deck!
@@ -237,7 +237,7 @@ image::remove.png[]
 
 Format: `rename <index> <deck>`
 ****
-* *Formal definition*: Renames the deck in the library at the specified `index`. The index refers to the index number shown in the displayed decks list. The index *must be a positive integer* 1, 2, 3, ...
+* *Formal definition*: Renames the deck in the library at the specified `index`. The `index` refers to the index number shown in the displayed decks list. The `index` *must be a positive integer* 1, 2, 3, ...
 ****
 
 You can rename a deck in the library using `rename` followed by the index number of the deck and the new name of the deck. +
@@ -260,7 +260,7 @@ image::rename.png[]
 
 Format: `play <index>`
 ****
-* *Formal definition*: Starts a study session with the deck in the library at the specified `index`. The index refers to the index number shown in the displayed decks list. The index *must be a positive integer* 1, 2, 3, ...
+* *Formal definition*: Starts a study session with the deck in the library at the specified `index`. The `index` refers to the index number shown in the displayed decks list. The `index` *must be a positive integer* 1, 2, 3, ...
 ****
 
 Alright, this may be what you've been waiting for! In order to start a study session with a certain deck,
@@ -296,8 +296,8 @@ image::Ui.png[]
 Format: `add <front>:<back>`
 ****
 * *Formal definition*: Creates a card and adds it to a deck,
-with the front and back values of the card being specified by the user.
-Both the front and back values cannot be empty.
+with the `front` and `back` values of the card being specified by the user.
+Both the `front` and `back` values cannot be empty.
 ****
 [NOTE]
 ****
@@ -336,7 +336,7 @@ Format 1: `edit <index> <front>:<back>` +
 Format 2: `edit <index> :<back>` +
 Format 3: `edit <index> <front>:`
 ****
-* *Formal definition*: Edits the card in the current deck at the specified `index`. The index refers to the index number shown in the displayed cards list. The index *must be a positive integer* 1, 2, 3, ...
+* *Formal definition*: Edits the card in the current deck at the specified `index`. The `index` refers to the index number shown in the displayed cards list. The `index` *must be a positive integer* 1, 2, 3, ...
 * Existing values will be updated to the given values.
 * Empty values for the `front` or `back` will leave the original `front` or `back` intact.
 ****
@@ -349,8 +349,8 @@ Since a colon is used as the separator, there should not be any colons in the `f
 You can edit the front and/or back values of any card in the current deck. +
 
 [TIP]
-You don't have to supply both the front and back values of a card if you only want to change one of them,
-e.g. if you only wish to change the back of a card, <front> can be left blank, and vice versa.
+You don't have to supply both the `front` and `back` values of a card if you only want to change one of them,
+e.g. if you only wish to change the `back` of a card, `front` can be left blank, and vice versa.
 
 Examples:
 
@@ -370,7 +370,7 @@ image::edit.png[]
 
 Format: `delete <index>`
 ****
-* *Formal definition*: Deletes the card in the current deck at the specified `index`. The index refers to the index number shown in the displayed cards list. The index *must be a positive integer* 1, 2, 3, ...
+* *Formal definition*: Deletes the card in the current deck at the specified `index`. The `index` refers to the index number shown in the displayed cards list. The `index` *must be a positive integer* 1, 2, 3, ...
 ****
 
 You can delete a card from the selected deck by using `delete` followed by the index number of that card. +
