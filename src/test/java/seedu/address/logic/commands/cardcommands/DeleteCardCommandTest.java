@@ -7,6 +7,10 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_CARD;
 
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.function.Predicate;
+
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
@@ -29,10 +33,6 @@ import seedu.address.model.util.Mode;
 import seedu.address.model.util.View;
 import seedu.address.testutil.CardBuilder;
 import seedu.address.testutil.DeckBuilder;
-
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.function.Predicate;
 
 public class DeleteCardCommandTest {
 

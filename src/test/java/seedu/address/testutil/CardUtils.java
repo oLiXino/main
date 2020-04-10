@@ -53,7 +53,6 @@ public class CardUtils {
     public static List<Card> JAP_CARDS = new ArrayList<>(
             Arrays.asList(JAP_CARD_1, JAP_CARD_2, JAP_CARD_3));
 
-
     /**
      * Gets the Malay test deck.
      */

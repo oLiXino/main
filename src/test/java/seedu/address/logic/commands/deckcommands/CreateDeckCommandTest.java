@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.cardcommands;
+package seedu.address.logic.commands.deckcommands;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,7 +16,6 @@ import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -31,69 +30,69 @@ import seedu.address.model.deck.card.BackFace;
 import seedu.address.model.deck.card.Card;
 import seedu.address.model.util.Mode;
 import seedu.address.model.util.View;
-import seedu.address.testutil.CardBuilder;
+import seedu.address.testutil.DeckBuilder;
 
-public class AddCardCommandTest {
+public class CreateDeckCommandTest {
 
     @Test
     public void constructor_nullCard_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCardCommand(null));
+        assertThrows(NullPointerException.class, () -> new CreateDeckCommand(null));
     }
 
     @Test
-    public void execute_cardAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingCardAdded modelStub = new ModelStubAcceptingCardAdded();
-        Card validCard = new CardBuilder().build();
+    public void execute_deckAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingDeckAdded modelStub = new ModelStubAcceptingDeckAdded();
+        Deck validDeck = new DeckBuilder().withName("Test").build();
 
-        CommandResult commandResult = new AddCardCommand(validCard).execute(modelStub);
+        CommandResult commandResult = new CreateDeckCommand(validDeck).execute(modelStub);
 
-        assertEquals(String.format(AddCardCommand.MESSAGE_SUCCESS, validCard), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validCard), modelStub.cardsAdded);
+        assertEquals(String.format(CreateDeckCommand.MESSAGE_SUCCESS, validDeck), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validDeck), modelStub.decksAdded);
     }
 
     @Test
     public void execute_notInViewMode_throwsCommandException() {
         ModelStubPlayMode modelStub = new ModelStubPlayMode();
-        Card validCard = new CardBuilder().build();
-        AddCardCommand addCardCommand = new AddCardCommand(validCard);
+        Deck validDeck = new DeckBuilder().withName("Test").build();
+        CreateDeckCommand createDeckCommand = new CreateDeckCommand(validDeck);
 
-        assertThrows(CommandException.class, AddCardCommand.MESSAGE_NOT_IN_VIEW_MODE,
-                () -> addCardCommand.execute(modelStub));
+        assertThrows(CommandException.class, CreateDeckCommand.MESSAGE_NOT_IN_VIEW_MODE,
+                () -> createDeckCommand.execute(modelStub));
     }
 
     @Test
-    public void execute_notInDeckView_throwsCommandException() {
-        ModelStubLibraryView modelStub = new ModelStubLibraryView();
-        Card validCard = new CardBuilder().build();
-        AddCardCommand addCardCommand = new AddCardCommand(validCard);
+    public void execute_duplicateDeck_throwsCommandException() {
+        Deck validDeck = new DeckBuilder().withName("Test").build();
+        ModelStub modelStub = new ModelStubWithDeck(validDeck);
+        CreateDeckCommand createDeckCommand = new CreateDeckCommand(validDeck);
 
-        assertThrows(CommandException.class, Messages.MESSAGE_NOT_IN_DECK_VIEW,
-                () -> addCardCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                CreateDeckCommand.MESSAGE_DUPLICATE_DECK, () -> createDeckCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Card card1 = new CardBuilder().withFrontFace("Hello").withBackFace("안녕하세요").build();
-        Card card2 = new CardBuilder().withFrontFace("Yes").withBackFace("네").build();
-
-        AddCardCommand addCard1Command = new AddCardCommand(card1);
-        AddCardCommand addCard2Command = new AddCardCommand(card2);
+        Deck deck1 = new DeckBuilder().withName("Malay").build();
+        Deck deck2 = new DeckBuilder().withName("Japanese").build();
+        
+        CreateDeckCommand createDeck1Command = new CreateDeckCommand(deck1);
+        CreateDeckCommand createDeck2Command = new CreateDeckCommand(deck2);
 
         // same object -> returns true
-        assertTrue(addCard1Command.equals(addCard1Command));
+        assertTrue(createDeck1Command.equals(createDeck1Command));
 
         // same values -> returns true
-        AddCardCommand addCard1CommandCopy = new AddCardCommand(card1);
-        assertTrue(addCard1Command.equals(addCard1CommandCopy));
+        CreateDeckCommand createDeck1CommandCopy = new CreateDeckCommand(deck1);
+        assertTrue(createDeck1Command.equals(createDeck1CommandCopy));
 
         // different types -> returns false
-        assertFalse(addCard1Command.equals(1));
+        assertFalse(createDeck1Command.equals(1));
 
         // null -> returns false
-        assertFalse(addCard1Command.equals(null));
+        assertFalse(createDeck1Command.equals(null));
 
-        // different card -> returns false
-        assertFalse(addCard1Command.equals(addCard2Command));
+        // different deck -> returns false
+        assertFalse(createDeck1Command.equals(createDeck2Command));
     }
 
     /**
@@ -335,8 +334,8 @@ public class AddCardCommandTest {
     /**
      * A Model stub that always accepts a card being added.
      */
-    private class ModelStubAcceptingCardAdded extends ModelStub {
-        final ArrayList<Card> cardsAdded = new ArrayList<>();
+    private class ModelStubAcceptingDeckAdded extends ModelStub {
+        final ArrayList<Deck> decksAdded = new ArrayList<>();
 
         @Override
         public Mode getMode() {
@@ -349,23 +348,23 @@ public class AddCardCommandTest {
         }
 
         @Override
-        public boolean hasCard(Card card) {
-            requireNonNull(card);
-            return cardsAdded.stream().anyMatch(card::equals);
+        public boolean hasDeck(Deck deck) {
+            requireNonNull(deck);
+            return decksAdded.stream().anyMatch(deck::equals);
         }
 
         @Override
-        public void addCard(Card card) {
-            requireNonNull(card);
-            cardsAdded.add(card);
+        public void createDeck(Deck deck) {
+            requireNonNull(deck);
+            decksAdded.add(deck);
         }
     }
 
     /**
-     * A Model stub that cannot add a card due to being in Play Mode
+     * A Model stub that cannot add a deck due to being in Play Mode
      */
     private class ModelStubPlayMode extends ModelStub {
-        final ArrayList<Card> cardsAdded = new ArrayList<>();
+        final ArrayList<Deck> decksAdded = new ArrayList<>();
 
         @Override
         public Mode getMode() {
@@ -378,23 +377,27 @@ public class AddCardCommandTest {
         }
 
         @Override
-        public boolean hasCard(Card card) {
-            requireNonNull(card);
-            return cardsAdded.stream().anyMatch(card::equals);
+        public boolean hasDeck(Deck deck) {
+            requireNonNull(deck);
+            return decksAdded.stream().anyMatch(deck::equals);
         }
 
         @Override
-        public void addCard(Card card) {
-            requireNonNull(card);
-            cardsAdded.add(card);
+        public void createDeck(Deck deck) {
+            requireNonNull(deck);
+            decksAdded.add(deck);
         }
     }
 
     /**
-     * A Model stub that cannot add a card due to being in Library View
+     * A Model stub that always accepts a card being added.
      */
-    private class ModelStubLibraryView extends ModelStub {
-        final ArrayList<Card> cardsAdded = new ArrayList<>();
+    private class ModelStubWithDeck extends ModelStub {
+        final ArrayList<Deck> decksAdded = new ArrayList<>();
+
+        public ModelStubWithDeck(Deck deck) {
+            decksAdded.add(deck);
+        }
 
         @Override
         public Mode getMode() {
@@ -403,19 +406,19 @@ public class AddCardCommandTest {
 
         @Override
         public View getView() {
-            return View.LIBRARY;
+            return View.DECK;
         }
 
         @Override
-        public boolean hasCard(Card card) {
-            requireNonNull(card);
-            return cardsAdded.stream().anyMatch(card::equals);
+        public boolean hasDeck(Deck deck) {
+            requireNonNull(deck);
+            return decksAdded.stream().anyMatch(deck::equals);
         }
 
         @Override
-        public void addCard(Card card) {
-            requireNonNull(card);
-            cardsAdded.add(card);
+        public void createDeck(Deck deck) {
+            requireNonNull(deck);
+            decksAdded.add(deck);
         }
     }
 }

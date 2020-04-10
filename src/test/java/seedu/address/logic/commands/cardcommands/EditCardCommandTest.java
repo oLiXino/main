@@ -1,14 +1,15 @@
 package seedu.address.logic.commands.cardcommands;
 
-import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_CARD;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_CARD;
+import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_CARD;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -20,8 +21,8 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.Model;
 import seedu.address.model.GameManager;
+import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyLibrary;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.Statistics;
@@ -29,71 +30,126 @@ import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.Name;
 import seedu.address.model.deck.card.BackFace;
 import seedu.address.model.deck.card.Card;
+import seedu.address.model.deck.card.FrontFace;
 import seedu.address.model.util.Mode;
 import seedu.address.model.util.View;
 import seedu.address.testutil.CardBuilder;
+import seedu.address.testutil.CardUtils;
+import seedu.address.testutil.DeckBuilder;
 
-public class AddCardCommandTest {
+public class EditCardCommandTest {
 
     @Test
-    public void constructor_nullCard_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddCardCommand(null));
+    public void constructor_nullIndex_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new EditCardCommand(
+                null, null, null));
+        assertThrows(NullPointerException.class, () -> new EditCardCommand(
+                null, new FrontFace(""), new BackFace("")));
+        assertThrows(NullPointerException.class, () -> new EditCardCommand(
+                INDEX_FIRST_CARD, null, new BackFace("")));
+        assertThrows(NullPointerException.class, () -> new EditCardCommand(
+                INDEX_FIRST_CARD, new FrontFace(""), null));
     }
 
     @Test
-    public void execute_cardAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingCardAdded modelStub = new ModelStubAcceptingCardAdded();
-        Card validCard = new CardBuilder().build();
+    public void execute_editBothSidesAcceptedByModel_Successful() throws Exception {
+        ModelStubAcceptingCardEdited modelStub = new ModelStubAcceptingCardEdited();
 
-        CommandResult commandResult = new AddCardCommand(validCard).execute(modelStub);
+        Index validIndex = INDEX_FIRST_CARD;
+        FrontFace front = new FrontFace("Hello");
+        BackFace back = new BackFace("안녕");;
+        Card editedCard = new Card(front, back);
 
-        assertEquals(String.format(AddCardCommand.MESSAGE_SUCCESS, validCard), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validCard), modelStub.cardsAdded);
+        CommandResult commandResult = new EditCardCommand(validIndex, front, back).execute(modelStub);
+
+        assertEquals(String.format(AddCardCommand.MESSAGE_SUCCESS, editedCard), commandResult.getFeedbackToUser());
+    }
+
+    @Test
+    public void execute_editFrontOnlyAcceptedByModel_Successful() throws Exception {
+        ModelStubAcceptingCardEdited modelStub = new ModelStubAcceptingCardEdited();
+
+        Index validIndex = INDEX_FIRST_CARD;
+        FrontFace emptyFront = new FrontFace("");
+        BackFace back = new BackFace("안녕");
+        Card editedCard = new Card(emptyFront, back);
+
+        CommandResult commandResult = new EditCardCommand(validIndex, emptyFront, back).execute(modelStub);
+
+        assertEquals(String.format(AddCardCommand.MESSAGE_SUCCESS, editedCard), commandResult.getFeedbackToUser());
+    }
+
+    @Test
+    public void execute_editBackOnlyAcceptedByModel_Successful() throws Exception {
+        ModelStubAcceptingCardEdited modelStub = new ModelStubAcceptingCardEdited();
+
+        Index validIndex = INDEX_FIRST_CARD;
+        FrontFace front = new FrontFace("Hello");
+        BackFace emptyBack = new BackFace("");;
+        Card editedCard = new Card(front, emptyBack);
+
+        CommandResult commandResult = new EditCardCommand(validIndex, front, emptyBack).execute(modelStub);
+
+        assertEquals(String.format(AddCardCommand.MESSAGE_SUCCESS, editedCard), commandResult.getFeedbackToUser());
     }
 
     @Test
     public void execute_notInViewMode_throwsCommandException() {
         ModelStubPlayMode modelStub = new ModelStubPlayMode();
-        Card validCard = new CardBuilder().build();
-        AddCardCommand addCardCommand = new AddCardCommand(validCard);
+        Index validIndex = INDEX_FIRST_CARD;
+        FrontFace front = new FrontFace("Hello");
+        BackFace back = new BackFace("안녕");;
+        EditCardCommand editCardCommand = new EditCardCommand(validIndex, front, back);
 
         assertThrows(CommandException.class, AddCardCommand.MESSAGE_NOT_IN_VIEW_MODE,
-                () -> addCardCommand.execute(modelStub));
+                () -> editCardCommand.execute(modelStub));
     }
 
     @Test
     public void execute_notInDeckView_throwsCommandException() {
         ModelStubLibraryView modelStub = new ModelStubLibraryView();
-        Card validCard = new CardBuilder().build();
-        AddCardCommand addCardCommand = new AddCardCommand(validCard);
+        Index validIndex = INDEX_FIRST_CARD;
+        FrontFace front = new FrontFace("Hello");
+        BackFace back = new BackFace("안녕");;
+        EditCardCommand editCardCommand = new EditCardCommand(validIndex, front, back);
 
         assertThrows(CommandException.class, Messages.MESSAGE_NOT_IN_DECK_VIEW,
-                () -> addCardCommand.execute(modelStub));
+                () -> editCardCommand.execute(modelStub));
     }
 
     @Test
-    public void equals() {
-        Card card1 = new CardBuilder().withFrontFace("Hello").withBackFace("안녕하세요").build();
-        Card card2 = new CardBuilder().withFrontFace("Yes").withBackFace("네").build();
+    public void execute_targetIndexLargerThanDeckSize_throwsCommandException() {
+        ModelStubAcceptingCardEdited modelStub = new ModelStubAcceptingCardEdited();
+        Index invalidIndex = INDEX_THIRD_CARD;
+        FrontFace front = new FrontFace("Hello");
+        BackFace back = new BackFace("안녕");;
+        EditCardCommand editCardCommand = new EditCardCommand(invalidIndex, front, back);
 
-        AddCardCommand addCard1Command = new AddCardCommand(card1);
-        AddCardCommand addCard2Command = new AddCardCommand(card2);
+        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX,
+                () -> editCardCommand.execute(modelStub));
+    }
+    
+    @Test
+    public void equals() {
+        final EditCardCommand standardCommand = new EditCardCommand(
+                INDEX_FIRST_CARD, CardUtils.JAP_CARD_1.getFrontFace(), CardUtils.JAP_CARD_1.getBackFace());
+
+        EditCardCommand commandWithSameValues = new EditCardCommand(
+                INDEX_FIRST_CARD, CardUtils.JAP_CARD_1.getFrontFace(), CardUtils.JAP_CARD_1.getBackFace());
+        assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
-        assertTrue(addCard1Command.equals(addCard1Command));
-
-        // same values -> returns true
-        AddCardCommand addCard1CommandCopy = new AddCardCommand(card1);
-        assertTrue(addCard1Command.equals(addCard1CommandCopy));
-
-        // different types -> returns false
-        assertFalse(addCard1Command.equals(1));
+        assertTrue(standardCommand.equals(standardCommand));
 
         // null -> returns false
-        assertFalse(addCard1Command.equals(null));
+        assertFalse(standardCommand.equals(null));
 
-        // different card -> returns false
-        assertFalse(addCard1Command.equals(addCard2Command));
+        // different types -> returns false
+        assertFalse(standardCommand.equals(new DeleteCardCommand(Index.fromOneBased(1))));
+
+        // different index -> returns false
+        assertFalse(standardCommand.equals(new EditCardCommand(
+                INDEX_SECOND_CARD, CardUtils.JAP_CARD_1.getFrontFace(), CardUtils.JAP_CARD_1.getBackFace())));
     }
 
     /**
@@ -333,10 +389,20 @@ public class AddCardCommandTest {
     }
 
     /**
-     * A Model stub that always accepts a card being added.
+     * A Model stub that always accepts a card being deleted.
+     * The Deck in this model contains 2 cards
      */
-    private class ModelStubAcceptingCardAdded extends ModelStub {
-        final ArrayList<Card> cardsAdded = new ArrayList<>();
+    private class ModelStubAcceptingCardEdited extends ModelStub {
+        final ArrayList<Card> cardsList = new ArrayList<>();
+        final Deck deck;
+
+        public ModelStubAcceptingCardEdited() {
+            Card card1 = new CardBuilder().withFrontFace("Hello").withBackFace("안녕하세요").build();
+            Card card2 = new CardBuilder().withFrontFace("Yes").withBackFace("네").build();
+            cardsList.add(card1);
+            cardsList.add(card2);
+            deck = new DeckBuilder().withCards(cardsList).build();
+        }
 
         @Override
         public Mode getMode() {
@@ -349,15 +415,16 @@ public class AddCardCommandTest {
         }
 
         @Override
-        public boolean hasCard(Card card) {
-            requireNonNull(card);
-            return cardsAdded.stream().anyMatch(card::equals);
+        public Card getCard(Index index) {
+            return deck.getCard(index);
         }
 
         @Override
-        public void addCard(Card card) {
-            requireNonNull(card);
-            cardsAdded.add(card);
+        public void replaceCard(Card oldCard, Card newCard) {
+            if (deck == null) {
+                return;
+            }
+            deck.replace(oldCard, newCard);
         }
     }
 
@@ -365,7 +432,16 @@ public class AddCardCommandTest {
      * A Model stub that cannot add a card due to being in Play Mode
      */
     private class ModelStubPlayMode extends ModelStub {
-        final ArrayList<Card> cardsAdded = new ArrayList<>();
+        final ArrayList<Card> cardsList = new ArrayList<>();
+        final Deck deck;
+
+        public ModelStubPlayMode() {
+            Card card1 = new CardBuilder().withFrontFace("Hello").withBackFace("안녕하세요").build();
+            Card card2 = new CardBuilder().withFrontFace("Yes").withBackFace("네").build();
+            cardsList.add(card1);
+            cardsList.add(card2);
+            deck = new DeckBuilder().withCards(cardsList).build();
+        }
 
         @Override
         public Mode getMode() {
@@ -378,15 +454,16 @@ public class AddCardCommandTest {
         }
 
         @Override
-        public boolean hasCard(Card card) {
-            requireNonNull(card);
-            return cardsAdded.stream().anyMatch(card::equals);
+        public Card getCard(Index index) {
+            return deck.getCard(index);
         }
 
         @Override
-        public void addCard(Card card) {
-            requireNonNull(card);
-            cardsAdded.add(card);
+        public void replaceCard(Card oldCard, Card newCard) {
+            if (deck == null) {
+                return;
+            }
+            deck.replace(oldCard, newCard);
         }
     }
 
@@ -394,28 +471,38 @@ public class AddCardCommandTest {
      * A Model stub that cannot add a card due to being in Library View
      */
     private class ModelStubLibraryView extends ModelStub {
-        final ArrayList<Card> cardsAdded = new ArrayList<>();
+        final ArrayList<Card> cardsList = new ArrayList<>();
+        final Deck deck;
+
+        public ModelStubLibraryView() {
+            Card card1 = new CardBuilder().withFrontFace("Hello").withBackFace("안녕하세요").build();
+            Card card2 = new CardBuilder().withFrontFace("Yes").withBackFace("네").build();
+            cardsList.add(card1);
+            cardsList.add(card2);
+            deck = new DeckBuilder().withCards(cardsList).build();
+        }
 
         @Override
         public Mode getMode() {
-            return Mode.VIEW;
+            return Mode.PLAY;
         }
 
         @Override
         public View getView() {
-            return View.LIBRARY;
+            return View.DECK;
         }
 
         @Override
-        public boolean hasCard(Card card) {
-            requireNonNull(card);
-            return cardsAdded.stream().anyMatch(card::equals);
+        public Card getCard(Index index) {
+            return deck.getCard(index);
         }
 
         @Override
-        public void addCard(Card card) {
-            requireNonNull(card);
-            cardsAdded.add(card);
+        public void replaceCard(Card oldCard, Card newCard) {
+            if (deck == null) {
+                return;
+            }
+            deck.replace(oldCard, newCard);
         }
     }
 }
