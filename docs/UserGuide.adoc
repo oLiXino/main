@@ -481,8 +481,26 @@ You don't have to save your precious flashcards manually!
 
 == FAQ
 
+*Q*: Does this application require Internet connection? +
+*A*: No. FlashSpeed does not require Internet connection
+
+*Q*: What is the maximum length of a card face? +
+*A*: In real-life flashcard, you are not able to write a tremendously long text on it. Similarly, our application will not be able to display a card fully if the text is too long. Therefore, we recommend keeping your text not longer than *60 characters*.
+
+*Q*: How do I save my data? +
+*A*: FlashSpeed automatically saves your data whenever you make a change. There is no need to save manually.
+
+*Q*: Is FlashSpeed secure? +
+*A*: Yes, FlashSpeed is secure. Your data is stored locally on your device. The application does not require Internet connection so no data will be sent to any online servers.
+
 *Q*: How do I transfer my data to another computer? +
-*A*: Copy the `data` folder in FlashSpeed's home folder over to the home folder in the other computer.
+*A*: Simply copy the `data` folder in FlashSpeed's home folder over to the home folder in the other computer.
+
+*Q*: How to update this application to the latest version? +
+*A*: Check for the the latest version of FlashSpeed link:https://github.com/AY1920S2-CS2103T-W17-1/main/releases[here] and download `flashspeed.jar` file.
+
+*Q*: I am not able to run this application. How do I fix it +
+*A*: Refer to <<Quick Start>> for the installation guide. Ensure that your computer is running on Java 11. FlashSpeed may not be able to run on other versions of Java.
 
 {empty} +
 
