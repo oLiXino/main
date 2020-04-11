@@ -76,13 +76,13 @@ https://github.com/AY1920S2-CS2103T-W17-1/main/blob/master/docs/images/EditSeque
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=amrl-ppp-1]
+include::../UserGuide.adoc[tag=intro]
 ---
-include::../UserGuide.adoc[tag=amrl-ppp-2]
+include::../UserGuide.adoc[tag=library-view]
 ---
-include::../UserGuide.adoc[tag=amrl-ppp-3]
+include::../UserGuide.adoc[tag=select-deck]
 ---
-include::../UserGuide.adoc[tag=amrl-ppp-4]
+include::../UserGuide.adoc[tag=command-table]
 
 == Contributions to the Developer Guide
 
@@ -90,6 +90,6 @@ include::../UserGuide.adoc[tag=amrl-ppp-4]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=amrl-ppp-1]
+include::../DeveloperGuide.adoc[tag=design-arch]
 ---
 include::../DeveloperGuide.adoc[tag=editcard]

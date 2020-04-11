@@ -17,7 +17,7 @@ endif::[]
 
 By: `FlashSpeed Foundation`      Since: `Feb 2020`      Licence: `MIT`
 
-// tag::amrl-ppp-1[]
+// tag::intro[]
 == Introduction
 
 FlashSpeed is a text-based flashcard application specifically designed for university students who are learning a foreign language. University students often have hectic schedules. With this in mind, FlashSpeed was created to allow students to be able to study and revise foreign vocabulary on the fly. With a single command, you can start a quick study session on FlashSpeed whenever!
@@ -51,7 +51,7 @@ your operating system's manual or user guide to find out the languages and scrip
 Technical info: FlashSpeed, which is built on Java, supports the Unicode standard with UTF-16 character encoding for
 textual representation.
 
-// end::amrl-ppp-1[]
+// end::intro[]
 == Quick Start
 
 Getting FlashSpeed up and running is fast and easy. Follow these simple steps to get started!
@@ -143,7 +143,7 @@ image::reset.png[]
 
 {empty} +
 
-// tag::amrl-ppp-2[]
+// tag::library-view[]
 === Library view
 
 ****
@@ -154,7 +154,7 @@ image::reset.png[]
 image::library.png[]
 ****
 
-// end::amrl-ppp-2[]
+// end::library-view[]
 
 {empty} +
 
@@ -187,7 +187,7 @@ image::create2.png[]
 
 {empty} +
 
-// tag::amrl-ppp-3[]
+// tag::select-deck[]
 [[selectDeck]]
 ==== Selecting a deck : `select`
 
@@ -213,7 +213,7 @@ Selects and shows all cards in the 2nd deck.
 .Selecting a deck and showing its cards.
 image::Ui.png[]
 
-// end::amrl-ppp-3[]
+// end::select-deck[]
 {empty} +
 
 ==== Removing a deck : `remove`
@@ -517,44 +517,44 @@ e.g. `delete 3`
 * *No* : `no`
 * *Stop* : `stop`
 
-// tag::amrl-ppp-4[]
+// tag::command-table[]
 [width="60%",cols="30%,10%,10%,10%",options="header",]
 |=======================================================================
 |       3+|View
 |Command  |Library |Deck |Play
-|`help`   |✓      |✓    |✓
+|`help`   |√      |√    |√
 
-|`exit`   |✓       |✓    |✓
+|`exit`   |√       |√    |√
 
-|`reset`  |✓       |✓    |
+|`reset`  |√       |√    |
 
-|`select` |✓       |✓    |
+|`select` |√       |√    |
 
-|`create` |✓       |✓    |
+|`create` |√       |√    |
 
-|`remove` |✓       |✓    |
+|`remove` |√       |√    |
 
-|`rename` |✓       |✓    |
+|`rename` |√       |√    |
 
-|`play`   |✓       |✓    |
+|`play`   |√       |√    |
 
-|`add`    |        |✓    |
+|`add`    |        |√    |
 
-|`edit`   |        |✓    |
+|`edit`   |        |√    |
 
-|`delete` |        |✓    |
+|`delete` |        |√    |
 
-|`return` |        |✓    |
+|`return` |        |√    |
 
-|`flip`   |        |     |✓
+|`flip`   |        |     |√
 
-|`yes`    |        |     |✓
+|`yes`    |        |     |√
 
-|`no`     |        |     |✓
+|`no`     |        |     |√
 
-|`stop`   |        |     |✓
+|`stop`   |        |     |√
 
 |=======================================================================
 
-// end::amrl-ppp-4[]
+// end::command-table[]
 {empty} +

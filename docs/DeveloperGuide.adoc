@@ -54,9 +54,9 @@ The following groups are in particular the intended audience of this document.
 
 Refer to the guide <<SettingUp#, here>>.
 
-// tag::amrl-ppp-1[]
-
 == Design
+
+// tag::design-arch[]
 
 [[Design-Architecture]]
 === Architecture
@@ -106,7 +106,7 @@ For example, the `Logic` component (see the class diagram given below) defines i
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
 
-// end::amrl-ppp-1[]
+// end::design-arch[]
 
 [discrete]
 ==== 3.1.1 How the core components interact with each other
