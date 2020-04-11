@@ -4,12 +4,12 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import com.flashspeed.commons.core.index.Index;
-import com.flashspeed.model.Model;
 import com.flashspeed.commons.core.Messages;
+import com.flashspeed.commons.core.index.Index;
 import com.flashspeed.logic.commands.Command;
 import com.flashspeed.logic.commands.CommandResult;
 import com.flashspeed.logic.commands.exceptions.CommandException;
+import com.flashspeed.model.Model;
 import com.flashspeed.model.deck.Deck;
 import com.flashspeed.model.util.Mode;
 

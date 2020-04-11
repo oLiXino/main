@@ -2,14 +2,16 @@ package com.flashspeed.logic.commands.gamecommands;
 
 import static java.util.Objects.requireNonNull;
 
-import com.flashspeed.model.Model;
-import com.flashspeed.model.Statistics;
-import com.flashspeed.model.deck.card.Card;
 import com.flashspeed.logic.commands.Command;
 import com.flashspeed.logic.commands.CommandResult;
 import com.flashspeed.logic.commands.exceptions.CommandException;
+import com.flashspeed.model.Model;
+import com.flashspeed.model.deck.card.Card;
 import com.flashspeed.model.util.Mode;
 
+/**
+ * Represents the command that indicates that the user answered the question correctly.
+ */
 public class AnswerYesCommand extends Command {
     public static final String COMMAND_WORD = "yes";
 
@@ -19,18 +21,16 @@ public class AnswerYesCommand extends Command {
     public static final String MESSAGE_NOT_PLAY_MODE = "Cannot answer card in non-play view";
     public static final String MESSAGE_NOT_FLIPPED = "Card has not flipped yet!";
     public static final String MESSAGE_END_GAME = "Session completed!";
-    Statistics statistics;
-    
     public AnswerYesCommand() { }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        
+
         if (model.getMode() == Mode.VIEW) {
             throw new CommandException(MESSAGE_NOT_PLAY_MODE);
         }
-        
+
         if (!model.getGame().isFlipped()) {
             throw new CommandException(MESSAGE_NOT_FLIPPED);
         }
@@ -39,10 +39,9 @@ public class AnswerYesCommand extends Command {
 
 
         if (nextCard == null) {
-            statistics = model.stop();
-            return new CommandResult(String.format(MESSAGE_END_GAME), false, false, true, statistics);
+            return new CommandResult(String.format(MESSAGE_END_GAME), false, false, true, model.stop());
         }
-        
+
         return new CommandResult(String.format(MESSAGE_SUCCESS));
     }
 

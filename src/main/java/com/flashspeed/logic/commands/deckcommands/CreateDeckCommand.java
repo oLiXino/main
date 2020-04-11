@@ -2,10 +2,10 @@ package com.flashspeed.logic.commands.deckcommands;
 
 import static java.util.Objects.requireNonNull;
 
-import com.flashspeed.model.Model;
 import com.flashspeed.logic.commands.Command;
 import com.flashspeed.logic.commands.CommandResult;
 import com.flashspeed.logic.commands.exceptions.CommandException;
+import com.flashspeed.model.Model;
 import com.flashspeed.model.deck.Deck;
 import com.flashspeed.model.util.Mode;
 

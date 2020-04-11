@@ -2,13 +2,16 @@ package com.flashspeed.logic.commands.gamecommands;
 
 import static java.util.Objects.requireNonNull;
 
-import com.flashspeed.model.Model;
-import com.flashspeed.model.deck.card.BackFace;
 import com.flashspeed.logic.commands.Command;
 import com.flashspeed.logic.commands.CommandResult;
 import com.flashspeed.logic.commands.exceptions.CommandException;
+import com.flashspeed.model.Model;
+import com.flashspeed.model.deck.card.BackFace;
 import com.flashspeed.model.util.Mode;
 
+/**
+ * Represents the command that informs the model manager to fiip the current flashcard.
+ */
 public class FlipCommand extends Command {
     public static final String COMMAND_WORD = "flip";
 
@@ -17,9 +20,7 @@ public class FlipCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Did you get your answer right?";
     public static final String MESSAGE_NOT_PLAY_MODE = "Cannot flip card in non-play view";
     public static final String MESSAGE_ALREADY_FLIPPED = "Card already flipped!";
-
     private BackFace backFace;
-    
     /**
      * Creates an FlipCommand with a specific {@code Deck}
      */
@@ -30,7 +31,6 @@ public class FlipCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        
         if (model.getMode() == Mode.VIEW) {
             throw new CommandException(MESSAGE_NOT_PLAY_MODE);
         }
@@ -38,7 +38,6 @@ public class FlipCommand extends Command {
         if (backFace == null) {
             throw new CommandException(MESSAGE_ALREADY_FLIPPED);
         }
-        
         return new CommandResult(String.format(MESSAGE_SUCCESS));
     }
 
