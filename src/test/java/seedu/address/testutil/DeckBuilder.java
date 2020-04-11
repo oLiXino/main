@@ -1,15 +1,11 @@
 package seedu.address.testutil;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.Name;
 import seedu.address.model.deck.card.Card;
-import seedu.address.model.deck.card.UniqueCardList;
-import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Deck objects.
@@ -20,7 +16,7 @@ public class DeckBuilder {
     public static final Deck DEFAULT_DECK = new Deck(new Name("Default deck"));
 
     private Name name;
-    private ArrayList<Card> cards;
+    private List<Card> cards = new ArrayList<>();
 
     public DeckBuilder() {
         name = new Name(DEFAULT_NAME);

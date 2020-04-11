@@ -59,6 +59,7 @@ public class MainApp extends Application {
         LibraryStorage libraryStorage = new JsonLibraryStorage(userPrefs.getLibraryFilePath());
         storage = new StorageManager(libraryStorage, userPrefsStorage);
 
+
         initLogging(config);
 
         model = initModelManager(storage, userPrefs);
@@ -66,7 +67,9 @@ public class MainApp extends Application {
         logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic);
+
     }
+
 
     /**
      * Returns a {@code ModelManager} with the data from {@code storage}'s library and {@code userPrefs}. <br>
@@ -76,7 +79,7 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         Optional<ReadOnlyLibrary> libraryOptional;
         ReadOnlyLibrary initialData;
-        
+
         try {
             libraryOptional = storage.readLibrary();
             if (!libraryOptional.isPresent()) {

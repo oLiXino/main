@@ -15,48 +15,43 @@ public class CardUtils {
 
     public static final String EMPTY_FACE = "";
 
-    public static final Card JAP_CARD_1 = new CardBuilder()
-            .withFrontFace("Hello")
-            .withBackFace(" こんにちは")
-            .build();
+    public static final Card JAP_CARD_1 = new Card(new FrontFace("Hello"), new BackFace(" こんにちは"));
 
-    public static final Card JAP_CARD_2 = new CardBuilder()
-            .withFrontFace("Goodbye")
-            .withBackFace(" さよなら")
-            .build();
+    public static final Card JAP_CARD_2 = new Card
+            (new FrontFace("Goodbye"),
+            new BackFace(" さよなら"));
 
-    public static final Card JAP_CARD_3 = new CardBuilder()
-            .withFrontFace("Thank you")
-            .withBackFace(" ありがとう")
-            .build();
+    public static final Card JAP_CARD_3 = new Card
+            (new FrontFace("Thank you"),
+            new BackFace(" ありがとう"));
 
-    public static final Card MALAY_CARD_1 = new CardBuilder()
-            .withFrontFace("I")
-            .withBackFace("Saya")
-            .build();
+    public static final Card MALAY_CARD_1 = new Card(new FrontFace("I"), new BackFace("Saya"));
 
-    public static final Card MALAY_CARD_2 = new CardBuilder()
-            .withFrontFace("You")
-            .withBackFace("Awak")
-            .build();
+    public static final Card MALAY_CARD_2 = new Card
+            (new FrontFace("You"),
+                    new BackFace("Awak"));
 
-    public static final Card MALAY_CARD_3 = new CardBuilder()
-            .withFrontFace("Chicken")
-            .withBackFace("Ayam")
-            .build();
+    public static final Card MALAY_CARD_3 = new Card
+            (new FrontFace("Thank you"),
+                    new BackFace("Terima Kasih"));
 
-    private CardUtils() {} // prevents instantiation
+    public static final List<Card> JAP_CARDS = getJapCards();
+    public static final List<Card> MALAY_CARDS = getMalayCards();
 
     /**
      * Gets the Japanese test deck.
      */
-    public static List<Card> JAP_CARDS = new ArrayList<>(
-            Arrays.asList(JAP_CARD_1, JAP_CARD_2, JAP_CARD_3));
+    public static List<Card> getJapCards() {
+        return new ArrayList<>(Arrays.asList(JAP_CARD_1, JAP_CARD_2, JAP_CARD_3));
+    }
 
     /**
      * Gets the Malay test deck.
      */
-    public static List<Card> MALAY_CARDS = new ArrayList<>(
-            Arrays.asList(MALAY_CARD_1, MALAY_CARD_2, MALAY_CARD_3));
+    public static List<Card> getMalayCards() {
+        return new ArrayList<>(Arrays.asList(MALAY_CARD_1, MALAY_CARD_2, MALAY_CARD_3));
+    }
 
+
+    private CardUtils() {} // prevents instantiation
 }

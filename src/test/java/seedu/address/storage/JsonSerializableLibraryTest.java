@@ -15,32 +15,32 @@ import seedu.address.testutil.DeckUtils;
 
 public class JsonSerializableLibraryTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableAddressBookTest");
-    private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalPersonsAddressBook.json");
-    private static final Path INVALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("invalidPersonAddressBook.json");
-    private static final Path DUPLICATE_PERSON_FILE = TEST_DATA_FOLDER.resolve("duplicatePersonAddressBook.json");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableLibraryTest");
+    private static final Path TYPICAL_DECKS_FILE = TEST_DATA_FOLDER.resolve("TypicalDecksLibrary.json");
+    private static final Path INVALID_DECK_FILE = TEST_DATA_FOLDER.resolve("InvalidDeckLibrary.json");
+    private static final Path DUPLICATE_DECKS_FILE = TEST_DATA_FOLDER.resolve("DuplicateDecksLibrary.json");
 
     @Test
     public void toModelType_typicalPersonsFile_success() throws Exception {
-        JsonSerializableLibrary dataFromFile = JsonUtil.readJsonFile(TYPICAL_PERSONS_FILE,
+        JsonSerializableLibrary dataFromFile = JsonUtil.readJsonFile(TYPICAL_DECKS_FILE,
                 JsonSerializableLibrary.class).get();
         Library libraryFromFile = dataFromFile.toModelType();
-        Library typicalPersonsLibrary = DeckUtils.getTypicalAddressBook();
+        Library typicalPersonsLibrary = DeckUtils.getTypicalLibrary();
         assertEquals(libraryFromFile, typicalPersonsLibrary);
     }
 
     @Test
-    public void toModelType_invalidPersonFile_throwsIllegalValueException() throws Exception {
-        JsonSerializableLibrary dataFromFile = JsonUtil.readJsonFile(INVALID_PERSON_FILE,
+    public void toModelType_invalidDeckNameFile_throwsIllegalArgumentException() throws Exception {
+        JsonSerializableLibrary dataFromFile = JsonUtil.readJsonFile(INVALID_DECK_FILE,
                 JsonSerializableLibrary.class).get();
-        assertThrows(IllegalValueException.class, dataFromFile::toModelType);
+        assertThrows(IllegalArgumentException.class, dataFromFile::toModelType);
     }
 
     @Test
     public void toModelType_duplicatePersons_throwsIllegalValueException() throws Exception {
-        JsonSerializableLibrary dataFromFile = JsonUtil.readJsonFile(DUPLICATE_PERSON_FILE,
+        JsonSerializableLibrary dataFromFile = JsonUtil.readJsonFile(DUPLICATE_DECKS_FILE,
                 JsonSerializableLibrary.class).get();
-        assertThrows(IllegalValueException.class, JsonSerializableLibrary.MESSAGE_DUPLICATE_PERSON,
+        assertThrows(IllegalValueException.class, JsonSerializableLibrary.MESSAGE_DUPLICATE_DECK,
                 dataFromFile::toModelType);
     }
 

@@ -24,7 +24,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.card.BackFace;
 import seedu.address.model.deck.card.Card;
-import seedu.address.model.deck.card.FrontFace;
 import seedu.address.model.util.Mode;
 import seedu.address.testutil.CardBuilder;
 import seedu.address.testutil.LibraryBuilder;
