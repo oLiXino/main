@@ -82,6 +82,6 @@ public class RenameDeckCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof RenameDeckCommand // instanceof handles nulls
                 && index.equals(((RenameDeckCommand) other).index)
-                && index.equals(((RenameDeckCommand) other).name));
+                && name.equals(((RenameDeckCommand) other).name));
     }
 }
