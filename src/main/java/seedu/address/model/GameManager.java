@@ -24,6 +24,7 @@ public class GameManager {
     private int cardAttempted;
     private int cardRemaining;
 
+
     /**
      * Initializes a GameManager with the given deck.
      */
@@ -82,10 +83,14 @@ public class GameManager {
      * @return the next card or null if card list is empty
      */
     public Card answerNo() {
-        statistics.incrementWrongAttempt(cards.get(currCardIdx));
-        Card currCard = cards.get(currCardIdx);
-        cards.add(currCard);
-        this.deckSize += 1;
+        boolean hasTwoCards = statistics.incrementWrongAttempt(cards.get(currCardIdx));
+
+        if (!hasTwoCards) {
+            Card currCard = cards.get(currCardIdx);
+            cards.add(currCard);
+            this.deckSize += 1;
+        }
+
         flipped = false;
 
         this.currCardIdx = randGen.nextInt(this.deckSize);

@@ -27,6 +27,29 @@ This guide will walk you through the many exciting features of FlashSpeed as wel
 
 We hope you enjoy using our app. Happy FlashSpeeding!
 
+== Language Support
+
+FlashSpeed can support almost every popular language and their associated script. You can even use emojis in your cards! 😍 +
+
+You can use FlashSpeed to study: +
+
+- Japanese
+- Korean
+- French
+- Spanish
+- German
+- Hindi
+- Russian
+- ...and many more!
+
+[NOTE]
+The display of the characters may be limited to your own operating systems's language support. Please refer to
+your operating system's manual or user guide to find out the languages and scripts supported.
+
+[NOTE]
+Technical info: FlashSpeed, which is built on Java, supports the Unicode standard with UTF-16 character encoding for
+textual representation.
+
 == Quick Start
 
 Getting FlashSpeed up and running is fast and easy. Follow these simple steps to get started!
@@ -43,7 +66,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the Help window.
 * **`remove`**`3` : removes the 3rd deck shown in the decks list
 * *`exit`* : exits the app
 
-.  Refer to <<Features>> for details of each command.
+.  Refer to <<Features>> for details of each command or <<Command Summary>> for a condensed view of all commands.
 
 [[Features]]
 == Features
@@ -92,12 +115,8 @@ image::Ui2.png[]
 
 Format: `help`
 
-You can get the link to this user guide in a new window by 
+You can view this user guide in a new window by
 typing `help` in the input box and pressing kbd:[Enter]. +
-
-
-.The helpful Help window.
-image::help.png[]
 
 {empty} +
 
@@ -106,7 +125,7 @@ image::help.png[]
 Format: `exit`
 
 You can exit FlashSpeed by typing `exit` in the input box 
-and pressing kbd:[Enter]. +
+and pressing kbd:[Enter]. Bye! +
 
 {empty} +
 
@@ -123,6 +142,16 @@ image::reset.png[]
 {empty} +
 
 === Library view
+
+****
+[NOTE]
+**Even though the commands in this section are mainly library based, you can use them in both the Library view and Deck view!**
+
+.No deck selected. You're now in Library view.
+image::library.png[]
+****
+
+{empty} +
 
 ==== Creating a deck : `create`
 
@@ -160,7 +189,7 @@ Format: `select <index>`
 ****
 * *Formal definition*:
 Selects and shows all cards in the deck at the specified `index`.
-The index refers to the index number shown in the displayed decks list. The index *must be a positive integer* 1, 2, 3, ...
+The `index` refers to the index number shown in the displayed decks list. The `index` *must be a positive integer* 1, 2, 3, ...
 ****
 
 If you want to view the cards in a particular deck, you can use `select` followed by the deck's index number.
@@ -185,8 +214,8 @@ image::Ui.png[]
 Format: `remove <index>`
 ****
 * *Formal definition*: Removes the deck in the library at the specified `index`.
-The index refers to the index number shown in the displayed decks list.
-The index *must be a positive integer* 1, 2, 3, ...
+The `index` refers to the index number shown in the displayed decks list.
+The `index` *must be a positive integer* 1, 2, 3, ...
 ****
 
 Similarly, you can remove a deck in the library using `remove` followed by the index number of that deck. Bye bye, deck!
@@ -205,7 +234,7 @@ image::remove.png[]
 
 Format: `rename <index> <deck>`
 ****
-* *Formal definition*: Renames the deck in the library at the specified `index`. The index refers to the index number shown in the displayed decks list. The index *must be a positive integer* 1, 2, 3, ...
+* *Formal definition*: Renames the deck in the library at the specified `index`. The `index` refers to the index number shown in the displayed decks list. The `index` *must be a positive integer* 1, 2, 3, ...
 ****
 
 You can rename a deck in the library using `rename` followed by the index number of the deck and the new name of the deck. +
@@ -223,11 +252,12 @@ image::rename.png[]
 
 {empty} +
 
+[[playDeck]]
 ==== Playing a deck : `play`
 
 Format: `play <index>`
 ****
-* *Formal definition*: Starts a study session with the deck in the library at the specified `index`. The index refers to the index number shown in the displayed decks list. The index *must be a positive integer* 1, 2, 3, ...
+* *Formal definition*: Starts a study session with the deck in the library at the specified `index`. The `index` refers to the index number shown in the displayed decks list. The `index` *must be a positive integer* 1, 2, 3, ...
 ****
 
 Alright, this may be what you've been waiting for! In order to start a study session with a certain deck,
@@ -250,7 +280,7 @@ image::Ui2.png[]
 ****
 [NOTE]
 **Important: All commands in this section can only be used in Deck view.**
-**To enter Deck view, you must <<selectDeck,select a deck>>.**
+**To enter Deck view, you must <<selectDeck, select a deck>>.**
 
 .Selecting a deck. You're now in Deck view.
 image::Ui.png[]
@@ -263,8 +293,13 @@ image::Ui.png[]
 Format: `add <front>:<back>`
 ****
 * *Formal definition*: Creates a card and adds it to a deck,
-with the front and back values of the card being specified by the user.
-Both the front and back values cannot be empty.
+with the `front` and `back` values of the card being specified by the user.
+Both the `front` and `back` values cannot be empty.
+****
+[NOTE]
+****
+* *One and only one* colon (":") can be used in this command.
+Since a colon is used as the separator, there should not be any colons in the `front` or `back` values.
 ****
 
 Alright, after creating a new deck and giving it a great name, what's next?
@@ -298,16 +333,21 @@ Format 1: `edit <index> <front>:<back>` +
 Format 2: `edit <index> :<back>` +
 Format 3: `edit <index> <front>:`
 ****
-* *Formal definition*: Edits the card in the current deck at the specified `index`. The index refers to the index number shown in the displayed cards list. The index *must be a positive integer* 1, 2, 3, ...
+* *Formal definition*: Edits the card in the current deck at the specified `index`. The `index` refers to the index number shown in the displayed cards list. The `index` *must be a positive integer* 1, 2, 3, ...
 * Existing values will be updated to the given values.
 * Empty values for the `front` or `back` will leave the original `front` or `back` intact.
+****
+[NOTE]
+****
+* *One and only one* colon (":") can be used in this command.
+Since a colon is used as the separator, there should not be any colons in the `front` or `back` values.
 ****
 
 You can edit the front and/or back values of any card in the current deck. +
 
 [TIP]
-You don't have to supply both the front and back values of a card if you only want to change one of them,
-e.g. if you only wish to change the back of a card, <front> can be left blank, and vice versa.
+You don't have to supply both the `front` and `back` values of a card if you only want to change one of them,
+e.g. if you only wish to change the `back` of a card, `front` can be left blank, and vice versa.
 
 Examples:
 
@@ -327,7 +367,7 @@ image::edit.png[]
 
 Format: `delete <index>`
 ****
-* *Formal definition*: Deletes the card in the current deck at the specified `index`. The index refers to the index number shown in the displayed cards list. The index *must be a positive integer* 1, 2, 3, ...
+* *Formal definition*: Deletes the card in the current deck at the specified `index`. The `index` refers to the index number shown in the displayed cards list. The `index` *must be a positive integer* 1, 2, 3, ...
 ****
 
 You can delete a card from the selected deck by using `delete` followed by the index number of that card. +
@@ -359,6 +399,10 @@ image::library.png[]
 Format: `play <index>`
 
 ****
+[NOTE]
+**Important: All commands in this section can only be used in Play view.**
+**To enter Play view, you must <<playDeck,play a deck>>.**
+
 Time to start testing yourself! You can start a game session with a selected deck when you want to test how well you memorize the cards or just to enhance
 your memory of the cards in a specific deck. When playing a deck, each card will initially show only its front face to allow you to recall its back face. (It's to test you, after all!)
 
@@ -435,6 +479,7 @@ You don't have to save your precious flashcards manually!
 
 {empty} +
 
+[[commandSummary]]
 == Command Summary
 
 * *Help* : `help` +
@@ -464,5 +509,43 @@ e.g. `delete 3`
 * *Yes* : `yes`
 * *No* : `no`
 * *Stop* : `stop`
+
+[width="60%",cols="30%,10%,10%,10%",options="header",]
+|=======================================================================
+|       3+|View
+|Command  |Library |Deck |Play
+|`help`   |✓      |✓    |✓
+
+|`exit`   |✓       |✓    |✓
+
+|`reset`  |✓       |✓    |
+
+|`select` |✓       |✓    |
+
+|`create` |✓       |✓    |
+
+|`remove` |✓       |✓    |
+
+|`rename` |✓       |✓    |
+
+|`play`   |✓       |✓    |
+
+|`add`    |        |✓    |
+
+|`edit`   |        |✓    |
+
+|`delete` |        |✓    |
+
+|`return` |        |✓    |
+
+|`flip`   |        |     |✓
+
+|`yes`    |        |     |✓
+
+|`no`     |        |     |✓
+
+|`stop`   |        |     |✓
+
+|=======================================================================
 
 {empty} +

@@ -2,11 +2,10 @@ package seedu.address.model.deck;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_FRENCH;
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.CardUtils.getTypicalJapCards;
-import static seedu.address.testutil.Deckdeck.JAPANESE_DECK;
-import static seedu.address.testutil.Deckdeck.MALAY_DECK;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DECK_NAME_KOREAN_1;
+import static seedu.address.testutil.CardUtils.JAP_CARDS;
+import static seedu.address.testutil.DeckUtils.JAPANESE_DECK;
+import static seedu.address.testutil.DeckUtils.MALAY_DECK;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,14 +22,14 @@ public class DeckTest {
         assertFalse(JAPANESE_DECK.isSameDeck(null));
 
         // rename Japanese to French -> returns false
-        Deck renamed = new DeckBuilder(JAPANESE_DECK).withName(VALID_NAME_FRENCH).build();
+        Deck renamed = new DeckBuilder(JAPANESE_DECK).withName(VALID_DECK_NAME_KOREAN_1).build();
         assertFalse(JAPANESE_DECK.isSameDeck(JAPANESE_DECK));
 
 
         // new deck with same name, same cards -> returns true
         Deck newDeck = new DeckBuilder()
                 .withName("Japanese")
-                .withCards(getTypicalJapCards()).build();
+                .withCards(JAP_CARDS).build();
         assertTrue(JAPANESE_DECK.isSameDeck(newDeck));
 
         // new deck with same name, no cards -> return true
@@ -59,7 +58,7 @@ public class DeckTest {
         assertFalse(JAPANESE_DECK.equals(MALAY_DECK));
 
         // different name -> returns false
-        Deck renamed = new DeckBuilder(JAPANESE_DECK).withName(VALID_NAME_FRENCH).build();
+        Deck renamed = new DeckBuilder(JAPANESE_DECK).withName(VALID_DECK_NAME_KOREAN_1).build();
         assertFalse(JAPANESE_DECK.equals(renamed));
 
     }

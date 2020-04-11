@@ -4,9 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.CardUtils.getTypicalJapCards;
-import static seedu.address.testutil.Deckdeck.JAPANESE_DECK;
-import static seedu.address.testutil.Deckdeck.MALAY_DECK;
+import static seedu.address.testutil.CardUtils.JAP_CARDS;
+
+import static seedu.address.testutil.DeckUtils.JAPANESE_DECK;
+import static seedu.address.testutil.DeckUtils.MALAY_DECK;
 
 import java.util.Collections;
 import java.util.List;
@@ -40,7 +41,7 @@ public class UniqueDeckListTest {
         uniqueDeckList.add(JAPANESE_DECK);
         Deck newDeck = new DeckBuilder()
                 .withName("Japanese")
-                .withCards(getTypicalJapCards()).build();
+                .withCards(JAP_CARDS).build();
         assertTrue(uniqueDeckList.contains(newDeck));
     }
 
