@@ -181,6 +181,7 @@ The `Model`,
 * does not depend on any of the other three components.
 
 [[Design-Storage]]
+// tag::storage[]
 === Storage component
 
 .Structure of the Storage Component
@@ -193,6 +194,8 @@ The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save all the decks and cards created in json format and read them back.
+
+// end::storage[]
 
 [[Design-Commons]]
 === Common classes
@@ -224,6 +227,7 @@ When `SelectDeckCommand#execute()` is executed a list of currently available Dec
 ==== Design Considerations
 The UI will have to be constantly updated when we select to view a deck, and other decks might be selected afterward. As a result, an `ObservableValue<Deck>` variable will have to be updated constantly via the `ModelManager#setSelectedDeck()` method. Various event listeners are implemented in the UI classes (e.g `CardListPanel`, `DeckListPanel`) in order to instantly react if there is any changes to the selected deck.
 
+// tag::createdeck[]
 === Creating a Deck
 ==== Current Implementation
 
@@ -270,6 +274,9 @@ This is certainly not the expected outcome that the user has expected.
 And so, our team has decided to implement the current approach,
 which is to assign different keywords to these two different feature.
 
+// end::createdeck[]
+
+// tag::addcard[]
 === Creating a Card
 ==== Current Implementation
 
@@ -300,6 +307,7 @@ on the right panel. Lastly, the name of the selected Deck will be displayed toge
 
 ==== Design Considerations: Alternative
 See <<Anchor-1, 3.2.2>>.
+// end::addcard[]
 
 // tag::editcard[]
 
