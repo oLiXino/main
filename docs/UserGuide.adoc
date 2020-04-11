@@ -153,6 +153,8 @@ image::library.png[]
 
 {empty} +
 
+// tag::createdeck[]
+
 ==== Creating a deck : `create`
 
 Format: `create <deck>`
@@ -181,6 +183,8 @@ image::create1.png[]
 image::create2.png[]
 
 {empty} +
+
+// end::createdeck[]
 
 [[selectDeck]]
 ==== Selecting a deck : `select`
@@ -288,6 +292,8 @@ image::Ui.png[]
 
 {empty} +
 
+// tag::addcard[]
+
 ==== Adding a card : `add`
 
 Format: `add <front>:<back>`
@@ -326,6 +332,8 @@ e.g. `add ありがとう:thanks`
 image::add.png[]
 
 {empty} +
+
+// end::addcard[]
 
 ==== Editing a card : `edit`
 

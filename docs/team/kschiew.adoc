@@ -18,7 +18,7 @@ FlashSpeed was created to allow students to be able to study and revise foreign 
 
 == Summary of contributions
 
-* *Major enhancement*: *designed the architecture of the app*.
+* *Major enhancement 1*: designed the *architecture* of the app.
 ** What it does: creates the backbone structure of the application.
 ** Justification: This contribution is critical to the development of the product
 because it created the basic structure of the app so that different features could be developed simultaneously.
@@ -27,7 +27,7 @@ It required an in-depth analysis of how the application should work in the futur
 The implementation too was challenging as it required making high-level design choices.
 ** Credits: Some of the high-level structure of FlashSpeed is inspired by Anki, a digital flashcard application.
 
-* *Major enhancement*: added *the ability to generate statistics after every game session*
+* *Major enhancement 2*: added the ability to *generate statistics* after every game session.
 ** What it does: allows the user to look at the statistics related to the game session that he/she played.
 ** Justification: This feature increases the usage rate of the app,
 because it provides a feedback on the performance of the user.
@@ -37,7 +37,7 @@ usage time will increase.
 ** Highlights: The difficulty was manageable,
 as most of the enhancement was essentially arithmetic manipulation.
 
-* *Major enhancement*: added *the storage function to the app.*
+* *Major enhancement 3*: added the *storage function* to the app.
 ** What it does: allows the user to save and load the decks of cards created by the user to a local directory.
 Preceding undo commands can be reversed by using the redo command.
 ** Justification: This feature improves the usability of the product significantly
@@ -45,8 +45,6 @@ because a user needs to be able to retrieve the decks of cards that he/she has c
 ** Highlights: This enhancement requires an deep understanding of how JSON files and the Jackson library.
 The implementation was quite challenging as there are quite a few layers of abstraction in the storage system
 implemented by the original project that FlashSpeed is built upon.
-
-* *Minor enhancement*: added a clear deck command that allows the user to delete the
 
 * *Minor enhancement*: Implemented the library class that contains the decks of cards along with another teammate,
 LiXin.
@@ -56,20 +54,19 @@ LiXin.
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Opened https://github.com/AY1920S2-CS2103T-W17-1/main/issues?q=author%3Akschiew+[22 issues], and got assigned https://github.com/AY1920S2-CS2103T-W17-1/main/issues?q=assignee%3Akschiew[17 issues] on GitHub.
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Created test utilities for teammates to utilize during testing (Pull requests https://github.com/AY1920S2-CS2103T-W17-1/main/pull/300[#300], https://github.com/AY1920S2-CS2103T-W17-1/main/pull/285[#285])
+*** Wrote additional tests for existing features to increase coverage (Pull requests https://github.com/AY1920S2-CS2103T-W17-1/main/pull/315[#36])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Changed the language used in the User Guide to be more user-friendly (Pull requests https://github.com/AY1920S2-CS2103T-W17-1/main/pull/170[#170] https://github.com/AY1920S2-CS2103T-W17-1/main/pull/201[#201])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103T-W17-1/main/pull/295[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com/AY1920S2-CS2103T-W17-1/main/pull/295[1], https://github.com[2])
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103T-W17-1/main/pull/295[#295]
+https://github.com/AY1920S2-CS2103T-W17-1/main/pull/84[#84]
+*** Reported bugs and suggestions for other teams in the class (examples:
+https://github.com/kschiew/ped/issues/1[#1] https://github.com/kschiew/ped/issues/2[#2] https://github.com/kschiew/ped/issues/3[#3] https://github.com/kschiew/ped/issues/4[$#4]
 ** Tools:
-*** Integrated a third party library (Jackson) to the project (https://github.com/AY1920S2-CS2103T-W17-1/main/blob/master/src/main/java/com/flashspeed/commons/util/JsonUtil.java[#42])
-
-_{you can add/remove categories in the list above}_
+*** Integrated a third party library (Jackson) to the project (https://github.com/AY1920S2-CS2103T-W17-1/main/pull/119[#119])
 
 == Contributions to the User Guide
 
@@ -78,9 +75,10 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=createdeck]
+include::../UserGuide.adoc[tag=addcard]
 
-include::../UserGuide.adoc[tag=dataencryption]
+//include::../UserGuide.adoc[]
 
 == Contributions to the Developer Guide
 
@@ -88,13 +86,9 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=storage]
+include::../DeveloperGuide.adoc[tag=createdeck]
+include::../DeveloperGuide.adoc[tag=addcard]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
 
 ---
-
-_{Optionally, you may include other projects in your portfolio.}_
