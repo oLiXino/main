@@ -16,9 +16,9 @@ import seedu.address.testutil.DeckUtils;
 public class JsonSerializableLibraryTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonSerializableLibraryTest");
-    private static final Path TYPICAL_DECKS_FILE = TEST_DATA_FOLDER.resolve("typicalDecksLibrary.json");
-    private static final Path INVALID_DECK_FILE = TEST_DATA_FOLDER.resolve("invalidDeckLibrary.json");
-    private static final Path DUPLICATE_DECKS_FILE = TEST_DATA_FOLDER.resolve("duplicateDeckLibrary.json");
+    private static final Path TYPICAL_DECKS_FILE = TEST_DATA_FOLDER.resolve("TypicalDecksLibrary.json");
+    private static final Path INVALID_DECK_FILE = TEST_DATA_FOLDER.resolve("InvalidDeckLibrary.json");
+    private static final Path DUPLICATE_DECKS_FILE = TEST_DATA_FOLDER.resolve("DuplicateDecksLibrary.json");
 
     @Test
     public void toModelType_typicalPersonsFile_success() throws Exception {
@@ -30,10 +30,10 @@ public class JsonSerializableLibraryTest {
     }
 
     @Test
-    public void toModelType_invalidPersonFile_throwsIllegalValueException() throws Exception {
+    public void toModelType_invalidDeckNameFile_throwsIllegalArgumentException() throws Exception {
         JsonSerializableLibrary dataFromFile = JsonUtil.readJsonFile(INVALID_DECK_FILE,
                 JsonSerializableLibrary.class).get();
-        assertThrows(IllegalValueException.class, dataFromFile::toModelType);
+        assertThrows(IllegalArgumentException.class, dataFromFile::toModelType);
     }
 
     @Test

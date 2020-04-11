@@ -7,10 +7,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.CardUtils.JAP_CARDS;
 import static seedu.address.testutil.DeckUtils.JAPANESE_DECK;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 

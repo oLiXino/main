@@ -35,6 +35,9 @@ public class CardUtils {
             (new FrontFace("Thank you"),
                     new BackFace("Terima Kasih"));
 
+    public static final List<Card> JAP_CARDS = getJapCards();
+    public static final List<Card> MALAY_CARDS = getMalayCards();
+
     /**
      * Gets the Japanese test deck.
      */

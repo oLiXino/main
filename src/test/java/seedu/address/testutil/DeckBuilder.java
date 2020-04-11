@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.model.deck.Deck;
@@ -15,7 +16,7 @@ public class DeckBuilder {
     public static final Deck DEFAULT_DECK = new Deck(new Name("Default deck"));
 
     private Name name;
-    private List<Card> cards;
+    private List<Card> cards = new ArrayList<>();
 
     public DeckBuilder() {
         name = new Name(DEFAULT_NAME);

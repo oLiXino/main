@@ -17,6 +17,8 @@ public class DeckUtils {
     public static final String EMPTY_DECK_NAME = "";
     public static final String JAP_DECK_NAME = "Japanese";
     public static final String MALAY_DECK_NAME = "Malay";
+    public static final Deck JAPANESE_DECK = getTypicalJapDeck();
+    public static final Deck MALAY_DECK = getTypicalMalayDeck();
 
     public static final Deck NEW_EMPTY_DECK = new Deck(new Name("Empty deck"));
 

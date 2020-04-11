@@ -19,9 +19,9 @@ import seedu.address.model.deck.card.FrontFace;
  */
 class JsonAdaptedDeck {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Deck's %s field is missing!";
-
-    private final String name;
+    public static final String MISSING_FIELD_MESSAGE_FORMAT =
+            "Names should contain at least one (non-whitespace) character, i.e. should not be blank";
+    private String name;
     private List<JsonAdaptedCard> cards = new ArrayList<>();
 
     /**
@@ -44,11 +44,25 @@ class JsonAdaptedDeck {
                 .collect(Collectors.toList());
     }
 
-    public JsonAdaptedDeck(Name name, List<Card> cards) {
+    public JsonAdaptedDeck(Name name, List<Card> cards) throws IllegalValueException {
         this.name = name.name;
+        if (cards == null) {
+            throw new IllegalValueException(MISSING_FIELD_MESSAGE_FORMAT);
+        }
         this.cards = cards.stream().map(card -> new JsonAdaptedCard(card))
                 .collect(Collectors.toList());
 
+    }
+
+    /**
+     * Changes the name of the JSON deck.
+     *
+     * @param name The new name of the deck.
+     * @return The deck with the new name.
+     */
+    public JsonAdaptedDeck setName(String name) {
+        this.name = name;
+        return this;
     }
 
     /**
@@ -58,7 +72,7 @@ class JsonAdaptedDeck {
      */
     public Deck toModelType() throws IllegalValueException {
         if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+            throw new IllegalValueException(MISSING_FIELD_MESSAGE_FORMAT);
         }
 
         Deck modelDeck = new Deck(new Name(name));

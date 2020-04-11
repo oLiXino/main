@@ -1,7 +1,6 @@
 {
   "decks" : [ {
-    "name" : "Japanese",
-    "invalid_field" : "Hello",
+    "name" : "",
     "cards" : [ {
       "frontFace" : "Hello",
       "backFace" : " こんにちは"

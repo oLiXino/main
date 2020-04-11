@@ -50,7 +50,7 @@ public class JsonLibraryStorageTest {
 
     @Test
     public void readLibrary_invalidPersonLibrary_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readLibrary("invalidPersonLibrary.json"));
+        assertThrows(DataConversionException.class, () -> readLibrary("invalidDeckLibrary.json"));
     }
 
     @Test
