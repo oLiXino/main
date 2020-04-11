@@ -9,11 +9,14 @@ import static seedu.address.testutil.CardUtils.JAP_CARDS;
 import static seedu.address.testutil.DeckUtils.JAPANESE_DECK;
 import static seedu.address.testutil.DeckUtils.MALAY_DECK;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.deck.exceptions.DeckNotFoundException;
+import seedu.address.model.deck.exceptions.DuplicateDeckException;
 import seedu.address.testutil.DeckBuilder;
 
 public class UniqueDeckListTest {
@@ -53,10 +56,8 @@ public class UniqueDeckListTest {
     @Test
     public void add_duplicateDeck_doNotAdd() {
         uniqueDeckList.add(JAPANESE_DECK);
-        uniqueDeckList.add(JAPANESE_DECK);
-        UniqueDeckList expectedUniqueDeckList = new UniqueDeckList();
-        expectedUniqueDeckList.add(JAPANESE_DECK);
-        assertEquals(expectedUniqueDeckList, uniqueDeckList);
+        assertThrows(DuplicateDeckException.class, () -> uniqueDeckList.add(JAPANESE_DECK));
+
     }
 
 
@@ -78,12 +79,8 @@ public class UniqueDeckListTest {
     }
 
     @Test
-    public void remove_deckDoesNotExist_donotremove() {
-        uniqueDeckList.add(JAPANESE_DECK);
-        uniqueDeckList.remove(MALAY_DECK);
-        UniqueDeckList expectedUniqueDeckList = new UniqueDeckList();
-        expectedUniqueDeckList.add(JAPANESE_DECK);
-        assertEquals(expectedUniqueDeckList, uniqueDeckList);
+    public void remove_deckDoesNotExist_throwDeckNotFoundException() {
+        assertThrows(DeckNotFoundException.class, () -> uniqueDeckList.remove(MALAY_DECK));
     }
 
     @Test
@@ -123,6 +120,11 @@ public class UniqueDeckListTest {
         assertEquals(expectedUniqueDeckList, uniqueDeckList);
     }
 
+    @Test
+    public void setDecks_listWithDuplicateDecks_throwsDuplicateDeckException() {
+        List<Deck> listWithDuplicateDecks = Arrays.asList(JAPANESE_DECK, JAPANESE_DECK);
+        assertThrows(DuplicateDeckException.class, () -> uniqueDeckList.setDecks(listWithDuplicateDecks));
+    }
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {

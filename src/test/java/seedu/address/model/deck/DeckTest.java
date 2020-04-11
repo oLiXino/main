@@ -23,7 +23,7 @@ public class DeckTest {
 
         // rename Japanese to French -> returns false
         Deck renamed = new DeckBuilder(JAPANESE_DECK).withName(VALID_DECK_NAME_KOREAN_1).build();
-        assertFalse(JAPANESE_DECK.isSameDeck(JAPANESE_DECK));
+        assertFalse(JAPANESE_DECK.isSameDeck(renamed));
 
 
         // new deck with same name, same cards -> returns true
