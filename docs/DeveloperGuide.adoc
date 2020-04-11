@@ -54,8 +54,9 @@ The following groups are in particular the intended audience of this document.
 
 Refer to the guide <<SettingUp#, here>>.
 
-
 == Design
+
+// tag::design-arch[]
 
 [[Design-Architecture]]
 === Architecture
@@ -67,10 +68,6 @@ The *_Architecture Diagram_* below gives a high-level overview of the FlashSpeed
 
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
-
-[TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
 Given below is a quick overview of each component.
 
@@ -108,6 +105,8 @@ For example, the `Logic` component (see the class diagram given below) defines i
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
+
+// end::design-arch[]
 
 [discrete]
 ==== 3.1.1 How the core components interact with each other
@@ -311,6 +310,7 @@ See <<Anchor-1, 3.2.2>>.
 // end::addcard[]
 
 // tag::editcard[]
+
 === Editing a Card: Shortcut Formats
 ==== Current Implementation
 
@@ -367,6 +367,7 @@ image::EditSequenceDiagram.png[]
 * **Alternative 2:** Get the Card to be edited directly in `EditCardCommandParser` so we can immediately produce the new Card with its final face values.
 ** Pros: The Card to replace the old Card will be fully formed from the start.
 ** Cons: No separation of parsing and model management logic since we would need to do a view check and get a Card from the current Deck all while in the parser.
+
 // end::editcard[]
 
 // tag::play[]
