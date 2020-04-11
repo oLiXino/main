@@ -44,7 +44,7 @@ By using FlashSpeed, you will learn faster and remember for longer!
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=selectDeck]
+include::../UserGuide.adoc#selectDeck
 
 // include::../UserGuide.adoc[tag=dataencryption]
 
@@ -54,7 +54,7 @@ include::../UserGuide.adoc[tag=selectDeck]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=selecting-a-deck]
+include::../DeveloperGuide.adoc#selecting-a-deck
 
 // include::../DeveloperGuide.adoc[tag=dataencryption]
 
