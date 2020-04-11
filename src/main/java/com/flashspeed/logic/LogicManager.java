@@ -15,7 +15,7 @@ import com.flashspeed.model.Model;
 import com.flashspeed.model.ReadOnlyLibrary;
 import com.flashspeed.model.deck.Deck;
 import com.flashspeed.model.deck.card.Card;
-import com.flashspeed.model.util.Mode;
+import com.flashspeed.model.util.View;
 import com.flashspeed.storage.Storage;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -96,8 +96,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyProperty<Mode> currentModeProperty() {
-        return model.currentModeProperty();
+    public ReadOnlyProperty<View> currentViewProperty() {
+        return model.currentViewProperty();
     }
 
     @Override
@@ -121,7 +121,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Mode getMode() {
-        return model.getMode();
+    public View getView() {
+        return model.getView();
     }
 }

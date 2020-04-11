@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
+import com.flashspeed.model.util.View;
 import javafx.beans.property.SimpleObjectProperty;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +22,6 @@ import com.flashspeed.logic.parser.exceptions.ParseException;
 import com.flashspeed.model.deck.Deck;
 import com.flashspeed.model.deck.card.BackFace;
 import com.flashspeed.model.deck.card.Card;
-import com.flashspeed.model.util.Mode;
 import com.flashspeed.testutil.CardBuilder;
 import com.flashspeed.testutil.LibraryBuilder;
 
@@ -233,7 +233,7 @@ public class ModelManagerTest {
             modelManager.selectDeck(index);
             Card card = modelManager.play(index);
             assertEquals(modelManager.getGame(), new GameManager(DeckUtils.JAPANESE_DECK));
-            assertEquals(modelManager.getMode(), Mode.PLAY);
+            assertEquals(modelManager.getView(), View.PLAY);
             assertEquals(modelManager.playingCardProperty().getValue(), card);
             assertEquals(modelManager.flippedProperty().getValue(), false);
         } catch (ParseException pe) {
