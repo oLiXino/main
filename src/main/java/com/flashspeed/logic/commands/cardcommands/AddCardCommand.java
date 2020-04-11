@@ -2,12 +2,12 @@ package com.flashspeed.logic.commands.cardcommands;
 
 import static java.util.Objects.requireNonNull;
 
-import com.flashspeed.logic.commands.exceptions.CommandException;
-import com.flashspeed.model.Model;
-import com.flashspeed.model.deck.card.Card;
 import com.flashspeed.commons.core.Messages;
 import com.flashspeed.logic.commands.Command;
 import com.flashspeed.logic.commands.CommandResult;
+import com.flashspeed.logic.commands.exceptions.CommandException;
+import com.flashspeed.model.Model;
+import com.flashspeed.model.deck.card.Card;
 import com.flashspeed.model.util.View;
 
 /**

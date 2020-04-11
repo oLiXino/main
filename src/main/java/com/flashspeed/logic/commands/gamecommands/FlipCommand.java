@@ -10,7 +10,7 @@ import com.flashspeed.model.deck.card.BackFace;
 import com.flashspeed.model.util.View;
 
 /**
- * Flips a card.
+ * Represents the command that informs the model manager to fiip the current flashcard.
  */
 public class FlipCommand extends Command {
     public static final String COMMAND_WORD = "flip";
@@ -20,7 +20,6 @@ public class FlipCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Did you get your answer right?";
     public static final String MESSAGE_NOT_PLAY_MODE = "Cannot flip card in non-play view";
     public static final String MESSAGE_ALREADY_FLIPPED = "Card already flipped!";
-
     private BackFace backFace;
     /**
      * Creates an FlipCommand.
@@ -39,7 +38,6 @@ public class FlipCommand extends Command {
         if (backFace == null) {
             throw new CommandException(MESSAGE_ALREADY_FLIPPED);
         }
-
         return new CommandResult(String.format(MESSAGE_SUCCESS));
     }
 

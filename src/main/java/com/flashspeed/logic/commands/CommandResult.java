@@ -1,10 +1,10 @@
 package com.flashspeed.logic.commands;
 
-import com.flashspeed.model.Statistics;
-
 import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
+
+import com.flashspeed.model.Statistics;
 
 /**
  * Represents the result of a command execution.
@@ -55,9 +55,11 @@ public class CommandResult {
         return exit;
     }
 
-    public boolean isStop() {return stop; }
+    public boolean isStop() {
+        return stop;
+    }
 
-    public Statistics getStatistics(){
+    public Statistics getStatistics() {
         return statistics;
     }
 

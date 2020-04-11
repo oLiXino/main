@@ -1,12 +1,11 @@
 package com.flashspeed.model;
 
-
-import javafx.collections.ObservableList;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.flashspeed.model.deck.card.Card;
 
-import java.util.HashMap;
-import java.util.Map;
+import javafx.collections.ObservableList;
 
 /**
  * Represents statistics report for one game session.
@@ -120,10 +119,10 @@ public class Statistics {
     @Override
     public String toString() {
         int wrongCounter = 0;
-        String output = "Cards Attempted: " + this.totalQns + "\n" +
-                "Correct Attempts: " + this.correctAns + "\n" +
-                "Wrong Attempts: " + this.wrongAns + "\n" +
-                "Score: " + String.format("%2d", getScore()) + "% \n";
+        String output = "Cards Attempted: " + this.totalQns + "\n"
+                + "Correct Attempts: " + this.correctAns + "\n"
+                + "Wrong Attempts: " + this.wrongAns + "\n"
+                + "Score: " + String.format("%2d", getScore()) + "% \n";
 
         for (Map.Entry<Card, Integer> entry: wrongAttempts.entrySet()) {
             if (entry.getValue() > 0) {
@@ -132,10 +131,8 @@ public class Statistics {
         }
 
         if (this.totalQns == 0) {
-            output += "You did not attempt any card!"+"\n";
-
-        }
-        else if (wrongCounter > 0) {
+            output += "You did not attempt any card!" + "\n";
+        } else if (wrongCounter > 0) {
             output += "Here is a list of cards you guessed incorrectly:" + "\n";
             for (Map.Entry<Card, Integer> entry: wrongAttempts.entrySet()) {
                 if (entry.getValue() > 0) {
@@ -147,7 +144,7 @@ public class Statistics {
                 }
             }
         } else {
-            output += "Congratulations! You got them all correct!" +"\n";
+            output += "Congratulations! You got them all correct!" + "\n";
         }
 
         return output;

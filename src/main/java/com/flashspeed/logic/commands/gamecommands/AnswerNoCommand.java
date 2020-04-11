@@ -6,12 +6,11 @@ import com.flashspeed.logic.commands.Command;
 import com.flashspeed.logic.commands.CommandResult;
 import com.flashspeed.logic.commands.exceptions.CommandException;
 import com.flashspeed.model.Model;
-import com.flashspeed.model.Statistics;
 import com.flashspeed.model.deck.card.Card;
 import com.flashspeed.model.util.View;
 
 /**
- * Answers no the a card.
+ * Represents the command that indicates that the user answered the question incorrectly.
  */
 public class AnswerNoCommand extends Command {
     public static final String COMMAND_WORD = "no";
@@ -22,8 +21,6 @@ public class AnswerNoCommand extends Command {
     public static final String MESSAGE_NOT_PLAY_MODE = "Cannot answer card in non-play view";
     public static final String MESSAGE_NOT_FLIPPED = "Card has not flipped yet!";
     public static final String MESSAGE_END_GAME = "Session completed!";
-
-    private Statistics statistics;
 
     /**
      * Creates a AnswerNoCommand
@@ -41,8 +38,7 @@ public class AnswerNoCommand extends Command {
         }
         Card nextCard = model.answerNo();
         if (nextCard == null) {
-            statistics = model.stop();
-            return new CommandResult(String.format(MESSAGE_END_GAME), false, false, true, statistics);
+            return new CommandResult(String.format(MESSAGE_END_GAME), false, false, true, model.stop());
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS));

@@ -19,7 +19,6 @@ public class StorageManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private LibraryStorage libraryStorage;
     private UserPrefsStorage userPrefsStorage;
-    
     public StorageManager(LibraryStorage libraryStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.libraryStorage = libraryStorage;
