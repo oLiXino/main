@@ -13,7 +13,7 @@ import com.flashspeed.logic.commands.CommandResult;
 import com.flashspeed.logic.commands.exceptions.CommandException;
 import com.flashspeed.model.deck.Deck;
 import com.flashspeed.model.deck.Name;
-import com.flashspeed.model.util.Mode;
+import com.flashspeed.model.util.View;
 
 /**
  * Renames the name of a deck in the library.
@@ -54,7 +54,7 @@ public class RenameDeckCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.getMode() == Mode.PLAY) {
+        if (model.getView() == View.PLAY) {
             throw new CommandException(MESSAGE_NOT_IN_VIEW_MODE);
         }
 

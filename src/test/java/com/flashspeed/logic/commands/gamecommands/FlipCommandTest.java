@@ -25,7 +25,6 @@ import com.flashspeed.model.deck.Deck;
 import com.flashspeed.model.deck.Name;
 import com.flashspeed.model.deck.card.BackFace;
 import com.flashspeed.model.deck.card.Card;
-import com.flashspeed.model.util.Mode;
 import com.flashspeed.model.util.View;
 
 public class FlipCommandTest {
@@ -169,7 +168,7 @@ public class FlipCommandTest {
         }
 
         @Override
-        public ReadOnlyProperty<Mode> currentModeProperty() {
+        public ReadOnlyProperty<View> currentViewProperty() {
             throw new AssertionError("This method should not be called");
         }
 
@@ -221,12 +220,7 @@ public class FlipCommandTest {
         }
 
         @Override
-        public Mode getMode() {
-            throw new AssertionError("This method should not be called");
-        }
-
-        @Override
-        public void setCurrentMode(Mode mode) {
+        public void setCurrentView(View view) {
             throw new AssertionError("This method should not be called");
         }
 
@@ -247,11 +241,12 @@ public class FlipCommandTest {
             throw new AssertionError("This method should not be called");
         }
 
-        //=========== Game Mode Functions =============================================================
         @Override
         public void setSelectedDeck(Deck deck) {
             throw new AssertionError("This method should not be called");
         }
+
+        //=========== Play View Functions =============================================================
 
         @Override
         public void setFlipped(Boolean value) {
@@ -316,8 +311,8 @@ public class FlipCommandTest {
     private class ModelStubAcceptingCardFlipped extends ModelStub {
 
         @Override
-        public Mode getMode() {
-            return Mode.PLAY;
+        public View getView() {
+            return View.PLAY;
         }
 
         @Override
@@ -332,8 +327,8 @@ public class FlipCommandTest {
     private class ModelStubNotPlayMode extends ModelStub {
 
         @Override
-        public Mode getMode() {
-            return Mode.VIEW;
+        public View getView() {
+            return View.DECK;
         }
 
         @Override
@@ -348,8 +343,8 @@ public class FlipCommandTest {
     private class ModelStubCardAlreadyFlipped extends ModelStub {
 
         @Override
-        public Mode getMode() {
-            return Mode.PLAY;
+        public View getView() {
+            return View.PLAY;
         }
 
         @Override

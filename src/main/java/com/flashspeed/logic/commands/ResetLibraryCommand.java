@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import com.flashspeed.logic.commands.exceptions.CommandException;
 import com.flashspeed.model.Library;
 import com.flashspeed.model.Model;
-import com.flashspeed.model.util.Mode;
+import com.flashspeed.model.util.View;
 
 /**
  * Clears the library.
@@ -18,7 +18,7 @@ public class ResetLibraryCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        if (model.getMode() == Mode.PLAY) {
+        if (model.getView() == View.PLAY) {
             throw new CommandException(MESSAGE_NOT_IN_VIEW_MODE);
         }
 

@@ -7,7 +7,7 @@ import com.flashspeed.logic.commands.CommandResult;
 import com.flashspeed.logic.commands.exceptions.CommandException;
 import com.flashspeed.model.Model;
 import com.flashspeed.model.Statistics;
-import com.flashspeed.model.util.Mode;
+import com.flashspeed.model.util.View;
 
 /**
  * Stops the game session.
@@ -31,7 +31,7 @@ public class StopCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (model.getMode() == Mode.VIEW) {
+        if (model.getView() != View.PLAY) {
             throw new CommandException(MESSAGE_NOT_PLAY_MODE);
         }
         statistics = model.stop();
