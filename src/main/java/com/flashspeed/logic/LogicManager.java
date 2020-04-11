@@ -4,22 +4,23 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
-import com.flashspeed.logic.parser.MasterParser;
-import com.flashspeed.model.Model;
-import com.flashspeed.model.ReadOnlyLibrary;
-import com.flashspeed.storage.Storage;
-
-import javafx.beans.property.ReadOnlyProperty;
-import javafx.collections.ObservableList;
 import com.flashspeed.commons.core.GuiSettings;
 import com.flashspeed.commons.core.LogsCenter;
 import com.flashspeed.logic.commands.Command;
 import com.flashspeed.logic.commands.CommandResult;
 import com.flashspeed.logic.commands.exceptions.CommandException;
+import com.flashspeed.logic.parser.MasterParser;
 import com.flashspeed.logic.parser.exceptions.ParseException;
+import com.flashspeed.model.Model;
+import com.flashspeed.model.ReadOnlyLibrary;
 import com.flashspeed.model.deck.Deck;
 import com.flashspeed.model.deck.card.Card;
 import com.flashspeed.model.util.Mode;
+import com.flashspeed.storage.Storage;
+
+import javafx.beans.property.ReadOnlyProperty;
+import javafx.collections.ObservableList;
+
 
 /**
  * The main LogicManager of the app.
@@ -44,10 +45,8 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult;
         Command command;
-
         command = masterParser.parseCommand(commandText);
         commandResult = command.execute(model);
-        
         try {
             storage.saveLibrary(model.getLibrary());
         } catch (IOException ioe) {
