@@ -33,7 +33,7 @@ public class LibraryTest {
     }
 
     @Test
-    public void resetData_withValidReadOnlyAddressBook_replacesData() {
+    public void resetData_withValidReadOnlyLibrary_replacesData() {
         Library newData = new LibraryBuilder().withDeck(DeckUtils.JAPANESE_DECK).build();
         library.resetData(newData);
         assertEquals(newData, library);
