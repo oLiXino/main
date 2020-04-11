@@ -186,9 +186,9 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasCard_cardNotInDeck_afterReplaceCard_returnsFalse() throws ParseException {
+    public void hasCard_cardNrReplaceCad_returnsFalse() throws ParseException {
         modelManager.createDeck(JAPANESE_DECK);
-        Card newCard = new CardBuilder().withFrontFace(new FrontFace("newFront1")).withBackFace(new BackFace("newBack1")).build();
+        Card newCard = new CardBuilder().withFrontFace("newFront1").withBackFace("newBack1").build();
         try {
             Index index = ParserUtil.parseIndex("0");
             modelManager.selectDeck(index);
@@ -203,7 +203,7 @@ public class ModelManagerTest {
     @Test
     public void hasCard_cardInDeck_afterReplaceCard_returnsTrue() throws ParseException {
         modelManager.createDeck(JAPANESE_DECK);
-        Card newCard = new CardBuilder().withFrontFace(new FrontFace("newFront2")).withBackFace(new BackFace("newBack2")).build();
+        Card newCard = new CardBuilder().withFrontFace("newFront2").withBackFace("newBack2").build();
         try {
             Index index = ParserUtil.parseIndex("0");
             modelManager.selectDeck(index);
