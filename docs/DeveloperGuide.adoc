@@ -796,11 +796,20 @@ There are three different views in FlashSpeed.
 [[library-view]] Library View::
 The current screen where FlashSpeed shows the list of decks.
 
+.In Library view. No deck is selected.
+image::library.png[]
+
 [[deck-view]] Deck View::
 The current screen where FlashSpeed shows the list of cards in a selected deck.
 
+.In Deck view. A deck has been selected.
+image::Ui.png[]
+
 [[play]] Play View (Play)::
 Enters the play view (mode) of FlashSpeed. In this mode, users will be able to take advantage of the SRS to revise/memorise their flashcards.
+
+.In Play view. A deck is being studied.
+image::Ui2.png[]
 
 [appendix]
 == Product Survey
