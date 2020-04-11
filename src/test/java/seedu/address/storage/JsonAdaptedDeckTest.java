@@ -3,17 +3,13 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.storage.JsonAdaptedDeck.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.DeckUtils.EMPTY_DECK_NAME;
-import static seedu.address.testutil.DeckUtils.JAPANESE_DECK;
-import static seedu.address.testutil.DeckUtils.MALAY_DECK;
+import static seedu.address.testutil.Deckdeck.MALAY_DECK;
 import static seedu.address.testutil.CardUtils.JAP_CARDS;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.Name;
-import seedu.address.testutil.CardUtils;
 
 public class JsonAdaptedDeckTest {
     @Test

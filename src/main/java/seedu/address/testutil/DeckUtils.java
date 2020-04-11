@@ -9,6 +9,8 @@ import seedu.address.model.deck.Deck;
 import seedu.address.model.deck.Name;
 import seedu.address.model.deck.card.Card;
 
+import seedu.address.testutil.CardUtils;
+
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
  */

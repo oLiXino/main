@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.CardUtils.getTypicalJapCards;
-import static seedu.address.testutil.DeckUtils.JAPANESE_DECK;
-import static seedu.address.testutil.DeckUtils.MALAY_DECK;
+import static seedu.address.testutil.Deckdeck.JAPANESE_DECK;
+import static seedu.address.testutil.Deckdeck.MALAY_DECK;
 
 import java.util.Collections;
 import java.util.List;
