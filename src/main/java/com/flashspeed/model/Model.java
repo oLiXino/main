@@ -3,16 +3,16 @@ package com.flashspeed.model;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
-import javafx.beans.property.ReadOnlyProperty;
-import javafx.collections.ObservableList;
 import com.flashspeed.commons.core.GuiSettings;
 import com.flashspeed.commons.core.index.Index;
 import com.flashspeed.model.deck.Deck;
 import com.flashspeed.model.deck.Name;
 import com.flashspeed.model.deck.card.BackFace;
 import com.flashspeed.model.deck.card.Card;
-import com.flashspeed.model.util.Mode;
 import com.flashspeed.model.util.View;
+
+import javafx.beans.property.ReadOnlyProperty;
+import javafx.collections.ObservableList;
 
 /**
  * The API of the Model component.
@@ -56,7 +56,9 @@ public interface Model {
      */
     void setLibrary(ReadOnlyLibrary library);
 
-    /** Returns the library */
+    /**
+     * Returns the library
+     * */
     ReadOnlyLibrary getLibrary();
 
     /**
@@ -91,10 +93,9 @@ public interface Model {
      */
     Deck getDeck(Index index);
 
-     /** Renames the deck at index in library.
-      *
-      * @return true if there is no deck with the same name, false otherwise
-      */
+    /** Renames the deck at index in library.
+     * @return true if there is no deck with the same name, false otherwise
+     */
     boolean renameDeck(Index targetIndex, Name name);
 
     /**
@@ -102,10 +103,6 @@ public interface Model {
      */
     ReadOnlyProperty<Deck> selectedDeckProperty();
 
-    /**
-     * Returns the readonly property.
-     */
-    ReadOnlyProperty<Mode> currentModeProperty();
 
     /**
      * Returns the readonly property.
@@ -116,6 +113,11 @@ public interface Model {
      * Returns the readonly property.
      */
     ReadOnlyProperty<Boolean> flippedProperty();
+
+    /**
+     * Returns the readonly property.
+     */
+    ReadOnlyProperty<View> currentViewProperty();
 
     /**
      * Returns the readonly property.
@@ -134,7 +136,6 @@ public interface Model {
 
     /**
      * Checks if a card with the same identity as {@code card} exists in the deck.
-     * 
      * @return true if {@code card} exists in the deck
      */
     boolean hasCard(Card card);
@@ -144,7 +145,7 @@ public interface Model {
      * {@code target} must exist in the deck.
      */
     void deleteCard(Card target);
-    
+
     /**
      * Adds the given card to the deck.
      * {@code card} must not already exist in the deck.
@@ -160,7 +161,6 @@ public interface Model {
 
     /**
      * Gets the current view of the model.
-     * 
      * @return The current view of the model.
      */
     View getView();
@@ -180,7 +180,6 @@ public interface Model {
 
     /**
      * Updates the filter of the filtered deck list to filter by the given {@code predicate}.
-     * 
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredDeckList(Predicate<Deck> predicate);
@@ -190,16 +189,35 @@ public interface Model {
      */
     void setSelectedDeck(Deck deck);
 
+    /**
+     * Sets the value of flipped in model manager.
+     */
     void setFlipped(Boolean value);
 
+    /**
+     * Sets the value of currentView in model manager.
+     */
+    void setCurrentView(View view);
+
+    /**
+     * Sets the number of cards attempted.
+     */
     void setCardAttempted(int value);
 
+    /**
+     * Sets the number of remaining cards in a deck.
+     */
     void setCardRemaining(int value);
 
-    void setCurrentMode(Mode mode);
 
+    /**
+     * Sets the playing card.
+     */
     void setPlayingCard(Card card);
-    
+
+    /**
+     * Returns the card with the given index.
+     */
     Card getCard(Index index);
 
     /**
@@ -209,36 +227,28 @@ public interface Model {
 
     /**
      * Flips the card to the back face.
-     * 
-     * @return true if the card has not been flipped, false otherwise
      */
     BackFace flip();
 
     /**
      * Returns the next card after user answers Yes.
-     * 
-     * @return the next card or null if card list is empty
      */
     Card answerYes();
 
     /**
      * Returns the statistics report when user stop the game session.
-     *
-     * @return the statistics object.
      */
     Statistics stop();
 
+    /**
+     * Returns the game manager object.
+     */
     GameManager getGame();
 
     /**
      * Returns the next card after user answers No.
-     * 
-     * @return the next card or null if card list is empty
      */
     Card answerNo();
 
-    /**
-     * Returns the current mode of the model
-     */
-    Mode getMode();
+
 }

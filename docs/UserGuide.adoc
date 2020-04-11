@@ -17,6 +17,7 @@ endif::[]
 
 By: `FlashSpeed Foundation`      Since: `Feb 2020`      Licence: `MIT`
 
+// tag::intro[]
 == Introduction
 
 FlashSpeed is a text-based flashcard application specifically designed for university students who are learning a foreign language. University students often have hectic schedules. With this in mind, FlashSpeed was created to allow students to be able to study and revise foreign vocabulary on the fly. With a single command, you can start a quick study session on FlashSpeed whenever!
@@ -50,6 +51,7 @@ your operating system's manual or user guide to find out the languages and scrip
 Technical info: FlashSpeed, which is built on Java, supports the Unicode standard with UTF-16 character encoding for
 textual representation.
 
+// end::intro[]
 == Quick Start
 
 Getting FlashSpeed up and running is fast and easy. Follow these simple steps to get started!
@@ -141,6 +143,7 @@ image::reset.png[]
 
 {empty} +
 
+// tag::library-view[]
 === Library view
 
 ****
@@ -151,7 +154,11 @@ image::reset.png[]
 image::library.png[]
 ****
 
+// end::library-view[]
+
 {empty} +
+
+// tag::createdeck[]
 
 ==== Creating a deck : `create`
 
@@ -181,6 +188,9 @@ image::create1.png[]
 image::create2.png[]
 
 {empty} +
+// end::createdeck[]
+
+// tag::select-deck[]
 
 [[selectDeck]]
 ==== Selecting a deck : `select`
@@ -207,6 +217,7 @@ Selects and shows all cards in the 2nd deck.
 .Selecting a deck and showing its cards.
 image::Ui.png[]
 
+// end::select-deck[]
 {empty} +
 
 ==== Removing a deck : `remove`
@@ -288,6 +299,8 @@ image::Ui.png[]
 
 {empty} +
 
+// tag::addcard[]
+
 ==== Adding a card : `add`
 
 Format: `add <front>:<back>`
@@ -326,6 +339,8 @@ e.g. `add ありがとう:thanks`
 image::add.png[]
 
 {empty} +
+
+// end::addcard[]
 
 ==== Editing a card : `edit`
 
@@ -474,8 +489,26 @@ You don't have to save your precious flashcards manually!
 
 == FAQ
 
+*Q*: Does this application require Internet connection? +
+*A*: No. FlashSpeed does not require Internet connection
+
+*Q*: What is the maximum length of a card face? +
+*A*: In real-life flashcard, you are not able to write a tremendously long text on it. Similarly, our application will not be able to display a card fully if the text is too long. Therefore, we recommend keeping your text not longer than *60 characters*.
+
+*Q*: How do I save my data? +
+*A*: FlashSpeed automatically saves your data whenever you make a change. There is no need to save manually.
+
+*Q*: Is FlashSpeed secure? +
+*A*: Yes, FlashSpeed is secure. Your data is stored locally on your device. The application does not require Internet connection so no data will be sent to any online servers.
+
 *Q*: How do I transfer my data to another computer? +
-*A*: Copy the `data` folder in FlashSpeed's home folder over to the home folder in the other computer.
+*A*: Simply copy the `data` folder in FlashSpeed's home folder over to the home folder in the other computer.
+
+*Q*: How to update this application to the latest version? +
+*A*: Check for the the latest version of FlashSpeed link:https://github.com/AY1920S2-CS2103T-W17-1/main/releases[here] and download `flashspeed.jar` file.
+
+*Q*: I am not able to run this application. How do I fix it +
+*A*: Refer to <<Quick Start>> for the installation guide. Ensure that your computer is running on Java 11. FlashSpeed may not be able to run on other versions of Java.
 
 {empty} +
 
@@ -510,42 +543,44 @@ e.g. `delete 3`
 * *No* : `no`
 * *Stop* : `stop`
 
+// tag::command-table[]
 [width="60%",cols="30%,10%,10%,10%",options="header",]
 |=======================================================================
 |       3+|View
 |Command  |Library |Deck |Play
-|`help`   |✓      |✓    |✓
+|`help`   |√      |√    |√
 
-|`exit`   |✓       |✓    |✓
+|`exit`   |√       |√    |√
 
-|`reset`  |✓       |✓    |
+|`reset`  |√       |√    |
 
-|`select` |✓       |✓    |
+|`select` |√       |√    |
 
-|`create` |✓       |✓    |
+|`create` |√       |√    |
 
-|`remove` |✓       |✓    |
+|`remove` |√       |√    |
 
-|`rename` |✓       |✓    |
+|`rename` |√       |√    |
 
-|`play`   |✓       |✓    |
+|`play`   |√       |√    |
 
-|`add`    |        |✓    |
+|`add`    |        |√    |
 
-|`edit`   |        |✓    |
+|`edit`   |        |√    |
 
-|`delete` |        |✓    |
+|`delete` |        |√    |
 
-|`return` |        |✓    |
+|`return` |        |√    |
 
-|`flip`   |        |     |✓
+|`flip`   |        |     |√
 
-|`yes`    |        |     |✓
+|`yes`    |        |     |√
 
-|`no`     |        |     |✓
+|`no`     |        |     |√
 
-|`stop`   |        |     |✓
+|`stop`   |        |     |√
 
 |=======================================================================
 
+// end::command-table[]
 {empty} +

@@ -11,7 +11,6 @@ import com.flashspeed.model.Model;
 import com.flashspeed.model.deck.card.BackFace;
 import com.flashspeed.model.deck.card.Card;
 import com.flashspeed.model.deck.card.FrontFace;
-import com.flashspeed.model.util.Mode;
 import com.flashspeed.model.util.View;
 
 /**
@@ -58,7 +57,7 @@ public class EditCardCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.getMode() == Mode.PLAY) {
+        if (model.getView() == View.PLAY) {
             throw new CommandException(MESSAGE_NOT_IN_VIEW_MODE);
         }
 

@@ -24,13 +24,13 @@ public class PlayCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Selected deck: %1$s";
     public static final String MESSAGE_DECK_NOT_FOUND = "Deck not found in the library!";
     public static final String MESSAGE_NO_CARD = "Oops, there are no cards in the selected deck.";
-    public static final String MESSAGE_ALREADY_PLAY =
-            "You should complete or end this session before playing a new one.";
+    public static final String MESSAGE_ALREADY_PLAY = "You should complete or end this session "
+            + "before playing a new one.";
 
     private final Index targetIdx;
 
     /**
-     * Creates an PlayCommand with a specific {@code Deck}.
+     * Creates a PlayCommand with a specific {@code Deck}.
      */
     public PlayCommand(Index targetIdx) {
         requireNonNull(targetIdx);

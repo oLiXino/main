@@ -29,7 +29,6 @@ import com.flashspeed.model.deck.Deck;
 import com.flashspeed.model.deck.Name;
 import com.flashspeed.model.deck.card.BackFace;
 import com.flashspeed.model.deck.card.Card;
-import com.flashspeed.model.util.Mode;
 import com.flashspeed.model.util.View;
 import com.flashspeed.testutil.CardBuilder;
 
@@ -191,7 +190,7 @@ public class AddCardCommandTest {
         }
 
         @Override
-        public ReadOnlyProperty<Mode> currentModeProperty() {
+        public ReadOnlyProperty<View> currentViewProperty() {
             throw new AssertionError("This method should not be called");
         }
 
@@ -242,13 +241,9 @@ public class AddCardCommandTest {
             throw new AssertionError("This method should not be called");
         }
 
-        @Override
-        public Mode getMode() {
-            throw new AssertionError("This method should not be called");
-        }
 
         @Override
-        public void setCurrentMode(Mode mode) {
+        public void setCurrentView(View view) {
             throw new AssertionError("This method should not be called");
         }
 
@@ -269,11 +264,13 @@ public class AddCardCommandTest {
             throw new AssertionError("This method should not be called");
         }
 
-        //=========== Game Mode Functions =============================================================
+
         @Override
         public void setSelectedDeck(Deck deck) {
             throw new AssertionError("This method should not be called");
         }
+
+        //=========== Play View Functions =============================================================
 
         @Override
         public void setFlipped(Boolean value) {
@@ -339,11 +336,6 @@ public class AddCardCommandTest {
         final ArrayList<Card> cardsAdded = new ArrayList<>();
 
         @Override
-        public Mode getMode() {
-            return Mode.VIEW;
-        }
-
-        @Override
         public View getView() {
             return View.DECK;
         }
@@ -368,13 +360,8 @@ public class AddCardCommandTest {
         final ArrayList<Card> cardsAdded = new ArrayList<>();
 
         @Override
-        public Mode getMode() {
-            return Mode.PLAY;
-        }
-
-        @Override
         public View getView() {
-            return View.DECK;
+            return View.PLAY;
         }
 
         @Override
@@ -395,11 +382,6 @@ public class AddCardCommandTest {
      */
     private class ModelStubLibraryView extends ModelStub {
         final ArrayList<Card> cardsAdded = new ArrayList<>();
-
-        @Override
-        public Mode getMode() {
-            return Mode.VIEW;
-        }
 
         @Override
         public View getView() {

@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import com.flashspeed.logic.Logic;
 
+import com.flashspeed.model.util.View;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -12,7 +13,6 @@ import javafx.stage.Stage;
 import com.flashspeed.MainApp;
 import com.flashspeed.commons.core.LogsCenter;
 import com.flashspeed.commons.util.StringUtil;
-import com.flashspeed.model.util.Mode;
 import javafx.beans.value.ObservableValue;
 
 /**
@@ -28,12 +28,12 @@ public class UiManager implements Ui {
     private Logic logic;
     private MainWindow mainWindow;
 
-    private ObservableValue<Mode> mode;
+    private ObservableValue<View> view;
 
     public UiManager(Logic logic) {
         super();
         this.logic = logic;
-        this.mode = logic.currentModeProperty();
+        this.view = logic.currentViewProperty();
     }
 
     @Override
@@ -47,7 +47,7 @@ public class UiManager implements Ui {
             mainWindow = new MainWindow(primaryStage, logic);
             mainWindow.show(); // this should be called before creating other UI parts
             mainWindow.fillInnerParts();
-            this.mode.addListener((observable, oldValue, newValue) -> {
+            this.view.addListener((observable, oldValue, newValue) -> {
                 mainWindow.fillInnerParts();
             });
         } catch (Throwable e) {

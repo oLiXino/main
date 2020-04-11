@@ -1,17 +1,13 @@
 package com.flashspeed.model;
 
-import static java.util.Objects.requireNonNull;
 import static com.flashspeed.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.beans.property.ReadOnlyProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import com.flashspeed.commons.core.GuiSettings;
 import com.flashspeed.commons.core.LogsCenter;
 import com.flashspeed.commons.core.index.Index;
@@ -19,8 +15,12 @@ import com.flashspeed.model.deck.Deck;
 import com.flashspeed.model.deck.Name;
 import com.flashspeed.model.deck.card.BackFace;
 import com.flashspeed.model.deck.card.Card;
-import com.flashspeed.model.util.Mode;
 import com.flashspeed.model.util.View;
+
+import javafx.beans.property.ReadOnlyProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 /**
  * Represents the in-memory model of the library data.
@@ -33,13 +33,12 @@ public class ModelManager implements Model {
     private final FilteredList<Deck> filteredDecks;
 
     private View view;
-    private Mode mode;
 
     private Optional<Index> deckIndex;
     private final SimpleObjectProperty<Deck> selectedDeck = new SimpleObjectProperty<>();
-    private final SimpleObjectProperty<Mode> currentMode = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Card> playingCard = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Boolean> flipped = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<View> currentView = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Integer> cardAttempted = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Integer> cardRemaining = new SimpleObjectProperty<>();
     private GameManager game;
@@ -57,13 +56,14 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredDecks = new FilteredList<>(this.library.getDeckList());
         this.deckIndex = Optional.empty();
-
         this.view = View.LIBRARY; // 1st view will always be in library
-        this.mode = Mode.VIEW; // 1st mode will always be in view mode
-        setCurrentMode(Mode.VIEW);
+        setCurrentView(View.LIBRARY);
         this.game = null;
     }
 
+    /**
+     * Creates a model manager.
+     */
     public ModelManager() {
         this(new Library(), new UserPrefs());
     }
@@ -80,6 +80,9 @@ public class ModelManager implements Model {
 
     //=========== UserPrefs ==================================================================================
 
+    /**
+     * Returns the index of the selected deck.
+     */
     public Optional<Index> getDeckIndex() {
         return this.deckIndex;
     }
@@ -105,10 +108,6 @@ public class ModelManager implements Model {
         return selectedDeck;
     }
 
-    @Override
-    public ReadOnlyProperty<Mode> currentModeProperty() {
-        return currentMode;
-    }
 
     @Override
     public ReadOnlyProperty<Card> playingCardProperty() {
@@ -118,6 +117,11 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyProperty<Boolean> flippedProperty() {
         return flipped;
+    }
+
+    @Override
+    public ReadOnlyProperty<View> currentViewProperty() {
+        return currentView;
     }
 
     @Override
@@ -231,6 +235,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setCurrentView(View view) {
+        currentView.setValue(view);
+    }
+
+    @Override
     public void setCardAttempted(int value) {
         cardAttempted.setValue(value);
     }
@@ -244,11 +253,6 @@ public class ModelManager implements Model {
     @Override
     public void setPlayingCard(Card card) {
         playingCard.setValue(card);
-    }
-
-    @Override
-    public void setCurrentMode(Mode mode) {
-        currentMode.setValue(mode);
     }
 
     @Override
@@ -286,7 +290,6 @@ public class ModelManager implements Model {
         }
         deck.remove(cardToDelete);
         returnToLibrary();
-        //setSelectedDeck(null);
         setSelectedDeck(deck);
     }
 
@@ -297,10 +300,8 @@ public class ModelManager implements Model {
             return;
         }
         deck.add(card);
-        //setSelectedDeck(null);
         returnToLibrary();
         setSelectedDeck(deck);
-
     }
 
     @Override
@@ -310,8 +311,6 @@ public class ModelManager implements Model {
             return;
         }
         deck.replace(target, card);
-        // refresh UI view
-        //setSelectedDeck(null);
         returnToLibrary();
         setSelectedDeck(deck);
     }
@@ -319,7 +318,6 @@ public class ModelManager implements Model {
     @Override
     public void setDeck(Deck target, Deck editedDeck) {
         requireAllNonNull(target, editedDeck);
-
         library.setDeck(target, editedDeck);
     }
 
@@ -350,7 +348,6 @@ public class ModelManager implements Model {
     /**
      * Starts a game session with a given deck index.
      * @param index index of the deck to play with.
-     *
      * @return a randomly selected card from the deck
      */
     @Override
@@ -363,8 +360,8 @@ public class ModelManager implements Model {
             return new Card(null, null);
         }
         this.game = new GameManager(deck);
-        this.mode = Mode.PLAY;
-        setCurrentMode(Mode.PLAY);
+        this.view = View.PLAY;
+        setCurrentView(View.PLAY);
         Card card = deck.asUnmodifiableObservableList().get(game.getCurrCardIdx());
         setPlayingCard(card);
         setCardAttempted(0);
@@ -375,7 +372,6 @@ public class ModelManager implements Model {
 
     /**
      * Flips the card to the back face.
-     * 
      * @return true if the card has not been flipped, false otherwise
      */
     @Override
@@ -386,25 +382,24 @@ public class ModelManager implements Model {
 
     /**
      * Returns the next card after user answers Yes.
-     * 
      * @return the next card or null if card list is empty
      */
     @Override
     public Card answerYes() {
         Card card = this.game.answerYes();
-        
         if (card == null) {
             //Statistics statistics = stop();
         }
-        
         setPlayingCard(card);
         setFlipped(false);
         setCardAttempted(game.getCardAttempted());
         setCardRemaining(game.getDeckSize());
-        
         return card;
     }
-    
+
+    /**
+     * Returns the game manager object.
+     */
     public GameManager getGame() {
         return this.game;
     }
@@ -416,44 +411,33 @@ public class ModelManager implements Model {
     @Override
     public Card answerNo() {
         Card card = this.game.answerNo();
-        
         if (card == null) {
             //Statistics statistics = stop();
         }
-        
         setPlayingCard(card);
         setFlipped(false);
         setCardAttempted(game.getCardAttempted());
         setCardRemaining(game.getDeckSize());
-        
         return card;
     }
 
     /**
      * Stops the game session.
-     *
      * @return the statistics report.
      */
     @Override
     public Statistics stop() {
         Statistics statistics = this.game.stop();
         this.game = null;
-        this.mode = Mode.VIEW;
-        setCurrentMode(Mode.VIEW);
         setPlayingCard(null);
         returnToLibrary();
         this.view = View.LIBRARY;
+        setCurrentView(View.LIBRARY);
         return statistics;
     }
 
-    /**
-     * Returns the mode of the model.
-     * @return the mode of the model.
-     */
-    @Override
-    public Mode getMode() {
-        return this.mode;
-    }
+
+
 
     @Override
     public boolean equals(Object obj) {

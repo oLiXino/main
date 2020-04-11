@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import com.flashspeed.logic.Logic;
 import com.flashspeed.model.Statistics;
 
+import com.flashspeed.model.util.View;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
@@ -21,7 +22,6 @@ import com.flashspeed.commons.core.LogsCenter;
 import com.flashspeed.logic.commands.CommandResult;
 import com.flashspeed.logic.commands.exceptions.CommandException;
 import com.flashspeed.logic.parser.exceptions.ParseException;
-import com.flashspeed.model.util.Mode;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -132,10 +132,10 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        if (logic.getMode() == Mode.VIEW) {
+        if (logic.getView() != View.PLAY) {
             cardListPanel = new CardListPanel(logic.selectedDeckProperty());
             rightPlaceholder.getChildren().add(cardListPanel.getRoot());
-        } else if (logic.getMode() == Mode.PLAY) {
+        } else if (logic.getView() == View.PLAY) {
             playPanel = new PlayPanel(logic.playingCardProperty(), logic.flippedProperty(), logic.cardAttemptedProperty(), logic.cardRemainingProperty());
             rightPlaceholder.getChildren().add(playPanel.getRoot());
         }

@@ -7,7 +7,7 @@ import com.flashspeed.logic.commands.CommandResult;
 import com.flashspeed.logic.commands.exceptions.CommandException;
 import com.flashspeed.model.Model;
 import com.flashspeed.model.deck.card.BackFace;
-import com.flashspeed.model.util.Mode;
+import com.flashspeed.model.util.View;
 
 /**
  * Represents the command that informs the model manager to fiip the current flashcard.
@@ -22,7 +22,7 @@ public class FlipCommand extends Command {
     public static final String MESSAGE_ALREADY_FLIPPED = "Card already flipped!";
     private BackFace backFace;
     /**
-     * Creates an FlipCommand with a specific {@code Deck}
+     * Creates an FlipCommand.
      */
     public FlipCommand() {
         this.backFace = null;
@@ -31,7 +31,7 @@ public class FlipCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (model.getMode() == Mode.VIEW) {
+        if (model.getView() != View.PLAY) {
             throw new CommandException(MESSAGE_NOT_PLAY_MODE);
         }
         BackFace backFace = model.flip();

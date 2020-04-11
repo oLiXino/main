@@ -11,7 +11,8 @@ import com.flashspeed.logic.commands.exceptions.CommandException;
 import com.flashspeed.logic.parser.exceptions.ParseException;
 import com.flashspeed.model.deck.Deck;
 import com.flashspeed.model.deck.card.Card;
-import com.flashspeed.model.util.Mode;
+
+import com.flashspeed.model.util.View;
 
 /**
  * API of the Logic component.
@@ -53,7 +54,7 @@ public interface Logic {
 
     ReadOnlyProperty<Card> playingCardProperty();
 
-    ReadOnlyProperty<Mode> currentModeProperty();
+    ReadOnlyProperty<View> currentViewProperty();
 
     ReadOnlyProperty<Boolean> flippedProperty();
 
@@ -62,9 +63,9 @@ public interface Logic {
     ReadOnlyProperty<Integer> cardRemainingProperty();
 
     /**
-     * Returns the mode of the model manager.
+     * Returns the current View of the model manager.
      */
-    Mode getMode();
+    View getView();
 
     void setSelectedDeck(Deck deck);
 }

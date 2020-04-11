@@ -28,7 +28,6 @@ import com.flashspeed.model.deck.Deck;
 import com.flashspeed.model.deck.Name;
 import com.flashspeed.model.deck.card.BackFace;
 import com.flashspeed.model.deck.card.Card;
-import com.flashspeed.model.util.Mode;
 import com.flashspeed.model.util.View;
 import com.flashspeed.testutil.DeckBuilder;
 
@@ -190,7 +189,7 @@ public class CreateDeckCommandTest {
         }
 
         @Override
-        public ReadOnlyProperty<Mode> currentModeProperty() {
+        public ReadOnlyProperty<View> currentViewProperty() {
             throw new AssertionError("This method should not be called");
         }
 
@@ -242,12 +241,7 @@ public class CreateDeckCommandTest {
         }
 
         @Override
-        public Mode getMode() {
-            throw new AssertionError("This method should not be called");
-        }
-
-        @Override
-        public void setCurrentMode(Mode mode) {
+        public void setCurrentView(View view) {
             throw new AssertionError("This method should not be called");
         }
 
@@ -268,12 +262,12 @@ public class CreateDeckCommandTest {
             throw new AssertionError("This method should not be called");
         }
 
-        //=========== Game Mode Functions =============================================================
         @Override
         public void setSelectedDeck(Deck deck) {
             throw new AssertionError("This method should not be called");
         }
 
+        //=========== Play View Functions =============================================================
         @Override
         public void setFlipped(Boolean value) {
             throw new AssertionError("This method should not be called");
@@ -338,8 +332,8 @@ public class CreateDeckCommandTest {
         final ArrayList<Deck> decksAdded = new ArrayList<>();
 
         @Override
-        public Mode getMode() {
-            return Mode.VIEW;
+        public View getView() {
+            return View.LIBRARY;
         }
 
         @Override
@@ -362,8 +356,8 @@ public class CreateDeckCommandTest {
         final ArrayList<Deck> decksAdded = new ArrayList<>();
 
         @Override
-        public Mode getMode() {
-            return Mode.PLAY;
+        public View getView() {
+            return View.PLAY;
         }
 
         @Override
@@ -390,8 +384,8 @@ public class CreateDeckCommandTest {
         }
 
         @Override
-        public Mode getMode() {
-            return Mode.VIEW;
+        public View getView() {
+            return View.DECK;
         }
 
         @Override
