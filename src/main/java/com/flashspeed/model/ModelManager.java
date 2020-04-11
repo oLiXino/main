@@ -189,7 +189,6 @@ public class ModelManager implements Model {
     public void selectDeck(Index targetIdx) {
         deckIndex = Optional.of(targetIdx);
         this.view = View.DECK;
-        setCurrentView(View.DECK);
         setSelectedDeck(library.getDeck(targetIdx));
     }
 
@@ -226,7 +225,6 @@ public class ModelManager implements Model {
             Index currIndex = Index.fromZeroBased(library.getDeckList().indexOf(deck));
             deckIndex = Optional.of(currIndex);
             this.view = View.DECK;
-            setCurrentView(View.DECK);
         }
 
     }
@@ -267,7 +265,6 @@ public class ModelManager implements Model {
         selectedDeck.setValue(null);
         deckIndex = Optional.empty();
         this.view = View.LIBRARY;
-        setCurrentView(View.LIBRARY);
     }
 
     @Override
