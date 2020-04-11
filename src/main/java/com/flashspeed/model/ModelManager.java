@@ -1,17 +1,13 @@
 package com.flashspeed.model;
 
-import static java.util.Objects.requireNonNull;
 import static com.flashspeed.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.beans.property.ReadOnlyProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import com.flashspeed.commons.core.GuiSettings;
 import com.flashspeed.commons.core.LogsCenter;
 import com.flashspeed.commons.core.index.Index;
@@ -21,6 +17,11 @@ import com.flashspeed.model.deck.card.BackFace;
 import com.flashspeed.model.deck.card.Card;
 import com.flashspeed.model.util.Mode;
 import com.flashspeed.model.util.View;
+
+import javafx.beans.property.ReadOnlyProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 /**
  * Represents the in-memory model of the library data.
@@ -64,6 +65,9 @@ public class ModelManager implements Model {
         this.game = null;
     }
 
+    /**
+     * Creates a model manager.
+     */
     public ModelManager() {
         this(new Library(), new UserPrefs());
     }
@@ -80,6 +84,9 @@ public class ModelManager implements Model {
 
     //=========== UserPrefs ==================================================================================
 
+    /**
+     * Returns the index of the selected deck.
+     */
     public Optional<Index> getDeckIndex() {
         return this.deckIndex;
     }
@@ -286,7 +293,6 @@ public class ModelManager implements Model {
         }
         deck.remove(cardToDelete);
         returnToLibrary();
-        //setSelectedDeck(null);
         setSelectedDeck(deck);
     }
 
@@ -297,10 +303,8 @@ public class ModelManager implements Model {
             return;
         }
         deck.add(card);
-        //setSelectedDeck(null);
         returnToLibrary();
         setSelectedDeck(deck);
-
     }
 
     @Override
@@ -310,8 +314,6 @@ public class ModelManager implements Model {
             return;
         }
         deck.replace(target, card);
-        // refresh UI view
-        //setSelectedDeck(null);
         returnToLibrary();
         setSelectedDeck(deck);
     }
@@ -319,7 +321,6 @@ public class ModelManager implements Model {
     @Override
     public void setDeck(Deck target, Deck editedDeck) {
         requireAllNonNull(target, editedDeck);
-
         library.setDeck(target, editedDeck);
     }
 
@@ -350,7 +351,6 @@ public class ModelManager implements Model {
     /**
      * Starts a game session with a given deck index.
      * @param index index of the deck to play with.
-     *
      * @return a randomly selected card from the deck
      */
     @Override
@@ -375,7 +375,6 @@ public class ModelManager implements Model {
 
     /**
      * Flips the card to the back face.
-     * 
      * @return true if the card has not been flipped, false otherwise
      */
     @Override
@@ -386,25 +385,24 @@ public class ModelManager implements Model {
 
     /**
      * Returns the next card after user answers Yes.
-     * 
      * @return the next card or null if card list is empty
      */
     @Override
     public Card answerYes() {
         Card card = this.game.answerYes();
-        
         if (card == null) {
             //Statistics statistics = stop();
         }
-        
         setPlayingCard(card);
         setFlipped(false);
         setCardAttempted(game.getCardAttempted());
         setCardRemaining(game.getDeckSize());
-        
         return card;
     }
-    
+
+    /**
+     * Returns the game manager object.
+     */
     public GameManager getGame() {
         return this.game;
     }
@@ -416,22 +414,18 @@ public class ModelManager implements Model {
     @Override
     public Card answerNo() {
         Card card = this.game.answerNo();
-        
         if (card == null) {
             //Statistics statistics = stop();
         }
-        
         setPlayingCard(card);
         setFlipped(false);
         setCardAttempted(game.getCardAttempted());
         setCardRemaining(game.getDeckSize());
-        
         return card;
     }
 
     /**
      * Stops the game session.
-     *
      * @return the statistics report.
      */
     @Override

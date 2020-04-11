@@ -2,13 +2,11 @@ package com.flashspeed.model;
 
 import java.util.Random;
 
-import javafx.collections.ObservableList;
-
 import com.flashspeed.model.deck.Deck;
 import com.flashspeed.model.deck.card.BackFace;
 import com.flashspeed.model.deck.card.Card;
 
-
+import javafx.collections.ObservableList;
 
 /**
  * Represents the model of the game session.
@@ -37,14 +35,17 @@ public class GameManager {
         this.currCardIdx = randGen.nextInt(this.deckSize);
         this.cardAttempted = 0;
     }
-    
+
+    /**
+     * Returns the value of whether a card has been flipped.
+     * @return true if a card has been flipped, false otherwise.
+     */
     public boolean isFlipped() {
         return this.flipped;
     }
 
     /**
      * Flips the card to the back face.
-     *
      * @return true if the card has not been flipped, false otherwise
      */
     public BackFace flip() {
@@ -58,7 +59,6 @@ public class GameManager {
     /**
      * Returns a random next card after user answers Yes.
      * Removes the correct card from the deck.
-     * 
      * @return the next card or null if card list is empty
      */
     public Card answerYes() {
@@ -66,11 +66,9 @@ public class GameManager {
         cards.remove(currCardIdx);
         this.deckSize -= 1;
         flipped = false;
-        
         if (this.deckSize == 0) {
             return null;
         }
-
         this.currCardIdx = randGen.nextInt(this.deckSize);
         cardAttempted++;
         return cards.get(currCardIdx);
@@ -79,20 +77,16 @@ public class GameManager {
     /**
      * Returns the next card after user answers No.
      * Adds a duplicate wrong card to the deck.
-     * 
      * @return the next card or null if card list is empty
      */
     public Card answerNo() {
         boolean hasTwoCards = statistics.incrementWrongAttempt(cards.get(currCardIdx));
-
         if (!hasTwoCards) {
             Card currCard = cards.get(currCardIdx);
             cards.add(currCard);
             this.deckSize += 1;
         }
-
         flipped = false;
-
         this.currCardIdx = randGen.nextInt(this.deckSize);
         cardAttempted++;
         return cards.get(currCardIdx);
@@ -105,14 +99,23 @@ public class GameManager {
         return this.statistics;
     }
 
+    /**
+     * Returns the current index of the card.
+     */
     public int getCurrCardIdx() {
         return this.currCardIdx;
     }
 
+    /**
+     * Returns the number of cards have been attempted.
+     */
     public int getCardAttempted() {
         return cardAttempted;
     }
 
+    /**
+     * Returns number of the remaining cards inside the deck.
+     */
     public int getDeckSize() {
         return deckSize;
     }
