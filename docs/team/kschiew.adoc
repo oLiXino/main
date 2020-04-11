@@ -31,26 +31,27 @@ The implementation too was challenging as it required making high-level design c
 ** What it does: allows the user to look at the statistics related to the game session that he/she played.
 ** Justification: This feature increases the usage rate of the app,
 because it provides a feedback on the performance of the user.
-By quantifying the performance, this gives user motivation to do better in subsequent game sessions, and hence the app
+By quantifying the performance, this gives user motivation to do better in subsequent game sessions.
+Thus, the user will start more game sessions and hence the app
 usage time will increase.
-** Highlights: This enhancement affects existing commands and commands to be added in future.
-It required an in-depth analysis of design alternatives.
-The implementation too was challenging as it required changes to existing commands.
-** Credits:
+** Highlights: The difficulty was manageable,
+as most of the enhancement was essentially arithmetic manipulation.
 
 * *Major enhancement*: added *the storage function to the app.*
 ** What it does: allows the user to save and load the decks of cards created by the user to a local directory.
 Preceding undo commands can be reversed by using the redo command.
 ** Justification: This feature improves the usability of the product significantly
 because a user needs to be able to retrieve the decks of cards that he/she has created in the past.
-** Highlights: This enhancement affects existing commands and commands to be added in future.
-It required an in-depth analysis of design alternatives.
-The implementation too was challenging as it required changes to existing commands.
-** Credits:
+** Highlights: This enhancement requires an deep understanding of how JSON files and the Jackson library.
+The implementation was quite challenging as there are quite a few layers of abstraction in the storage system
+implemented by the original project that FlashSpeed is built upon.
 
 * *Minor enhancement*: added a clear deck command that allows the user to delete the
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Minor enhancement*: Implemented the library class that contains the decks of cards along with another teammate,
+LiXin.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=kschiew&tabRepo=AY1920S2-CS2103T-W17-1%2Fmain%5Bmaster%5D[Functional and Test code]]
 
 * *Other contributions*:
 
@@ -62,13 +63,11 @@ The implementation too was challenging as it required changes to existing comman
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103T-W17-1/main/pull/295[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** Some parts of the history feature I added was adopted by several other class mates (https://github.com/AY1920S2-CS2103T-W17-1/main/pull/295[1], https://github.com[2])
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Integrated a third party library (Jackson) to the project (https://github.com/AY1920S2-CS2103T-W17-1/main/blob/master/src/main/java/com/flashspeed/commons/util/JsonUtil.java[#42])
 
 _{you can add/remove categories in the list above}_
 
