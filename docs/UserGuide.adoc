@@ -80,6 +80,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the Help window.
 e.g. in `create <deck>`, `<deck>` is a parameter which can be used such as `create Japanese 1`.
 ====
 
+//tag::views[]
 ====
 *Different Views*
 
@@ -88,26 +89,28 @@ Some commands only work in certain views, but don't worry, this guide will tell 
 
 FlashSpeed can be in one of 3 different views, namely:
 
-* *Library* view: when no deck is selected and no cards are shown
+* *Library view:* when no deck is selected and no cards are shown
 
 .In Library view. No deck is selected.
 image::library.png[]
 
 {empty} +
 
-* *Deck* view: when a deck has been selected and its cards are shown
+* *Deck view:* when a deck is selected and its cards are shown
 
 .In Deck view. A deck has been selected.
 image::Ui.png[]
 
 {empty} +
 
-* *Play* view: when in a study session of a deck
+* *Play view:* when in a study session of a deck
 
 .In Play view. A deck is being studied.
 image::Ui2.png[]
 
 ====
+
+//end::views[]
 
 {empty} +
 
@@ -500,6 +503,7 @@ You don't have to save your precious flashcards manually!
 
 {empty} +
 
+//tag::faq[]
 == FAQ
 
 *Q*: Does this application require Internet connection? +
@@ -524,6 +528,8 @@ You don't have to save your precious flashcards manually!
 *A*: Refer to <<Quick Start>> for the installation guide. Ensure that your computer is running on Java 11. FlashSpeed may not be able to run on other versions of Java.
 
 {empty} +
+
+//end::faq[]
 
 [[commandSummary]]
 == Command Summary
