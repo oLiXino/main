@@ -22,14 +22,14 @@ public interface Model {
     Predicate<Deck> PREDICATE_SHOW_ALL_DECKS = unused -> true;
 
     /**
-     * Replaces user prefs data with the data in {@code userPrefs}.
-     */
-    void setUserPrefs(ReadOnlyUserPrefs userPrefs);
-
-    /**
      * Returns the user prefs.
      */
     ReadOnlyUserPrefs getUserPrefs();
+
+    /**
+     * Replaces user prefs data with the data in {@code userPrefs}.
+     */
+    void setUserPrefs(ReadOnlyUserPrefs userPrefs);
 
     /**
      * Returns the user prefs' GUI settings.
@@ -99,37 +99,6 @@ public interface Model {
     boolean renameDeck(Index targetIndex, Name name);
 
     /**
-     * Returns the readonly property.
-     */
-    ReadOnlyProperty<Deck> selectedDeckProperty();
-
-
-    /**
-     * Returns the readonly property.
-     */
-    ReadOnlyProperty<Card> playingCardProperty();
-
-    /**
-     * Returns the readonly property.
-     */
-    ReadOnlyProperty<Boolean> flippedProperty();
-
-    /**
-     * Returns the readonly property.
-     */
-    ReadOnlyProperty<View> currentViewProperty();
-
-    /**
-     * Returns the readonly property.
-     */
-    ReadOnlyProperty<Integer> cardAttemptedProperty();
-
-    /**
-     * Returns the readonly property.
-     */
-    ReadOnlyProperty<Integer> cardRemainingProperty();
-
-    /**
      * Brings the user from deck view to library view.
      */
     void returnToLibrary();
@@ -184,36 +153,6 @@ public interface Model {
      */
     void updateFilteredDeckList(Predicate<Deck> predicate);
 
-    /**
-     * Sets the selected deck in the filtered deck list.
-     */
-    void setSelectedDeck(Deck deck);
-
-    /**
-     * Sets the value of flipped in model manager.
-     */
-    void setFlipped(Boolean value);
-
-    /**
-     * Sets the value of currentView in model manager.
-     */
-    void setCurrentView(View view);
-
-    /**
-     * Sets the number of cards attempted.
-     */
-    void setCardAttempted(int value);
-
-    /**
-     * Sets the number of remaining cards in a deck.
-     */
-    void setCardRemaining(int value);
-
-
-    /**
-     * Sets the playing card.
-     */
-    void setPlayingCard(Card card);
 
     /**
      * Returns the card with the given index.
@@ -221,24 +160,30 @@ public interface Model {
     Card getCard(Index index);
 
     /**
-     * Changes the mode to play mode.
+     * Starts a game session with a given deck index.
+     * @param index index of the deck to play with.
+     * @return a randomly selected card from the deck
      */
     Card play(Index index);
 
+    //=========== Play View ======================================================================
     /**
      * Flips the card to the back face.
+     * @return true if the card has not been flipped, false otherwise
      */
     BackFace flip();
 
     /**
      * Returns the next card after user answers Yes.
+     * @return the next card or null if card list is empty
      */
     Card answerYes();
 
     /**
-     * Returns the statistics report when user stop the game session.
+     * Returns the next card after user answers No.
+     * @return the next card or null if card list is empty
      */
-    Statistics stop();
+    Card answerNo();
 
     /**
      * Returns the game manager object.
@@ -246,9 +191,76 @@ public interface Model {
     GameManager getGame();
 
     /**
-     * Returns the next card after user answers No.
+     * Stops the game session.
+     * @return the statistics report.
      */
-    Card answerNo();
+    Statistics stop();
+
+
+    //=========== SimpleObjectProperty ======================================================================
+
+    /**
+     * Return selected Deck Read-only Property
+     */
+    ReadOnlyProperty<Deck> selectedDeckProperty();
+
+    /**
+     * Return the current View Read-only Property
+     */
+    ReadOnlyProperty<View> currentViewProperty();
+
+    /**
+     * Return the Card that is been playing Read-only Property
+     */
+    ReadOnlyProperty<Card> playingCardProperty();
+
+    /**
+     * Return the Flipped status Read-only Property
+     */
+    ReadOnlyProperty<Boolean> flippedProperty();
+
+    /**
+     * Return the no of Cards attempted Read-only Property
+     */
+    ReadOnlyProperty<Integer> cardAttemptedProperty();
+
+    /**
+     * Return the no of Cards remaining Read-only Property
+     */
+    ReadOnlyProperty<Integer> cardRemainingProperty();
+
+    /**
+     *      * Sets the selected deck Read-only Property
+     */
+    void setSelectedDeck(Deck deck);
+
+    /**
+     * Sets the value of currentView in Read-only Property
+     * Toggle currentView between LIBRARY and PLAY only to switch between CardListPanel and PlayPanel
+     */
+    void setCurrentView(View view);
+
+    /**
+     * Sets the playing card Read-only property
+     */
+    void setPlayingCard(Card card);
+
+    /**
+     * Sets the value of flipped Read-only Property
+     */
+    void setFlipped(Boolean value);
+
+
+    /**
+     * Sets the number of cards attempted Read-only Property
+     */
+    void setCardAttempted(int value);
+
+    /**
+     * Sets the number of remaining cards Read-only Property
+     */
+    void setCardRemaining(int value);
+
 
 
 }

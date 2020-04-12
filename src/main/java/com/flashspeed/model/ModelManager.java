@@ -35,10 +35,12 @@ public class ModelManager implements Model {
     private View view;
 
     private Optional<Index> deckIndex;
+
+    //Implement objects as SimpleObjectProperty to work with UI
     private final SimpleObjectProperty<Deck> selectedDeck = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<View> currentView = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Card> playingCard = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Boolean> flipped = new SimpleObjectProperty<>();
-    private final SimpleObjectProperty<View> currentView = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Integer> cardAttempted = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Integer> cardRemaining = new SimpleObjectProperty<>();
     private GameManager game;
@@ -68,8 +70,6 @@ public class ModelManager implements Model {
         this(new Library(), new UserPrefs());
     }
 
-    //=========== Getters ==================================================================================
-
     /**
      * Gets the current view of the model.
      * @return The current view of the model.
@@ -78,8 +78,6 @@ public class ModelManager implements Model {
         return view;
     }
 
-    //=========== UserPrefs ==================================================================================
-
     /**
      * Returns the index of the selected deck.
      */
@@ -87,96 +85,109 @@ public class ModelManager implements Model {
         return this.deckIndex;
     }
 
+    //=========== UserPrefs ==================================================================================
+
+    /**
+     * Returns the user prefs.
+     */
+    @Override
+    public ReadOnlyUserPrefs getUserPrefs() {
+        return userPrefs;
+    }
+
+    /**
+     * Replaces user prefs data with the data in {@code userPrefs}.
+     */
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         requireNonNull(userPrefs);
         this.userPrefs.resetData(userPrefs);
     }
 
-    @Override
-    public ReadOnlyUserPrefs getUserPrefs() {
-        return userPrefs;
-    }
-
+    /**
+     * Returns the user prefs' GUI settings.
+     */
     @Override
     public GuiSettings getGuiSettings() {
         return userPrefs.getGuiSettings();
     }
 
-    @Override
-    public ReadOnlyProperty<Deck> selectedDeckProperty() {
-        return selectedDeck;
-    }
-
-
-    @Override
-    public ReadOnlyProperty<Card> playingCardProperty() {
-        return playingCard;
-    }
-
-    @Override
-    public ReadOnlyProperty<Boolean> flippedProperty() {
-        return flipped;
-    }
-
-    @Override
-    public ReadOnlyProperty<View> currentViewProperty() {
-        return currentView;
-    }
-
-    @Override
-    public ReadOnlyProperty<Integer> cardAttemptedProperty() {
-        return cardAttempted;
-    }
-
-    @Override
-    public ReadOnlyProperty<Integer> cardRemainingProperty() {
-        return cardRemaining;
-    }
-
+    /**
+     * Sets the user prefs' GUI settings.
+     */
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
         userPrefs.setGuiSettings(guiSettings);
     }
 
+    /**
+     * Returns the user prefs' library file path.
+     */
     @Override
     public Path getLibraryFilePath() {
         return userPrefs.getLibraryFilePath();
     }
 
+    /**
+     * Sets the user prefs' library file path.
+     */
     @Override
     public void setLibraryFilePath(Path libraryFilePath) {
         requireNonNull(libraryFilePath);
         userPrefs.setLibraryFilePath(libraryFilePath);
     }
 
+
     //=========== Library ================================================================================
 
+    /**
+     * Replaces library data with the data in {@code library}.
+     */
     @Override
     public void setLibrary(ReadOnlyLibrary library) {
         this.library.resetData(library);
     }
 
+    /**
+     * Returns the library
+     * */
     @Override
     public ReadOnlyLibrary getLibrary() {
         return library;
     }
 
+    /**
+     * Returns true if a deck with the same identity as {@code deck} exists in the library.
+     */
     @Override
     public boolean hasDeck(Deck deck) {
         requireNonNull(deck);
         return library.hasDeck(deck);
     }
 
+    /**
+     * Deletes the given deck.
+     * The deck must exist in the library.
+     */
     @Override
     public void deleteDeck(Deck target) {
         library.deleteDeck(target);
-        if (library.getSize() == 0) {
+        if (selectedDeck != null) {
+            Deck deck = selectedDeck.getValue();
+            returnToLibrary();
+            setSelectedDeck(deck);
+        } else {
             returnToLibrary();
         }
+
+
     }
 
+    /**
+     * Adds the given deck.
+     * {@code deck} must not already exist in the library.
+     */
     @Override
     public void createDeck(Deck deck) {
         library.createDeck(deck);
@@ -185,6 +196,9 @@ public class ModelManager implements Model {
         setSelectedDeck(deck);
     }
 
+    /**
+     * Selects a deck.
+     */
     @Override
     public void selectDeck(Index targetIdx) {
         deckIndex = Optional.of(targetIdx);
@@ -192,6 +206,9 @@ public class ModelManager implements Model {
         setSelectedDeck(library.getDeck(targetIdx));
     }
 
+    /** Renames the deck at index in library.
+     * @return true if there is no deck with the same name, false otherwise
+     */
     @Override
     public boolean renameDeck(Index targetIndex, Name name) {
         Deck deck = library.getDeck(targetIndex);
@@ -208,6 +225,9 @@ public class ModelManager implements Model {
         }
     }
 
+    /**
+     * Returns the current deck;
+     */
     @Override
     public Deck getCurrentDeck() {
         if (deckIndex.equals(Optional.empty())) {
@@ -218,48 +238,17 @@ public class ModelManager implements Model {
         return deck;
     }
 
-    @Override
-    public void setSelectedDeck(Deck deck) {
-        if (deck != null) {
-            selectedDeck.setValue(deck);
-            Index currIndex = Index.fromZeroBased(library.getDeckList().indexOf(deck));
-            deckIndex = Optional.of(currIndex);
-            this.view = View.DECK;
-        }
-
-    }
-
-    @Override
-    public void setFlipped(Boolean value) {
-        flipped.setValue(value);
-    }
-
-    @Override
-    public void setCurrentView(View view) {
-        currentView.setValue(view);
-    }
-
-    @Override
-    public void setCardAttempted(int value) {
-        cardAttempted.setValue(value);
-    }
-
-
-    @Override
-    public void setCardRemaining(int value) {
-        cardRemaining.setValue(value);
-    }
-
-    @Override
-    public void setPlayingCard(Card card) {
-        playingCard.setValue(card);
-    }
-
+    /**
+     * Returns the deck at index of library;
+     */
     @Override
     public Deck getDeck(Index targetIdx) {
         return library.getDeck(targetIdx);
     }
 
+    /**
+     * Brings the user from deck view to library view.
+     */
     @Override
     public void returnToLibrary() {
         selectedDeck.setValue(null);
@@ -267,6 +256,10 @@ public class ModelManager implements Model {
         this.view = View.LIBRARY;
     }
 
+    /**
+     * Checks if a card with the same identity as {@code card} exists in the deck.
+     * @return true if {@code card} exists in the deck
+     */
     @Override
     public boolean hasCard(Card card) {
         Deck deck = library.getDeck(deckIndex.get());
@@ -277,11 +270,18 @@ public class ModelManager implements Model {
         return deck.contains(card);
     }
 
+    /**
+     * Returns the card with the given index.
+     */
     @Override
     public Card getCard(Index index) {
         return library.getDeck(deckIndex.get()).getCard(index);
     }
 
+    /**
+     * Deletes the given card.
+     * {@code target} must exist in the deck.
+     */
     @Override
     public void deleteCard(Card cardToDelete) {
         Deck deck = library.getDeck(deckIndex.get());
@@ -293,6 +293,10 @@ public class ModelManager implements Model {
         setSelectedDeck(deck);
     }
 
+    /**
+     * Adds the given card to the deck.
+     * {@code card} must not already exist in the deck.
+     */
     @Override
     public void addCard(Card card) {
         Deck deck = library.getDeck(deckIndex.get());
@@ -304,6 +308,11 @@ public class ModelManager implements Model {
         setSelectedDeck(deck);
     }
 
+    /**
+     * Replaces the given old card with the new card.
+     * {@code target} must exist in the deck.
+     * {@code card} must not already exist in the deck.
+     */
     @Override
     public void replaceCard(Card target, Card card) {
         Deck deck = library.getDeck(deckIndex.get());
@@ -315,6 +324,11 @@ public class ModelManager implements Model {
         setSelectedDeck(deck);
     }
 
+    /**
+     * Replaces the given deck {@code target} with {@code editedDeck}.
+     * {@code target} must exist in the library.
+     * The deck identity of {@code editedDeck} must not be the same as another existing deck in the library.
+     */
     @Override
     public void setDeck(Deck target, Deck editedDeck) {
         requireAllNonNull(target, editedDeck);
@@ -339,11 +353,16 @@ public class ModelManager implements Model {
         return filteredDecks.get(deckIndex.get().getZeroBased()).asUnmodifiableObservableList();
     }
 
+    /**
+     * Updates the filter of the filtered deck list to filter by the given {@code predicate}.
+     * @throws NullPointerException if {@code predicate} is null.
+     */
     @Override
     public void updateFilteredDeckList(Predicate<Deck> predicate) {
         requireNonNull(predicate);
         filteredDecks.setPredicate(predicate);
     }
+
 
     /**
      * Starts a game session with a given deck index.
@@ -370,6 +389,7 @@ public class ModelManager implements Model {
         return card;
     }
 
+    //=========== Play View ======================================================================
     /**
      * Flips the card to the back face.
      * @return true if the card has not been flipped, false otherwise
@@ -398,13 +418,6 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Returns the game manager object.
-     */
-    public GameManager getGame() {
-        return this.game;
-    }
-
-    /**
      * Returns the next card after user answers No.
      * @return the next card or null if card list is empty
      */
@@ -421,6 +434,15 @@ public class ModelManager implements Model {
         return card;
     }
 
+
+    /**
+     * Returns the game manager object.
+     */
+    public GameManager getGame() {
+        return this.game;
+    }
+
+
     /**
      * Stops the game session.
      * @return the statistics report.
@@ -435,8 +457,6 @@ public class ModelManager implements Model {
         setCurrentView(View.LIBRARY);
         return statistics;
     }
-
-
 
 
     @Override
@@ -457,4 +477,112 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredDecks.equals(other.filteredDecks);
     }
+
+
+    //=========== SimpleObjectProperty ======================================================================
+
+    /**
+     * Return selected Deck SimpleObjectProperty
+     */
+    @Override
+    public ReadOnlyProperty<Deck> selectedDeckProperty() {
+        return selectedDeck;
+    }
+
+    /**
+     * Return the current View SimpleObjectProperty
+     */
+    @Override
+    public ReadOnlyProperty<View> currentViewProperty() {
+        return currentView;
+    }
+
+    /**
+     * Return the Card that is been playing SimpleObjectProperty
+     */
+    @Override
+    public ReadOnlyProperty<Card> playingCardProperty() {
+        return playingCard;
+    }
+
+    /**
+     * Return the Flipped status SimpleObjectProperty
+     */
+    @Override
+    public ReadOnlyProperty<Boolean> flippedProperty() {
+        return flipped;
+    }
+
+
+    /**
+     * Return the no of Cards attempted SimpleObjectProperty
+     */
+    @Override
+    public ReadOnlyProperty<Integer> cardAttemptedProperty() {
+        return cardAttempted;
+    }
+
+    /**
+     * Return the no of Cards remaining SimpleObjectProperty
+     */
+    @Override
+    public ReadOnlyProperty<Integer> cardRemainingProperty() {
+        return cardRemaining;
+    }
+
+    /**
+     *      * Sets the selected deck Read-only Property
+     */
+    @Override
+    public void setSelectedDeck(Deck deck) {
+        if (deck != null) {
+            selectedDeck.setValue(deck);
+            Index currIndex = Index.fromZeroBased(library.getDeckList().indexOf(deck));
+            deckIndex = Optional.of(currIndex);
+            this.view = View.DECK;
+        }
+
+    }
+
+    /**
+     * Sets the value of currentView in Read-only Property
+     * Toggle currentView between LIBRARY and PLAY only to switch between CardListPanel and PlayPanel
+     */
+    @Override
+    public void setCurrentView(View view) {
+        currentView.setValue(view);
+    }
+
+    /**
+     * Sets the playing card Read-only property
+     */
+    @Override
+    public void setPlayingCard(Card card) {
+        playingCard.setValue(card);
+    }
+
+    /**
+     * Sets the value of flipped Read-only Property
+     */
+    @Override
+    public void setFlipped(Boolean value) {
+        flipped.setValue(value);
+    }
+
+    /**
+     * Sets the number of cards attempted Read-only Property
+     */
+    @Override
+    public void setCardAttempted(int value) {
+        cardAttempted.setValue(value);
+    }
+
+    /**
+     * Sets the number of remaining cards Read-only Property
+     */
+    @Override
+    public void setCardRemaining(int value) {
+        cardRemaining.setValue(value);
+    }
+
 }
