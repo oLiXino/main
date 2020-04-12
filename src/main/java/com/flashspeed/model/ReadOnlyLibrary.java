@@ -1,7 +1,8 @@
 package com.flashspeed.model;
 
-import javafx.collections.ObservableList;
 import com.flashspeed.model.deck.Deck;
+
+import javafx.collections.ObservableList;
 
 /**
  * Unmodifiable view of a library.

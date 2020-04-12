@@ -1,7 +1,6 @@
 package com.flashspeed.model.deck;
 
 import static java.util.Objects.requireNonNull;
-import static com.flashspeed.commons.util.AppUtil.checkArgument;
 
 import com.flashspeed.commons.util.AppUtil;
 
@@ -47,6 +46,12 @@ public class Name {
                 && name.equals(((Name) other).name)); // state check
     }
 
+    /**
+     * Checks if the lower case form of the name is equal to another object
+     *
+     * @param other the object being compared with.
+     * @return True if the lower case form of the name is equal to (@code other).
+     */
     public boolean equalsLowerCase(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Name // instanceof handles nulls

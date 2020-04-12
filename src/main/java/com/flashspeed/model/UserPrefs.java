@@ -46,7 +46,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         requireNonNull(guiSettings);
         this.guiSettings = guiSettings;
     }
-    
+
     public Path getLibraryFilePath() {
         return libraryFilePath;
     }
