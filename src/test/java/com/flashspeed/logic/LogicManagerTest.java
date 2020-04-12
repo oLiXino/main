@@ -9,6 +9,7 @@ import static com.flashspeed.testutil.Assert.assertThrows;
 import java.io.IOException;
 import java.nio.file.Path;
 
+import com.flashspeed.logic.commands.Command;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -74,7 +75,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = CreateDeckCommand.COMMAND_WORD + " " + "Japanese";
+        String addCommand = CreateDeckCommand.COMMAND_WORD + " Japanese";
         Deck expectedDeck = new DeckBuilder().withName("Japanese").build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.createDeck(expectedDeck);

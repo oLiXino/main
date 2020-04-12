@@ -31,7 +31,7 @@ public class GameManagerTest {
     public void getNextCard_answerYes_returnsTrue() {
         gameManager.flip();
         Card nextCard = gameManager.answerYes();
-        Card card = DeckUtils.JAPANESE_DECK.asUnmodifiableObservableList().get(gameManager.getCurrCardIdx());
+        Card card = gameManager.getCards().get(gameManager.getCurrCardIdx());
         assertEquals(nextCard, card);
     }
 
@@ -39,7 +39,7 @@ public class GameManagerTest {
         gameManager.flip();
         gameManager.answerYes();
         gameManager.flip();
-         gameManager.answerYes();
+        gameManager.answerYes();
         gameManager.flip();
         Card nextCard = gameManager.answerYes();
         assertEquals(nextCard, null);
@@ -49,7 +49,7 @@ public class GameManagerTest {
     public void getNextCard_answerNo_returnsTrue() {
         gameManager.flip();
         Card nextCard = gameManager.answerNo();
-        Card card = DeckUtils.JAPANESE_DECK.asUnmodifiableObservableList().get(gameManager.getCurrCardIdx());
+        Card card = gameManager.getCards().get(gameManager.getCurrCardIdx());
         assertEquals(nextCard, card);
     }
 
