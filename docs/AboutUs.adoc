@@ -32,8 +32,8 @@ Responsibilities: App Architecture, Logic, Storage, Statistics
 image::ncslzh.png[width="150", align="left"]
 {empty}[https://github.com/ncslzh[github]] [<<ncslzh#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Dev Ops
+Role: DevOps +
+Responsibilities: Developer Guide, Agenda/Issue tracker, Game Algorithm
 
 '''
 
