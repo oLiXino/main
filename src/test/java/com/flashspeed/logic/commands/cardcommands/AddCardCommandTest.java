@@ -51,7 +51,7 @@ public class AddCardCommandTest {
     }
 
     @Test
-    public void execute_notInViewMode_throwsCommandException() {
+    public void execute_inPlayView_throwsCommandException() {
         ModelStubPlayMode modelStub = new ModelStubPlayMode();
         Card validCard = new CardBuilder().build();
         AddCardCommand addCardCommand = new AddCardCommand(validCard);
@@ -61,7 +61,7 @@ public class AddCardCommandTest {
     }
 
     @Test
-    public void execute_notInDeckView_throwsCommandException() {
+    public void execute_inLibraryView_throwsCommandException() {
         ModelStubLibraryView modelStub = new ModelStubLibraryView();
         Card validCard = new CardBuilder().build();
         AddCardCommand addCardCommand = new AddCardCommand(validCard);
@@ -354,7 +354,7 @@ public class AddCardCommandTest {
     }
 
     /**
-     * A Model stub that cannot add a card due to being in Play Mode
+     * A Model stub that cannot add a card due to being in Play View
      */
     private class ModelStubPlayMode extends ModelStub {
         final ArrayList<Card> cardsAdded = new ArrayList<>();
