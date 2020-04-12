@@ -1,49 +1,43 @@
 package com.flashspeed.logic.commands.deckcommands;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static com.flashspeed.logic.commands.deckcommands.RenameDeckCommand.MESSAGE_DUPLICATE_DECK;
 import static com.flashspeed.testutil.Assert.assertThrows;
 import static com.flashspeed.testutil.TypicalIndexes.INDEX_FIRST_DECK;
 import static com.flashspeed.testutil.TypicalIndexes.INDEX_SECOND_DECK;
 import static com.flashspeed.testutil.TypicalIndexes.INDEX_THIRD_DECK;
+import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
-import javafx.beans.property.ReadOnlyProperty;
-import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
 
+import com.flashspeed.commons.core.GuiSettings;
+import com.flashspeed.commons.core.Messages;
+import com.flashspeed.commons.core.index.Index;
+import com.flashspeed.logic.commands.CommandResult;
+import com.flashspeed.logic.commands.exceptions.CommandException;
 import com.flashspeed.model.GameManager;
 import com.flashspeed.model.Library;
 import com.flashspeed.model.Model;
 import com.flashspeed.model.ReadOnlyLibrary;
 import com.flashspeed.model.ReadOnlyUserPrefs;
 import com.flashspeed.model.Statistics;
-import com.flashspeed.testutil.DeckUtils;
-import com.flashspeed.commons.core.GuiSettings;
-import com.flashspeed.commons.core.Messages;
-import com.flashspeed.commons.core.index.Index;
-import com.flashspeed.logic.commands.CommandResult;
-import com.flashspeed.logic.commands.exceptions.CommandException;
 import com.flashspeed.model.deck.Deck;
 import com.flashspeed.model.deck.Name;
 import com.flashspeed.model.deck.card.BackFace;
 import com.flashspeed.model.deck.card.Card;
 import com.flashspeed.model.util.View;
+import com.flashspeed.testutil.DeckUtils;
+
+import javafx.beans.property.ReadOnlyProperty;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 public class RenameDeckCommandTest {
-    @Test
-    public void constructor_nullDeck_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new RenameDeckCommand(
-                null, null));
-        assertThrows(NullPointerException.class, () -> new RenameDeckCommand(
-                Index.fromZeroBased(0), null));
-        assertThrows(NullPointerException.class, () -> new RenameDeckCommand(
-                null, new Name("Test")));
-    }
 
     @Test
     public void execute_deckAcceptedByModel_renameSuccessful() throws Exception {
@@ -64,8 +58,8 @@ public class RenameDeckCommandTest {
         RenameDeckCommand renameDeckCommand = new RenameDeckCommand(
                 Index.fromZeroBased(0), new Name("Korean"));
 
-        assertThrows(CommandException.class, RenameDeckCommand.MESSAGE_NOT_IN_VIEW_MODE,
-                () -> renameDeckCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                RenameDeckCommand.MESSAGE_NOT_IN_VIEW_MODE, () -> renameDeckCommand.execute(modelStub));
     }
 
     @Test
@@ -75,18 +69,17 @@ public class RenameDeckCommandTest {
         RenameDeckCommand renameDeckCommand = new RenameDeckCommand(
                 invalidIndex, new Name("Korean"));
 
-        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX,
-                () -> renameDeckCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                Messages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX, () -> renameDeckCommand.execute(modelStub));
     }
 
     @Test
     public void execute_sameNameGiven_throwsCommandException() {
-        ModelStubPlayMode modelStub = new ModelStubPlayMode();
+        ModelStubAcceptingDeckRenamed modelStub = new ModelStubAcceptingDeckRenamed();
         RenameDeckCommand renameDeckCommand = new RenameDeckCommand(
                 Index.fromZeroBased(0), new Name("Japanese"));
 
-        assertThrows(CommandException.class, MESSAGE_DUPLICATE_DECK,
-                () -> renameDeckCommand.execute(modelStub));
+        assertThrows(CommandException.class, MESSAGE_DUPLICATE_DECK, () -> renameDeckCommand.execute(modelStub));
     }
 
     @Test
@@ -98,7 +91,7 @@ public class RenameDeckCommandTest {
 
         RenameDeckCommand removeFirstCommandSameName = new RenameDeckCommand(first, newDeckName1);
         RenameDeckCommand removeSecondCommandSameName = new RenameDeckCommand(second, newDeckName1);
-        RenameDeckCommand removeFirstCommandSameIndex = new RenameDeckCommand(first, newDeckName1);
+        RenameDeckCommand removeFirstCommandSameIndex = new RenameDeckCommand(first, newDeckName2);
 
         // same object -> returns true
         assertTrue(removeFirstCommandSameName.equals(removeFirstCommandSameName));
@@ -357,6 +350,16 @@ public class RenameDeckCommandTest {
      * A Model stub that always accepts a card being renamed.
      */
     private class ModelStubAcceptingDeckRenamed extends ModelStub {
+        private Library library = DeckUtils.getTypicalLibrary();
+        private FilteredList<Deck> filteredDecks = new FilteredList<>(this.library.getDeckList());
+
+        public FilteredList<Deck> getFilteredDecks() {
+            return filteredDecks;
+        }
+
+        public Library getLibrary() {
+            return library;
+        }
 
         @Override
         public View getView() {
@@ -365,7 +368,6 @@ public class RenameDeckCommandTest {
 
         @Override
         public boolean renameDeck(Index targetIndex, Name name) {
-            Library library = DeckUtils.getTypicalLibrary();
             Deck deck = library.getDeck(targetIndex);
             Deck temp = new Deck(name);
 
@@ -376,10 +378,16 @@ public class RenameDeckCommandTest {
                 return true;
             }
         }
-        
+
+        @Override
+        public ObservableList<Deck> getFilteredDeckList() {
+            return filteredDecks;
+        }
+
         @Override
         public void updateFilteredDeckList(Predicate<Deck> predicate) {
-            throw new AssertionError("This method should not be called");
+            requireNonNull(predicate);
+            filteredDecks.setPredicate(predicate);
         }
     }
 
@@ -387,6 +395,16 @@ public class RenameDeckCommandTest {
      * A Model stub that cannot rename a deck due to being in Play Mode
      */
     private class ModelStubPlayMode extends ModelStub {
+        private Library library = DeckUtils.getTypicalLibrary();
+        private FilteredList<Deck> filteredDecks = new FilteredList<>(this.library.getDeckList());
+
+        public FilteredList<Deck> getFilteredDecks() {
+            return filteredDecks;
+        }
+
+        public Library getLibrary() {
+            return library;
+        }
 
         @Override
         public View getView() {
@@ -394,9 +412,27 @@ public class RenameDeckCommandTest {
         }
 
         @Override
-        public void deleteDeck(Deck target) {
-            Library library = DeckUtils.getTypicalLibrary();
-            library.deleteDeck(target);
+        public boolean renameDeck(Index targetIndex, Name name) {
+            Deck deck = library.getDeck(targetIndex);
+            Deck temp = new Deck(name);
+
+            if (library.hasDeck(temp)) {
+                return false;
+            } else {
+                deck.setName(name);
+                return true;
+            }
+        }
+
+        @Override
+        public ObservableList<Deck> getFilteredDeckList() {
+            return filteredDecks;
+        }
+
+        @Override
+        public void updateFilteredDeckList(Predicate<Deck> predicate) {
+            requireNonNull(predicate);
+            filteredDecks.setPredicate(predicate);
         }
     }
 }

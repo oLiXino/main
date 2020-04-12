@@ -1,24 +1,29 @@
 package com.flashspeed.logic.commands;
 
+import static com.flashspeed.logic.commands.CommandTestUtil.assertCommandFailure;
+import static com.flashspeed.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
+
 import com.flashspeed.commons.core.index.Index;
+import com.flashspeed.logic.commands.exceptions.CommandException;
 import com.flashspeed.model.Model;
 import com.flashspeed.model.ModelManager;
 import com.flashspeed.model.UserPrefs;
 import com.flashspeed.testutil.DeckUtils;
 
-import static com.flashspeed.logic.commands.CommandTestUtil.assertCommandFailure;
-import static com.flashspeed.logic.commands.CommandTestUtil.assertCommandSuccess;
-
 public class ReturnToLibraryCommandTest {
 
     @Test
-    public void execute_return_success() {
+    public void execute_return_success() throws Exception {
         Model model = new ModelManager(DeckUtils.getTypicalLibrary(), new UserPrefs());
         model.selectDeck(Index.fromZeroBased(0));
 
-        Model expectedModel = new ModelManager(DeckUtils.getTypicalLibrary(), new UserPrefs());
-        assertCommandSuccess(new ResetLibraryCommand(), model, ReturnToLibraryCommand.MESSAGE_SUCCESS, expectedModel);
+        CommandResult commandResult = new ReturnToLibraryCommand().execute(model);
+
+        assertEquals(String.format(ReturnToLibraryCommand.MESSAGE_SUCCESS),
+                commandResult.getFeedbackToUser());
     }
 
     @Test
@@ -26,7 +31,10 @@ public class ReturnToLibraryCommandTest {
         Model model = new ModelManager(DeckUtils.getTypicalLibrary(), new UserPrefs());
         model.play(Index.fromZeroBased(0));
 
-        assertCommandFailure(new ReturnToLibraryCommand(), model, ReturnToLibraryCommand.MESSAGE_NOT_IN_VIEW_MODE);
+        ReturnToLibraryCommand returnToLibraryCommand = new ReturnToLibraryCommand();
+
+        assertThrows(CommandException.class,
+                ReturnToLibraryCommand.MESSAGE_NOT_IN_VIEW_MODE, () -> returnToLibraryCommand.execute(model));
     }
 
     @Test

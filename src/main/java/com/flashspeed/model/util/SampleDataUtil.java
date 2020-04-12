@@ -2,11 +2,11 @@ package com.flashspeed.model.util;
 
 import com.flashspeed.model.Library;
 import com.flashspeed.model.ReadOnlyLibrary;
+import com.flashspeed.model.deck.Deck;
+import com.flashspeed.model.deck.Name;
 import com.flashspeed.model.deck.card.BackFace;
 import com.flashspeed.model.deck.card.Card;
 import com.flashspeed.model.deck.card.FrontFace;
-import com.flashspeed.model.deck.Deck;
-import com.flashspeed.model.deck.Name;
 
 /**
  * Contains utility methods for populating {@code Library} with sample data.

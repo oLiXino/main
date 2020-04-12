@@ -1,10 +1,9 @@
 package com.flashspeed.logic;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static com.flashspeed.commons.core.Messages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX;
 import static com.flashspeed.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static com.flashspeed.testutil.Assert.assertThrows;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -13,21 +12,22 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import com.flashspeed.model.Model;
-import com.flashspeed.model.ModelManager;
-import com.flashspeed.model.ReadOnlyLibrary;
-import com.flashspeed.model.UserPrefs;
-import com.flashspeed.storage.JsonLibraryStorage;
-import com.flashspeed.storage.JsonUserPrefsStorage;
-import com.flashspeed.storage.StorageManager;
 import com.flashspeed.logic.commands.CommandResult;
 import com.flashspeed.logic.commands.deckcommands.CreateDeckCommand;
 import com.flashspeed.logic.commands.exceptions.CommandException;
 import com.flashspeed.logic.parser.exceptions.ParseException;
+import com.flashspeed.model.Model;
+import com.flashspeed.model.ModelManager;
+import com.flashspeed.model.ReadOnlyLibrary;
+import com.flashspeed.model.UserPrefs;
 import com.flashspeed.model.deck.Deck;
+import com.flashspeed.storage.JsonLibraryStorage;
+import com.flashspeed.storage.JsonUserPrefsStorage;
+import com.flashspeed.storage.StorageManager;
 import com.flashspeed.testutil.DeckBuilder;
 
 public class LogicManagerTest {
+
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
 
     @TempDir
@@ -57,11 +57,11 @@ public class LogicManagerTest {
         assertCommandException(deleteCommand, MESSAGE_INVALID_DECK_DISPLAYED_INDEX);
     }
 
-//    @Test
-//    public void execute_validCommand_success() throws Exception {
-//        String listCommand = ListCommand.COMMAND_WORD;
-//        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
-//    }
+    // @Test
+    // public void execute_validCommand_success() throws Exception {
+    //     String listCommand = ListCommand.COMMAND_WORD;
+    //     assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+    // }
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
@@ -74,7 +74,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, storage);
 
         // Execute add command
-        String addCommand = CreateDeckCommand.COMMAND_WORD + " " + "Japanese";
+        String addCommand = CreateDeckCommand.COMMAND_WORD + " Japanese";
         Deck expectedDeck = new DeckBuilder().withName("Japanese").build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.createDeck(expectedDeck);

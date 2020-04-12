@@ -1,12 +1,12 @@
 package com.flashspeed.model;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
-import com.flashspeed.testutil.DeckUtils;
 import com.flashspeed.model.deck.card.BackFace;
 import com.flashspeed.model.deck.card.Card;
-
+import com.flashspeed.testutil.DeckUtils;
 
 public class GameManagerTest {
 
@@ -26,30 +26,19 @@ public class GameManagerTest {
         assertEquals(backFace, card.getBackFace());
     }
 
-
     @Test
     public void getNextCard_answerYes_returnsTrue() {
         gameManager.flip();
         Card nextCard = gameManager.answerYes();
-        Card card = DeckUtils.JAPANESE_DECK.asUnmodifiableObservableList().get(gameManager.getCurrCardIdx());
+        Card card = gameManager.getCards().get(gameManager.getCurrCardIdx());
         assertEquals(nextCard, card);
-    }
-
-    @Test void answerYes_finishAllCards_returnsNull() {
-        gameManager.flip();
-        gameManager.answerYes();
-        gameManager.flip();
-         gameManager.answerYes();
-        gameManager.flip();
-        Card nextCard = gameManager.answerYes();
-        assertEquals(nextCard, null);
     }
 
     @Test
     public void getNextCard_answerNo_returnsTrue() {
         gameManager.flip();
         Card nextCard = gameManager.answerNo();
-        Card card = DeckUtils.JAPANESE_DECK.asUnmodifiableObservableList().get(gameManager.getCurrCardIdx());
+        Card card = gameManager.getCards().get(gameManager.getCurrCardIdx());
         assertEquals(nextCard, card);
     }
 

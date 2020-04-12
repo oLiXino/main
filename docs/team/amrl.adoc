@@ -11,22 +11,22 @@ FlashSpeed is a text-based flashcard application which enables users to store vi
 decks, and launch review sessions of cards within those decks. It is designed for university students who are learning a
 foreign language or reading a language module.
 
-It was developed as a group project for the CS2103T Software Engineering module in the National University of Singapore
+It was developed as a team project for the CS2103T Software Engineering module in the National University of Singapore
 (NUS). FlashSpeed was built on top of the AddressBook-Level3 project created by SE-EDU initiative at
-https://se-education.org. FlashSpeed is written in Java. Users interact with FlashSpeed using textual commands. FlashSpeed has a GUI created using JavaFX.
+https://se-education.org. FlashSpeed is written in Java and has a GUI created using JavaFX. Users interact with FlashSpeed using textual commands.
 
 == Summary of contributions
 
-My roles in this project includes team leader and in-charge of the User Guide. As team leader my responsibilities included
-ensuring the establishment of the week's tasks, adherence to the proper development workflow, and quality checks on pull requests.
+My roles in this project include being the technical leader and in-charge of the User Guide.
+As technical leader my responsibilities include ensuring the establishment of the week's tasks, adherence to the proper development workflow, and quality checks on pull requests.
 
 * *Major enhancement*: Added the *ability to edit cards and edit using shortened commands.*
 ** What it does: Allows the user to perform the editing of card values using any one of three different command formats, where two of the formats are shortened forms (i.e. edit INDEX FRONT:BACK, edit INDEX :BACK, edit INDEX FRONT:).
 ** Justification: This feature improves the product significantly because a user will be able to perform the editing of only the values they want to change, rather than having to retype the same value. This provides convenience and overall efficiency to the user. This functionality had the possibility to require a change in the entire logical chain but I decided that a reuse of existing functionality (e.g. add, delete, etc. to perform a Card replacement) would both reduce the possibility of logical bugs and code rewrite.
 ** Highlights: This is the only command in the application which can take in multiple formats. The implementation of this feature required design considerations across the entire model of the application (e.g. overwrite values in the Card or do a full replacement with a new Card, where should the new Card interface with the Deck to retrieve the unchanged values if any, etc.) In the end, the edit functionality fulfilled its responsibilities while being able to be treated as another standard command.
 
-* *Minor enhancement*: Added the implementations for the functional units of the application, i.e. Cards, Decks, and its UniqueCardList.
-** Highlights: These are the abstractions of data which makes FlashSpeed a flashcard application. They are built in such a way that developers of the higher level logic and model management can treat them as total black boxes. These are also the items which users will be mostly interacting with.
+* *Minor enhancement*: Added the implementations for the functional units of the application, i.e. Cards, Decks, and its UniqueCardLists.
+** Highlights: These are the abstractions of data which makes FlashSpeed a flashcard application. They are built in such a way that developers of the higher level logic and model management can treat them as total black boxes. These are also the items which users will be interacting with mostly.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=amrl&tabRepo=AY1920S2-CS2103T-W17-1%2Fmain%5Bmaster%5D[Functional code]] [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=amrl&tabRepo=AY1920S2-CS2103T-W17-1%2Fmain%5Bmaster%5D[Test code]]
 ** > 1.2k LoC
@@ -35,7 +35,7 @@ ensuring the establishment of the week's tasks, adherence to the proper developm
 * *Documentation contributed*:
 ** User Guide:
 *** In-charge of document
-*** Wrote either fully or partially all sections
+*** Wrote or edited all sections either fully or partially
 *** Reformatted the structure and layout for ease of readability and navigability (e.g. topic headings, section spacing, etc.)
 *** Maintenance of document to be up-to-date with current application version
 *** Added all tips and notes, command summary table, etc.

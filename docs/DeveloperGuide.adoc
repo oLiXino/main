@@ -12,19 +12,21 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/AY1920S2-CS2103T-W17-1/main
+:repoURL: https://github.com/AY1920S2-CS2103T-W17-1/main/tree/master
 
 By: `FlashSpeed Foundation`      Since: `Feb 2020`      Licence: `MIT`
 
+// tag::introduction[]
 == Introduction
 FlashSpeed is a text-based flashcard application specifically designed for university students who are learning a foreign language.
 
-FlashSpeed enhances the revision process by adopting the <<spaced-repetition-system,Space Repetition System>> (SRS) in its design. Users will be tested more frequently on new words, or words that they have gotten wrong in previous sessions.
+FlashSpeed enhances the revision process by implementing a <<smart-review-system,smarter review system>> in its design. Users will be tested more frequently on words that they have gotten wrong in a game session.
 
 The main features of FlashSpeed allows users to
 
 * create their own <<deck, decks>> of flashcards (or <<card, cards>>)
 * choose a deck to revise (or <<play, play>>) which uses the SRS design mentioned above.
+
 
 [[Purpose]]
 === Purpose
@@ -42,13 +44,14 @@ The following groups are in particular the intended audience of this document.
 === How to use
 
 * Section 3 - Design contains information about the main components of FlashSpeed.
- ** First, refer to <<#Design-Architecture, 3.1 Architecture>> section to learn more about the overall architecture.
- ** Then proceed to further sections 3.2 - 3.6 to learn more about each individual components of the architecture.
+** First, refer to <<#Design-Architecture, 3.1 Architecture>> section to learn more about the overall architecture.
+** Then proceed to further sections 3.2 - 3.6 to learn more about each individual components of the architecture.
 
 * Section 4 - Implementation contains information about the main commands and the implementation of each command used in FlashSpeed.
 
 * Appendix Section - Any miscellaneous information that is not essential for the implementation of FlashSpeed but is good to know.
 
+// end::introduction[]
 
 == Setting up
 
@@ -73,7 +76,7 @@ Given below is a quick overview of each component.
 
 *The Runners:* +
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/com/flashspeed/Main.java[`Main`] and link:{repoURL}/src/main/java/com/flashspeed/MainApp.java[`MainApp`]. It is responsible for,
 
 * At launch: Initializes the core components in the correct sequence, sets up their initial states, and connects them up
 with each other.
@@ -108,6 +111,8 @@ image::LogicClassDiagram.png[]
 
 // end::design-arch[]
 
+{empty} +
+
 [discrete]
 ==== 3.1.1 How the core components interact with each other
 
@@ -118,22 +123,31 @@ image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
+{empty} +
+
+//tag::UI-component[]
 [[Design-Ui]]
 === UI component
 
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/com/flashspeed/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `DeckListPanel`, `CardListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/com/flashspeed/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+
+//end::UI-component[]
+
+// tag::design-logic[]
+
+{empty} +
 
 [[Design-Logic]]
 === Logic component
@@ -143,7 +157,7 @@ The `UI` component,
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/com/flashspeed/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `MasterParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
@@ -158,27 +172,38 @@ image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `RemoveDeckCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+// end::design-logic[]
+
+{empty} +
+
 [[Design-Model]]
+// tag::model[]
 === Model component
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
+{empty} +
+
 .Structure of the Deck Component within the Model Component
 image::ModelClassDeckDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/com/flashspeed/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Library data.
+* stores the Library's current state and data.
 * stores and manipulates a `GameManager` object that represents one game session.
 * stores and manipulates a `Deck` object that represents the deck that the user is viewing when user is in <<deck-view, deck view>>.
 * stores and manipulates a  `Card` object that represents the card that the user is playing with when user is in <<play, play view>>.
 * stores and manipulates `View` object that represents the <<view, view>> that the user is currently in.
 * exposes an unmodifiable `ObservableList<Deck>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
+
+{empty} +
+// end::model[]
+
 
 [[Design-Storage]]
 // tag::storage[]
@@ -188,30 +213,60 @@ The `Model`,
 image::../diagrams/StorageClassDiagram.png[]
 
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/com/flashspeed/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
-* can save `UserPref` objects in json format and read it back.
-* can save all the decks and cards created in json format and read them back.
+* can save `UserPref` objects in JSON format and read it back.
+* can save all the decks and cards created in JSON format and read them back.
+
 
 // end::storage[]
+{empty} +
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.address.commons` package.
+Classes used by multiple components are in the `com.flashspeed.commons` package.
+
+{empty} +
+
+=== Logging
+
+We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+
+* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+* Currently log messages are output through: `Console` and to a `.log` file.
+
+*Logging Levels*
+
+* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
+* `WARNING` : Can continue, but with caution
+* `INFO` : Information showing the noteworthy actions by the App
+* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+{empty} +
+
+[[Implementation-Configuration]]
+=== Configuration
+
+Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
+{empty} +
+
+//tag::selectdeck[]
 === Selecting a Deck
 ==== Current Implementation
 
-The `select` command allows user to view the Card content of a Deck. The following syntax is accepted:
+The `select` command allows user to view the Card content of a Deck.
 
-`select INDEX`
+Accepted syntax: `select INDEX`
 
 This functionality is implemented by getting the Deck based on the index provided. Subsequently, the Card(s) that belongs to the selected Deck will be displayed on the right panel via a `TableView`.
 
@@ -227,13 +282,22 @@ When `SelectDeckCommand#execute()` is executed a list of currently available Dec
 ==== Design Considerations
 The UI will have to be constantly updated when we select to view a deck, and other decks might be selected afterward. As a result, an `ObservableValue<Deck>` variable will have to be updated constantly via the `ModelManager#setSelectedDeck()` method. Various event listeners are implemented in the UI classes (e.g `CardListPanel`, `DeckListPanel`) in order to instantly react if there is any changes to the selected deck.
 
+.Interactions inside Model, Logic and UI components to reflect UI changes when selecting a deck
+image::SelectDeckSequenceDiagram.png[]
+
+//end::selectdeck[]
+{empty} +
+
+
+
 // tag::createdeck[]
+
 === Creating a Deck
 ==== Current Implementation
 
-The `create` command allows user to create a new Deck in the current Library. The following syntax is accepted:
+The `create` command allows user to create a new Deck in the current Library.
 
-`create DECK_NAME`
+Accepted syntax: `create DECK_NAME`
 
 This functionality is implemented by getting the Deck based on the index provided. Subsequently, the Card(s) that belongs to the selected Deck will be displayed on the right panel via a `TableView`.
 
@@ -250,9 +314,20 @@ After that, `ModelManager#setSelectedDeck()` method will be called to update the
 on the right panel. Lastly, the name of the selected Deck will be displayed together with the
 `MESSAGE_SUCCESS` on the `ResultDisplay` panel.
 
+// tag::create-deck-consideration[]
+==== Design Considerations
+===== Aspect: If the user is already viewing another deck and decides to create a new deck, there was a consideration whether to switch the UI for the user view to the new deck or continue to let the user view the current deck.
 
-[[Anchor-1]]
-==== Design Considerations: Alternative
+* **Alternative 1 (current choice):** Switch the view to the new Deck
+** Pros: Able to use the new Deck immediately without typing an additional command to select it.
+* **Alternative 2:** Keep the view at the current Deck
+** Pros: Don't have to type in an additional command to return back to the current Deck if a new Deck is created
+
+We chose Alternative 1 in the end as we believed that it will be more likely for the user to want to use the new deck immediately after creating it.
+// end::create-deck-consideration[]
+
+[[Four-Two-Two]]
+===== Aspect: Naming convention of command key words.
 Initially, both `CreateDeckCommand` and `AddCardCommand` share the same keyword, which is the `add` keyword.
 In order to distinguish these two commands from each other,
 the Model Manager will check if any deck is currently selected.
@@ -273,16 +348,17 @@ This is certainly not the expected outcome that the user has expected.
 
 And so, our team has decided to implement the current approach,
 which is to assign different keywords to these two different feature.
-
 // end::createdeck[]
+{empty} +
 
 // tag::addcard[]
+>>>>>>> master
 === Creating a Card
 ==== Current Implementation
 
-The `add` command allows user to create a new Card in the current Deck. The following syntax is accepted:
+The `add` command allows user to create a new Card in the current Deck.
 
-`add FRONT_VALUE:BACK_VALUE`
+Accepted syntax: `add FRONT_VALUE:BACK_VALUE`
 
 This functionality is implemented by getting the Deck based on the current deck selected.
 The Model Manager will be responsible of keeping track of the current deck.
@@ -305,20 +381,24 @@ After that, `ModelManager#setSelectedDeck()` method will be called to update the
 on the right panel. Lastly, the name of the selected Deck will be displayed together with the
 `MESSAGE_SUCCESS` on the `ResultDisplay` panel.
 
-==== Design Considerations: Alternative
-See <<Anchor-1, 3.2.2>>.
+==== Design Considerations
+See <<Four-Two-Two, 4.2.2 - Design Considerations for creating a Deck - Aspect: Naming convention of command keywords>>.
 // end::addcard[]
+>>>>>>> master
 
 // tag::editcard[]
+
+{empty} +
 
 === Editing a Card: Shortcut Formats
 ==== Current Implementation
 
-The `edit` command allows for the values of a Card's face(s) to be changed. There are 3 command formats
-accepted:
+The `edit` command allows for the values of a Card's face(s) to be changed.
 
-* `edit INDEX FRONT:BACK` +
-* `edit INDEX :BACK` +
+Accepted syntax:
+
+* `edit INDEX FRONT:BACK`
+* `edit INDEX :BACK`
 * `edit INDEX FRONT:`
 
 This functionality is implemented by replacing the Card to be edited in the Deck with a new Card containing
@@ -370,12 +450,15 @@ image::EditSequenceDiagram.png[]
 
 // end::editcard[]
 
+{empty} +
+
 // tag::play[]
 === Starting a play session
 ==== Current Implementation
 
-The `play` command creates a new session to play with a specific deck. The format of the `play` command:
-`play INDEX`
+The `play` command creates a new session to play with a specific deck.
+
+Accepted syntax: `play INDEX`
 
 The play command changes the mode of the application to `PLAY` mode and creates a new session with the Deck at the given `INDEX`.
 The value of the `FRONT` of the selected `Deck` will be displayed to the user.
@@ -395,14 +478,18 @@ The first card of the selected deck is obtained using `deck#asUnmodifiableObserv
 
 The following sequence diagram shows how the `play` operation works.
 
+.Interactions inside Logic and Model components when `play 1` is executed
 image::PlaySequenceDiagram.png[]
+
+{empty} +
 
 // tag::flip[]
 === Flipping a Card
 ==== Current Implementation
 
-The `flip` command flips a card in the selected deck to view the `BACK` face of the card. The format of the `flip` command:
-`flip`
+The `flip` command flips a card in the selected deck to view the `BACK` face of the card.
+
+Accepted syntax: `flip`
 
 The `flip` command displays the `BACK` face of the card that the user is currently playing with to the user so that user is able to check if his or her answer is correct.
 
@@ -416,13 +503,18 @@ A valid `flip` command returns the `BACK` face of the card that the user is curr
 
 The following sequence diagram shows how the `flip` operation works.
 
+.Interactions inside Logic and Model components when `flip` is executed
 image::FlipSequenceDiagram.png[]
+
+{empty} +
 
 // tag::answer[]
 === Answering in a play session
 ==== Current Implementation
 
-User answers to the card that he or she is currently playing with using `yes` or `no` command. The formats of the commands are `yes` and `no` respectively.
+User answers to the card that he or she is currently playing with using `yes` or `no` command.
+
+Accepted syntax: `yes` or `no`
 
 After flipping the card, users indicates if he or she gets the correct answer by using `yes` and `no` command.
 
@@ -438,8 +530,24 @@ A valid `yes` or `no` command returns the next card to the UI and the `FRONT` fa
 
 The following sequence diagrams show how the `yes` and `no` operation work.
 
+.Interactions inside Logic and Model components when `yes` is executed
 image::AnswerYesSequenceDiagram.png[]
+.Interactions inside Logic and Model components when `no` is executed
 image::AnswerNoSequenceDiagram.png[]
+
+// end::play[]
+
+// tag::design-consideration-play[]
+==== Design Considerations
+===== Aspect: Using `yes` and `no` instead of the actual answer.
+* **Alternative 1 (current choice):** Using a simple yes or no
+** Pros: User can definitively choose if their answer was correct or not. This leads to accurate evaluation and statistics calculation.
+** Cons: Not as interactive as if the user were to type in the correct word/sentence itself.
+* **Alternative 2:** Typing in the actual answer itself.
+** Pros: More interactive to the user.
+** Cons: Typos or slightly incomplete (but correct) answers can be typed it by the user.
+As the answers typed in mush exactly match the one on the card, it may result in inaccurate evaluation and statistics calculation at the end of the game.
+// end::design-consideration-play[]
 
 === Logging
 
@@ -456,11 +564,6 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
-[[Implementation-Configuration]]
-=== Configuration
-
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
-
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
@@ -472,6 +575,8 @@ Refer to the guide <<Testing#, here>>.
 == Dev Ops
 
 Refer to the guide <<DevOps#, here>>.
+
+// tag::appendix[]
 
 [appendix]
 == Product Scope
@@ -525,13 +630,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |find a specific card by name in any language |locate the card without having to go through the entire list of decks and cards
 
-|`* *` |user |tag a deck |group decks together
-
 |`* *` |user |be able to choose which side of the card to see first |have two ways of memorizing new words.
 
-|`* *` |user |keep track of how many cards I have visited |
+|`* *` |user |keep track of how many cards I have visited | so that I can see my progress of learning a deck
 
-|`* *` |user |clone a deck of cards |so that I can create custom sets of decks from existing decks quickly
+|`*` |user |clone a deck of cards |so that I can create custom sets of decks from existing decks quickly
 
 |`*` |user |add audio files to cards |add more information such as the correct pronunciation to the card
 
@@ -540,8 +643,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |user |timer for going through a deck |see how much time it took me to memorize a deck of cards
 
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -558,6 +659,7 @@ _{More to be added}_
 +
 Use case ends.
 
+{empty} +
 
 [discrete]
 === UC02: Create a new deck
@@ -579,6 +681,7 @@ Use case ends.
 +
 Use case resumes at step 1.
 
+{empty} +
 
 [discrete]
 === UC03: Delete a deck
@@ -605,9 +708,10 @@ Use case ends.
 +
 Use case resumes at step 1.
 
+{empty} +
 
 [discrete]
-=== UC04: View a deck
+=== UC04: View a deck (select)
 
 *MSS:*
 
@@ -631,6 +735,7 @@ Use case ends.
 +
 Use case resumes at step 1.
 
+{empty} +
 
 [discrete]
 === UC05: Add a card to a deck
@@ -666,6 +771,7 @@ Use case resumes at step 1.
 +
 Use case resumes at step 3.
 
+{empty} +
 
 [discrete]
 === UC06: Delete a card from a deck
@@ -707,6 +813,7 @@ Use case ends.
 +
 Use case resumes at step 3.
 
+{empty} +
 
 [discrete]
 === UC07: Edit a card in a deck
@@ -748,6 +855,7 @@ Use case ends.
 +
 Use case resumes at step 3.
 
+{empty} +
 
 [discrete]
 === UC08: Delete all decks
@@ -759,6 +867,7 @@ Use case resumes at step 3.
 
 Use case ends.
 
+{empty} +
 
 [discrete]
 === UC09: Exit
@@ -769,7 +878,81 @@ Use case ends.
 
 User case ends.
 
-_{More to be added}_
+{empty} +
+
+[discrete]
+=== UC10: Playing a deck
+
+*MSS:*
+
+1. FlashSpeed shows a list of all decks.
+2. User chooses a deck and requests to play that deck.
+3. FlashSpeed changes into game view and starts the game.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1. The list is empty.
++
+Use case ends.
+
+* 2a. The given index is invalid.
++
+[none]
+** 2a1. FlashSpeed shows an error message.
++
+Use case resumes at step 1.
+
+{empty} +
+
+[discrete]
+=== UC10: Playing a game.
+
+*MSS:*
+
+1.  FlashSpeed shows a list of all decks.
+2.  User chooses a deck and requests to play that deck.
+3.  FlashSpeed changes into game view and starts the game.
+4.  FlashSpeed shows a card.
+5.  User flips the card.
+6.  FlashSpeed shows the other side of the card.
+7.  User types in yes or no to indicate the correctness of their answer.
+8.  FlashSpeed goes to next card.
+9.  Use case repeats from step 4 to step 7 until all cards are answered and the game ends.
+10.  FlashSpeed shows the statistics of game.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list is empty.
++
+Use case ends.
+
+* 2a. The given index is invalid.
++
+[none]
+** 2a1. FlashSpeed shows an error message.
++
+Use case resumes at step 1.
+
+[none]
+* 3a. The deck is empty.
++
+[none]
+** 3a1. FlashSpeed shows an error message.
+Use case ends.
+
+[none]
+* 4a. The given index is invalid.
++
+[none]
+** 4a1. FlashSpeed shows an error message.
++
+Use case resumes at step 3.
 
 [appendix]
 == Non Functional Requirements
@@ -792,9 +975,14 @@ A Deck holds cards
 [[card]] Card::
 A Card has two faces. One side for prompting the user and the other side for the content the user wants to memorize
 
+[[smart-review-system]] Smarter Review System::
+The smarter review system is adopted from the well known <<spaced-repetition-system, Space Repetition System>>.
+Cards that are answered wrongly in Play Mode will be shown more frequently in this system.
+
 [[spaced-repetition-system]] Space Repetition System::
 Spaced repetition is an evidence-based learning technique that is usually performed with flashcards. Newly introduced and more difficult flashcards are shown more frequently while older and less difficult flashcards are shown less frequently in order to exploit the psychological spacing effect
 
+//tag::views[]
 [[view]] View::
 There are three different views in FlashSpeed.
 
@@ -803,39 +991,41 @@ There are three different views in FlashSpeed.
 * <<play, Play View>>
 
 [[library-view]] Library View::
-The current screen where FlashSpeed shows the list of decks.
+When no deck is selected and no cards are shown
 
 .In Library view. No deck is selected.
 image::library.png[]
 
 [[deck-view]] Deck View::
-The current screen where FlashSpeed shows the list of cards in a selected deck.
+When a deck is selected and its cards are shown
 
 .In Deck view. A deck has been selected.
 image::Ui.png[]
 
-[[play]] Play View (Play)::
-Enters the play view (mode) of FlashSpeed. In this mode, users will be able to take advantage of the SRS to revise/memorise their flashcards.
+[[play]] Play View::
+When in a study session of a deck
 
 .In Play view. A deck is being studied.
 image::Ui2.png[]
 
+//end::views[]
+
 [appendix]
 == Product Survey
 
-*Product Name*
+*Anki*
 
-Author: ...
+Author: Damien Elmes
 
 Pros:
 
-* ...
-* ...
+* Study algorithm is useful for easily memorizing content.
 
 Cons:
 
-* ...
-* ...
+* Not as appealing UI.
+* Not friendly for fast typist to execute commands/tasks.
+
 
 [appendix]
 == Instructions for Manual Testing
@@ -851,34 +1041,183 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample decks and cards. The minimum optimum window size for the app is already set.
 
-. Saving window preferences
+=== Help functionality
+. Opening Help Window
+.. Prerequisites: None
+.. Test case: `help` +
+   Expected: Opens the help window
+.. Test case: Pressing the `F1` key on the keyboard. +
+   Expected: Opens the help window
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+. Closing the Help Window
+.. Prerequisites: Help Window is opened
+.. Test case: Pressing the `Alt + F4` keys on the keyboard. +
+   Expected: Closes the help window
+.. Test case: Pressing the `X` button on the help window. +
+   Expected: Closes the help window
 
-_{ more test cases ... }_
+. Reading off from where you last left off.
+.. Open the help window.
+.. Scroll down to any part of the User Guide to read.
+.. Close the help window.
+.. Re-launch the help window. +
+   Expected: The help window opens to the page you last left off from.
 
-=== Deleting a person
 
-. Deleting a person while all persons are listed
+=== Deck functionality
+. Creating a deck.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Prerequisites: None
+.. Test case: `create Russian` +
+   Expected: Deck shows up on the deck list on the left panel and the (currently empty) card list is shown on the right panel.
+.. Test case: `create x` (where x is a deck name that already exists) +
+   Expected: No new deck is created. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect create commands to try: `create`, `create  `
+   Expected: Similar to previous
+
+. Deleting a deck from the deck list shown on the left panel.
+
+.. Prerequisites: Ensure that FlashSpeed contains at least 1 Deck, which can be seen on the left panel.
+.. Test case: `remove 1` +
+   Expected: First deck is deleted from the list. Name of the deleted deck is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `remove 0` +
+   Expected: No deck is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `remove`, `remove x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+. Renaming a deck.
 
-=== Saving data
+.. Prerequisites: Ensure that FlashSpeed contains at least 1 Deck, which can be seen on the left panel.
+.. Test case: `rename 1 Russian` +
+   Expected: New deck name shows up on the deck list on the left panel.
+.. Test case: `rename 0 Russian` +
+   Expected: No deck is renamed. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect create commands to try: `rename Russian`, `rename`, `rename x Russian` (where x is larger than the list size),
+   `rename 1 y` (where y is a deck name that already exists) +
+   Expected: Similar to previous.
 
-. Dealing with missing/corrupted data files
+=== Card functionality
+. Adding a card to a deck.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Prerequisites: A deck needs to be selected first via `select INDEX`
+.. Test case: `add 아녕하세요 : hello` +
+   Expected: Card shows up on the card list on the right panel.
+.. Test case: `add 안녕:하세요:hello`
+   Expected: No card is created. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect create commands to try: `add 안녕하세요: `, `add :hello` +
+Expected: Similar to previous
 
-_{ more test cases ... }_
+. Deleting a card from the card list shown on the right panel.
+
+.. Prerequisites: A deck needs to be selected first via `select INDEX`
+.. Test case: `delete 1` +
+   Expected: First card is deleted from the list. Name of the deleted card is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete 0` +
+   Expected: No card is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+. Editing a card.
+
+.. Prerequisites: A deck needs to be selected first via `select INDEX`
+.. Test case: `edit 1 안녕 : Hi!` +
+   Expected: New card information is reflected on the card list on the left panel.
+.. Test case: `edit 1 안녕:` +
+   Expected: New card information (the front side) is reflected on the card list on the left panel.
+.. Test case: `edit 1 : Hi!` +
+   Expected: New card information (the back side) is reflected on the card list on the left panel.
+.. Test case: `edit 0 안녕하세요: Hi!` +
+   Expected: No card is edited. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect create commands to try: `edit`, `edit test : test test`, `edit x Russian : 러시안어` (where x is larger than the list size),
+   `rename 1 y` (where y is a card that already exists) +
+   Expected: Similar to previous.
+
+=== Game-play functionality
+. Starting a game
+.. Prerequisites: Ensure that FlashSpeed contains at least 1 Deck, which can be seen on the left panel.
+.. Test case: `play 1` +
+   Expected: First deck is chosen and play mode starts.
+.. Test case: `play 0` +
+   Expected: No deck chosen and played. Error details shown in the status message.
+.. Other incorrect delete commands to try: `play`, `play x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+. Flipping a card in game
+.. Prerequisites: FlashSpeed is in a game session and the current card has not been flipped yet.
+.. Test case: `flip` +
+   Expected: The back side of the card is shown.
+.. Test case: `flip` when the back side of the card is already shown +
+   Expected: Nothing happens. Error details shown in the status message.
+
+. Answering yes or no in game
+.. Prerequisites: FlashSpeed is in a game session and the current card has already been flipped.
+.. Test case: `yes` or `no` +
+   Expected: The next card is shown or the game ends.
+.. Test case: `yes` or `no` when the card is not yet flipped. +
+   Expected: Nothing happens. Error details shown in the status message.
+
+. Ending a game
+.. Prerequisites: FlashSpeed is in a game session.
+.. Test case: `flip` + `yes` until the game ends +
+   Expected: A statistics screen will popup showing the statistics of the game.
+
+
+=== Game statistics
+. Display game statistics
+.. Prerequisites: Ensure that FlashSpeed contains at least 1 Deck, which can be seen on the left panel.
+.. Test case:
+.... Start a game session with a deck.
+.... Cycle through `flip`, `yes` or `no`.
+.... Take note of the progress bar / counters / number of cards answered wrongly.
+.... When the game end, the statistics of your game will show up.
+.... Ensure that the numbers you have calculated / seen / taken note of tally up.
+
+[appendix]
+== Effort
+*Overview*
+FlashSpeed, a flashcard application, is aimed specifically at helping University students with learning a new language.
+FlashSpeed is significantly different from Address Book 3 (AB3) although it is based off it. In additional to the features from AB3,
+we needed to add additional features that would complete our flashcard application. For example, the Play feature is a new feature
+introduced in FlashSpeed
+
+*Challenges and Effort*
+
+* *Card and Deck Model* +
+AB3 contained a `person` class, which we wanted to refactor into our `card` class since each card contained information that
+could be easily refactored from `person`. However, since we wanted it to be possible to have many cards in a deck and many decks in a library,
+there was a design consideration of how we should implement `deck`. After much discussion, we decided to implement it as what can
+be described as a "layered AB3" implementation, where in AB3, an addressbook contains persons, but now we have a bigger library that
+contains multiple addressbooks.
+
+* *Play feature* +
+Since this was a brand new feature that was created from scratch, there were multiple suggestions from different members which was the
+best way to implement it. After much discussion and some compromise from each design, we came out with our final implementation. Additionally, since
+it was a new feature, even after we did the initial implementation, there were things that we did not foresee, such as how the UI would
+handle the different views depending on the state of the game and potentially how many bugs could have arose.
+
+* *User Interface Design* +
+We were brainstorming for a good interface that could support the three views that we had: Library View, Deck View and Play View.
+We managed to create about 2-3 mock-ups that everyone thought looked really good. Then, we compared the User Experience (UX) advantages
+between the mock-ups and decided ultimately that the mock-up that was built on AB3's design was the best for our flashcard purposes (in terms of UI/UX).
+
+* *User Interface Implementation* +
+As none of our team were experienced with UI, our initial mock-up and vision of the UI proved too difficult for us to implement it at one go.
+However, Robert (our UI Lead) focused on building on the UI while the rest of the team focused on building the core functionality of FlashSpeed.
+Robert would ask us on input based off the UI that he had designed and improve it based on our suggestions. +
+
+* *Design Considerations* +
+For each major enhancement, there was always a few design alternatives to choose from. As each team member felt that their design was the best,
+in our first major enhancement meeting, we spent 2-3 hours deciding the final implementation. After that meeting, our team decided
+on a faster way to resolve such cases by spending a maximum of 30minutes discussion before casting a vote. It worked efficiently for the
+future meetings.
+
+*Achievements*
+
+. We managed to create FlashSpeed to what we envisioned to be.
+. Although we did not manage to implement all the user-stories that we brain-stormed, we implemented all the essential functionality of FlashSpeed
+. FlashSpeed can safely support most available languages in the world, due to our stringent parser checks and language support from Java.
+. We learnt what was important in software development (Good coding style, Github skills, Documentation Writing, Testing, etc...)
+
+// end::appendix[]

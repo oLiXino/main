@@ -1,39 +1,41 @@
 package com.flashspeed.logic.commands.gamecommands;
 
+import static com.flashspeed.testutil.Assert.assertThrows;
+import static com.flashspeed.testutil.TypicalIndexes.INDEX_FIRST_DECK;
+import static com.flashspeed.testutil.TypicalIndexes.INDEX_THIRD_DECK;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static com.flashspeed.testutil.Assert.assertThrows;
-import static com.flashspeed.testutil.TypicalIndexes.INDEX_FIRST_DECK;
 
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
-import javafx.beans.property.ReadOnlyProperty;
-import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
 
+import com.flashspeed.commons.core.GuiSettings;
+import com.flashspeed.commons.core.index.Index;
+import com.flashspeed.logic.commands.CommandResult;
+import com.flashspeed.logic.commands.exceptions.CommandException;
 import com.flashspeed.model.GameManager;
 import com.flashspeed.model.Model;
 import com.flashspeed.model.ReadOnlyLibrary;
 import com.flashspeed.model.ReadOnlyUserPrefs;
 import com.flashspeed.model.Statistics;
-import com.flashspeed.testutil.CardUtils;
-import com.flashspeed.testutil.DeckUtils;
-import com.flashspeed.commons.core.GuiSettings;
-import com.flashspeed.commons.core.index.Index;
-import com.flashspeed.logic.commands.CommandResult;
-import com.flashspeed.logic.commands.exceptions.CommandException;
 import com.flashspeed.model.deck.Deck;
 import com.flashspeed.model.deck.Name;
 import com.flashspeed.model.deck.card.BackFace;
 import com.flashspeed.model.deck.card.Card;
 import com.flashspeed.model.util.View;
+import com.flashspeed.testutil.CardUtils;
+import com.flashspeed.testutil.DeckUtils;
+
+import javafx.beans.property.ReadOnlyProperty;
+import javafx.collections.ObservableList;
 
 public class PlayCommandTest {
 
     @Test
-    public void execute_PlaySuccessful() throws Exception {
+    public void execute_play_successful() throws Exception {
         ModelStubAcceptingPlay modelStub = new ModelStubAcceptingPlay();
         CommandResult commandResult = new PlayCommand(INDEX_FIRST_DECK).execute(modelStub);
         Deck chosenDeck = DeckUtils.getTypicalJapDeck();
@@ -47,17 +49,15 @@ public class PlayCommandTest {
         ModelStubNotAlreadyInPlay modelStub = new ModelStubNotAlreadyInPlay();
         PlayCommand playCommand = new PlayCommand(INDEX_FIRST_DECK);
 
-        assertThrows(CommandException.class, PlayCommand.MESSAGE_ALREADY_PLAY,
-                () -> playCommand.execute(modelStub));
+        assertThrows(CommandException.class, PlayCommand.MESSAGE_ALREADY_PLAY, () -> playCommand.execute(modelStub));
     }
 
     @Test
     public void execute_deckNotFound_throwsCommandException() {
         ModelStubDeckNotFound modelStub = new ModelStubDeckNotFound();
-        PlayCommand playCommand = new PlayCommand(INDEX_FIRST_DECK);
+        PlayCommand playCommand = new PlayCommand(INDEX_THIRD_DECK);
 
-        assertThrows(CommandException.class, PlayCommand.MESSAGE_DECK_NOT_FOUND,
-                () -> playCommand.execute(modelStub));
+        assertThrows(CommandException.class, PlayCommand.MESSAGE_DECK_NOT_FOUND, () -> playCommand.execute(modelStub));
     }
 
     @Test
@@ -65,8 +65,7 @@ public class PlayCommandTest {
         ModelStubDeckEmpty modelStub = new ModelStubDeckEmpty();
         PlayCommand playCommand = new PlayCommand(INDEX_FIRST_DECK);
 
-        assertThrows(CommandException.class, PlayCommand.MESSAGE_NO_CARD,
-                () -> playCommand.execute(modelStub));
+        assertThrows(CommandException.class, PlayCommand.MESSAGE_NO_CARD, () -> playCommand.execute(modelStub));
     }
 
     @Test
@@ -378,9 +377,7 @@ public class PlayCommandTest {
 
         @Override
         public GameManager getGame() {
-            Deck testDeck = DeckUtils.getTypicalJapDeck();
-            GameManager newGame = new GameManager(testDeck);
-            return newGame;
+            return null;
         }
 
         @Override
@@ -401,9 +398,7 @@ public class PlayCommandTest {
 
         @Override
         public GameManager getGame() {
-            Deck testDeck = DeckUtils.getTypicalJapDeck();
-            GameManager newGame = new GameManager(testDeck);
-            return newGame;
+            return null;
         }
 
         @Override

@@ -52,7 +52,7 @@ public class EditCardCommandParser implements Parser<EditCardCommand> {
         }
 
         FrontFace front = new FrontFace(frontValue);
-        BackFace back  = new BackFace(backValue);
+        BackFace back = new BackFace(backValue);
 
         try {
             Index index = ParserUtil.parseIndex(indexStr);

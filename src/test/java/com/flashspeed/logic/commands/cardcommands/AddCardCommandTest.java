@@ -1,36 +1,37 @@
 package com.flashspeed.logic.commands.cardcommands;
 
+import static com.flashspeed.testutil.Assert.assertThrows;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static com.flashspeed.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
-import javafx.beans.property.ReadOnlyProperty;
-import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
 
-import com.flashspeed.model.GameManager;
-import com.flashspeed.model.Model;
-import com.flashspeed.model.ReadOnlyLibrary;
-import com.flashspeed.model.ReadOnlyUserPrefs;
-import com.flashspeed.model.Statistics;
 import com.flashspeed.commons.core.GuiSettings;
 import com.flashspeed.commons.core.Messages;
 import com.flashspeed.commons.core.index.Index;
 import com.flashspeed.logic.commands.CommandResult;
 import com.flashspeed.logic.commands.exceptions.CommandException;
+import com.flashspeed.model.GameManager;
+import com.flashspeed.model.Model;
+import com.flashspeed.model.ReadOnlyLibrary;
+import com.flashspeed.model.ReadOnlyUserPrefs;
+import com.flashspeed.model.Statistics;
 import com.flashspeed.model.deck.Deck;
 import com.flashspeed.model.deck.Name;
 import com.flashspeed.model.deck.card.BackFace;
 import com.flashspeed.model.deck.card.Card;
 import com.flashspeed.model.util.View;
 import com.flashspeed.testutil.CardBuilder;
+
+import javafx.beans.property.ReadOnlyProperty;
+import javafx.collections.ObservableList;
 
 public class AddCardCommandTest {
 
@@ -51,23 +52,23 @@ public class AddCardCommandTest {
     }
 
     @Test
-    public void execute_notInViewMode_throwsCommandException() {
+    public void execute_inPlayView_throwsCommandException() {
         ModelStubPlayMode modelStub = new ModelStubPlayMode();
         Card validCard = new CardBuilder().build();
         AddCardCommand addCardCommand = new AddCardCommand(validCard);
 
-        assertThrows(CommandException.class, AddCardCommand.MESSAGE_NOT_IN_VIEW_MODE,
-                () -> addCardCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                AddCardCommand.MESSAGE_NOT_IN_VIEW_MODE, () -> addCardCommand.execute(modelStub));
     }
 
     @Test
-    public void execute_notInDeckView_throwsCommandException() {
+    public void execute_inLibraryView_throwsCommandException() {
         ModelStubLibraryView modelStub = new ModelStubLibraryView();
         Card validCard = new CardBuilder().build();
         AddCardCommand addCardCommand = new AddCardCommand(validCard);
 
-        assertThrows(CommandException.class, Messages.MESSAGE_NOT_IN_DECK_VIEW,
-                () -> addCardCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                Messages.MESSAGE_NOT_IN_DECK_VIEW, () -> addCardCommand.execute(modelStub));
     }
 
     @Test
@@ -354,7 +355,7 @@ public class AddCardCommandTest {
     }
 
     /**
-     * A Model stub that cannot add a card due to being in Play Mode
+     * A Model stub that cannot add a card due to being in Play View
      */
     private class ModelStubPlayMode extends ModelStub {
         final ArrayList<Card> cardsAdded = new ArrayList<>();

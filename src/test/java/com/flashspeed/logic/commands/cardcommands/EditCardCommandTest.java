@@ -1,32 +1,29 @@
 package com.flashspeed.logic.commands.cardcommands;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static com.flashspeed.testutil.Assert.assertThrows;
 import static com.flashspeed.testutil.TypicalIndexes.INDEX_FIRST_CARD;
 import static com.flashspeed.testutil.TypicalIndexes.INDEX_SECOND_CARD;
 import static com.flashspeed.testutil.TypicalIndexes.INDEX_THIRD_CARD;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
-import javafx.beans.property.ReadOnlyProperty;
-import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
 
-import com.flashspeed.model.GameManager;
-import com.flashspeed.model.Model;
-import com.flashspeed.model.ReadOnlyLibrary;
-import com.flashspeed.model.ReadOnlyUserPrefs;
-import com.flashspeed.model.Statistics;
-import com.flashspeed.testutil.CardUtils;
 import com.flashspeed.commons.core.GuiSettings;
 import com.flashspeed.commons.core.Messages;
 import com.flashspeed.commons.core.index.Index;
 import com.flashspeed.logic.commands.CommandResult;
 import com.flashspeed.logic.commands.exceptions.CommandException;
+import com.flashspeed.model.GameManager;
+import com.flashspeed.model.Model;
+import com.flashspeed.model.ReadOnlyLibrary;
+import com.flashspeed.model.ReadOnlyUserPrefs;
+import com.flashspeed.model.Statistics;
 import com.flashspeed.model.deck.Deck;
 import com.flashspeed.model.deck.Name;
 import com.flashspeed.model.deck.card.BackFace;
@@ -34,24 +31,16 @@ import com.flashspeed.model.deck.card.Card;
 import com.flashspeed.model.deck.card.FrontFace;
 import com.flashspeed.model.util.View;
 import com.flashspeed.testutil.CardBuilder;
+import com.flashspeed.testutil.CardUtils;
 import com.flashspeed.testutil.DeckBuilder;
+
+import javafx.beans.property.ReadOnlyProperty;
+import javafx.collections.ObservableList;
 
 public class EditCardCommandTest {
 
     @Test
-    public void constructor_nullIndex_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new EditCardCommand(
-                null, null, null));
-        assertThrows(NullPointerException.class, () -> new EditCardCommand(
-                null, new FrontFace(""), new BackFace("")));
-        assertThrows(NullPointerException.class, () -> new EditCardCommand(
-                INDEX_FIRST_CARD, null, new BackFace("")));
-        assertThrows(NullPointerException.class, () -> new EditCardCommand(
-                INDEX_FIRST_CARD, new FrontFace(""), null));
-    }
-
-    @Test
-    public void execute_editBothSidesAcceptedByModel_Successful() throws Exception {
+    public void execute_editBothSidesAcceptedByModel_successful() throws Exception {
         ModelStubAcceptingCardEdited modelStub = new ModelStubAcceptingCardEdited();
         Index validIndex = INDEX_FIRST_CARD;
         FrontFace front = new FrontFace("Hello");
@@ -60,35 +49,35 @@ public class EditCardCommandTest {
 
         CommandResult commandResult = new EditCardCommand(validIndex, front, back).execute(modelStub);
 
-        assertEquals(String.format(AddCardCommand.MESSAGE_SUCCESS, editedCard), commandResult.getFeedbackToUser());
+        assertEquals(String.format(EditCardCommand.MESSAGE_SUCCESS, editedCard), commandResult.getFeedbackToUser());
     }
 
     @Test
-    public void execute_editFrontOnlyAcceptedByModel_Successful() throws Exception {
+    public void execute_editFrontOnlyAcceptedByModel_successful() throws Exception {
         ModelStubAcceptingCardEdited modelStub = new ModelStubAcceptingCardEdited();
 
         Index validIndex = INDEX_FIRST_CARD;
         FrontFace emptyFront = new FrontFace("");
         BackFace back = new BackFace("안녕");
-        Card editedCard = new Card(emptyFront, back);
 
         CommandResult commandResult = new EditCardCommand(validIndex, emptyFront, back).execute(modelStub);
+        Card newCard = modelStub.getCard(validIndex);
 
-        assertEquals(String.format(AddCardCommand.MESSAGE_SUCCESS, editedCard), commandResult.getFeedbackToUser());
+        assertEquals(String.format(EditCardCommand.MESSAGE_SUCCESS, newCard), commandResult.getFeedbackToUser());
     }
 
     @Test
-    public void execute_editBackOnlyAcceptedByModel_Successful() throws Exception {
+    public void execute_editBackOnlyAcceptedByModel_successful() throws Exception {
         ModelStubAcceptingCardEdited modelStub = new ModelStubAcceptingCardEdited();
 
         Index validIndex = INDEX_FIRST_CARD;
         FrontFace front = new FrontFace("Hello");
         BackFace emptyBack = new BackFace("");;
-        Card editedCard = new Card(front, emptyBack);
 
         CommandResult commandResult = new EditCardCommand(validIndex, front, emptyBack).execute(modelStub);
+        Card newCard = modelStub.getCard(validIndex);
 
-        assertEquals(String.format(AddCardCommand.MESSAGE_SUCCESS, editedCard), commandResult.getFeedbackToUser());
+        assertEquals(String.format(EditCardCommand.MESSAGE_SUCCESS, newCard), commandResult.getFeedbackToUser());
     }
 
     @Test
@@ -99,8 +88,8 @@ public class EditCardCommandTest {
         BackFace back = new BackFace("안녕");;
         EditCardCommand editCardCommand = new EditCardCommand(validIndex, front, back);
 
-        assertThrows(CommandException.class, AddCardCommand.MESSAGE_NOT_IN_VIEW_MODE,
-                () -> editCardCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                EditCardCommand.MESSAGE_NOT_IN_VIEW_MODE, () -> editCardCommand.execute(modelStub));
     }
 
     @Test
@@ -111,8 +100,8 @@ public class EditCardCommandTest {
         BackFace back = new BackFace("안녕");;
         EditCardCommand editCardCommand = new EditCardCommand(validIndex, front, back);
 
-        assertThrows(CommandException.class, Messages.MESSAGE_NOT_IN_DECK_VIEW,
-                () -> editCardCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                Messages.MESSAGE_NOT_IN_DECK_VIEW, () -> editCardCommand.execute(modelStub));
     }
 
     @Test
@@ -123,10 +112,10 @@ public class EditCardCommandTest {
         BackFace back = new BackFace("안녕");;
         EditCardCommand editCardCommand = new EditCardCommand(invalidIndex, front, back);
 
-        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX,
-                () -> editCardCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX, () -> editCardCommand.execute(modelStub));
     }
-    
+
     @Test
     public void equals() {
         final EditCardCommand standardCommand = new EditCardCommand(
@@ -405,6 +394,11 @@ public class EditCardCommandTest {
         }
 
         @Override
+        public Deck getCurrentDeck() {
+            return deck;
+        }
+
+        @Override
         public Card getCard(Index index) {
             return deck.getCard(index);
         }
@@ -436,6 +430,11 @@ public class EditCardCommandTest {
         @Override
         public View getView() {
             return View.PLAY;
+        }
+
+        @Override
+        public Deck getCurrentDeck() {
+            return deck;
         }
 
         @Override
@@ -471,6 +470,11 @@ public class EditCardCommandTest {
         @Override
         public View getView() {
             return View.LIBRARY;
+        }
+
+        @Override
+        public Deck getCurrentDeck() {
+            return deck;
         }
 
         @Override

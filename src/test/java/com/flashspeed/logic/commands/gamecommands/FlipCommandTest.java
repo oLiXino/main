@@ -1,36 +1,37 @@
 package com.flashspeed.logic.commands.gamecommands;
 
-import java.nio.file.Path;
-import java.util.function.Predicate;
-
+import static com.flashspeed.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static com.flashspeed.testutil.Assert.assertThrows;
 
-import javafx.beans.property.ReadOnlyProperty;
-import javafx.collections.ObservableList;
+import java.nio.file.Path;
+import java.util.function.Predicate;
+
 import org.junit.jupiter.api.Test;
 
+import com.flashspeed.commons.core.GuiSettings;
+import com.flashspeed.commons.core.index.Index;
+import com.flashspeed.logic.commands.CommandResult;
+import com.flashspeed.logic.commands.exceptions.CommandException;
 import com.flashspeed.model.GameManager;
 import com.flashspeed.model.Model;
 import com.flashspeed.model.ReadOnlyLibrary;
 import com.flashspeed.model.ReadOnlyUserPrefs;
 import com.flashspeed.model.Statistics;
-import com.flashspeed.commons.core.GuiSettings;
-import com.flashspeed.commons.core.index.Index;
-import com.flashspeed.logic.commands.CommandResult;
-import com.flashspeed.logic.commands.exceptions.CommandException;
 import com.flashspeed.model.deck.Deck;
 import com.flashspeed.model.deck.Name;
 import com.flashspeed.model.deck.card.BackFace;
 import com.flashspeed.model.deck.card.Card;
 import com.flashspeed.model.util.View;
 
+import javafx.beans.property.ReadOnlyProperty;
+import javafx.collections.ObservableList;
+
 public class FlipCommandTest {
 
     @Test
-    public void execute_FlipSuccessful() throws Exception {
+    public void execute_play_flipSuccessful() throws Exception {
         ModelStubAcceptingCardFlipped modelStub = new ModelStubAcceptingCardFlipped();
         CommandResult commandResult = new FlipCommand().execute(modelStub);
 
@@ -39,11 +40,10 @@ public class FlipCommandTest {
 
     @Test
     public void execute_notInPlayMode_throwsCommandException() {
-        ModelStubAcceptingCardFlipped modelStub = new ModelStubAcceptingCardFlipped();
+        ModelStubNotPlayMode modelStub = new ModelStubNotPlayMode();
         FlipCommand flipCommand = new FlipCommand();
 
-        assertThrows(CommandException.class, FlipCommand.MESSAGE_NOT_PLAY_MODE,
-                () -> flipCommand.execute(modelStub));
+        assertThrows(CommandException.class, FlipCommand.MESSAGE_NOT_PLAY_MODE, () -> flipCommand.execute(modelStub));
     }
 
     @Test
@@ -51,8 +51,7 @@ public class FlipCommandTest {
         ModelStubCardAlreadyFlipped modelStub = new ModelStubCardAlreadyFlipped();
         FlipCommand flipCommand = new FlipCommand();
 
-        assertThrows(CommandException.class, FlipCommand.MESSAGE_ALREADY_FLIPPED,
-                () -> flipCommand.execute(modelStub));
+        assertThrows(CommandException.class, FlipCommand.MESSAGE_ALREADY_FLIPPED, () -> flipCommand.execute(modelStub));
     }
 
     @Test

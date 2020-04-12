@@ -1,13 +1,12 @@
 package com.flashspeed.model.deck;
 
+import static com.flashspeed.testutil.Assert.assertThrows;
+import static com.flashspeed.testutil.CardUtils.JAP_CARDS;
+import static com.flashspeed.testutil.DeckUtils.JAPANESE_DECK;
+import static com.flashspeed.testutil.DeckUtils.MALAY_DECK;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static com.flashspeed.testutil.Assert.assertThrows;
-import static com.flashspeed.testutil.CardUtils.JAP_CARDS;
-
-import static com.flashspeed.testutil.DeckUtils.JAPANESE_DECK;
-import static com.flashspeed.testutil.DeckUtils.MALAY_DECK;
 
 import java.util.Arrays;
 import java.util.Collections;

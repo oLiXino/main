@@ -1,37 +1,39 @@
 package com.flashspeed.logic.commands.gamecommands;
 
+import static com.flashspeed.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static com.flashspeed.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
-import javafx.beans.property.ReadOnlyProperty;
-import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
 
+import com.flashspeed.commons.core.GuiSettings;
+import com.flashspeed.commons.core.index.Index;
+import com.flashspeed.logic.commands.CommandResult;
+import com.flashspeed.logic.commands.exceptions.CommandException;
 import com.flashspeed.model.GameManager;
 import com.flashspeed.model.Model;
 import com.flashspeed.model.ReadOnlyLibrary;
 import com.flashspeed.model.ReadOnlyUserPrefs;
 import com.flashspeed.model.Statistics;
-import com.flashspeed.testutil.DeckUtils;
-import com.flashspeed.commons.core.GuiSettings;
-import com.flashspeed.commons.core.index.Index;
-import com.flashspeed.logic.commands.CommandResult;
-import com.flashspeed.logic.commands.exceptions.CommandException;
 import com.flashspeed.model.deck.Deck;
 import com.flashspeed.model.deck.Name;
 import com.flashspeed.model.deck.card.BackFace;
 import com.flashspeed.model.deck.card.Card;
 import com.flashspeed.model.util.View;
+import com.flashspeed.testutil.CardUtils;
+import com.flashspeed.testutil.DeckUtils;
+
+import javafx.beans.property.ReadOnlyProperty;
+import javafx.collections.ObservableList;
 
 public class AnswerYesCommandTest {
 
     @Test
-    public void execute_AnswerYesSuccessful() throws Exception {
+    public void execute_play_answerYesSuccessful() throws Exception {
         ModelStubAcceptingGameAnswerYes modelStub = new ModelStubAcceptingGameAnswerYes();
         CommandResult commandResult = new AnswerYesCommand().execute(modelStub);
 
@@ -43,8 +45,8 @@ public class AnswerYesCommandTest {
         ModelStubNotPlayMode modelStub = new ModelStubNotPlayMode();
         AnswerYesCommand answerYesCommand = new AnswerYesCommand();
 
-        assertThrows(CommandException.class, AnswerYesCommand.MESSAGE_NOT_PLAY_MODE,
-                () -> answerYesCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                AnswerYesCommand.MESSAGE_NOT_PLAY_MODE, () -> answerYesCommand.execute(modelStub));
     }
 
     @Test
@@ -52,8 +54,8 @@ public class AnswerYesCommandTest {
         ModelStubCardNotFlipped modelStub = new ModelStubCardNotFlipped();
         AnswerYesCommand answerYesCommand = new AnswerYesCommand();
 
-        assertThrows(CommandException.class, AnswerYesCommand.MESSAGE_NOT_FLIPPED,
-                () -> answerYesCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                AnswerYesCommand.MESSAGE_NOT_FLIPPED, () -> answerYesCommand.execute(modelStub));
     }
 
     @Test
@@ -73,7 +75,7 @@ public class AnswerYesCommandTest {
         // null -> returns false
         assertFalse(answerYesCommand.equals(null));
     }
-    
+
     /**
      * A default model stub that have all of the methods failing.
      */
@@ -323,6 +325,11 @@ public class AnswerYesCommandTest {
             newGame.flip();
             return newGame;
         }
+
+        @Override
+        public Card answerYes() {
+            return CardUtils.JAP_CARD_1;
+        }
     }
 
     /**
@@ -342,6 +349,11 @@ public class AnswerYesCommandTest {
             newGame.flip();
             return newGame;
         }
+
+        @Override
+        public Card answerYes() {
+            return CardUtils.JAP_CARD_1;
+        }
     }
 
     /**
@@ -359,6 +371,11 @@ public class AnswerYesCommandTest {
             Deck testDeck = DeckUtils.getTypicalJapDeck();
             GameManager newGame = new GameManager(testDeck);
             return newGame;
+        }
+
+        @Override
+        public Card answerYes() {
+            return CardUtils.JAP_CARD_1;
         }
     }
 }

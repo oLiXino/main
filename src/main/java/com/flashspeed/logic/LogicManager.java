@@ -50,7 +50,7 @@ public class LogicManager implements Logic {
         try {
             storage.saveLibrary(model.getLibrary());
         } catch (IOException ioe) {
-            //throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
 
         return commandResult;

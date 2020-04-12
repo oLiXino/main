@@ -1,9 +1,9 @@
 package com.flashspeed.commons.util;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static com.flashspeed.commons.util.CollectionUtil.requireAllNonNull;
 import static com.flashspeed.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.Collection;

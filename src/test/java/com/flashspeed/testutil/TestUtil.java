@@ -5,8 +5,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import com.flashspeed.model.Model;
 import com.flashspeed.commons.core.index.Index;
+import com.flashspeed.model.Model;
 import com.flashspeed.model.deck.Deck;
 
 /**

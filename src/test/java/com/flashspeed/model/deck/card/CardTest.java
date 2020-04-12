@@ -1,9 +1,9 @@
 package com.flashspeed.model.deck.card;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
+
+import org.junit.jupiter.api.Test;
 
 class CardTest {
 
@@ -29,6 +29,6 @@ class CardTest {
 
     @Test
     void testToString() {
-        assertEquals(card1.toString(), "front value:back value");
+        assertEquals(card1.toString(), "front value : back value");
     }
 }

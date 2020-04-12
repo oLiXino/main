@@ -7,7 +7,7 @@ import java.util.Objects;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Card {
-    
+
     private final FrontFace frontFace;
     private final BackFace backFace;
 
@@ -52,10 +52,8 @@ public class Card {
 
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getFrontFace())
-                .append(" : ")
-                .append(getBackFace());
-        return builder.toString();
+        return getFrontFace()
+                + " : "
+                + getBackFace();
     }
 }

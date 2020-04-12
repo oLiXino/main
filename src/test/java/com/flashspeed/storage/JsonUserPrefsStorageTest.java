@@ -1,8 +1,8 @@
 package com.flashspeed.storage;
 
+import static com.flashspeed.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static com.flashspeed.testutil.Assert.assertThrows;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -12,9 +12,9 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import com.flashspeed.model.UserPrefs;
 import com.flashspeed.commons.core.GuiSettings;
 import com.flashspeed.commons.exceptions.DataConversionException;
+import com.flashspeed.model.UserPrefs;
 
 public class JsonUserPrefsStorageTest {
 
