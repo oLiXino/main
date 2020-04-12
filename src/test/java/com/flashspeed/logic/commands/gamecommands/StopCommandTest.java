@@ -1,36 +1,37 @@
 package com.flashspeed.logic.commands.gamecommands;
 
-import java.nio.file.Path;
-import java.util.function.Predicate;
-
+import static com.flashspeed.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static com.flashspeed.testutil.Assert.assertThrows;
 
-import javafx.beans.property.ReadOnlyProperty;
-import javafx.collections.ObservableList;
+import java.nio.file.Path;
+import java.util.function.Predicate;
+
 import org.junit.jupiter.api.Test;
 
+import com.flashspeed.commons.core.GuiSettings;
+import com.flashspeed.commons.core.index.Index;
+import com.flashspeed.logic.commands.CommandResult;
+import com.flashspeed.logic.commands.exceptions.CommandException;
 import com.flashspeed.model.GameManager;
 import com.flashspeed.model.Model;
 import com.flashspeed.model.ReadOnlyLibrary;
 import com.flashspeed.model.ReadOnlyUserPrefs;
 import com.flashspeed.model.Statistics;
-import com.flashspeed.commons.core.GuiSettings;
-import com.flashspeed.commons.core.index.Index;
-import com.flashspeed.logic.commands.CommandResult;
-import com.flashspeed.logic.commands.exceptions.CommandException;
 import com.flashspeed.model.deck.Deck;
 import com.flashspeed.model.deck.Name;
 import com.flashspeed.model.deck.card.BackFace;
 import com.flashspeed.model.deck.card.Card;
 import com.flashspeed.model.util.View;
 
+import javafx.beans.property.ReadOnlyProperty;
+import javafx.collections.ObservableList;
+
 public class StopCommandTest {
 
     @Test
-    public void execute_Stop_successful() throws Exception {
+    public void execute_stop_successful() throws Exception {
         ModelStubAcceptingStop modelStub = new ModelStubAcceptingStop();
         CommandResult commandResult = new StopCommand().execute(modelStub);
 
@@ -43,8 +44,7 @@ public class StopCommandTest {
         ModelStubNotInPlayMode modelStub = new ModelStubNotInPlayMode();
         StopCommand stopCommand = new StopCommand();
 
-        assertThrows(CommandException.class, StopCommand.MESSAGE_NOT_PLAY_MODE,
-                () -> stopCommand.execute(modelStub));
+        assertThrows(CommandException.class, StopCommand.MESSAGE_NOT_PLAY_MODE, () -> stopCommand.execute(modelStub));
     }
 
     @Test

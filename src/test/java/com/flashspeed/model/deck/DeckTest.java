@@ -1,14 +1,14 @@
 package com.flashspeed.model.deck;
 
+import static com.flashspeed.logic.commands.CommandTestUtil.VALID_DECK_NAME_KOREAN_1;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static com.flashspeed.logic.commands.CommandTestUtil.VALID_DECK_NAME_KOREAN_1;
 
 import org.junit.jupiter.api.Test;
 
 import com.flashspeed.testutil.CardUtils;
-import com.flashspeed.testutil.DeckUtils;
 import com.flashspeed.testutil.DeckBuilder;
+import com.flashspeed.testutil.DeckUtils;
 
 public class DeckTest {
 

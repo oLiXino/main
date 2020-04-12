@@ -1,8 +1,8 @@
 package com.flashspeed.storage;
 
+import static com.flashspeed.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static com.flashspeed.testutil.Assert.assertThrows;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -11,10 +11,10 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import com.flashspeed.commons.exceptions.DataConversionException;
 import com.flashspeed.model.Library;
 import com.flashspeed.model.ReadOnlyLibrary;
 import com.flashspeed.testutil.DeckUtils;
-import com.flashspeed.commons.exceptions.DataConversionException;
 
 public class JsonLibraryStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonLibraryStorageTest");

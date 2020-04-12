@@ -1,13 +1,15 @@
 package com.flashspeed.model.deck.card;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
+
 import com.flashspeed.commons.core.index.Index;
 import com.flashspeed.model.deck.exceptions.CardNotFoundException;
 import com.flashspeed.model.deck.exceptions.DuplicateCardException;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static com.flashspeed.testutil.Assert.assertThrows;
-
 import com.flashspeed.testutil.Assert;
 
 class UniqueCardListTest {
@@ -21,7 +23,7 @@ class UniqueCardListTest {
     private BackFace bf1 = new BackFace("back value 1");
     private BackFace bf2 = new BackFace("back value 2");
 
-    Card nonExistentCard = new Card(new FrontFace("new front 1"), new BackFace("new back 2"));
+    private Card nonExistentCard = new Card(new FrontFace("new front 1"), new BackFace("new back 2"));
 
     private Card card1 = new Card(ff1, bf1);
     private Card card2 = new Card(ff1, bf2);
@@ -78,8 +80,8 @@ class UniqueCardListTest {
     }
 
     @Test
-    void getCard_invalidIndex_throwsCardNotFoundException() {
-        Assert.assertThrows(CardNotFoundException.class, () -> ucl.getCard(Index.fromZeroBased(4)));
+    void getCard_invalidIndex_throwsIndexOutOfBoundsException() {
+        Assert.assertThrows(IndexOutOfBoundsException.class, () -> ucl.getCard(Index.fromZeroBased(4)));
     }
 
     @Test

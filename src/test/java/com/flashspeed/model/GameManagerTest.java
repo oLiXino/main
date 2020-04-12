@@ -1,12 +1,12 @@
 package com.flashspeed.model;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
-import com.flashspeed.testutil.DeckUtils;
 import com.flashspeed.model.deck.card.BackFace;
 import com.flashspeed.model.deck.card.Card;
-
+import com.flashspeed.testutil.DeckUtils;
 
 public class GameManagerTest {
 

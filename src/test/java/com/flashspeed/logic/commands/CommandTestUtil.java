@@ -1,16 +1,16 @@
 package com.flashspeed.logic.commands;
 
+import static com.flashspeed.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static com.flashspeed.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.flashspeed.model.Library;
-import com.flashspeed.model.Model;
 import com.flashspeed.commons.core.index.Index;
 import com.flashspeed.logic.commands.exceptions.CommandException;
+import com.flashspeed.model.Library;
+import com.flashspeed.model.Model;
 import com.flashspeed.model.deck.Deck;
 
 /**

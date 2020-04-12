@@ -51,8 +51,8 @@ public class DeckBuilder {
      * Adds a card to the deck that we are building.
      */
     public DeckBuilder withCard(Card card) {
-       cards.add(card);
-       return this;
+        cards.add(card);
+        return this;
     }
 
     /**
