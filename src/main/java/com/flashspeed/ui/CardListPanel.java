@@ -4,7 +4,9 @@ import java.util.logging.Logger;
 
 import com.flashspeed.commons.core.LogsCenter;
 import com.flashspeed.model.deck.Deck;
+import com.flashspeed.model.deck.card.BackFace;
 import com.flashspeed.model.deck.card.Card;
+import com.flashspeed.model.deck.card.FrontFace;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
@@ -29,7 +31,7 @@ public class CardListPanel extends UiPart<Region> {
     private Label defaultText;
 
     @FXML
-    private TableView itemTbl;
+    private TableView<Card> itemTbl;
 
     @SuppressWarnings("unchecked")
     public CardListPanel(ObservableValue<Deck> selectedDeck) {
