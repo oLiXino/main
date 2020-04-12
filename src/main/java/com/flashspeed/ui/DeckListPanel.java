@@ -3,14 +3,15 @@ package com.flashspeed.ui;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
+import com.flashspeed.commons.core.LogsCenter;
+import com.flashspeed.model.deck.Deck;
+
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-import com.flashspeed.commons.core.LogsCenter;
-import com.flashspeed.model.deck.Deck;
 
 /**
  * Panel containing the list of decks.
@@ -27,7 +28,7 @@ public class DeckListPanel extends UiPart<Region> {
         super(FXML);
         deckListView.setItems(deckList);
         deckListView.setCellFactory(listView -> new DeckListViewCell());
-//        deckListView.getSelectionModel().clearAndSelect(2);
+        // deckListView.getSelectionModel().clearAndSelect(2);
 
         deckListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             logger.fine("Selection in deck list panel changed to : '" + newValue + "'");
@@ -39,9 +40,9 @@ public class DeckListPanel extends UiPart<Region> {
 
             // Don't modify selection if we are already selecting the selected deck,
             // otherwise we would have an infinite loop.
-//            if (Objects.equals(deckListView.getSelectionModel().getSelectedItem(), newValue)) {
-//                return;
-//            }
+            // if (Objects.equals(deckListView.getSelectionModel().getSelectedItem(), newValue)) {
+            //     return;
+            // }
 
             if (newValue == null) {
                 deckListView.getSelectionModel().clearSelection();
