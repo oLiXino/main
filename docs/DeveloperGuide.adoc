@@ -260,35 +260,6 @@ This section describes some noteworthy details on how certain features are imple
 
 {empty} +
 
-//tag::selectdeck[]
-=== Selecting a Deck
-==== Current Implementation
-
-The `select` command allows user to view the Card content of a Deck.
-
-Accepted syntax: `select INDEX`
-
-This functionality is implemented by getting the Deck based on the index provided. Subsequently, the Card(s) that belongs to the selected Deck will be displayed on the right panel via a `TableView`.
-
-The validation of the arguments in the `select` command is performed in `SelectDeckCommandParser#parse()`. It ensures that the user has entered a valid index (valid data type and range). This is also used for separation of parsing
-logic and model management logic.
-
-In `SelectDeckCommandParser#parse()`, the `INDEX` of the selected Deck is extracted
-from the arguments in the `select` command. The `INDEX` is converted to an Index object. An `SelectCardCommand`
-object is then constructed with the Index as its parameter.
-
-When `SelectDeckCommand#execute()` is executed a list of currently available Deck is requested from the `ModelManager#getFilteredDeckList()` method. The `ModelManager#selectDeck()` command will be invoked to update the variable that keeps track of the current Deck. After that, `ModelManager#setSelectedDeck()` method will be called to update the UI and display the Deck content on the right panel. Lastly, the name of the selected Deck will be displayed together with the `MESSAGE_SUCCESS` on the `ResultDisplay` panel.
-
-==== Design Considerations
-The UI will have to be constantly updated when we select to view a deck, and other decks might be selected afterward. As a result, an `ObservableValue<Deck>` variable will have to be updated constantly via the `ModelManager#setSelectedDeck()` method. Various event listeners are implemented in the UI classes (e.g `CardListPanel`, `DeckListPanel`) in order to instantly react if there is any changes to the selected deck.
-
-.Interactions inside Model, Logic and UI components to reflect UI changes when selecting a deck
-image::SelectDeckSequenceDiagram.png[]
-
-//end::selectdeck[]
-{empty} +
-
-
 
 // tag::createdeck[]
 
@@ -351,8 +322,37 @@ which is to assign different keywords to these two different feature.
 // end::createdeck[]
 {empty} +
 
+
+//tag::selectdeck[]
+=== Selecting a Deck
+==== Current Implementation
+
+The `select` command allows user to view the Card content of a Deck.
+
+Accepted syntax: `select INDEX`
+
+This functionality is implemented by getting the Deck based on the index provided. Subsequently, the Card(s) that belongs to the selected Deck will be displayed on the right panel via a `TableView`.
+
+The validation of the arguments in the `select` command is performed in `SelectDeckCommandParser#parse()`. It ensures that the user has entered a valid index (valid data type and range). This is also used for separation of parsing
+logic and model management logic.
+
+In `SelectDeckCommandParser#parse()`, the `INDEX` of the selected Deck is extracted
+from the arguments in the `select` command. The `INDEX` is converted to an Index object. An `SelectCardCommand`
+object is then constructed with the Index as its parameter.
+
+When `SelectDeckCommand#execute()` is executed a list of currently available Deck is requested from the `ModelManager#getFilteredDeckList()` method. The `ModelManager#selectDeck()` command will be invoked to update the variable that keeps track of the current Deck. After that, `ModelManager#setSelectedDeck()` method will be called to update the UI and display the Deck content on the right panel. Lastly, the name of the selected Deck will be displayed together with the `MESSAGE_SUCCESS` on the `ResultDisplay` panel.
+
+==== Design Considerations
+The UI will have to be constantly updated when we select to view a deck, and other decks might be selected afterward. As a result, an `ObservableValue<Deck>` variable will have to be updated constantly via the `ModelManager#setSelectedDeck()` method. Various event listeners are implemented in the UI classes (e.g `CardListPanel`, `DeckListPanel`) in order to instantly react if there is any changes to the selected deck.
+
+.Interactions inside Model, Logic and UI components to reflect UI changes when selecting a deck
+image::SelectDeckSequenceDiagram.png[]
+
+//end::selectdeck[]
+{empty} +
+
+
 // tag::addcard[]
->>>>>>> master
 === Creating a Card
 ==== Current Implementation
 
@@ -384,7 +384,6 @@ on the right panel. Lastly, the name of the selected Deck will be displayed toge
 ==== Design Considerations
 See <<Four-Two-Two, 4.2.2 - Design Considerations for creating a Deck - Aspect: Naming convention of command keywords>>.
 // end::addcard[]
->>>>>>> master
 
 // tag::editcard[]
 
