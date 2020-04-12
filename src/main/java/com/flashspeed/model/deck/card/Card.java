@@ -52,10 +52,8 @@ public class Card {
 
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getFrontFace())
-                .append(" : ")
-                .append(getBackFace());
-        return builder.toString();
+        return getFrontFace() +
+                " : " +
+                getBackFace();
     }
 }

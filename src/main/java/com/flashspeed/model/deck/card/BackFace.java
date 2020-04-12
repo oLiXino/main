@@ -6,6 +6,6 @@ package com.flashspeed.model.deck.card;
 public class BackFace extends Face {
 
     public BackFace(String value) {
-        super(value);
+        super(value.strip());
     }
 }
