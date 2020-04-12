@@ -125,6 +125,7 @@ The sections below give more details of each component.
 
 {empty} +
 
+//tag::UI-component[]
 [[Design-Ui]]
 === UI component
 
@@ -141,6 +142,8 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+
+//end::UI-component[]
 
 // tag::design-logic[]
 
@@ -257,6 +260,7 @@ This section describes some noteworthy details on how certain features are imple
 
 {empty} +
 
+//tag::selectdeck[]
 === Selecting a Deck
 ==== Current Implementation
 
@@ -278,7 +282,10 @@ When `SelectDeckCommand#execute()` is executed a list of currently available Dec
 ==== Design Considerations
 The UI will have to be constantly updated when we select to view a deck, and other decks might be selected afterward. As a result, an `ObservableValue<Deck>` variable will have to be updated constantly via the `ModelManager#setSelectedDeck()` method. Various event listeners are implemented in the UI classes (e.g `CardListPanel`, `DeckListPanel`) in order to instantly react if there is any changes to the selected deck.
 
+//end::selectdeck[]
 {empty} +
+
+
 
 // tag::createdeck[]
 
@@ -701,7 +708,7 @@ Use case resumes at step 1.
 {empty} +
 
 [discrete]
-=== UC04: View a deck
+=== UC04: View a deck (select)
 
 *MSS:*
 
@@ -868,7 +875,81 @@ Use case ends.
 
 User case ends.
 
-_{More to be added}_
+{empty} +
+
+[discrete]
+=== UC10: Playing a deck
+
+*MSS:*
+
+1. FlashSpeed shows a list of all decks.
+2. User chooses a deck and requests to play that deck.
+3. FlashSpeed changes into game view and starts the game.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1. The list is empty.
++
+Use case ends.
+
+* 2a. The given index is invalid.
++
+[none]
+** 2a1. FlashSpeed shows an error message.
++
+Use case resumes at step 1.
+
+{empty} +
+
+[discrete]
+=== UC10: Playing a game.
+
+*MSS:*
+
+1.  FlashSpeed shows a list of all decks.
+2.  User chooses a deck and requests to play that deck.
+3.  FlashSpeed changes into game view and starts the game.
+4.  FlashSpeed shows a card.
+5.  User flips the card.
+6.  FlashSpeed shows the other side of the card.
+7.  User types in yes or no to indicate the correctness of their answer.
+8.  FlashSpeed goes to next card.
+9.  Use case repeats from step 4 to step 7 until all cards are answered and the game ends.
+10.  FlashSpeed shows the statistics of game.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list is empty.
++
+Use case ends.
+
+* 2a. The given index is invalid.
++
+[none]
+** 2a1. FlashSpeed shows an error message.
++
+Use case resumes at step 1.
+
+[none]
+* 3a. The deck is empty.
++
+[none]
+** 3a1. FlashSpeed shows an error message.
+Use case ends.
+
+[none]
+* 4a. The given index is invalid.
++
+[none]
+** 4a1. FlashSpeed shows an error message.
++
+Use case resumes at step 3.
 
 [appendix]
 == Non Functional Requirements
@@ -898,6 +979,7 @@ Cards that are answered wrongly in Play Mode will be shown more frequently in th
 [[spaced-repetition-system]] Space Repetition System::
 Spaced repetition is an evidence-based learning technique that is usually performed with flashcards. Newly introduced and more difficult flashcards are shown more frequently while older and less difficult flashcards are shown less frequently in order to exploit the psychological spacing effect
 
+//tag::views[]
 [[view]] View::
 There are three different views in FlashSpeed.
 
@@ -906,39 +988,41 @@ There are three different views in FlashSpeed.
 * <<play, Play View>>
 
 [[library-view]] Library View::
-The current screen where FlashSpeed shows the list of decks.
+When no deck is selected and no cards are shown
 
 .In Library view. No deck is selected.
 image::library.png[]
 
 [[deck-view]] Deck View::
-The current screen where FlashSpeed shows the list of cards in a selected deck.
+When a deck is selected and its cards are shown
 
 .In Deck view. A deck has been selected.
 image::Ui.png[]
 
-[[play]] Play View (Play)::
-Enters the play view (mode) of FlashSpeed. In this mode, users will be able to take advantage of the smarter review system to revise/memorise their flashcards.
+[[play]] Play View::
+When in a study session of a deck
 
 .In Play view. A deck is being studied.
 image::Ui2.png[]
 
+//end::views[]
+
 [appendix]
 == Product Survey
 
-*Product Name*
+*Anki*
 
-Author: ...
+Author: Damien Elmes
 
 Pros:
 
-* ...
-* ...
+* Study algorithm is useful for easily memorizing content.
 
 Cons:
 
-* ...
-* ...
+* Not as appealing UI.
+* Not friendly for fast typist to execute commands/tasks.
+
 
 [appendix]
 == Instructions for Manual Testing
@@ -954,36 +1038,183 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample decks and cards. The minimum optimum window size for the app is already set.
 
-. Saving window preferences
+=== Help functionality
+. Opening Help Window
+.. Prerequisites: None
+.. Test case: `help` +
+   Expected: Opens the help window
+.. Test case: Pressing the `F1` key on the keyboard. +
+   Expected: Opens the help window
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+. Closing the Help Window
+.. Prerequisites: Help Window is opened
+.. Test case: Pressing the `Alt + F4` keys on the keyboard. +
+   Expected: Closes the help window
+.. Test case: Pressing the `X` button on the help window. +
+   Expected: Closes the help window
 
-_{ more test cases ... }_
+. Reading off from where you last left off.
+.. Open the help window.
+.. Scroll down to any part of the User Guide to read.
+.. Close the help window.
+.. Re-launch the help window. +
+   Expected: The help window opens to the page you last left off from.
 
-=== Deleting a person
 
-. Deleting a person while all persons are listed
+=== Deck functionality
+. Creating a deck.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Prerequisites: None
+.. Test case: `create Russian` +
+   Expected: Deck shows up on the deck list on the left panel and the (currently empty) card list is shown on the right panel.
+.. Test case: `create x` (where x is a deck name that already exists) +
+   Expected: No new deck is created. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect create commands to try: `create`, `create  `
+   Expected: Similar to previous
+
+. Deleting a deck from the deck list shown on the left panel.
+
+.. Prerequisites: Ensure that FlashSpeed contains at least 1 Deck, which can be seen on the left panel.
+.. Test case: `remove 1` +
+   Expected: First deck is deleted from the list. Name of the deleted deck is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `remove 0` +
+   Expected: No deck is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `remove`, `remove x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+. Renaming a deck.
 
-=== Saving data
+.. Prerequisites: Ensure that FlashSpeed contains at least 1 Deck, which can be seen on the left panel.
+.. Test case: `rename 1 Russian` +
+   Expected: New deck name shows up on the deck list on the left panel.
+.. Test case: `rename 0 Russian` +
+   Expected: No deck is renamed. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect create commands to try: `rename Russian`, `rename`, `rename x Russian` (where x is larger than the list size),
+   `rename 1 y` (where y is a deck name that already exists) +
+   Expected: Similar to previous.
 
-. Dealing with missing/corrupted data files
+=== Card functionality
+. Adding a card to a deck.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Prerequisites: A deck needs to be selected first via `select INDEX`
+.. Test case: `add 아녕하세요 : hello` +
+   Expected: Card shows up on the card list on the right panel.
+.. Test case: `add 안녕:하세요:hello`
+   Expected: No card is created. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect create commands to try: `add 안녕하세요: `, `add :hello` +
+Expected: Similar to previous
 
-_{ more test cases ... }_
+. Deleting a card from the card list shown on the right panel.
+
+.. Prerequisites: A deck needs to be selected first via `select INDEX`
+.. Test case: `delete 1` +
+   Expected: First card is deleted from the list. Name of the deleted card is shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete 0` +
+   Expected: No card is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+. Editing a card.
+
+.. Prerequisites: A deck needs to be selected first via `select INDEX`
+.. Test case: `edit 1 안녕 : Hi!` +
+   Expected: New card information is reflected on the card list on the left panel.
+.. Test case: `edit 1 안녕:` +
+   Expected: New card information (the front side) is reflected on the card list on the left panel.
+.. Test case: `edit 1 : Hi!` +
+   Expected: New card information (the back side) is reflected on the card list on the left panel.
+.. Test case: `edit 0 안녕하세요: Hi!` +
+   Expected: No card is edited. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect create commands to try: `edit`, `edit test : test test`, `edit x Russian : 러시안어` (where x is larger than the list size),
+   `rename 1 y` (where y is a card that already exists) +
+   Expected: Similar to previous.
+
+=== Game-play functionality
+. Starting a game
+.. Prerequisites: Ensure that FlashSpeed contains at least 1 Deck, which can be seen on the left panel.
+.. Test case: `play 1` +
+   Expected: First deck is chosen and play mode starts.
+.. Test case: `play 0` +
+   Expected: No deck chosen and played. Error details shown in the status message.
+.. Other incorrect delete commands to try: `play`, `play x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+. Flipping a card in game
+.. Prerequisites: FlashSpeed is in a game session and the current card has not been flipped yet.
+.. Test case: `flip` +
+   Expected: The back side of the card is shown.
+.. Test case: `flip` when the back side of the card is already shown +
+   Expected: Nothing happens. Error details shown in the status message.
+
+. Answering yes or no in game
+.. Prerequisites: FlashSpeed is in a game session and the current card has already been flipped.
+.. Test case: `yes` or `no` +
+   Expected: The next card is shown or the game ends.
+.. Test case: `yes` or `no` when the card is not yet flipped. +
+   Expected: Nothing happens. Error details shown in the status message.
+
+. Ending a game
+.. Prerequisites: FlashSpeed is in a game session.
+.. Test case: `flip` + `yes` until the game ends +
+   Expected: A statistics screen will popup showing the statistics of the game.
+
+
+=== Game statistics
+. Display game statistics
+.. Prerequisites: Ensure that FlashSpeed contains at least 1 Deck, which can be seen on the left panel.
+.. Test case:
+.... Start a game session with a deck.
+.... Cycle through `flip`, `yes` or `no`.
+.... Take note of the progress bar / counters / number of cards answered wrongly.
+.... When the game end, the statistics of your game will show up.
+.... Ensure that the numbers you have calculated / seen / taken note of tally up.
+
+[appendix]
+== Effort
+*Overview*
+FlashSpeed, a flashcard application, is aimed specifically at helping University students with learning a new language.
+FlashSpeed is significantly different from Address Book 3 (AB3) although it is based off it. In additional to the features from AB3,
+we needed to add additional features that would complete our flashcard application. For example, the Play feature is a new feature
+introduced in FlashSpeed
+
+*Challenges and Effort*
+
+* *Card and Deck Model* +
+AB3 contained a `person` class, which we wanted to refactor into our `card` class since each card contained information that
+could be easily refactored from `person`. However, since we wanted it to be possible to have many cards in a deck and many decks in a library,
+there was a design consideration of how we should implement `deck`. After much discussion, we decided to implement it as what can
+be described as a "layered AB3" implementation, where in AB3, an addressbook contains persons, but now we have a bigger library that
+contains multiple addressbooks.
+
+* *Play feature* +
+Since this was a brand new feature that was created from scratch, there were multiple suggestions from different members which was the
+best way to implement it. After much discussion and some compromise from each design, we came out with our final implementation. Additionally, since
+it was a new feature, even after we did the initial implementation, there were things that we did not foresee, such as how the UI would
+handle the different views depending on the state of the game and potentially how many bugs could have arose.
+
+* *User Interface Design* +
+We were brainstorming for a good interface that could support the three views that we had: Library View, Deck View and Play View.
+We managed to create about 2-3 mock-ups that everyone thought looked really good. Then, we compared the User Experience (UX) advantages
+between the mock-ups and decided ultimately that the mock-up that was built on AB3's design was the best for our flashcard purposes (in terms of UI/UX).
+
+* *User Interface Implementation* +
+As none of our team were experienced with UI, our initial mock-up and vision of the UI proved too difficult for us to implement it at one go.
+However, Robert (our UI Lead) focused on building on the UI while the rest of the team focused on building the core functionality of FlashSpeed.
+Robert would ask us on input based off the UI that he had designed and improve it based on our suggestions. +
+
+* *Design Considerations* +
+For each major enhancement, there was always a few design alternatives to choose from. As each team member felt that their design was the best,
+in our first major enhancement meeting, we spent 2-3 hours deciding the final implementation. After that meeting, our team decided
+on a faster way to resolve such cases by spending a maximum of 30minutes discussion before casting a vote. It worked efficiently for the
+future meetings.
+
+*Achievements*
+
+. We managed to create FlashSpeed to what we envisioned to be.
+. Although we did not manage to implement all the user-stories that we brain-stormed, we implemented all the essential functionality of FlashSpeed
+. FlashSpeed can safely support most available languages in the world, due to our stringent parser checks and language support from Java.
+. We learnt what was important in software development (Good coding style, Github skills, Documentation Writing, Testing, etc...)
 
 // end::appendix[]
