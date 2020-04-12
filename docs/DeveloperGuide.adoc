@@ -282,6 +282,9 @@ When `SelectDeckCommand#execute()` is executed a list of currently available Dec
 ==== Design Considerations
 The UI will have to be constantly updated when we select to view a deck, and other decks might be selected afterward. As a result, an `ObservableValue<Deck>` variable will have to be updated constantly via the `ModelManager#setSelectedDeck()` method. Various event listeners are implemented in the UI classes (e.g `CardListPanel`, `DeckListPanel`) in order to instantly react if there is any changes to the selected deck.
 
+.Interactions inside Model, Logic and UI components to reflect UI changes when selecting a deck
+image::SelectDeckSequenceDiagram.png[]
+
 //end::selectdeck[]
 {empty} +
 
