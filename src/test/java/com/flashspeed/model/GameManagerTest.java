@@ -26,7 +26,6 @@ public class GameManagerTest {
         assertEquals(backFace, card.getBackFace());
     }
 
-
     @Test
     public void getNextCard_answerYes_returnsTrue() {
         gameManager.flip();
