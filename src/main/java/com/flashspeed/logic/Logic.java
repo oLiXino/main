@@ -2,17 +2,16 @@ package com.flashspeed.logic;
 
 import java.nio.file.Path;
 
-import javafx.beans.property.ReadOnlyProperty;
-import javafx.collections.ObservableList;
-
 import com.flashspeed.commons.core.GuiSettings;
 import com.flashspeed.logic.commands.CommandResult;
 import com.flashspeed.logic.commands.exceptions.CommandException;
 import com.flashspeed.logic.parser.exceptions.ParseException;
 import com.flashspeed.model.deck.Deck;
 import com.flashspeed.model.deck.card.Card;
-
 import com.flashspeed.model.util.View;
+
+import javafx.beans.property.ReadOnlyProperty;
+import javafx.collections.ObservableList;
 
 /**
  * API of the Logic component.

@@ -1,7 +1,6 @@
 package com.flashspeed.commons.util;
 
 import static java.util.Objects.requireNonNull;
-import static com.flashspeed.commons.util.AppUtil.checkArgument;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

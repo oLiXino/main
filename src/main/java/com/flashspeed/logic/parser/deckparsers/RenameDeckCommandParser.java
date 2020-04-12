@@ -1,7 +1,7 @@
 package com.flashspeed.logic.parser.deckparsers;
 
-import static java.util.Objects.requireNonNull;
 import static com.flashspeed.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static java.util.Objects.requireNonNull;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

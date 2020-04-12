@@ -5,6 +5,12 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import com.flashspeed.commons.core.Config;
+import com.flashspeed.commons.core.LogsCenter;
+import com.flashspeed.commons.core.Version;
+import com.flashspeed.commons.exceptions.DataConversionException;
+import com.flashspeed.commons.util.ConfigUtil;
+import com.flashspeed.commons.util.StringUtil;
 import com.flashspeed.logic.Logic;
 import com.flashspeed.logic.LogicManager;
 import com.flashspeed.model.Library;
@@ -13,6 +19,7 @@ import com.flashspeed.model.ModelManager;
 import com.flashspeed.model.ReadOnlyLibrary;
 import com.flashspeed.model.ReadOnlyUserPrefs;
 import com.flashspeed.model.UserPrefs;
+import com.flashspeed.model.util.SampleDataUtil;
 import com.flashspeed.storage.JsonLibraryStorage;
 import com.flashspeed.storage.JsonUserPrefsStorage;
 import com.flashspeed.storage.LibraryStorage;
@@ -24,13 +31,6 @@ import com.flashspeed.ui.UiManager;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import com.flashspeed.commons.core.Config;
-import com.flashspeed.commons.core.LogsCenter;
-import com.flashspeed.commons.core.Version;
-import com.flashspeed.commons.exceptions.DataConversionException;
-import com.flashspeed.commons.util.ConfigUtil;
-import com.flashspeed.commons.util.StringUtil;
-import com.flashspeed.model.util.SampleDataUtil;
 
 /**
  * Runs the application.
