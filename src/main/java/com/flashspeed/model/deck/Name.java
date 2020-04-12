@@ -50,7 +50,7 @@ public class Name {
      * Checks if the lower case form of the name is equal to another object
      *
      * @param other the object being compared with.
-     * @return True if the lower case form of the name is equal to (@code other).
+     * @return True if the lowercase form of the name is equal to (@code other).
      */
     public boolean equalsLowerCase(Object other) {
         return other == this // short circuit if same object

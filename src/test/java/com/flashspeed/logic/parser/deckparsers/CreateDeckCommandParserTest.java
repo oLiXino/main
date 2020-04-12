@@ -1,10 +1,10 @@
 package com.flashspeed.logic.parser.deckparsers;
 
-import org.junit.jupiter.api.Test;
-import com.flashspeed.logic.commands.deckcommands.CreateDeckCommand;
-
 import static com.flashspeed.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import org.junit.jupiter.api.Test;
+
+import com.flashspeed.logic.commands.deckcommands.CreateDeckCommand;
 import com.flashspeed.logic.parser.CommandParserTestUtil;
 
 class CreateDeckCommandParserTest {

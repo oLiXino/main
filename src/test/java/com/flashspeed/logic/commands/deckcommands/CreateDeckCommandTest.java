@@ -1,35 +1,36 @@
 package com.flashspeed.logic.commands.deckcommands;
 
+import static com.flashspeed.testutil.Assert.assertThrows;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static com.flashspeed.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
-import javafx.beans.property.ReadOnlyProperty;
-import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
 
+import com.flashspeed.commons.core.GuiSettings;
+import com.flashspeed.commons.core.index.Index;
+import com.flashspeed.logic.commands.CommandResult;
+import com.flashspeed.logic.commands.exceptions.CommandException;
 import com.flashspeed.model.GameManager;
 import com.flashspeed.model.Model;
 import com.flashspeed.model.ReadOnlyLibrary;
 import com.flashspeed.model.ReadOnlyUserPrefs;
 import com.flashspeed.model.Statistics;
-import com.flashspeed.commons.core.GuiSettings;
-import com.flashspeed.commons.core.index.Index;
-import com.flashspeed.logic.commands.CommandResult;
-import com.flashspeed.logic.commands.exceptions.CommandException;
 import com.flashspeed.model.deck.Deck;
 import com.flashspeed.model.deck.Name;
 import com.flashspeed.model.deck.card.BackFace;
 import com.flashspeed.model.deck.card.Card;
 import com.flashspeed.model.util.View;
 import com.flashspeed.testutil.DeckBuilder;
+
+import javafx.beans.property.ReadOnlyProperty;
+import javafx.collections.ObservableList;
 
 public class CreateDeckCommandTest {
 
@@ -55,8 +56,8 @@ public class CreateDeckCommandTest {
         Deck validDeck = new DeckBuilder().withName("Test").build();
         CreateDeckCommand createDeckCommand = new CreateDeckCommand(validDeck);
 
-        assertThrows(CommandException.class, CreateDeckCommand.MESSAGE_NOT_IN_VIEW_MODE,
-                () -> createDeckCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                CreateDeckCommand.MESSAGE_NOT_IN_VIEW_MODE, () -> createDeckCommand.execute(modelStub));
     }
 
     @Test
@@ -73,7 +74,7 @@ public class CreateDeckCommandTest {
     public void equals() {
         Deck deck1 = new DeckBuilder().withName("Malay").build();
         Deck deck2 = new DeckBuilder().withName("Japanese").build();
-        
+
         CreateDeckCommand createDeck1Command = new CreateDeckCommand(deck1);
         CreateDeckCommand createDeck2Command = new CreateDeckCommand(deck2);
 

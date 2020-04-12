@@ -4,8 +4,8 @@ import static com.flashspeed.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMA
 
 import org.junit.jupiter.api.Test;
 
-import com.flashspeed.logic.parser.CommandParserTestUtil;
 import com.flashspeed.logic.commands.cardcommands.AddCardCommand;
+import com.flashspeed.logic.parser.CommandParserTestUtil;
 import com.flashspeed.model.deck.card.BackFace;
 import com.flashspeed.model.deck.card.Card;
 import com.flashspeed.model.deck.card.FrontFace;

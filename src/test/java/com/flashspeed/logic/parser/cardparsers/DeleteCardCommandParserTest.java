@@ -1,11 +1,11 @@
 package com.flashspeed.logic.parser.cardparsers;
 
-import org.junit.jupiter.api.Test;
-import com.flashspeed.commons.core.index.Index;
-import com.flashspeed.logic.commands.cardcommands.DeleteCardCommand;
-
 import static com.flashspeed.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import org.junit.jupiter.api.Test;
+
+import com.flashspeed.commons.core.index.Index;
+import com.flashspeed.logic.commands.cardcommands.DeleteCardCommand;
 import com.flashspeed.logic.parser.CommandParserTestUtil;
 
 class DeleteCardCommandParserTest {
