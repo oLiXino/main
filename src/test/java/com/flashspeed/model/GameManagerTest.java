@@ -26,23 +26,12 @@ public class GameManagerTest {
         assertEquals(backFace, card.getBackFace());
     }
 
-
     @Test
     public void getNextCard_answerYes_returnsTrue() {
         gameManager.flip();
         Card nextCard = gameManager.answerYes();
         Card card = gameManager.getCards().get(gameManager.getCurrCardIdx());
         assertEquals(nextCard, card);
-    }
-
-    @Test void answerYes_finishAllCards_returnsNull() {
-        gameManager.flip();
-        gameManager.answerYes();
-        gameManager.flip();
-        gameManager.answerYes();
-        gameManager.flip();
-        Card nextCard = gameManager.answerYes();
-        assertEquals(nextCard, null);
     }
 
     @Test
