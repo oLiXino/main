@@ -11,7 +11,7 @@ FlashSpeed is a text-based flashcard application which enables users to store vi
 decks, and launch review sessions of cards within those decks. It is designed for university students who are learning a
 foreign language or reading a language module.
 
-It was developed as a group project for the CS2103T Software Engineering module in the National University of Singapore
+It was developed as a team project for the CS2103T Software Engineering module in the National University of Singapore
 (NUS). FlashSpeed was built on top of the AddressBook-Level3 project created by SE-EDU initiative at
 https://se-education.org. FlashSpeed is written in Java and has a GUI created using JavaFX. Users interact with FlashSpeed using textual commands.
 
