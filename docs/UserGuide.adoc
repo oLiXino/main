@@ -120,6 +120,9 @@ Format: `help`
 You can view this user guide in a new window by
 typing `help` in the input box and pressing kbd:[Enter]. +
 
+[TIP]
+Other than clicking on the close button, you can also press kbd:[Alt]+kbd:[F4] to close the help window.
+
 {empty} +
 
 ==== Exiting the program : `exit`
@@ -480,11 +483,10 @@ But of course, don't give up and try not to use this too often!
 
 // end::stop-language[]
 [NOTE]
-The session statistics will be shown after completing a session or even when manually stopping.
+The session statistics will be shown either after completing a session or when manually stopping.
 
-[NOTE]
-Each card may appear more than once.
-You may see the same card a number of times in the same session according to your `yes` or `no` answers.
+[TIP]
+Other than clicking on the close button, you can also press kbd:[Alt]+kbd:[F4] to close the statistics window.
 
 .Statistics shown after manually stopping the session.
 image::stop.png[]
