@@ -409,6 +409,7 @@ image::library.png[]
 
 {empty} +
 
+
 === Play view
 
 Format: `play <index>`
@@ -418,8 +419,12 @@ Format: `play <index>`
 **Important: All commands in this section can only be used in Play view.**
 **To enter Play view, you must <<playDeck,play a deck>>.**
 
+// tag::play-view-language[]
+
 Time to start testing yourself! You can start a game session with a selected deck when you want to test how well you memorize the cards or just to enhance
 your memory of the cards in a specific deck. When playing a deck, each card will initially show only its front face to allow you to recall its back face. (It's to test you, after all!)
+
+// end::play-view-language[]
 
 .Playing the Japanese deck. Ganbatte kudasai!
 image::Ui2.png[]
@@ -427,6 +432,7 @@ image::Ui2.png[]
 
 {empty} +
 
+// tag::flip-language[]
 ==== Flipping a card : `flip`
 
 Format: `flip`
@@ -435,11 +441,13 @@ Are you ready? When you have a guess which you are confident with of the back fa
 if your guess is correct. To flip a card to see its back face, simply type `flip` into the input box
 and press kbd:[Enter]. +
 
+// end::flip-language[]
 .Flipping to reveal the back face of the card.
 image::flip.png[]
 
 {empty} +
 
+// tag::answer-language[]
 ==== Answering "yes" or "no" : `yes`/`no`
 
 Format: `yes` or `no`
@@ -448,6 +456,7 @@ Are you able to recall the back face of the card? +
 If you could, type `yes` into the input box and press kbd:[Enter]. (Congratulations!) +
 If you could not or your guess is wrong, type `no` into the input box and press kbd:[Enter]. (Don't give up!) +
 
+// end::answer-language[]
 [NOTE]
 You can only do this after flipping the card.
 
@@ -460,6 +469,7 @@ image::yes.png[]
 
 {empty} +
 
+// tag::stop-language[]
 ==== Stopping a session: `stop`
 
 Format: `stop`
@@ -468,6 +478,7 @@ A play session will end automatically when there are no more cards to review.
 However, you can always stop an ongoing session immediately by typing `stop` into the input box and pressing kbd:[Enter].
 But of course, don't give up and try not to use this too often!
 
+// end::stop-language[]
 [NOTE]
 The session statistics will be shown after completing a session or even when manually stopping.
 

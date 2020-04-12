@@ -159,6 +159,7 @@ image::DeleteSequenceDiagram.png[]
 NOTE: The lifeline for `RemoveDeckCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
+// tag::model[]
 === Model component
 
 .Structure of the Model Component
@@ -179,6 +180,8 @@ The `Model`,
 * stores and manipulates `View` object that represents the <<view, view>> that the user is currently in.
 * exposes an unmodifiable `ObservableList<Deck>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
+
+// end::model[]
 
 [[Design-Storage]]
 // tag::storage[]
@@ -440,6 +443,8 @@ The following sequence diagrams show how the `yes` and `no` operation work.
 
 image::AnswerYesSequenceDiagram.png[]
 image::AnswerNoSequenceDiagram.png[]
+
+// end::play[]
 
 === Logging
 
