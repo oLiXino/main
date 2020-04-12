@@ -132,7 +132,7 @@ Other than clicking on the close button, you can also press kbd:[Alt]+kbd:[F4] t
 
 Format: `exit`
 
-You can exit FlashSpeed by typing `exit` in the input box 
+You can exit FlashSpeed by typing `exit` in the input box
 and pressing kbd:[Enter]. Bye! +
 
 {empty} +
