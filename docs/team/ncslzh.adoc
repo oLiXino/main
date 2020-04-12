@@ -73,7 +73,7 @@ This was implemented to simplify how we got parameters especially for the shortc
 
 ** *Community:*
 *** Review/mentoring contributions:
-**** PRs reviewed: https://github.com/AY1920S2-CS2103T-W17-1/main/pull/75[#75] https://github.com/AY1920S2-CS2103T-W17-1/main/pull/84[#84] https://github.com/AY1920S2-CS2103T-W17-1/main/pull/295[#295]
+**** PRs reviewed: https://github.com/AY1920S2-CS2103T-W17-1/main/pull/75[#75] https://github.com/AY1920S2-CS2103T-W17-1/main/pull/84[#84] https://github.com/AY1920S2-CS2103T-W17-1/main/pull/295[#295]  https://github.com/AY1920S2-CS2103T-W17-1/main/pull/348[#348]
 
 
 == Contributions to the Developer Guide

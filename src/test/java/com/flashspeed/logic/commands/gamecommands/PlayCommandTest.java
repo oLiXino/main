@@ -1,5 +1,6 @@
 package com.flashspeed.logic.commands.gamecommands;
 
+import static com.flashspeed.testutil.TypicalIndexes.INDEX_THIRD_DECK;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -9,6 +10,7 @@ import static com.flashspeed.testutil.TypicalIndexes.INDEX_FIRST_DECK;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
+import com.flashspeed.testutil.DeckBuilder;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
@@ -54,7 +56,7 @@ public class PlayCommandTest {
     @Test
     public void execute_deckNotFound_throwsCommandException() {
         ModelStubDeckNotFound modelStub = new ModelStubDeckNotFound();
-        PlayCommand playCommand = new PlayCommand(INDEX_FIRST_DECK);
+        PlayCommand playCommand = new PlayCommand(INDEX_THIRD_DECK);
 
         assertThrows(CommandException.class, PlayCommand.MESSAGE_DECK_NOT_FOUND,
                 () -> playCommand.execute(modelStub));
@@ -378,9 +380,7 @@ public class PlayCommandTest {
 
         @Override
         public GameManager getGame() {
-            Deck testDeck = DeckUtils.getTypicalJapDeck();
-            GameManager newGame = new GameManager(testDeck);
-            return newGame;
+            return null;
         }
 
         @Override
@@ -401,9 +401,7 @@ public class PlayCommandTest {
 
         @Override
         public GameManager getGame() {
-            Deck testDeck = DeckUtils.getTypicalJapDeck();
-            GameManager newGame = new GameManager(testDeck);
-            return newGame;
+            return null;
         }
 
         @Override
