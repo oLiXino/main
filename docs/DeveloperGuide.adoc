@@ -1028,11 +1028,12 @@ Author: Damien Elmes
 Pros:
 
 * Study algorithm is useful for easily memorizing content.
+* Extensive card browser
 
 Cons:
 
 * Not as appealing UI.
-* Not friendly for fast typist to execute commands/tasks.
+* Not friendly for fast typist to execute commands/tasks (no CLI).
 
 [appendix]
 == Instructions for Manual Testing
