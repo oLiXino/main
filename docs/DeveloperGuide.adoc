@@ -16,6 +16,7 @@ endif::[]
 
 By: `FlashSpeed Foundation`      Since: `Feb 2020`      Licence: `MIT`
 
+// tag::introduction[]
 == Introduction
 FlashSpeed is a text-based flashcard application specifically designed for university students who are learning a foreign language.
 
@@ -26,7 +27,6 @@ The main features of FlashSpeed allows users to
 * create their own <<deck, decks>> of flashcards (or <<card, cards>>)
 * choose a deck to revise (or <<play, play>>) which uses the SRS design mentioned above.
 
-// tag::introduction[]
 [[Purpose]]
 === Purpose
 
@@ -164,9 +164,9 @@ link:{repoURL}/src/main/java/com/flashspeed/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("remove 2")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 // end::design-logic[]
-.Interactions inside the Logic Component for the `remove 2` command
+.Interactions inside the Logic Component for the `delete 1` command
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `RemoveDeckCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
@@ -1132,7 +1132,7 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: No card is created. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect create commands to try: `add 안녕하세요: `, `add :hello` +
 Expected: Similar to previous
-// end::appendixG[]
+
 . Deleting a card from the card list shown on the right panel.
 
 .. Prerequisites: A deck needs to be selected first via `select INDEX`
@@ -1157,7 +1157,7 @@ Expected: Similar to previous
 .. Other incorrect create commands to try: `edit`, `edit test : test test`, `edit x Russian : 러시안어` (where x is larger than the list size),
    `rename 1 y` (where y is a card that already exists) +
    Expected: Similar to previous.
-
+// end::appendixG[]
 === Game-play functionality
 . Starting a game
 .. Prerequisites: Ensure that FlashSpeed contains at least 1 Deck, which can be seen on the left panel.
