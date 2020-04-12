@@ -29,6 +29,6 @@ class CardTest {
 
     @Test
     void testToString() {
-        assertEquals(card1.toString(), "front value:back value");
+        assertEquals(card1.toString(), "front value : back value");
     }
 }
