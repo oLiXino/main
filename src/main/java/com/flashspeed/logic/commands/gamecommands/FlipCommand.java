@@ -44,6 +44,7 @@ public class FlipCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof FlipCommand); // instanceof handles nulls
+                || (other instanceof FlipCommand // instanceof handles nulls
+                && backFace.equals(((FlipCommand) other).backFace));
     }
 }
