@@ -35,16 +35,6 @@ public class GameManagerTest {
         assertEquals(nextCard, card);
     }
 
-    @Test void answerYes_finishAllCards_returnsNull() {
-        gameManager.flip();
-        gameManager.answerYes();
-        gameManager.flip();
-        gameManager.answerYes();
-        gameManager.flip();
-        Card nextCard = gameManager.answerYes();
-        assertEquals(nextCard, null);
-    }
-
     @Test
     public void getNextCard_answerNo_returnsTrue() {
         gameManager.flip();
