@@ -24,7 +24,7 @@ image::kschiew.png[width="150", align="left"]
 {empty}[http://github.com/kschiew[github]] [<<kschiew#, portfolio>>]
 
 Role: Software Architect +
-Responsibilities: App Architecture, Logic, Storage, Statistics, Integration
+Responsibilities: App Architecture, Logic, Storage, Statistics
 
 '''
 
