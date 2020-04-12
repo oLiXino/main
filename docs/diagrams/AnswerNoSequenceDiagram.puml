@@ -12,7 +12,6 @@ participant ":Model" as Model MODEL_COLOR
 participant ":GameManager" as GameManager MODEL_COLOR
 participant ":UniqueCardList" as UniqueCardList MODEL_COLOR
 end box
-
 [-> LogicManager : execute("no")
 activate LogicManager
 LogicManager -> MasterParser : parseCommand("no")
