@@ -16,7 +16,6 @@ endif::[]
 
 By: `FlashSpeed Foundation`      Since: `Feb 2020`      Licence: `MIT`
 
-// tag::introduction[]
 == Introduction
 FlashSpeed is a text-based flashcard application specifically designed for university students who are learning a foreign language.
 
@@ -27,7 +26,7 @@ The main features of FlashSpeed allows users to
 * create their own <<deck, decks>> of flashcards (or <<card, cards>>)
 * choose a deck to revise (or <<play, play>>) which uses the SRS design mentioned above.
 
-
+// tag::introduction[]
 [[Purpose]]
 === Purpose
 
@@ -145,10 +144,10 @@ The `UI` component,
 
 //end::UI-component[]
 
-// tag::design-logic[]
+
 
 {empty} +
-
+// tag::design-logic[]
 [[Design-Logic]]
 === Logic component
 
@@ -166,13 +165,12 @@ link:{repoURL}/src/main/java/com/flashspeed/logic/Logic.java[`Logic.java`]
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("remove 2")` API call.
-
+// end::design-logic[]
 .Interactions inside the Logic Component for the `remove 2` command
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `RemoveDeckCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-// end::design-logic[]
 
 {empty} +
 
@@ -210,7 +208,7 @@ The `Model`,
 === Storage component
 
 .Structure of the Storage Component
-image::../diagrams/StorageClassDiagram.png[]
+image::StorageClassDiagram.png[]
 
 
 *API* : link:{repoURL}/src/main/java/com/flashspeed/storage/Storage.java[`Storage.java`]
@@ -576,7 +574,7 @@ Refer to the guide <<Testing#, here>>.
 
 Refer to the guide <<DevOps#, here>>.
 
-// tag::appendix[]
+// tag::appendixA[]
 
 [appendix]
 == Product Scope
@@ -592,6 +590,9 @@ Refer to the guide <<DevOps#, here>>.
 
 *Value proposition*: study new vocabulary words anytime and anywhere
 
+// end::appendixA[]
+
+// tag::appendixB[]
 [appendix]
 == User Stories
 
@@ -644,6 +645,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |=======================================================================
 
+// end::appendixB[]
+
 [appendix]
 == Use Cases
 
@@ -683,6 +686,7 @@ Use case resumes at step 1.
 
 {empty} +
 
+// tag::appendixC[]
 [discrete]
 === UC03: Delete a deck
 
@@ -710,6 +714,8 @@ Use case resumes at step 1.
 
 {empty} +
 
+
+
 [discrete]
 === UC04: View a deck (select)
 
@@ -734,7 +740,7 @@ Use case ends.
 ** 2a1. FlashSpeed shows an error message.
 +
 Use case resumes at step 1.
-
+// end::appendixC[]
 {empty} +
 
 [discrete]
@@ -963,6 +969,7 @@ Use case resumes at step 3.
 
 _{More to be added}_
 
+// tag::appendixE[]
 [appendix]
 == Glossary
 
@@ -981,6 +988,8 @@ Cards that are answered wrongly in Play Mode will be shown more frequently in th
 
 [[spaced-repetition-system]] Space Repetition System::
 Spaced repetition is an evidence-based learning technique that is usually performed with flashcards. Newly introduced and more difficult flashcards are shown more frequently while older and less difficult flashcards are shown less frequently in order to exploit the psychological spacing effect
+
+// end::appendixE[]
 
 //tag::views[]
 [[view]] View::
@@ -1026,7 +1035,6 @@ Cons:
 * Not as appealing UI.
 * Not friendly for fast typist to execute commands/tasks.
 
-
 [appendix]
 == Instructions for Manual Testing
 
@@ -1065,7 +1073,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the help window. +
    Expected: The help window opens to the page you last left off from.
 
-
+// tag::appendixG[]
 === Deck functionality
 . Creating a deck.
 
@@ -1108,7 +1116,7 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: No card is created. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect create commands to try: `add 안녕하세요: `, `add :hello` +
 Expected: Similar to previous
-
+// end::appendixG[]
 . Deleting a card from the card list shown on the right panel.
 
 .. Prerequisites: A deck needs to be selected first via `select INDEX`

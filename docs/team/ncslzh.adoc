@@ -62,8 +62,10 @@ This was implemented to simplify how we got parameters especially for the shortc
 ** *Documentation contributed:*
 *** Developer Guide:
 **** In-charge of document quality
-*** Reformatted the structure and layout for ease of readability and navigability (e.g. topic headings, section spacing, etc.)
+**** Reformatted the structure and layout for ease of readability and navigability (e.g. topic headings, section spacing, etc.)
+**** Wrote introduction
 **** Wrote the entire Appendix A-G
+
 
 *** Others:
 **** Updated AB3 naming found in any documents into FlashSpeed https://github.com/AY1920S2-CS2103T-W17-1/main/pull/159[#159]
@@ -79,12 +81,23 @@ This was implemented to simplify how we got parameters especially for the shortc
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=introduction]
----
+
 include::../DeveloperGuide.adoc[tag=design-logic]
+
 ---
+
 include::../DeveloperGuide.adoc[tag=create-deck-consideration]
+
 ---
+
 include::../DeveloperGuide.adoc[tag=design-consideration-play]
+
 ---
-include::../DeveloperGuide.adoc[tag=appendix]
+
+include::../DeveloperGuide.adoc[tag=appendixC]
++ {and more, see Appendix C in DG}
+
+---
+
+include::../DeveloperGuide.adoc[tag=appendixG]
++ {and more, see Appenfix G in DG}
