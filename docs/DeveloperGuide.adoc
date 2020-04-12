@@ -210,7 +210,7 @@ The `Model`,
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[]
+image::../diagrams/StorageClassDiagram.png[]
 
 
 *API* : link:{repoURL}/src/main/java/com/flashspeed/storage/Storage.java[`Storage.java`]
