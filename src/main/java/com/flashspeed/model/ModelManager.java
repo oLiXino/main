@@ -193,7 +193,7 @@ public class ModelManager implements Model {
         library.createDeck(deck);
         Index currIndex = Index.fromZeroBased(library.getDeckList().indexOf(deck));
         selectDeck(currIndex);
-        setSelectedDeck(deck);
+        //setSelectedDeck(deck);
     }
 
     /**
@@ -217,10 +217,9 @@ public class ModelManager implements Model {
             return false;
         } else {
             deck.setName(name);
-
-            selectDeck(targetIndex);
             returnToLibrary();
-            setSelectedDeck(deck);
+            selectDeck(targetIndex);
+            //setSelectedDeck(deck);
             return true;
         }
     }
