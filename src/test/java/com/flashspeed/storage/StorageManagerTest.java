@@ -9,11 +9,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import com.flashspeed.commons.core.GuiSettings;
 import com.flashspeed.model.Library;
 import com.flashspeed.model.ReadOnlyLibrary;
 import com.flashspeed.model.UserPrefs;
 import com.flashspeed.testutil.DeckUtils;
-import com.flashspeed.commons.core.GuiSettings;
 
 public class StorageManagerTest {
 

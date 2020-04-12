@@ -1,13 +1,13 @@
 package com.flashspeed.testutil;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import com.flashspeed.model.deck.Deck;
 import com.flashspeed.model.deck.Name;
 import com.flashspeed.model.deck.card.BackFace;
 import com.flashspeed.model.deck.card.Card;
 import com.flashspeed.model.deck.card.FrontFace;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * A utility class to help with building Card objects.
@@ -55,11 +55,17 @@ public class CardBuilder {
         return this;
     }
 
+    /**
+     * Creates a CardBuilder of Cards with values given by parameters in input.
+     *
+     * @param input parameters of card faces
+     * @return CardBuilder of Cards with values given by parameters in input
+     */
     public CardBuilder withInput(String input) {
-        final Pattern INPUT_FORMAT = Pattern.compile("(?<front>.*)"
+        final Pattern inputFormat = Pattern.compile("(?<front>.*)"
                 + "(\\s*[\u003a\u02d0\u02d1\u02f8\u05c3\u2236\u2360\ua789\ufe13\uff1a\ufe55]\\s*)"
                 + "(?<back>.*)");
-        final Matcher matcher = INPUT_FORMAT.matcher(input.strip());
+        final Matcher matcher = inputFormat.matcher(input.strip());
         final String frontValue = matcher.group("front");
         final String backValue = matcher.group("back");
 

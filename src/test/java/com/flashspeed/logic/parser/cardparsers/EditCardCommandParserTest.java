@@ -1,14 +1,14 @@
 package com.flashspeed.logic.parser.cardparsers;
 
-import org.junit.jupiter.api.Test;
-import com.flashspeed.commons.core.index.Index;
-import com.flashspeed.logic.commands.cardcommands.EditCardCommand;
-import com.flashspeed.model.deck.card.BackFace;
-import com.flashspeed.model.deck.card.FrontFace;
-
 import static com.flashspeed.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import org.junit.jupiter.api.Test;
+
+import com.flashspeed.commons.core.index.Index;
+import com.flashspeed.logic.commands.cardcommands.EditCardCommand;
 import com.flashspeed.logic.parser.CommandParserTestUtil;
+import com.flashspeed.model.deck.card.BackFace;
+import com.flashspeed.model.deck.card.FrontFace;
 
 class EditCardCommandParserTest {
 

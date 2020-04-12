@@ -1,38 +1,39 @@
 package com.flashspeed.logic.commands.deckcommands;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static com.flashspeed.testutil.Assert.assertThrows;
 import static com.flashspeed.testutil.TypicalIndexes.INDEX_FIRST_DECK;
 import static com.flashspeed.testutil.TypicalIndexes.INDEX_SECOND_DECK;
 import static com.flashspeed.testutil.TypicalIndexes.INDEX_THIRD_DECK;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
-import javafx.beans.property.ReadOnlyProperty;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import org.junit.jupiter.api.Test;
 
+import com.flashspeed.commons.core.GuiSettings;
+import com.flashspeed.commons.core.Messages;
+import com.flashspeed.commons.core.index.Index;
+import com.flashspeed.logic.commands.CommandResult;
+import com.flashspeed.logic.commands.exceptions.CommandException;
 import com.flashspeed.model.GameManager;
 import com.flashspeed.model.Library;
 import com.flashspeed.model.Model;
 import com.flashspeed.model.ReadOnlyLibrary;
 import com.flashspeed.model.ReadOnlyUserPrefs;
 import com.flashspeed.model.Statistics;
-import com.flashspeed.testutil.DeckUtils;
-import com.flashspeed.commons.core.GuiSettings;
-import com.flashspeed.commons.core.Messages;
-import com.flashspeed.commons.core.index.Index;
-import com.flashspeed.logic.commands.CommandResult;
-import com.flashspeed.logic.commands.exceptions.CommandException;
 import com.flashspeed.model.deck.Deck;
 import com.flashspeed.model.deck.Name;
 import com.flashspeed.model.deck.card.BackFace;
 import com.flashspeed.model.deck.card.Card;
 import com.flashspeed.model.util.View;
+import com.flashspeed.testutil.DeckUtils;
+
+import javafx.beans.property.ReadOnlyProperty;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 public class SelectDeckCommandTest {
 
@@ -47,7 +48,8 @@ public class SelectDeckCommandTest {
         Deck validDeckToSelect = DeckUtils.getTypicalLibrary().getDeck(Index.fromZeroBased(0));
         CommandResult commandResult = new SelectDeckCommand(Index.fromZeroBased(0)).execute(modelStub);
 
-        assertEquals(String.format(SelectDeckCommand.MESSAGE_SUCCESS, validDeckToSelect), commandResult.getFeedbackToUser());
+        assertEquals(String.format(SelectDeckCommand.MESSAGE_SUCCESS, validDeckToSelect),
+                commandResult.getFeedbackToUser());
     }
 
     @Test
@@ -55,8 +57,8 @@ public class SelectDeckCommandTest {
         ModelStubPlayMode modelStub = new ModelStubPlayMode();
         SelectDeckCommand selectDeckCommand = new SelectDeckCommand(Index.fromZeroBased(1));
 
-        assertThrows(CommandException.class, SelectDeckCommand.MESSAGE_NOT_IN_VIEW_MODE,
-                () -> selectDeckCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                SelectDeckCommand.MESSAGE_NOT_IN_VIEW_MODE, () -> selectDeckCommand.execute(modelStub));
     }
 
     @Test
@@ -65,8 +67,8 @@ public class SelectDeckCommandTest {
         Index invalidIndex = INDEX_THIRD_DECK;
         SelectDeckCommand selectDeckCommand = new SelectDeckCommand(invalidIndex);
 
-        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX,
-                () -> selectDeckCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                Messages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX, () -> selectDeckCommand.execute(modelStub));
     }
 
     @Test
@@ -330,8 +332,8 @@ public class SelectDeckCommandTest {
      * A Model stub that always accepts a deck being selected.
      */
     private class ModelStubAcceptingDeckSelected extends ModelStub {
-        Library library = DeckUtils.getTypicalLibrary();
-        FilteredList<Deck> filteredDecks = new FilteredList<>(this.library.getDeckList());
+        private Library library = DeckUtils.getTypicalLibrary();
+        private FilteredList<Deck> filteredDecks = new FilteredList<>(this.library.getDeckList());
 
         @Override
         public View getView() {
@@ -359,8 +361,8 @@ public class SelectDeckCommandTest {
      * A Model stub that cannot select a deck due to being in Play Mode
      */
     private class ModelStubPlayMode extends ModelStub {
-        Library library = DeckUtils.getTypicalLibrary();
-        FilteredList<Deck> filteredDecks = new FilteredList<>(this.library.getDeckList());
+        private Library library = DeckUtils.getTypicalLibrary();
+        private FilteredList<Deck> filteredDecks = new FilteredList<>(this.library.getDeckList());
 
         @Override
         public View getView() {

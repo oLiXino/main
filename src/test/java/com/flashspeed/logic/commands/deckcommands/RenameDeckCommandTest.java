@@ -1,40 +1,41 @@
 package com.flashspeed.logic.commands.deckcommands;
 
-import static java.util.Objects.requireNonNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static com.flashspeed.logic.commands.deckcommands.RenameDeckCommand.MESSAGE_DUPLICATE_DECK;
 import static com.flashspeed.testutil.Assert.assertThrows;
 import static com.flashspeed.testutil.TypicalIndexes.INDEX_FIRST_DECK;
 import static com.flashspeed.testutil.TypicalIndexes.INDEX_SECOND_DECK;
 import static com.flashspeed.testutil.TypicalIndexes.INDEX_THIRD_DECK;
+import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
-import javafx.beans.property.ReadOnlyProperty;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import org.junit.jupiter.api.Test;
 
+import com.flashspeed.commons.core.GuiSettings;
+import com.flashspeed.commons.core.Messages;
+import com.flashspeed.commons.core.index.Index;
+import com.flashspeed.logic.commands.CommandResult;
+import com.flashspeed.logic.commands.exceptions.CommandException;
 import com.flashspeed.model.GameManager;
 import com.flashspeed.model.Library;
 import com.flashspeed.model.Model;
 import com.flashspeed.model.ReadOnlyLibrary;
 import com.flashspeed.model.ReadOnlyUserPrefs;
 import com.flashspeed.model.Statistics;
-import com.flashspeed.testutil.DeckUtils;
-import com.flashspeed.commons.core.GuiSettings;
-import com.flashspeed.commons.core.Messages;
-import com.flashspeed.commons.core.index.Index;
-import com.flashspeed.logic.commands.CommandResult;
-import com.flashspeed.logic.commands.exceptions.CommandException;
 import com.flashspeed.model.deck.Deck;
 import com.flashspeed.model.deck.Name;
 import com.flashspeed.model.deck.card.BackFace;
 import com.flashspeed.model.deck.card.Card;
 import com.flashspeed.model.util.View;
+import com.flashspeed.testutil.DeckUtils;
+
+import javafx.beans.property.ReadOnlyProperty;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 public class RenameDeckCommandTest {
 
@@ -57,8 +58,8 @@ public class RenameDeckCommandTest {
         RenameDeckCommand renameDeckCommand = new RenameDeckCommand(
                 Index.fromZeroBased(0), new Name("Korean"));
 
-        assertThrows(CommandException.class, RenameDeckCommand.MESSAGE_NOT_IN_VIEW_MODE,
-                () -> renameDeckCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                RenameDeckCommand.MESSAGE_NOT_IN_VIEW_MODE, () -> renameDeckCommand.execute(modelStub));
     }
 
     @Test
@@ -68,8 +69,8 @@ public class RenameDeckCommandTest {
         RenameDeckCommand renameDeckCommand = new RenameDeckCommand(
                 invalidIndex, new Name("Korean"));
 
-        assertThrows(CommandException.class, Messages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX,
-                () -> renameDeckCommand.execute(modelStub));
+        assertThrows(CommandException.class,
+                Messages.MESSAGE_INVALID_DECK_DISPLAYED_INDEX, () -> renameDeckCommand.execute(modelStub));
     }
 
     @Test
@@ -78,8 +79,7 @@ public class RenameDeckCommandTest {
         RenameDeckCommand renameDeckCommand = new RenameDeckCommand(
                 Index.fromZeroBased(0), new Name("Japanese"));
 
-        assertThrows(CommandException.class, MESSAGE_DUPLICATE_DECK,
-                () -> renameDeckCommand.execute(modelStub));
+        assertThrows(CommandException.class, MESSAGE_DUPLICATE_DECK, () -> renameDeckCommand.execute(modelStub));
     }
 
     @Test
@@ -350,8 +350,16 @@ public class RenameDeckCommandTest {
      * A Model stub that always accepts a card being renamed.
      */
     private class ModelStubAcceptingDeckRenamed extends ModelStub {
-        Library library = DeckUtils.getTypicalLibrary();
-        FilteredList<Deck> filteredDecks = new FilteredList<>(this.library.getDeckList());
+        private Library library = DeckUtils.getTypicalLibrary();
+        private FilteredList<Deck> filteredDecks = new FilteredList<>(this.library.getDeckList());
+
+        public FilteredList<Deck> getFilteredDecks() {
+            return filteredDecks;
+        }
+
+        public Library getLibrary() {
+            return library;
+        }
 
         @Override
         public View getView() {
@@ -387,8 +395,16 @@ public class RenameDeckCommandTest {
      * A Model stub that cannot rename a deck due to being in Play Mode
      */
     private class ModelStubPlayMode extends ModelStub {
-        Library library = DeckUtils.getTypicalLibrary();
-        FilteredList<Deck> filteredDecks = new FilteredList<>(this.library.getDeckList());
+        private Library library = DeckUtils.getTypicalLibrary();
+        private FilteredList<Deck> filteredDecks = new FilteredList<>(this.library.getDeckList());
+
+        public FilteredList<Deck> getFilteredDecks() {
+            return filteredDecks;
+        }
+
+        public Library getLibrary() {
+            return library;
+        }
 
         @Override
         public View getView() {

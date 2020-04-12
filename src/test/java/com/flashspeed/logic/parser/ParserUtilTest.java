@@ -1,7 +1,7 @@
 package com.flashspeed.logic.parser;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static com.flashspeed.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 

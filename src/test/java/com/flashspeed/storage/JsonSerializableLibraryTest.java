@@ -7,11 +7,11 @@ import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Test;
 
+import com.flashspeed.commons.exceptions.IllegalValueException;
+import com.flashspeed.commons.util.JsonUtil;
 import com.flashspeed.model.Library;
 import com.flashspeed.testutil.Assert;
 import com.flashspeed.testutil.DeckUtils;
-import com.flashspeed.commons.exceptions.IllegalValueException;
-import com.flashspeed.commons.util.JsonUtil;
 
 public class JsonSerializableLibraryTest {
 

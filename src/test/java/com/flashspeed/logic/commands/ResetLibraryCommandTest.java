@@ -4,12 +4,12 @@ import static com.flashspeed.logic.commands.CommandTestUtil.assertCommandSuccess
 
 import org.junit.jupiter.api.Test;
 
+import com.flashspeed.commons.core.index.Index;
 import com.flashspeed.model.Library;
 import com.flashspeed.model.Model;
 import com.flashspeed.model.ModelManager;
 import com.flashspeed.model.UserPrefs;
 import com.flashspeed.testutil.DeckUtils;
-import com.flashspeed.commons.core.index.Index;
 
 public class ResetLibraryCommandTest {
 
@@ -35,6 +35,7 @@ public class ResetLibraryCommandTest {
         Model model = new ModelManager(DeckUtils.getTypicalLibrary(), new UserPrefs());
         model.play(Index.fromZeroBased(0));
 
-        CommandTestUtil.assertCommandFailure(new ResetLibraryCommand(), model, ResetLibraryCommand.MESSAGE_NOT_IN_VIEW_MODE);
+        CommandTestUtil.assertCommandFailure(new ResetLibraryCommand(),
+                model, ResetLibraryCommand.MESSAGE_NOT_IN_VIEW_MODE);
     }
 }

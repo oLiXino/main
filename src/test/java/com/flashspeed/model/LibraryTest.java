@@ -1,22 +1,19 @@
 package com.flashspeed.model;
 
+import static com.flashspeed.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static com.flashspeed.testutil.Assert.assertThrows;
 
 import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
-
-import com.flashspeed.testutil.CardUtils;
-import com.flashspeed.testutil.DeckUtils;
 import com.flashspeed.model.deck.Deck;
+import com.flashspeed.testutil.CardUtils;
 import com.flashspeed.testutil.DeckBuilder;
-
+import com.flashspeed.testutil.DeckUtils;
 import com.flashspeed.testutil.LibraryBuilder;
-
 
 public class LibraryTest {
 

@@ -1,10 +1,10 @@
 package com.flashspeed.logic.parser.gameparsers;
 
-import org.junit.jupiter.api.Test;
-import com.flashspeed.logic.commands.gamecommands.PlayCommand;
-
 import static com.flashspeed.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import org.junit.jupiter.api.Test;
+
+import com.flashspeed.logic.commands.gamecommands.PlayCommand;
 import com.flashspeed.logic.parser.CommandParserTestUtil;
 
 class PlayCommandParserTest {

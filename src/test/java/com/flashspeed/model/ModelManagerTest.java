@@ -1,28 +1,29 @@
 package com.flashspeed.model;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static com.flashspeed.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static com.flashspeed.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
-import com.flashspeed.model.util.View;
-import javafx.beans.property.SimpleObjectProperty;
 import org.junit.jupiter.api.Test;
 
-import com.flashspeed.logic.parser.ParserUtil;
-import com.flashspeed.testutil.CardUtils;
-import com.flashspeed.testutil.DeckUtils;
 import com.flashspeed.commons.core.GuiSettings;
 import com.flashspeed.commons.core.index.Index;
 import com.flashspeed.logic.commands.deckcommands.SelectDeckCommand;
+import com.flashspeed.logic.parser.ParserUtil;
 import com.flashspeed.logic.parser.exceptions.ParseException;
-import com.flashspeed.model.deck.Deck;
 import com.flashspeed.model.deck.card.BackFace;
 import com.flashspeed.model.deck.card.Card;
+import com.flashspeed.model.util.View;
 import com.flashspeed.testutil.CardBuilder;
+import com.flashspeed.testutil.CardUtils;
+import com.flashspeed.testutil.DeckUtils;
 import com.flashspeed.testutil.LibraryBuilder;
 
 public class ModelManagerTest {
@@ -102,7 +103,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasDeck_deckNotInLibrary_afterDeleteDeck_returnsFalse() {
+    public void hasDeck_deckNotInLibraryAfterDeleteDeck_returnsFalse() {
         modelManager.createDeck(DeckUtils.JAPANESE_DECK);
         modelManager.deleteDeck(DeckUtils.JAPANESE_DECK);
         assertFalse(modelManager.hasDeck(DeckUtils.JAPANESE_DECK));
@@ -114,13 +115,13 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void getCurrentDeck_returnsCurrentDeck() throws ParseException{
+    public void getCurrentDeck_returnsCurrentDeck() throws ParseException {
         modelManager.createDeck(DeckUtils.JAPANESE_DECK);
         try {
             Index index = ParserUtil.parseIndex("1");
             modelManager.selectDeck(index);
             assertEquals(modelManager.getCurrentDeck(), DeckUtils.JAPANESE_DECK);
-        }  catch (ParseException pe) {
+        } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectDeckCommand.MESSAGE_USAGE), pe);
         }
@@ -135,7 +136,7 @@ public class ModelManagerTest {
 
 
     @Test
-    public void hasCard_cardInDeck_returnsTrue() throws ParseException{
+    public void hasCard_cardInDeck_returnsTrue() throws ParseException {
         modelManager.createDeck(DeckUtils.JAPANESE_DECK);
         try {
             Index index = ParserUtil.parseIndex("1");
@@ -148,7 +149,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void getCard_returnsTrue() throws  ParseException {
+    public void getCard_returnsTrue() throws ParseException {
         modelManager.createDeck(DeckUtils.JAPANESE_DECK);
         try {
             Index deckIndex = ParserUtil.parseIndex("1");
@@ -163,7 +164,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasCard_cardNotINDeck_afterDeleteCard_returnsFalse() throws ParseException {
+    public void hasCard_cardNotInDeckAafterDeleteCard_returnsFalse() throws ParseException {
         modelManager.createDeck(DeckUtils.JAPANESE_DECK);
         try {
             Index index = ParserUtil.parseIndex("1");
@@ -192,7 +193,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasCard_cardInDeck_afterReplaceCard_returnsTrue() throws ParseException {
+    public void hasCard_cardInDeckAfterReplaceCard_returnsTrue() throws ParseException {
         modelManager.createDeck(DeckUtils.JAPANESE_DECK);
         Card newCard = new CardBuilder().withFrontFace("newFront2").withBackFace("newBack2").build();
         try {
@@ -207,7 +208,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void cardReturned_afterPlay_returnsNull() throws ParseException{
+    public void cardReturned_afterPlay_returnsNull() throws ParseException {
         modelManager.createDeck(DeckUtils.JAPANESE_DECK);
         try {
             Index index = ParserUtil.parseIndex("10");
@@ -221,7 +222,7 @@ public class ModelManagerTest {
 
 
     @Test
-    public void gameCreated_afterPlay_returnsTrue() throws ParseException{
+    public void gameCreated_afterPlay_returnsTrue() throws ParseException {
         modelManager.createDeck(DeckUtils.JAPANESE_DECK);
         try {
             Index index = ParserUtil.parseIndex("1");
@@ -238,7 +239,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void getBackFace_afterFlip_returnsTrue() throws ParseException{
+    public void getBackFace_afterFlip_returnsTrue() throws ParseException {
         modelManager.createDeck(DeckUtils.JAPANESE_DECK);
         try {
             Index index = ParserUtil.parseIndex("1");
