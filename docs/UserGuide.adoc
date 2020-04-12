@@ -217,8 +217,8 @@ In the Deck view, you can use any of the Deck mode commands listed in <<deckView
 
 Example:
 
-* `select 2` +
-Selects and shows all cards in the 2nd deck.
+* `select 1` +
+Selects and shows all cards in the 1st deck.
 
 .Selecting a deck and showing its cards.
 image::Ui.png[]
