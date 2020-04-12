@@ -39,7 +39,7 @@ public class FlipCommandTest {
 
     @Test
     public void execute_notInPlayMode_throwsCommandException() {
-        ModelStubNotPlayMode modelStub = new ModelStubNotPlayMode();
+        ModelStubAcceptingCardFlipped modelStub = new ModelStubAcceptingCardFlipped();
         FlipCommand flipCommand = new FlipCommand();
 
         assertThrows(CommandException.class, FlipCommand.MESSAGE_NOT_PLAY_MODE,

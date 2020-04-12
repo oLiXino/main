@@ -8,7 +8,6 @@ import static com.flashspeed.testutil.Assert.assertThrows;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
-import com.flashspeed.testutil.CardUtils;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
@@ -324,11 +323,6 @@ public class AnswerNoCommandTest {
             newGame.flip();
             return newGame;
         }
-
-        @Override
-        public Card answerNo() {
-            return CardUtils.JAP_CARD_1;
-        }
     }
 
     /**
@@ -348,11 +342,6 @@ public class AnswerNoCommandTest {
             newGame.flip();
             return newGame;
         }
-
-        @Override
-        public Card answerNo() {
-            return CardUtils.JAP_CARD_1;
-        }
     }
 
     /**
@@ -370,11 +359,6 @@ public class AnswerNoCommandTest {
             Deck testDeck = DeckUtils.getTypicalJapDeck();
             GameManager newGame = new GameManager(testDeck);
             return newGame;
-        }
-
-        @Override
-        public Card answerNo() {
-            return CardUtils.JAP_CARD_1;
         }
     }
 }

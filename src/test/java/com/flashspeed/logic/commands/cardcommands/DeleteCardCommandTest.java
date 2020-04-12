@@ -36,6 +36,11 @@ import com.flashspeed.testutil.DeckBuilder;
 public class DeleteCardCommandTest {
 
     @Test
+    public void constructor_nullIndex_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new DeleteCardCommand(null));
+    }
+
+    @Test
     public void execute_deleteAcceptedByModel_Successful() throws Exception {
         ModelStubAcceptingCardDeleted modelStub = new ModelStubAcceptingCardDeleted();
 
@@ -43,21 +48,21 @@ public class DeleteCardCommandTest {
         Card cardToDelete = modelStub.getCard(validIndex);
         CommandResult commandResult = new DeleteCardCommand(validIndex).execute(modelStub);
 
-        assertEquals(String.format(DeleteCardCommand.MESSAGE_SUCCESS, cardToDelete), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddCardCommand.MESSAGE_SUCCESS, cardToDelete), commandResult.getFeedbackToUser());
     }
 
     @Test
-    public void execute_inPlayView_throwsCommandException() {
+    public void execute_notInViewMode_throwsCommandException() {
         ModelStubPlayMode modelStub = new ModelStubPlayMode();
         Index validIndex = INDEX_FIRST_CARD;
         DeleteCardCommand deleteCardCommand = new DeleteCardCommand(validIndex);
 
-        assertThrows(CommandException.class, DeleteCardCommand.MESSAGE_NOT_IN_VIEW_MODE,
+        assertThrows(CommandException.class, AddCardCommand.MESSAGE_NOT_IN_VIEW_MODE,
                 () -> deleteCardCommand.execute(modelStub));
     }
 
     @Test
-    public void execute_inLibraryView_throwsCommandException() {
+    public void execute_notInDeckView_throwsCommandException() {
         ModelStubLibraryView modelStub = new ModelStubLibraryView();
         DeleteCardCommand deleteCardCommand = new DeleteCardCommand(INDEX_FIRST_CARD);
 
@@ -354,11 +359,6 @@ public class DeleteCardCommandTest {
         }
 
         @Override
-        public Deck getCurrentDeck() {
-            return deck;
-        }
-
-        @Override
         public Card getCard(Index index) {
             return deck.getCard(index);
         }
@@ -393,11 +393,6 @@ public class DeleteCardCommandTest {
         }
 
         @Override
-        public Deck getCurrentDeck() {
-            return deck;
-        }
-
-        @Override
         public Card getCard(Index index) {
             return deck.getCard(index);
         }
@@ -427,13 +422,8 @@ public class DeleteCardCommandTest {
         }
 
         @Override
-        public Deck getCurrentDeck() {
-            return deck;
-        }
-
-        @Override
         public View getView() {
-            return View.LIBRARY;
+            return View.DECK;
         }
 
         @Override

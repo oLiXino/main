@@ -1,7 +1,5 @@
 package com.flashspeed.logic.commands;
 
-import com.flashspeed.logic.commands.exceptions.CommandException;
-import com.flashspeed.logic.commands.gamecommands.PlayCommand;
 import org.junit.jupiter.api.Test;
 import com.flashspeed.commons.core.index.Index;
 import com.flashspeed.model.Model;
@@ -11,20 +9,16 @@ import com.flashspeed.testutil.DeckUtils;
 
 import static com.flashspeed.logic.commands.CommandTestUtil.assertCommandFailure;
 import static com.flashspeed.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static com.flashspeed.testutil.Assert.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ReturnToLibraryCommandTest {
 
     @Test
-    public void execute_return_success() throws Exception{
+    public void execute_return_success() {
         Model model = new ModelManager(DeckUtils.getTypicalLibrary(), new UserPrefs());
         model.selectDeck(Index.fromZeroBased(0));
 
-        CommandResult commandResult = new ReturnToLibraryCommand().execute(model);
-
-        assertEquals(String.format(ReturnToLibraryCommand.MESSAGE_SUCCESS),
-                commandResult.getFeedbackToUser());
+        Model expectedModel = new ModelManager(DeckUtils.getTypicalLibrary(), new UserPrefs());
+        assertCommandSuccess(new ResetLibraryCommand(), model, ReturnToLibraryCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
@@ -32,10 +26,7 @@ public class ReturnToLibraryCommandTest {
         Model model = new ModelManager(DeckUtils.getTypicalLibrary(), new UserPrefs());
         model.play(Index.fromZeroBased(0));
 
-        ReturnToLibraryCommand returnToLibraryCommand = new ReturnToLibraryCommand();
-
-        assertThrows(CommandException.class, ReturnToLibraryCommand.MESSAGE_NOT_IN_VIEW_MODE,
-                () -> returnToLibraryCommand.execute(model));
+        assertCommandFailure(new ReturnToLibraryCommand(), model, ReturnToLibraryCommand.MESSAGE_NOT_IN_VIEW_MODE);
     }
 
     @Test

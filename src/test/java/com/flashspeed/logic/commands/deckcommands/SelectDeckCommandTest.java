@@ -13,7 +13,6 @@ import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import org.junit.jupiter.api.Test;
 
 import com.flashspeed.model.GameManager;
@@ -330,17 +329,10 @@ public class SelectDeckCommandTest {
      * A Model stub that always accepts a deck being selected.
      */
     private class ModelStubAcceptingDeckSelected extends ModelStub {
-        Library library = DeckUtils.getTypicalLibrary();
-        FilteredList<Deck> filteredDecks = new FilteredList<>(this.library.getDeckList());
 
         @Override
         public View getView() {
             return View.DECK;
-        }
-
-        @Override
-        public ObservableList<Deck> getFilteredDeckList() {
-            return filteredDecks;
         }
 
         @Override
@@ -359,17 +351,10 @@ public class SelectDeckCommandTest {
      * A Model stub that cannot select a deck due to being in Play Mode
      */
     private class ModelStubPlayMode extends ModelStub {
-        Library library = DeckUtils.getTypicalLibrary();
-        FilteredList<Deck> filteredDecks = new FilteredList<>(this.library.getDeckList());
 
         @Override
         public View getView() {
             return View.PLAY;
-        }
-
-        @Override
-        public ObservableList<Deck> getFilteredDeckList() {
-            return filteredDecks;
         }
 
         @Override
