@@ -15,9 +15,8 @@ import javafx.collections.ObservableList;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Deck {
-    
     // Identity fields
-    private  Name name;
+    private Name name;
 
     // Data fields
     private UniqueCardList cards = new UniqueCardList();
@@ -29,11 +28,11 @@ public class Deck {
         requireNonNull(name);
         this.name = name;
     }
-    
+
     public Name getName() {
         return name;
     }
-    
+
     public int getSize() {
         return cards.getSize();
     }
@@ -64,7 +63,7 @@ public class Deck {
     public void remove(Card toRemove) {
         cards.remove(toRemove);
     }
-    
+
     public void setName(Name newName) {
         this.name = newName;
     }

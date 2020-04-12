@@ -1,7 +1,7 @@
 package com.flashspeed.model.deck.card;
 
-import static java.util.Objects.requireNonNull;
 import static com.flashspeed.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Iterator;
 import java.util.List;
@@ -36,7 +36,7 @@ public class UniqueCardList implements Iterable<Card> {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::equals);
     }
-    
+
     public int getSize() {
         return internalList.size();
     }
@@ -79,7 +79,6 @@ public class UniqueCardList implements Iterable<Card> {
         if (idx == -1) {
             throw new CardNotFoundException();
         }
-        
         if (!toRemove.equals(toAdd) && contains(toAdd)) {
             throw new DuplicateCardException();
         }
