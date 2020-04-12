@@ -1,5 +1,6 @@
 package com.flashspeed.logic.commands.deckcommands;
 
+import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -14,6 +15,7 @@ import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import org.junit.jupiter.api.Test;
 
 import com.flashspeed.model.GameManager;
@@ -35,15 +37,6 @@ import com.flashspeed.model.deck.card.Card;
 import com.flashspeed.model.util.View;
 
 public class RenameDeckCommandTest {
-    @Test
-    public void constructor_nullDeck_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new RenameDeckCommand(
-                null, null));
-        assertThrows(NullPointerException.class, () -> new RenameDeckCommand(
-                Index.fromZeroBased(0), null));
-        assertThrows(NullPointerException.class, () -> new RenameDeckCommand(
-                null, new Name("Test")));
-    }
 
     @Test
     public void execute_deckAcceptedByModel_renameSuccessful() throws Exception {
@@ -81,7 +74,7 @@ public class RenameDeckCommandTest {
 
     @Test
     public void execute_sameNameGiven_throwsCommandException() {
-        ModelStubPlayMode modelStub = new ModelStubPlayMode();
+        ModelStubAcceptingDeckRenamed modelStub = new ModelStubAcceptingDeckRenamed();
         RenameDeckCommand renameDeckCommand = new RenameDeckCommand(
                 Index.fromZeroBased(0), new Name("Japanese"));
 
@@ -98,7 +91,7 @@ public class RenameDeckCommandTest {
 
         RenameDeckCommand removeFirstCommandSameName = new RenameDeckCommand(first, newDeckName1);
         RenameDeckCommand removeSecondCommandSameName = new RenameDeckCommand(second, newDeckName1);
-        RenameDeckCommand removeFirstCommandSameIndex = new RenameDeckCommand(first, newDeckName1);
+        RenameDeckCommand removeFirstCommandSameIndex = new RenameDeckCommand(first, newDeckName2);
 
         // same object -> returns true
         assertTrue(removeFirstCommandSameName.equals(removeFirstCommandSameName));
@@ -357,6 +350,8 @@ public class RenameDeckCommandTest {
      * A Model stub that always accepts a card being renamed.
      */
     private class ModelStubAcceptingDeckRenamed extends ModelStub {
+        Library library = DeckUtils.getTypicalLibrary();
+        FilteredList<Deck> filteredDecks = new FilteredList<>(this.library.getDeckList());
 
         @Override
         public View getView() {
@@ -365,7 +360,6 @@ public class RenameDeckCommandTest {
 
         @Override
         public boolean renameDeck(Index targetIndex, Name name) {
-            Library library = DeckUtils.getTypicalLibrary();
             Deck deck = library.getDeck(targetIndex);
             Deck temp = new Deck(name);
 
@@ -376,10 +370,16 @@ public class RenameDeckCommandTest {
                 return true;
             }
         }
-        
+
+        @Override
+        public ObservableList<Deck> getFilteredDeckList() {
+            return filteredDecks;
+        }
+
         @Override
         public void updateFilteredDeckList(Predicate<Deck> predicate) {
-            throw new AssertionError("This method should not be called");
+            requireNonNull(predicate);
+            filteredDecks.setPredicate(predicate);
         }
     }
 
@@ -387,6 +387,8 @@ public class RenameDeckCommandTest {
      * A Model stub that cannot rename a deck due to being in Play Mode
      */
     private class ModelStubPlayMode extends ModelStub {
+        Library library = DeckUtils.getTypicalLibrary();
+        FilteredList<Deck> filteredDecks = new FilteredList<>(this.library.getDeckList());
 
         @Override
         public View getView() {
@@ -394,9 +396,27 @@ public class RenameDeckCommandTest {
         }
 
         @Override
-        public void deleteDeck(Deck target) {
-            Library library = DeckUtils.getTypicalLibrary();
-            library.deleteDeck(target);
+        public boolean renameDeck(Index targetIndex, Name name) {
+            Deck deck = library.getDeck(targetIndex);
+            Deck temp = new Deck(name);
+
+            if (library.hasDeck(temp)) {
+                return false;
+            } else {
+                deck.setName(name);
+                return true;
+            }
+        }
+
+        @Override
+        public ObservableList<Deck> getFilteredDeckList() {
+            return filteredDecks;
+        }
+
+        @Override
+        public void updateFilteredDeckList(Predicate<Deck> predicate) {
+            requireNonNull(predicate);
+            filteredDecks.setPredicate(predicate);
         }
     }
 }

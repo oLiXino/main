@@ -60,7 +60,7 @@ public class CommandResultTest {
 
         // different exit value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult(
-                "feedback", false, false, false, null).hashCode());
+                "feedback", false, true, false, null).hashCode());
 
         // different exit value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult(
