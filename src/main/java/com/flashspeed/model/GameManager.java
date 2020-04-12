@@ -20,7 +20,6 @@ public class GameManager {
     private int deckSize;
     private int currCardIdx;
     private int cardAttempted;
-    private int cardRemaining;
 
 
     /**

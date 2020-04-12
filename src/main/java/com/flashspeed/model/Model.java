@@ -9,7 +9,6 @@ import com.flashspeed.model.deck.Deck;
 import com.flashspeed.model.deck.Name;
 import com.flashspeed.model.deck.card.BackFace;
 import com.flashspeed.model.deck.card.Card;
-import com.flashspeed.model.util.Mode;
 import com.flashspeed.model.util.View;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -104,10 +103,6 @@ public interface Model {
      */
     ReadOnlyProperty<Deck> selectedDeckProperty();
 
-    /**
-     * Returns the readonly property.
-     */
-    ReadOnlyProperty<Mode> currentModeProperty();
 
     /**
      * Returns the readonly property.
@@ -118,6 +113,11 @@ public interface Model {
      * Returns the readonly property.
      */
     ReadOnlyProperty<Boolean> flippedProperty();
+
+    /**
+     * Returns the readonly property.
+     */
+    ReadOnlyProperty<View> currentViewProperty();
 
     /**
      * Returns the readonly property.
@@ -195,6 +195,11 @@ public interface Model {
     void setFlipped(Boolean value);
 
     /**
+     * Sets the value of currentView in model manager.
+     */
+    void setCurrentView(View view);
+
+    /**
      * Sets the number of cards attempted.
      */
     void setCardAttempted(int value);
@@ -204,10 +209,6 @@ public interface Model {
      */
     void setCardRemaining(int value);
 
-    /**
-     * Sets the mode of the model manager.
-     */
-    void setCurrentMode(Mode mode);
 
     /**
      * Sets the playing card.
@@ -249,8 +250,5 @@ public interface Model {
      */
     Card answerNo();
 
-    /**
-     * Returns the current mode of the model
-     */
-    Mode getMode();
+
 }

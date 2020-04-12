@@ -158,6 +158,8 @@ image::library.png[]
 
 {empty} +
 
+// tag::createdeck[]
+
 ==== Creating a deck : `create`
 
 Format: `create <deck>`
@@ -186,8 +188,10 @@ image::create1.png[]
 image::create2.png[]
 
 {empty} +
+// end::createdeck[]
 
 // tag::select-deck[]
+
 [[selectDeck]]
 ==== Selecting a deck : `select`
 
@@ -295,6 +299,8 @@ image::Ui.png[]
 
 {empty} +
 
+// tag::addcard[]
+
 ==== Adding a card : `add`
 
 Format: `add <front>:<back>`
@@ -333,6 +339,8 @@ e.g. `add ありがとう:thanks`
 image::add.png[]
 
 {empty} +
+
+// end::addcard[]
 
 ==== Editing a card : `edit`
 
@@ -401,6 +409,7 @@ image::library.png[]
 
 {empty} +
 
+
 === Play view
 
 Format: `play <index>`
@@ -410,8 +419,12 @@ Format: `play <index>`
 **Important: All commands in this section can only be used in Play view.**
 **To enter Play view, you must <<playDeck,play a deck>>.**
 
+// tag::play-view-language[]
+
 Time to start testing yourself! You can start a game session with a selected deck when you want to test how well you memorize the cards or just to enhance
 your memory of the cards in a specific deck. When playing a deck, each card will initially show only its front face to allow you to recall its back face. (It's to test you, after all!)
+
+// end::play-view-language[]
 
 .Playing the Japanese deck. Ganbatte kudasai!
 image::Ui2.png[]
@@ -419,6 +432,7 @@ image::Ui2.png[]
 
 {empty} +
 
+// tag::flip-language[]
 ==== Flipping a card : `flip`
 
 Format: `flip`
@@ -427,11 +441,13 @@ Are you ready? When you have a guess which you are confident with of the back fa
 if your guess is correct. To flip a card to see its back face, simply type `flip` into the input box
 and press kbd:[Enter]. +
 
+// end::flip-language[]
 .Flipping to reveal the back face of the card.
 image::flip.png[]
 
 {empty} +
 
+// tag::answer-language[]
 ==== Answering "yes" or "no" : `yes`/`no`
 
 Format: `yes` or `no`
@@ -440,6 +456,7 @@ Are you able to recall the back face of the card? +
 If you could, type `yes` into the input box and press kbd:[Enter]. (Congratulations!) +
 If you could not or your guess is wrong, type `no` into the input box and press kbd:[Enter]. (Don't give up!) +
 
+// end::answer-language[]
 [NOTE]
 You can only do this after flipping the card.
 
@@ -452,6 +469,7 @@ image::yes.png[]
 
 {empty} +
 
+// tag::stop-language[]
 ==== Stopping a session: `stop`
 
 Format: `stop`
@@ -460,6 +478,7 @@ A play session will end automatically when there are no more cards to review.
 However, you can always stop an ongoing session immediately by typing `stop` into the input box and pressing kbd:[Enter].
 But of course, don't give up and try not to use this too often!
 
+// end::stop-language[]
 [NOTE]
 The session statistics will be shown after completing a session or even when manually stopping.
 
@@ -481,8 +500,26 @@ You don't have to save your precious flashcards manually!
 
 == FAQ
 
+*Q*: Does this application require Internet connection? +
+*A*: No. FlashSpeed does not require Internet connection
+
+*Q*: What is the maximum length of a card face? +
+*A*: In real-life flashcard, you are not able to write a tremendously long text on it. Similarly, our application will not be able to display a card fully if the text is too long. Therefore, we recommend keeping your text not longer than *60 characters*.
+
+*Q*: How do I save my data? +
+*A*: FlashSpeed automatically saves your data whenever you make a change. There is no need to save manually.
+
+*Q*: Is FlashSpeed secure? +
+*A*: Yes, FlashSpeed is secure. Your data is stored locally on your device. The application does not require Internet connection so no data will be sent to any online servers.
+
 *Q*: How do I transfer my data to another computer? +
-*A*: Copy the `data` folder in FlashSpeed's home folder over to the home folder in the other computer.
+*A*: Simply copy the `data` folder in FlashSpeed's home folder over to the home folder in the other computer.
+
+*Q*: How to update this application to the latest version? +
+*A*: Check for the the latest version of FlashSpeed link:https://github.com/AY1920S2-CS2103T-W17-1/main/releases[here] and download `flashspeed.jar` file.
+
+*Q*: I am not able to run this application. How do I fix it +
+*A*: Refer to <<Quick Start>> for the installation guide. Ensure that your computer is running on Java 11. FlashSpeed may not be able to run on other versions of Java.
 
 {empty} +
 

@@ -32,7 +32,6 @@ import com.flashspeed.model.deck.Name;
 import com.flashspeed.model.deck.card.BackFace;
 import com.flashspeed.model.deck.card.Card;
 import com.flashspeed.model.deck.card.FrontFace;
-import com.flashspeed.model.util.Mode;
 import com.flashspeed.model.util.View;
 import com.flashspeed.testutil.CardBuilder;
 import com.flashspeed.testutil.DeckBuilder;
@@ -54,7 +53,6 @@ public class EditCardCommandTest {
     @Test
     public void execute_editBothSidesAcceptedByModel_Successful() throws Exception {
         ModelStubAcceptingCardEdited modelStub = new ModelStubAcceptingCardEdited();
-
         Index validIndex = INDEX_FIRST_CARD;
         FrontFace front = new FrontFace("Hello");
         BackFace back = new BackFace("안녕");;
@@ -247,7 +245,7 @@ public class EditCardCommandTest {
         }
 
         @Override
-        public ReadOnlyProperty<Mode> currentModeProperty() {
+        public ReadOnlyProperty<View> currentViewProperty() {
             throw new AssertionError("This method should not be called");
         }
 
@@ -299,12 +297,7 @@ public class EditCardCommandTest {
         }
 
         @Override
-        public Mode getMode() {
-            throw new AssertionError("This method should not be called");
-        }
-
-        @Override
-        public void setCurrentMode(Mode mode) {
+        public void setCurrentView(View view) {
             throw new AssertionError("This method should not be called");
         }
 
@@ -325,11 +318,13 @@ public class EditCardCommandTest {
             throw new AssertionError("This method should not be called");
         }
 
-        //=========== Game Mode Functions =============================================================
+
         @Override
         public void setSelectedDeck(Deck deck) {
             throw new AssertionError("This method should not be called");
         }
+
+        //=========== Play View Functions =============================================================
 
         @Override
         public void setFlipped(Boolean value) {
@@ -405,11 +400,6 @@ public class EditCardCommandTest {
         }
 
         @Override
-        public Mode getMode() {
-            return Mode.VIEW;
-        }
-
-        @Override
         public View getView() {
             return View.DECK;
         }
@@ -444,13 +434,8 @@ public class EditCardCommandTest {
         }
 
         @Override
-        public Mode getMode() {
-            return Mode.PLAY;
-        }
-
-        @Override
         public View getView() {
-            return View.DECK;
+            return View.PLAY;
         }
 
         @Override
@@ -482,14 +467,10 @@ public class EditCardCommandTest {
             deck = new DeckBuilder().withCards(cardsList).build();
         }
 
-        @Override
-        public Mode getMode() {
-            return Mode.PLAY;
-        }
 
         @Override
         public View getView() {
-            return View.DECK;
+            return View.LIBRARY;
         }
 
         @Override

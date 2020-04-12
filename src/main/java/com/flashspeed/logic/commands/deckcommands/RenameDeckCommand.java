@@ -1,19 +1,19 @@
 package com.flashspeed.logic.commands.deckcommands;
 
-import static java.util.Objects.requireNonNull;
 import static com.flashspeed.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 
 import java.util.List;
 
-import com.flashspeed.commons.core.index.Index;
-import com.flashspeed.model.Model;
 import com.flashspeed.commons.core.Messages;
+import com.flashspeed.commons.core.index.Index;
 import com.flashspeed.logic.commands.Command;
 import com.flashspeed.logic.commands.CommandResult;
 import com.flashspeed.logic.commands.exceptions.CommandException;
+import com.flashspeed.model.Model;
 import com.flashspeed.model.deck.Deck;
 import com.flashspeed.model.deck.Name;
-import com.flashspeed.model.util.Mode;
+import com.flashspeed.model.util.View;
 
 /**
  * Renames the name of a deck in the library.
@@ -44,7 +44,6 @@ public class RenameDeckCommand extends Command {
      */
     public RenameDeckCommand(Index index, Name name) {
         requireAllNonNull(index, name);
-
         this.index = index;
         this.name = name;
     }
@@ -54,7 +53,7 @@ public class RenameDeckCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.getMode() == Mode.PLAY) {
+        if (model.getView() == View.PLAY) {
             throw new CommandException(MESSAGE_NOT_IN_VIEW_MODE);
         }
 
@@ -68,7 +67,6 @@ public class RenameDeckCommand extends Command {
         if (!result) {
             throw new CommandException(MESSAGE_DUPLICATE_DECK);
         }
-        
         Deck editedDeck = lastShownList.get(index.getZeroBased());
         model.updateFilteredDeckList(Model.PREDICATE_SHOW_ALL_DECKS);
 

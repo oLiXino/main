@@ -2,16 +2,15 @@ package com.flashspeed.logic.commands.cardcommands;
 
 import static java.util.Objects.requireNonNull;
 
+import com.flashspeed.commons.core.Messages;
 import com.flashspeed.commons.core.index.Index;
+import com.flashspeed.logic.commands.Command;
+import com.flashspeed.logic.commands.CommandResult;
 import com.flashspeed.logic.commands.exceptions.CommandException;
 import com.flashspeed.model.Model;
 import com.flashspeed.model.deck.card.BackFace;
 import com.flashspeed.model.deck.card.Card;
 import com.flashspeed.model.deck.card.FrontFace;
-import com.flashspeed.commons.core.Messages;
-import com.flashspeed.logic.commands.Command;
-import com.flashspeed.logic.commands.CommandResult;
-import com.flashspeed.model.util.Mode;
 import com.flashspeed.model.util.View;
 
 /**
@@ -58,14 +57,13 @@ public class EditCardCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (model.getMode() == Mode.PLAY) {
+        if (model.getView() == View.PLAY) {
             throw new CommandException(MESSAGE_NOT_IN_VIEW_MODE);
         }
 
         if (model.getView() != View.DECK) {
             throw new CommandException(Messages.MESSAGE_NOT_IN_DECK_VIEW);
         }
-        
         if (targetIndex.getZeroBased() >= model.getCurrentDeck().getSize()) {
             throw new CommandException(Messages.MESSAGE_INVALID_CARD_DISPLAYED_INDEX);
         }

@@ -44,8 +44,8 @@ The following groups are in particular the intended audience of this document.
 === How to use
 
 * Section 3 - Design contains information about the main components of FlashSpeed.
- ** First, refer to <<#Design-Architecture, 3.1 Architecture>> section to learn more about the overall architecture.
- ** Then proceed to further sections 3.2 - 3.6 to learn more about each individual components of the architecture.
+** First, refer to <<#Design-Architecture, 3.1 Architecture>> section to learn more about the overall architecture.
+** Then proceed to further sections 3.2 - 3.6 to learn more about each individual components of the architecture.
 
 * Section 4 - Implementation contains information about the main commands and the implementation of each command used in FlashSpeed.
 
@@ -174,6 +174,7 @@ NOTE: The lifeline for `RemoveDeckCommandParser` should end at the destroy marke
 {empty} +
 
 [[Design-Model]]
+// tag::model[]
 === Model component
 
 .Structure of the Model Component
@@ -198,8 +199,11 @@ The `Model`,
 * does not depend on any of the other three components.
 
 {empty} +
+// end::model[]
+
 
 [[Design-Storage]]
+// tag::storage[]
 === Storage component
 
 .Structure of the Storage Component
@@ -213,6 +217,8 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save all the decks and cards created in json format and read them back.
 
+
+// end::storage[]
 {empty} +
 
 [[Design-Commons]]
@@ -274,6 +280,8 @@ The UI will have to be constantly updated when we select to view a deck, and oth
 
 {empty} +
 
+// tag::createdeck[]
+
 === Creating a Deck
 ==== Current Implementation
 
@@ -330,10 +338,11 @@ This is certainly not the expected outcome that the user has expected.
 
 And so, our team has decided to implement the current approach,
 which is to assign different keywords to these two different feature.
-
-
+// end::createdeck[]
 {empty} +
 
+// tag::addcard[]
+>>>>>>> master
 === Creating a Card
 ==== Current Implementation
 
@@ -364,6 +373,8 @@ on the right panel. Lastly, the name of the selected Deck will be displayed toge
 
 ==== Design Considerations
 See <<Four-Two-Two, 4.2.2 - Design Considerations for creating a Deck - Aspect: Naming convention of command keywords>>.
+// end::addcard[]
+>>>>>>> master
 
 // tag::editcard[]
 
@@ -511,9 +522,10 @@ The following sequence diagrams show how the `yes` and `no` operation work.
 
 .Interactions inside Logic and Model components when `yes` is executed
 image::AnswerYesSequenceDiagram.png[]
-
 .Interactions inside Logic and Model components when `no` is executed
 image::AnswerNoSequenceDiagram.png[]
+
+// end::play[]
 
 // tag::design-consideration-play[]
 ==== Design Considerations
@@ -526,6 +538,21 @@ image::AnswerNoSequenceDiagram.png[]
 ** Cons: Typos or slightly incomplete (but correct) answers can be typed it by the user.
 As the answers typed in mush exactly match the one on the card, it may result in inaccurate evaluation and statistics calculation at the end of the game.
 // end::design-consideration-play[]
+
+=== Logging
+
+We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+
+* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+* Currently log messages are output through: `Console` and to a `.log` file.
+
+*Logging Levels*
+
+* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
+* `WARNING` : Can continue, but with caution
+* `INFO` : Information showing the noteworthy actions by the App
+* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 == Documentation
 

@@ -11,7 +11,7 @@ import com.flashspeed.model.deck.Deck;
 import com.flashspeed.model.deck.card.Card;
 
 /**
- * Starts a game session.
+ * Represent the command that informs the Model Manager to start a game session.
  */
 public class PlayCommand extends Command {
     public static final String COMMAND_WORD = "play";

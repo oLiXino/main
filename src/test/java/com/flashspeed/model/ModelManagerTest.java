@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
+import com.flashspeed.model.util.View;
 import javafx.beans.property.SimpleObjectProperty;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +22,6 @@ import com.flashspeed.logic.parser.exceptions.ParseException;
 import com.flashspeed.model.deck.Deck;
 import com.flashspeed.model.deck.card.BackFace;
 import com.flashspeed.model.deck.card.Card;
-import com.flashspeed.model.util.Mode;
 import com.flashspeed.testutil.CardBuilder;
 import com.flashspeed.testutil.LibraryBuilder;
 
@@ -35,11 +35,6 @@ public class ModelManagerTest {
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
         assertEquals(new Library(), new Library(modelManager.getLibrary()));
         assertEquals(Optional.empty(), modelManager.getDeckIndex());
-        assertEquals(new SimpleObjectProperty<Deck>(), modelManager.selectedDeckProperty());
-        assertEquals(new SimpleObjectProperty<Card>(), modelManager.playingCardProperty());
-        assertEquals(new SimpleObjectProperty<Boolean>(), modelManager.flippedProperty());
-        assertEquals(new SimpleObjectProperty<Integer>(), modelManager.cardAttemptedProperty());
-        assertEquals(new SimpleObjectProperty<Integer>(), modelManager.cardRemainingProperty());
     }
 
     @Test
@@ -50,14 +45,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setLibraryFilePath(Paths.get("address/book/file/path"));
+        userPrefs.setLibraryFilePath(Paths.get("library/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setLibraryFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setLibraryFilePath(Paths.get("new/library/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -80,7 +75,7 @@ public class ModelManagerTest {
 
     @Test
     public void setLibraryFilePath_validPath_setsLibraryPath() {
-        Path path = Paths.get("address/book/file/path");
+        Path path = Paths.get("library/file/path");
         modelManager.setLibraryFilePath(path);
         assertEquals(path, modelManager.getLibraryFilePath());
     }
@@ -122,7 +117,7 @@ public class ModelManagerTest {
     public void getCurrentDeck_returnsCurrentDeck() throws ParseException{
         modelManager.createDeck(DeckUtils.JAPANESE_DECK);
         try {
-            Index index = ParserUtil.parseIndex("0");
+            Index index = ParserUtil.parseIndex("1");
             modelManager.selectDeck(index);
             assertEquals(modelManager.getCurrentDeck(), DeckUtils.JAPANESE_DECK);
         }  catch (ParseException pe) {
@@ -143,7 +138,7 @@ public class ModelManagerTest {
     public void hasCard_cardInDeck_returnsTrue() throws ParseException{
         modelManager.createDeck(DeckUtils.JAPANESE_DECK);
         try {
-            Index index = ParserUtil.parseIndex("0");
+            Index index = ParserUtil.parseIndex("1");
             modelManager.selectDeck(index);
             assertTrue(modelManager.hasCard(CardUtils.JAP_CARD_1));
         } catch (ParseException pe) {
@@ -156,9 +151,9 @@ public class ModelManagerTest {
     public void getCard_returnsTrue() throws  ParseException {
         modelManager.createDeck(DeckUtils.JAPANESE_DECK);
         try {
-            Index deckIndex = ParserUtil.parseIndex("0");
+            Index deckIndex = ParserUtil.parseIndex("1");
             modelManager.selectDeck(deckIndex);
-            Index cardIndex = ParserUtil.parseIndex("0");
+            Index cardIndex = ParserUtil.parseIndex("1");
             assertEquals(modelManager.getCard(cardIndex), CardUtils.JAP_CARD_1);
         } catch (ParseException pe) {
             throw new ParseException(
@@ -171,7 +166,7 @@ public class ModelManagerTest {
     public void hasCard_cardNotINDeck_afterDeleteCard_returnsFalse() throws ParseException {
         modelManager.createDeck(DeckUtils.JAPANESE_DECK);
         try {
-            Index index = ParserUtil.parseIndex("0");
+            Index index = ParserUtil.parseIndex("1");
             modelManager.selectDeck(index);
             modelManager.deleteCard(CardUtils.JAP_CARD_1);
             assertFalse(modelManager.hasCard(CardUtils.JAP_CARD_1));
@@ -186,7 +181,7 @@ public class ModelManagerTest {
         modelManager.createDeck(DeckUtils.JAPANESE_DECK);
         Card newCard = new CardBuilder().withFrontFace("newFront1").withBackFace("newBack1").build();
         try {
-            Index index = ParserUtil.parseIndex("0");
+            Index index = ParserUtil.parseIndex("1");
             modelManager.selectDeck(index);
             modelManager.replaceCard(CardUtils.JAP_CARD_2, newCard);
             assertFalse(modelManager.hasCard(CardUtils.JAP_CARD_2));
@@ -201,7 +196,7 @@ public class ModelManagerTest {
         modelManager.createDeck(DeckUtils.JAPANESE_DECK);
         Card newCard = new CardBuilder().withFrontFace("newFront2").withBackFace("newBack2").build();
         try {
-            Index index = ParserUtil.parseIndex("0");
+            Index index = ParserUtil.parseIndex("1");
             modelManager.selectDeck(index);
             modelManager.replaceCard(CardUtils.JAP_CARD_3, newCard);
             assertTrue(modelManager.hasCard(newCard));
@@ -229,11 +224,11 @@ public class ModelManagerTest {
     public void gameCreated_afterPlay_returnsTrue() throws ParseException{
         modelManager.createDeck(DeckUtils.JAPANESE_DECK);
         try {
-            Index index = ParserUtil.parseIndex("0");
+            Index index = ParserUtil.parseIndex("1");
             modelManager.selectDeck(index);
             Card card = modelManager.play(index);
-            assertEquals(modelManager.getGame(), new GameManager(DeckUtils.JAPANESE_DECK));
-            assertEquals(modelManager.getMode(), Mode.PLAY);
+            assertTrue(modelManager.getGame() != null);
+            assertEquals(modelManager.getView(), View.PLAY);
             assertEquals(modelManager.playingCardProperty().getValue(), card);
             assertEquals(modelManager.flippedProperty().getValue(), false);
         } catch (ParseException pe) {
@@ -246,7 +241,7 @@ public class ModelManagerTest {
     public void getBackFace_afterFlip_returnsTrue() throws ParseException{
         modelManager.createDeck(DeckUtils.JAPANESE_DECK);
         try {
-            Index index = ParserUtil.parseIndex("0");
+            Index index = ParserUtil.parseIndex("1");
             modelManager.selectDeck(index);
             Card card = modelManager.play(index);
             BackFace backFace = modelManager.flip();
@@ -262,7 +257,7 @@ public class ModelManagerTest {
     public void getNextCard_afterAnswerYes_returnsTrue() throws ParseException {
         modelManager.createDeck(DeckUtils.JAPANESE_DECK);
         try {
-            Index index = ParserUtil.parseIndex("0");
+            Index index = ParserUtil.parseIndex("1");
             modelManager.selectDeck(index);
             modelManager.play(index);
             modelManager.flip();
@@ -279,7 +274,7 @@ public class ModelManagerTest {
     public void getNextCard_afterAnswerNo_returnsTrue() throws ParseException {
         modelManager.createDeck(DeckUtils.JAPANESE_DECK);
         try {
-            Index index = ParserUtil.parseIndex("0");
+            Index index = ParserUtil.parseIndex("1");
             modelManager.selectDeck(index);
             modelManager.play(index);
             modelManager.flip();

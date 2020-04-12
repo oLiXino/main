@@ -15,7 +15,6 @@ import com.flashspeed.model.deck.Deck;
 import com.flashspeed.model.deck.Name;
 import com.flashspeed.model.deck.card.BackFace;
 import com.flashspeed.model.deck.card.Card;
-import com.flashspeed.model.util.Mode;
 import com.flashspeed.model.util.View;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -34,13 +33,12 @@ public class ModelManager implements Model {
     private final FilteredList<Deck> filteredDecks;
 
     private View view;
-    private Mode mode;
 
     private Optional<Index> deckIndex;
     private final SimpleObjectProperty<Deck> selectedDeck = new SimpleObjectProperty<>();
-    private final SimpleObjectProperty<Mode> currentMode = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Card> playingCard = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Boolean> flipped = new SimpleObjectProperty<>();
+    private final SimpleObjectProperty<View> currentView = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Integer> cardAttempted = new SimpleObjectProperty<>();
     private final SimpleObjectProperty<Integer> cardRemaining = new SimpleObjectProperty<>();
     private GameManager game;
@@ -58,10 +56,8 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredDecks = new FilteredList<>(this.library.getDeckList());
         this.deckIndex = Optional.empty();
-
         this.view = View.LIBRARY; // 1st view will always be in library
-        this.mode = Mode.VIEW; // 1st mode will always be in view mode
-        setCurrentMode(Mode.VIEW);
+        setCurrentView(View.LIBRARY);
         this.game = null;
     }
 
@@ -112,10 +108,6 @@ public class ModelManager implements Model {
         return selectedDeck;
     }
 
-    @Override
-    public ReadOnlyProperty<Mode> currentModeProperty() {
-        return currentMode;
-    }
 
     @Override
     public ReadOnlyProperty<Card> playingCardProperty() {
@@ -125,6 +117,11 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyProperty<Boolean> flippedProperty() {
         return flipped;
+    }
+
+    @Override
+    public ReadOnlyProperty<View> currentViewProperty() {
+        return currentView;
     }
 
     @Override
@@ -238,6 +235,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setCurrentView(View view) {
+        currentView.setValue(view);
+    }
+
+    @Override
     public void setCardAttempted(int value) {
         cardAttempted.setValue(value);
     }
@@ -251,11 +253,6 @@ public class ModelManager implements Model {
     @Override
     public void setPlayingCard(Card card) {
         playingCard.setValue(card);
-    }
-
-    @Override
-    public void setCurrentMode(Mode mode) {
-        currentMode.setValue(mode);
     }
 
     @Override
@@ -363,8 +360,8 @@ public class ModelManager implements Model {
             return new Card(null, null);
         }
         this.game = new GameManager(deck);
-        this.mode = Mode.PLAY;
-        setCurrentMode(Mode.PLAY);
+        this.view = View.PLAY;
+        setCurrentView(View.PLAY);
         Card card = deck.asUnmodifiableObservableList().get(game.getCurrCardIdx());
         setPlayingCard(card);
         setCardAttempted(0);
@@ -432,22 +429,15 @@ public class ModelManager implements Model {
     public Statistics stop() {
         Statistics statistics = this.game.stop();
         this.game = null;
-        this.mode = Mode.VIEW;
-        setCurrentMode(Mode.VIEW);
         setPlayingCard(null);
         returnToLibrary();
         this.view = View.LIBRARY;
+        setCurrentView(View.LIBRARY);
         return statistics;
     }
 
-    /**
-     * Returns the mode of the model.
-     * @return the mode of the model.
-     */
-    @Override
-    public Mode getMode() {
-        return this.mode;
-    }
+
+
 
     @Override
     public boolean equals(Object obj) {
