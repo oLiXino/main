@@ -2,10 +2,11 @@ package com.flashspeed.ui;
 
 import java.util.logging.Logger;
 
+import com.flashspeed.commons.core.LogsCenter;
+
 import javafx.fxml.FXML;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import com.flashspeed.commons.core.LogsCenter;
 
 /**
  * Controller for a help page
@@ -62,7 +63,7 @@ public class HelpWindow extends UiPart<Stage> {
     public void show() {
         logger.fine("Showing help page about the application.");
         getRoot().show();
-//        getRoot().centerOnScreen();
+        // getRoot().centerOnScreen();
     }
 
     /**

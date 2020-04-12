@@ -2,18 +2,18 @@ package com.flashspeed.ui;
 
 import java.util.logging.Logger;
 
+import com.flashspeed.MainApp;
+import com.flashspeed.commons.core.LogsCenter;
+import com.flashspeed.commons.util.StringUtil;
 import com.flashspeed.logic.Logic;
-
 import com.flashspeed.model.util.View;
+
 import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import com.flashspeed.MainApp;
-import com.flashspeed.commons.core.LogsCenter;
-import com.flashspeed.commons.util.StringUtil;
-import javafx.beans.value.ObservableValue;
 
 /**
  * The manager of the UI component.

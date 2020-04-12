@@ -2,10 +2,15 @@ package com.flashspeed.ui;
 
 import java.util.logging.Logger;
 
+import com.flashspeed.commons.core.GuiSettings;
+import com.flashspeed.commons.core.LogsCenter;
 import com.flashspeed.logic.Logic;
+import com.flashspeed.logic.commands.CommandResult;
+import com.flashspeed.logic.commands.exceptions.CommandException;
+import com.flashspeed.logic.parser.exceptions.ParseException;
 import com.flashspeed.model.Statistics;
-
 import com.flashspeed.model.util.View;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
@@ -16,12 +21,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
-import com.flashspeed.commons.core.GuiSettings;
-import com.flashspeed.commons.core.LogsCenter;
-import com.flashspeed.logic.commands.CommandResult;
-import com.flashspeed.logic.commands.exceptions.CommandException;
-import com.flashspeed.logic.parser.exceptions.ParseException;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -43,7 +42,7 @@ public class MainWindow extends UiPart<Stage> {
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
     private StatisticsPopUp statisticsPopUp;
-    
+
     @FXML
     private StackPane rightPlaceholder;
 
@@ -136,11 +135,14 @@ public class MainWindow extends UiPart<Stage> {
             cardListPanel = new CardListPanel(logic.selectedDeckProperty());
             rightPlaceholder.getChildren().add(cardListPanel.getRoot());
         } else if (logic.getView() == View.PLAY) {
-            playPanel = new PlayPanel(logic.playingCardProperty(), logic.flippedProperty(), logic.cardAttemptedProperty(), logic.cardRemainingProperty());
+            playPanel = new PlayPanel(
+                    logic.playingCardProperty(), logic.flippedProperty(),
+                    logic.cardAttemptedProperty(), logic.cardRemainingProperty());
             rightPlaceholder.getChildren().add(playPanel.getRoot());
         }
-        
-        deckListPanel = new DeckListPanel(logic.getFilteredDeckList(), logic.selectedDeckProperty(), logic::setSelectedDeck);
+
+        deckListPanel = new DeckListPanel(
+                logic.getFilteredDeckList(), logic.selectedDeckProperty(), logic::setSelectedDeck);
         deckListPanelPlaceholder.getChildren().add(deckListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
@@ -177,6 +179,11 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Stops the current play session and shows the statistics window.
+     *
+     * @param statistics statistics info of session to be shown
+     */
     @FXML
     public void handleStop(Statistics statistics) {
         if (statistics == null) {

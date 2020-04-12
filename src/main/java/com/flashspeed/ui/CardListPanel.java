@@ -1,7 +1,11 @@
 package com.flashspeed.ui;
 
-import com.flashspeed.model.deck.card.BackFace;
-import com.flashspeed.model.deck.card.FrontFace;
+import java.util.logging.Logger;
+
+import com.flashspeed.commons.core.LogsCenter;
+import com.flashspeed.model.deck.Deck;
+import com.flashspeed.model.deck.card.Card;
+
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -11,12 +15,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Region;
-
-import com.flashspeed.commons.core.LogsCenter;
-import com.flashspeed.model.deck.Deck;
-import com.flashspeed.model.deck.card.Card;
-
-import java.util.logging.Logger;
 
 /**
  * The Browser Panel of the App.
@@ -28,10 +26,10 @@ public class CardListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML
-    Label defaultText;
+    private Label defaultText;
 
     @FXML
-    TableView<Card> itemTbl;
+    private TableView itemTbl;
 
     @SuppressWarnings("unchecked")
     public CardListPanel(ObservableValue<Deck> selectedDeck) {

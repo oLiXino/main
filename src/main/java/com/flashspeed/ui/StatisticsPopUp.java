@@ -1,12 +1,13 @@
 package com.flashspeed.ui;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
+import java.util.logging.Logger;
+
 import com.flashspeed.commons.core.LogsCenter;
 import com.flashspeed.model.Statistics;
 
-import java.util.logging.Logger;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 /**
  * Controller for a statistics page
@@ -86,5 +87,4 @@ public class StatisticsPopUp extends UiPart<Stage> {
     public void focus() {
         getRoot().requestFocus();
     }
-    
 }

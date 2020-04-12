@@ -1,15 +1,16 @@
 package com.flashspeed.ui;
 
+import java.util.logging.Logger;
+
+import com.flashspeed.commons.core.LogsCenter;
+import com.flashspeed.model.deck.card.Card;
+
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import com.flashspeed.commons.core.LogsCenter;
-import com.flashspeed.model.deck.card.Card;
-
-import java.util.logging.Logger;
 
 /**
  * The Browser Panel of the App.
@@ -25,31 +26,31 @@ public class PlayPanel extends UiPart<Region> {
     private int remaining;
 
     @FXML
-    Label front;
+    private Label front;
 
     @FXML
-    Label back;
+    private Label back;
 
     @FXML
-    Label noAttempted;
+    private Label noAttempted;
 
     @FXML
-    Label noRemaining;
+    private Label noRemaining;
 
     @FXML
-    ProgressBar progress;
+    private ProgressBar progress;
 
     @FXML
-    Label progressPercent;
+    private Label progressPercent;
 
     @FXML
-    VBox progressRoot;
+    private VBox progressRoot;
 
     @FXML
-    Label instruction;
+    private Label instruction;
 
-
-    public PlayPanel(ObservableValue<Card> playingCard, ObservableValue<Boolean> flipped, ObservableValue<Integer> cardAttempted, ObservableValue<Integer> cardRemaining) {
+    public PlayPanel(ObservableValue<Card> playingCard, ObservableValue<Boolean> flipped,
+                     ObservableValue<Integer> cardAttempted, ObservableValue<Integer> cardRemaining) {
         super(FXML);
 
         back.setVisible(false);
@@ -57,15 +58,11 @@ public class PlayPanel extends UiPart<Region> {
         progressPercent.setText("0.0%");
         progress.prefWidthProperty().bind(progressRoot.widthProperty().subtract(40));
 
-
-
         //Load playing card
         playingCard.addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 showPlayingCard(newValue);
-
             }
-
         });
 
         //Show back face when flipped
@@ -96,6 +93,11 @@ public class PlayPanel extends UiPart<Region> {
         });
     }
 
+    /**
+     * Shows current playing card in right panel.
+     *
+     * @param card card to be shown
+     */
     private void showPlayingCard(Card card) {
         front.setText(card.getFrontFace().toString());
         front.setWrapText(true);
@@ -105,11 +107,9 @@ public class PlayPanel extends UiPart<Region> {
     }
 
     private void setProgress() {
-        double currentProgress = Double.valueOf(attempted)/(attempted+remaining);
+        double currentProgress = Double.valueOf(attempted) / (attempted + remaining);
         double prog = currentProgress * 100;
-        progressPercent.setText(String.format("%.1f", prog)+"%");
+        progressPercent.setText(String.format("%.1f", prog) + "%");
         progress.setProgress(currentProgress);
     }
-
-
 }
