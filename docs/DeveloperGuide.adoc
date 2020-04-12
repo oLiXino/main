@@ -285,6 +285,8 @@ After that, `ModelManager#setSelectedDeck()` method will be called to update the
 on the right panel. Lastly, the name of the selected Deck will be displayed together with the
 `MESSAGE_SUCCESS` on the `ResultDisplay` panel.
 
+image::../diagrams/CreateSequenceDiagram.png
+
 // tag::create-deck-consideration[]
 ==== Design Considerations
 ===== Aspect: If the user is already viewing another deck and decides to create a new deck, there was a consideration whether to switch the UI for the user view to the new deck or continue to let the user view the current deck.
