@@ -54,4 +54,5 @@ deactivate AnswerNoCommand
 
 [<--LogicManager
 deactivate LogicManager
+
 @enduml
