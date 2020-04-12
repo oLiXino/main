@@ -23,8 +23,8 @@ Responsibilities: User Guide, Deliverables and deadline, Integration, Automated 
 image::kschiew.png[width="150", align="left"]
 {empty}[http://github.com/kschiew[github]] [<<kschiew#, portfolio>>]
 
-Role: Team Lead +
-Responsibilities: Architect + Storage
+Role: Software Architect +
+Responsibilities: App Architecture, Storage, Statistics, Integration
 
 '''
 
