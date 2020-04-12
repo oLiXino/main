@@ -374,11 +374,11 @@ i.e. if you only wish to change the `back` of a card, `front` can be left blank,
 Examples:
 
 * `edit 2 ありがとう:thanks` +
-Edits the front and back values of the 1st card in the deck to be `ありがとう` and `thanks` respectively.
+Edits the front and back values of the 2nd card in the deck to be `ありがとう` and `thanks` respectively.
 * `edit 2 :thanks` +
-Edits the back value of the 1st card in the deck to be `thanks`.
+Edits the back value of the 2nd card in the deck to be `thanks`.
 * `edit 2 ありがとう:` +
-Edits the front value of the 1st card in the deck to be `ありがとう`.
+Edits the front value of the 2nd card in the deck to be `ありがとう`.
 
 .Editing the 2nd card's back value from "thank you" to "thanks".
 image::edit.png[]
@@ -399,7 +399,7 @@ Examples:
 * `delete 3` +
 Deletes the 3rd card in the current deck.
 
-.After deleting the 3rd card in the current deck.
+.After deleting the 3rd card in the current deck. It's not there anymore.
 image::delete.png[]
 
 {empty} +
@@ -408,7 +408,7 @@ image::delete.png[]
 
 Format: `return`
 
-Once you're done modifying the selected deck,
+Once you're done viewing or modifying the selected deck,
 you can return to the Library view with `return`, i.e. no deck will be selected. +
 
 .Returned to the Library view. No deck selected!
@@ -434,7 +434,7 @@ When playing a deck, each card will initially only show its front face to allow 
 
 // end::play-view-language[]
 
-.Playing the Japanese deck. Ganbatte kudasai! がんばってください。
+.Playing the Japanese deck. がんばってください。 Ganbatte kudasai!
 image::Ui2.png[]
 ****
 
@@ -446,7 +446,7 @@ image::Ui2.png[]
 Format: `flip`
 
 Are you ready to reveal the back face of the card?
-Let's flip it to check if your memory is right. +
+Let's flip it to check if your memory is spot on. +
 
 To flip a card, simply type `flip` into the input box and press kbd:[Enter]. +
 
@@ -467,7 +467,7 @@ If you could not or your memory was incorrect, type `no` into the input box and 
 
 // end::answer-language[]
 [NOTE]
-You can only answer after flipping the card first.
+You can only answer after flipping the card.
 
 [NOTE]
 If you answered `no` for a card, you will have an opportunity to see it again later in the same session.
@@ -484,18 +484,18 @@ image::yes.png[]
 Format: `stop`
 
 A play session will end automatically when there are no more cards to review.
-However, you can always stop an ongoing session immediately by typing `stop` into the input box and pressing kbd:[Enter].
-But of course, don't give up and try not to use this too often!
+However, you can also stop an ongoing session immediately by typing `stop` into the input box and pressing kbd:[Enter].
+But of course, try your best and don't use this too often!
 
 // end::stop-language[]
 [NOTE]
-The session statistics will be shown either after completing a session or when manually stopping.
+The session statistics will be shown either after completing a session or after manually stopping.
 
 [TIP]
 You can close the statistics window either by clicking on the close button
 or pressing kbd:[Alt]+kbd:[F4] while the statistics window is in focus.
 
-.Statistics shown after manually stopping the session. You will also see it after completing a session.
+.Statistics shown after manually stopping the session. You will also see it if you complete a session.
 image::stop.png[]
 
 {empty} +
@@ -535,6 +535,7 @@ You can then follow the same instructions as found in <<Quick Start>>.
 
 *Q*: I am not able to run this application. What can I do? +
 *A*: Refer to <<Quick Start>> for the installation guide. Ensure that your computer has Java 11 installed. FlashSpeed may not be able to run on other versions of Java.
+Alternatively, you can contact us https://ay1920s2-cs2103t-w17-1.github.io/main/ContactUs.html[here] for any further help.
 
 {empty} +
 
