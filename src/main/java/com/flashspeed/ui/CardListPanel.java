@@ -31,22 +31,22 @@ public class CardListPanel extends UiPart<Region> {
     @FXML
     private TableView itemTbl;
 
-
-
+    @SuppressWarnings("unchecked")
     public CardListPanel(ObservableValue<Deck> selectedDeck) {
         super(FXML);
 
-        TableColumn<Deck, Number> indexColumn = new TableColumn<Deck, Number>("ID");
+        TableColumn<Card, Number> indexColumn = new TableColumn<>("ID");
 
         indexColumn.setCellValueFactory(column-> new ReadOnlyObjectWrapper<Number>(
                 itemTbl.getItems().indexOf(column.getValue()) + 1));
 
-        TableColumn frontColumn = new TableColumn("Front");
+        TableColumn<Card, FrontFace> frontColumn = new TableColumn<>("Front");
         frontColumn.setCellValueFactory(new PropertyValueFactory<>("frontFace"));
 
-        TableColumn backColumn = new TableColumn("Back");
+        TableColumn<Card, BackFace> backColumn = new TableColumn<>("Back");
         backColumn.setCellValueFactory(new PropertyValueFactory<>("backFace"));
 
+        // unchecked generics array creation for varargs parameter here
         itemTbl.getColumns().addAll(indexColumn, frontColumn, backColumn);
 
         indexColumn.prefWidthProperty().bind(itemTbl.widthProperty().multiply(0.2));
@@ -78,8 +78,7 @@ public class CardListPanel extends UiPart<Region> {
         if (cardList.size() == 0) {
             defaultText.setText("Selected deck is empty");
         }
-        for (int i = 0; i < cardList.size(); i++) {
-            Card card = cardList.get(i);
+        for (Card card : cardList) {
             itemTbl.getItems().add(card);
         }
     }
