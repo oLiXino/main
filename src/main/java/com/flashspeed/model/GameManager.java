@@ -11,8 +11,7 @@ import javafx.collections.ObservableList;
 /**
  * Represents the model of the game session.
  */
-
-public class GameManager {
+public class GameManager implements Game {
     private Random randGen;
     private boolean flipped;
     private ObservableList<Card> cards;
@@ -39,6 +38,7 @@ public class GameManager {
      * Returns the value of whether a card has been flipped.
      * @return true if a card has been flipped, false otherwise.
      */
+    @Override
     public boolean isFlipped() {
         return this.flipped;
     }
@@ -47,6 +47,7 @@ public class GameManager {
      * Flips the card to the back face.
      * @return true if the card has not been flipped, false otherwise
      */
+    @Override
     public BackFace flip() {
         if (flipped) {
             return null;
@@ -60,6 +61,7 @@ public class GameManager {
      * Removes the correct card from the deck.
      * @return the next card or null if card list is empty
      */
+    @Override
     public Card answerYes() {
         statistics.incrementCorrectAttempt(cards.get(currCardIdx));
         cards.remove(currCardIdx);
@@ -78,6 +80,7 @@ public class GameManager {
      * Adds a duplicate wrong card to the deck.
      * @return the next card or null if card list is empty
      */
+    @Override
     public Card answerNo() {
         boolean hasTwoCards = statistics.incrementWrongAttempt(cards.get(currCardIdx));
         if (!hasTwoCards) {
@@ -94,6 +97,7 @@ public class GameManager {
     /**
      * Returns the statistics report when user stops the sessions.
      */
+    @Override
     public Statistics stop() {
         return this.statistics;
     }
@@ -101,6 +105,7 @@ public class GameManager {
     /**
      * Returns the current index of the card.
      */
+    @Override
     public int getCurrCardIdx() {
         return this.currCardIdx;
     }
@@ -108,6 +113,7 @@ public class GameManager {
     /**
      * Returns the number of cards have been attempted.
      */
+    @Override
     public int getCardAttempted() {
         return cardAttempted;
     }
@@ -115,6 +121,7 @@ public class GameManager {
     /**
      * Returns number of the remaining cards inside the deck.
      */
+    @Override
     public int getDeckSize() {
         return deckSize;
     }
@@ -122,6 +129,7 @@ public class GameManager {
     /**
      * Returns the card list.
      */
+    @Override
     public ObservableList<Card> getCards() {
         return this.cards;
     }
