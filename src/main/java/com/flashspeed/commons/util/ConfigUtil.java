@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
-import com.flashspeed.commons.exceptions.DataConversionException;
 import com.flashspeed.commons.core.Config;
+import com.flashspeed.commons.exceptions.DataConversionException;
 
 /**
  * A class for accessing the Config File.

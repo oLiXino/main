@@ -35,12 +35,12 @@ public class ParserUtil {
      */
     public static Name parseName(String name) throws ParseException {
         requireNonNull(name);
-        
+
         String strippedName = name.strip();
         if (!Name.isValidName(strippedName)) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
-        
+
         return new Name(strippedName);
     }
 }

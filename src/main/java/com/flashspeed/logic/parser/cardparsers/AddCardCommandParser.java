@@ -9,10 +9,10 @@ import java.util.regex.Pattern;
 import com.flashspeed.logic.commands.cardcommands.AddCardCommand;
 import com.flashspeed.logic.commands.cardcommands.EditCardCommand;
 import com.flashspeed.logic.parser.Parser;
+import com.flashspeed.logic.parser.exceptions.ParseException;
 import com.flashspeed.model.deck.card.BackFace;
 import com.flashspeed.model.deck.card.Card;
 import com.flashspeed.model.deck.card.FrontFace;
-import com.flashspeed.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new AddCardCommand object.
@@ -22,10 +22,10 @@ public class AddCardCommandParser implements Parser<AddCardCommand> {
     /**
      * Gets pattern FRONT:BACK, spaces before and after ":" are handled.
      */
-    private final Pattern COMMAND_FORMAT = Pattern.compile(
-            "(?<front>.*)" +
-            "(\\s*[\u003a\u02d0\u02d1\u02f8\u05c3\u2236\u2360\ua789\ufe13\uff1a\ufe55]\\s*)" +
-            "(?<back>.*)");
+    private static final Pattern COMMAND_FORMAT = Pattern.compile(
+            "(?<front>.*)"
+            + "(\\s*[\u003a\u02d0\u02d1\u02f8\u05c3\u2236\u2360\ua789\ufe13\uff1a\ufe55]\\s*)"
+            + "(?<back>.*)");
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddCardCommand
@@ -51,7 +51,7 @@ public class AddCardCommandParser implements Parser<AddCardCommand> {
         }
 
         FrontFace front = new FrontFace(frontValue);
-        BackFace back  = new BackFace(backValue);
+        BackFace back = new BackFace(backValue);
 
         Card card = new Card(front, back);
         return new AddCardCommand(card);
