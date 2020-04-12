@@ -13,6 +13,7 @@ import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import org.junit.jupiter.api.Test;
 
 import com.flashspeed.model.GameManager;
@@ -34,11 +35,6 @@ import com.flashspeed.model.deck.card.Card;
 import com.flashspeed.model.util.View;
 
 public class RemoveDeckCommandTest {
-
-    @Test
-    public void constructor_nullDeck_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new RemoveDeckCommand(null));
-    }
 
     @Test
     public void execute_deckAcceptedByModel_deleteSuccessful() throws Exception {
@@ -329,6 +325,7 @@ public class RemoveDeckCommandTest {
      * A Model stub that always accepts a deck being removed.
      */
     private class ModelStubAcceptingDeckDeleted extends ModelStub {
+        Library library = DeckUtils.getTypicalLibrary();
 
         @Override
         public View getView() {
@@ -336,8 +333,12 @@ public class RemoveDeckCommandTest {
         }
 
         @Override
+        public ObservableList<Deck> getFilteredDeckList() {
+            return new FilteredList<>(this.library.getDeckList());
+        }
+
+        @Override
         public void deleteDeck(Deck target) {
-            Library library = DeckUtils.getTypicalLibrary();
             library.deleteDeck(target);
         }
     }
@@ -346,6 +347,7 @@ public class RemoveDeckCommandTest {
      * A Model stub that cannot delete a deck due to being in Play Mode
      */
     private class ModelStubPlayMode extends ModelStub {
+        Library library = DeckUtils.getTypicalLibrary();
 
         @Override
         public View getView() {
@@ -353,8 +355,12 @@ public class RemoveDeckCommandTest {
         }
 
         @Override
+        public ObservableList<Deck> getFilteredDeckList() {
+            return new FilteredList<>(this.library.getDeckList());
+        }
+
+        @Override
         public void deleteDeck(Deck target) {
-            Library library = DeckUtils.getTypicalLibrary();
             library.deleteDeck(target);
         }
     }

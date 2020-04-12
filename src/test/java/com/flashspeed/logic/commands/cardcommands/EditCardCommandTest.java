@@ -39,18 +39,6 @@ import com.flashspeed.testutil.DeckBuilder;
 public class EditCardCommandTest {
 
     @Test
-    public void constructor_nullIndex_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new EditCardCommand(
-                null, null, null));
-        assertThrows(NullPointerException.class, () -> new EditCardCommand(
-                null, new FrontFace(""), new BackFace("")));
-        assertThrows(NullPointerException.class, () -> new EditCardCommand(
-                INDEX_FIRST_CARD, null, new BackFace("")));
-        assertThrows(NullPointerException.class, () -> new EditCardCommand(
-                INDEX_FIRST_CARD, new FrontFace(""), null));
-    }
-
-    @Test
     public void execute_editBothSidesAcceptedByModel_Successful() throws Exception {
         ModelStubAcceptingCardEdited modelStub = new ModelStubAcceptingCardEdited();
         Index validIndex = INDEX_FIRST_CARD;
@@ -60,7 +48,7 @@ public class EditCardCommandTest {
 
         CommandResult commandResult = new EditCardCommand(validIndex, front, back).execute(modelStub);
 
-        assertEquals(String.format(AddCardCommand.MESSAGE_SUCCESS, editedCard), commandResult.getFeedbackToUser());
+        assertEquals(String.format(EditCardCommand.MESSAGE_SUCCESS, editedCard), commandResult.getFeedbackToUser());
     }
 
     @Test
@@ -70,11 +58,11 @@ public class EditCardCommandTest {
         Index validIndex = INDEX_FIRST_CARD;
         FrontFace emptyFront = new FrontFace("");
         BackFace back = new BackFace("안녕");
-        Card editedCard = new Card(emptyFront, back);
 
         CommandResult commandResult = new EditCardCommand(validIndex, emptyFront, back).execute(modelStub);
+        Card newCard = modelStub.getCard(validIndex);
 
-        assertEquals(String.format(AddCardCommand.MESSAGE_SUCCESS, editedCard), commandResult.getFeedbackToUser());
+        assertEquals(String.format(EditCardCommand.MESSAGE_SUCCESS, newCard), commandResult.getFeedbackToUser());
     }
 
     @Test
@@ -84,11 +72,11 @@ public class EditCardCommandTest {
         Index validIndex = INDEX_FIRST_CARD;
         FrontFace front = new FrontFace("Hello");
         BackFace emptyBack = new BackFace("");;
-        Card editedCard = new Card(front, emptyBack);
 
         CommandResult commandResult = new EditCardCommand(validIndex, front, emptyBack).execute(modelStub);
+        Card newCard = modelStub.getCard(validIndex);
 
-        assertEquals(String.format(AddCardCommand.MESSAGE_SUCCESS, editedCard), commandResult.getFeedbackToUser());
+        assertEquals(String.format(EditCardCommand.MESSAGE_SUCCESS, newCard), commandResult.getFeedbackToUser());
     }
 
     @Test
@@ -99,7 +87,7 @@ public class EditCardCommandTest {
         BackFace back = new BackFace("안녕");;
         EditCardCommand editCardCommand = new EditCardCommand(validIndex, front, back);
 
-        assertThrows(CommandException.class, AddCardCommand.MESSAGE_NOT_IN_VIEW_MODE,
+        assertThrows(CommandException.class, EditCardCommand.MESSAGE_NOT_IN_VIEW_MODE,
                 () -> editCardCommand.execute(modelStub));
     }
 
@@ -405,6 +393,11 @@ public class EditCardCommandTest {
         }
 
         @Override
+        public Deck getCurrentDeck() {
+            return deck;
+        }
+
+        @Override
         public Card getCard(Index index) {
             return deck.getCard(index);
         }
@@ -436,6 +429,11 @@ public class EditCardCommandTest {
         @Override
         public View getView() {
             return View.PLAY;
+        }
+
+        @Override
+        public Deck getCurrentDeck() {
+            return deck;
         }
 
         @Override
@@ -471,6 +469,11 @@ public class EditCardCommandTest {
         @Override
         public View getView() {
             return View.LIBRARY;
+        }
+
+        @Override
+        public Deck getCurrentDeck() {
+            return deck;
         }
 
         @Override
