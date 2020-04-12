@@ -173,7 +173,7 @@ public class ModelManager implements Model {
     @Override
     public void deleteDeck(Deck target) {
         library.deleteDeck(target);
-        if (selectedDeck != null) {
+        if (selectedDeck != null && selectedDeck.getValue() != target) {
             Deck deck = selectedDeck.getValue();
             returnToLibrary();
             setSelectedDeck(deck);
