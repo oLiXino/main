@@ -132,7 +132,7 @@ Other than clicking on the close button, you can also press kbd:[Alt]+kbd:[F4] t
 
 Format: `exit`
 
-You can exit FlashSpeed by typing `exit` in the input box 
+You can exit FlashSpeed by typing `exit` in the input box
 and pressing kbd:[Enter]. Bye! +
 
 {empty} +
@@ -315,7 +315,6 @@ Format: `add <front>:<back>`
 with the `front` and `back` values of the card being specified by the user.
 Both the `front` and `back` values cannot be empty.
 ****
-[NOTE]
 ****
 * *One and only one* colon (":") can be used in this command.
 Since a colon is used as the separator, there should not be any colons in the `front` or `back` values.
@@ -358,7 +357,6 @@ Format 3: `edit <index> <front>:`
 * Existing values will be updated to the given values.
 * Empty values for the `front` or `back` will leave the original `front` or `back` intact.
 ****
-[NOTE]
 ****
 * *One and only one* colon (":") can be used in this command.
 Since a colon is used as the separator, there should not be any colons in the `front` or `back` values.
@@ -605,4 +603,3 @@ e.g. `delete 3`
 |=======================================================================
 
 // end::command-table[]
-{empty} +

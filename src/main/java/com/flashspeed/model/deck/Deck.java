@@ -120,7 +120,7 @@ public class Deck {
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
+        // use method for custom field hashing instead of implementing your own
         return Objects.hash(name);
     }
 
