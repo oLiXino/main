@@ -350,7 +350,7 @@ which is to assign different keywords to these two different feature.
 {empty} +
 
 // tag::addcard[]
->>>>>>> master
+
 === Creating a Card
 ==== Current Implementation
 
@@ -382,7 +382,6 @@ on the right panel. Lastly, the name of the selected Deck will be displayed toge
 ==== Design Considerations
 See <<Four-Two-Two, 4.2.2 - Design Considerations for creating a Deck - Aspect: Naming convention of command keywords>>.
 // end::addcard[]
->>>>>>> master
 
 // tag::editcard[]
 
