@@ -248,6 +248,7 @@ image::remove.png[]
 
 {empty} +
 
+// tag::renameAndPlay[]
 ==== Renaming a deck : `rename`
 
 Format: `rename <index> <deck>`
@@ -289,6 +290,8 @@ Starts a study session with the 1st deck in the library.
 
 .Studying/Playing the Japanese deck.
 image::Ui2.png[]
+
+// end::renameAndPlay[]
 
 {empty} +
 
