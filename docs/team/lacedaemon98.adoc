@@ -4,7 +4,7 @@
 :stylesDir: ../stylesheets
 
 == PROJECT: FlashSpeed
-
+image::flashspeed_logo.png[width="100", align="left"]
 ---
 
 == Overview
@@ -23,10 +23,12 @@ By using FlashSpeed, you will learn faster and remember for longer!
 ** Highlights: This component requires a lot of research, planning and in-depth analysis of the behaviours of all existing and future features. E.g: When and how the scenes should be switched?; JavaFX and FXML research; When the user updates a content, how to show the updated content immediately?
 
 
-* *Major enhancement 2*: Modify `LogicManager` and `ModelManger` classes and integrate them with GUI.
-** What it does: `LogicManager` and `ModelManager` facilitate the logic behind every command made by the user and reflect the changes on GUI,
+
+* *Major enhancement 2*: Modify `LogicManager` and `ModelManager` classes and integrate them with GUI.
+** What it does: `LogicManager` and `ModelManager` facilitate the logic behind every command made by the user and reflect the changes on GUI.
 ** Justification: These components act as the brain cells of FlashSpeed to process every operation.
 ** Highlights: These components require in-depth understanding on the behaviours and the logic behind all features.
+
 
 
 * *Minor enhancement*:
@@ -36,7 +38,11 @@ By using FlashSpeed, you will learn faster and remember for longer!
 .Draft version (left) and Final version (right) of FlashSpeed logo
 image::logos.jpg[width="300", align="center"]
 
+
+
 * *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=lacedaemon98&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=lacedaemon98&tabRepo=AY1920S2-CS2103T-W17-1%2Fmain%5Bmaster%5D[Functional & Test code]]
+
+
 
 * *Other contributions*:
 
@@ -54,6 +60,8 @@ https://github.com/AY1920S2-CS2103T-W17-1/main/pull/335[#335]
 *** Write multiple sections (shown below)
 *** Provide all the product screenshots in the User Guide and Developer Guide and update them when there are changes to the current application
 
+{empty} +
+
 == Contributions to the User Guide
 
 |===
@@ -61,8 +69,11 @@ https://github.com/AY1920S2-CS2103T-W17-1/main/pull/335[#335]
 |===
 include::../UserGuide.adoc[tag=views]
 
+{empty} +
+
 include::../UserGuide.adoc[tag=faq]
 
+{empty} +
 
 == Contributions to the Developer Guide
 
@@ -70,6 +81,7 @@ include::../UserGuide.adoc[tag=faq]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 include::../DeveloperGuide.adoc[tag=UI-component]
+
 {empty} +
 
 include::../DeveloperGuide.adoc[tag=selectdeck]
