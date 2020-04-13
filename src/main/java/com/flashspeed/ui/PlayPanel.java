@@ -76,6 +76,7 @@ public class PlayPanel extends UiPart<Region> {
             }
         });
 
+        //Change progress bar when number of Cards attempted change
         cardAttempted.addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 attempted = newValue;
@@ -84,6 +85,7 @@ public class PlayPanel extends UiPart<Region> {
             }
         });
 
+        //Change progress bar when number of Cards remaining change
         cardRemaining.addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 remaining = newValue;
@@ -94,7 +96,7 @@ public class PlayPanel extends UiPart<Region> {
     }
 
     /**
-     * Shows current playing card in right panel.
+     * Shows current playing card on right panel.
      *
      * @param card card to be shown
      */
@@ -106,6 +108,9 @@ public class PlayPanel extends UiPart<Region> {
         instruction.setText("Type 'flip' to reveal back face");
     }
 
+    /**
+     * Change value of progress bar
+     */
     private void setProgress() {
         double currentProgress = Double.valueOf(attempted) / (attempted + remaining);
         double prog = currentProgress * 100;
