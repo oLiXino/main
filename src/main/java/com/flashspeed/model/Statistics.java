@@ -37,15 +37,13 @@ public class Statistics {
         this.totalAttempts = totalAttempts;
         this.correctAttempts = correctAttempts;
         this.wrongAttempts = wrongAttempts;
-        this.cardTracker = new HashMap<>();
-
-        // initialize the number of attempt for each card as 0
-        for (int i = 0; i < cards.size(); i++) {
-            totalAttempts.put(cards.get(i), 0);
-            correctAttempts.put(cards.get(i), 0);
-            wrongAttempts.put(cards.get(i), 0);
-            cardTracker.put(cards.get(i), 1);
-        }
+        this.cardTracker = new HashMap<>() {
+            {
+                for (Card card: cards) {
+                    put(card, 1);
+                }
+            }
+        };
     }
 
     public Statistics(ObservableList<Card> cards) {
@@ -70,7 +68,7 @@ public class Statistics {
      * Returns the number of correct answers so far.
      */
     public int getCorrectAns() {
-        assert(correctAns > 0);
+        assert(correctAns >= 0);
         return this.correctAns;
     }
 
@@ -78,7 +76,7 @@ public class Statistics {
      * Returns the number of incorrect answers so far.
      */
     public int getWrongAns() {
-        assert(correctAns > 0);
+        assert(wrongAns >= 0);
         return this.wrongAns;
     }
 
@@ -86,7 +84,7 @@ public class Statistics {
      * Returns the total number of cards played so far.
      */
     public int getTotalQns() {
-        assert(correctAns > 0);
+        assert(totalQns >= 0);
         return this.totalQns;
     }
 
@@ -128,9 +126,10 @@ public class Statistics {
      */
     public boolean incrementWrongAttempt(Card card) {
         ++wrongAns;
+        assert(wrongAns > 0);
         wrongAttempts.merge(card, 1, Integer::sum);
         incrementAttempt(card);
-        int numCardsInDeck = cardTracker.get(card);
+        int numCardsInDeck = cardTracker.containsKey(card) ? cardTracker.get(card) : 0;
 
         if (numCardsInDeck > 2) {
             // should never happen, but reset to 2 so no cards can be added.
