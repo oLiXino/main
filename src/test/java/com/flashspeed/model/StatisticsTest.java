@@ -18,8 +18,8 @@ import javafx.collections.ObservableList;
 class StatisticsTest {
     private static final ObservableList<Card> CARDS = JAPANESE_DECK.asObservableList();
     private static final int CORRECT_ANS = 6;
-    private static final int WRONG_ANS = 6;
-    private static final int TOTAL_QNS = 6;
+    private static final int WRONG_ANS = 15;
+    private static final int TOTAL_QNS = 21;
     private static final int JAP_CARD_1_CORRECT = 1;
     private static final int JAP_CARD_2_CORRECT = 2;
     private static final int JAP_CARD_3_CORRECT = 3;
@@ -72,22 +72,41 @@ class StatisticsTest {
 
     @Test
     void getWrongAns_ongoingGame_success() {
-        assertEquals(emptyStatistics.getWrongAns(),WRONG_ANS);
+        assertEquals(nonEmptyStatistics.getWrongAns(),WRONG_ANS);
     }
 
     @Test
-    void getTotalQns() {
+    void getTotalQns_newGame_success() {
+        assertEquals(emptyStatistics.getTotalQns(),0);
     }
 
     @Test
-    void getScore() {
+    void getTotalQns_ongoingGame_success() {
+        assertEquals(nonEmptyStatistics.getTotalQns(),TOTAL_QNS);
     }
 
     @Test
-    void incrementCorrectAttempt() {
+    void getScore_newGame_throwsArithmeticException() {
+        assertThrows(ArithmeticException.class, () -> emptyStatistics.getScore());
     }
 
     @Test
-    void incrementWrongAttempt() {
+    void getScore_ongoingGame_success() {
+        long score = Math.round(Double.valueOf(CORRECT_ANS) / Double.valueOf(TOTAL_QNS) * 100);
+        assertEquals(nonEmptyStatistics.getScore(), score);
+    }
+
+    @Test
+    void incrementCorrectAttempt_success() {
+        nonEmptyStatistics.incrementCorrectAttempt(JAP_CARD_1);
+        long score = Math.round(Double.valueOf(CORRECT_ANS + 1) / Double.valueOf(TOTAL_QNS + 1) * 100);
+        assertEquals(nonEmptyStatistics.getScore(), score);
+    }
+
+    @Test
+    void incrementWrongAttempt_success() {
+        nonEmptyStatistics.incrementWrongAttempt(JAP_CARD_1);
+        long score = Math.round(Double.valueOf(CORRECT_ANS) / Double.valueOf(TOTAL_QNS + 1) * 100);
+        assertEquals(nonEmptyStatistics.getScore(), score);
     }
 }
