@@ -38,9 +38,9 @@ MainWindow -up-> HelpWindow
 MainWindow -up-> StatisticsPopUp
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
-MainWindow *-down-> CardListPanel
+MainWindow -down-> CardListPanel
 MainWindow -down-> PlayPanel
-MainWindow -down-> DeckListPanel
+MainWindow *-down-> DeckListPanel
 MainWindow *-down-> StatusBarFooter
 
 DeckListPanel -down-> DeckCard
