@@ -62,7 +62,9 @@ LiXin. Built and enhanced the Model and Logic Component with Amirul and LiXin.
 *** Opened https://github.com/AY1920S2-CS2103T-W17-1/main/issues?q=author%3Akschiew+[22 issues], and got assigned https://github.com/AY1920S2-CS2103T-W17-1/main/issues?q=assignee%3Akschiew[17 issues] on GitHub.
 ** Enhancements to existing features:
 *** Created test utilities for teammates to utilize during testing (Pull requests https://github.com/AY1920S2-CS2103T-W17-1/main/pull/300[#300], https://github.com/AY1920S2-CS2103T-W17-1/main/pull/285[#285])
-*** Wrote additional tests for existing features to increase coverage (Pull requests https://github.com/AY1920S2-CS2103T-W17-1/main/pull/315[#36])
+*** Wrote additional tests for existing features to increase coverage
+(Pull requests https://github.com/AY1920S2-CS2103T-W17-1/main/pull/315[#36]
+https://github.com/AY1920S2-CS2103T-W17-1/main/pull/377[#377])
 ** Documentation:
 *** Changed the language used in the User Guide to be more user-friendly (Pull requests https://github.com/AY1920S2-CS2103T-W17-1/main/pull/170[#170] https://github.com/AY1920S2-CS2103T-W17-1/main/pull/201[#201])
 ** Community:
