@@ -49,11 +49,10 @@ image::logos.jpg[width="300", align="center"]
 ** Project management:
 *** Actively initiate discussions and generate ideas outside meetings.
 ** Enhancements to existing features:
-*** Display help without Internet connection needed: Show the User Guide directly when using `help` instead of just showing the link (Pull requests https://github.com/AY1920S2-CS2103T-W17-1/main/pull/194[#194], https://github.com/AY1920S2-CS2103T-W17-1/main/pull/195[#195])
-*** Spot and fix bugs in other members' features such as `reset`, `stop`, `exit`, etc. (Pull requests https://github.com/AY1920S2-CS2103T-W17-1/main/pull/271[#271], https://github.com/AY1920S2-CS2103T-W17-1/main/pull/175[#175], https://github.com/AY1920S2-CS2103T-W17-1/main/pull/193[#193])
+*** Display help without Internet connection needed by showing the User Guide directly when using `help` instead of just showing the link: https://github.com/AY1920S2-CS2103T-W17-1/main/pull/194[#194] https://github.com/AY1920S2-CS2103T-W17-1/main/pull/195[#195]
+*** Spot and fix bugs in other members' features such as `reset`, `stop`, `exit`, etc.: https://github.com/AY1920S2-CS2103T-W17-1/main/pull/271[#271] https://github.com/AY1920S2-CS2103T-W17-1/main/pull/175[#175] https://github.com/AY1920S2-CS2103T-W17-1/main/pull/193[#193]
 ** Community:
-*** PRs reviewed: https://github.com/AY1920S2-CS2103T-W17-1/main/pull/222[#222]
-https://github.com/AY1920S2-CS2103T-W17-1/main/pull/335[#335]
+*** PRs reviewed: https://github.com/AY1920S2-CS2103T-W17-1/main/pull/222[#222] https://github.com/AY1920S2-CS2103T-W17-1/main/pull/335[#335]
 *** Reported bugs and provided suggestions for other teams: https://github.com/lacedaemon98/ped/issues/1[#1] https://github.com/lacedaemon98/ped/issues/2[#2] https://github.com/lacedaemon98/ped/issues/3[#3] https://github.com/lacedaemon98/ped/issues/4[#4] https://github.com/lacedaemon98/ped/issues/5[#5] https://github.com/lacedaemon98/ped/issues/6[#6] https://github.com/lacedaemon98/ped/issues/7[#7] https://github.com/lacedaemon98/ped/issues/8[#8]
 
 ** Documentation:
