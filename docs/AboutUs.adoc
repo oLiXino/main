@@ -23,8 +23,8 @@ Responsibilities: User Guide, Deliverables and deadline, Integration, Automated 
 image::kschiew.png[width="150", align="left"]
 {empty}[http://github.com/kschiew[github]] [<<kschiew#, portfolio>>]
 
-Role: Team Lead +
-Responsibilities: Architect + Storage
+Role: Software Architect +
+Responsibilities: App Architecture, Logic, Storage, Statistics
 
 '''
 
@@ -32,8 +32,8 @@ Responsibilities: Architect + Storage
 image::ncslzh.png[width="150", align="left"]
 {empty}[https://github.com/ncslzh[github]] [<<ncslzh#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Dev Ops
+Role: DevOps +
+Responsibilities: Developer Guide, Agenda/Issue tracker, Game Algorithm
 
 '''
 
@@ -42,7 +42,7 @@ image::olixino.png[width="150", align="left"]
 {empty}[http://github.com/oLiXino[github]] [<<oLiXino#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Play Mode Developer
+Responsibilities: Play View, Model, Game Component
 
 '''
 
@@ -50,7 +50,7 @@ Responsibilities: Play Mode Developer
 image::lacedaemon98.png[width="150", align="left"]
 {empty}[http://github.com/lacedaemon98[github]] [<<lacedaemon98#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+Role: Developer, Designer +
+Responsibilities: UI/UX, Visual, Logic
 
 '''
