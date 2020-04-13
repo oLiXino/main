@@ -27,7 +27,6 @@ The main features of FlashSpeed allows users to
 * create their own <<deck, decks>> of flashcards (or <<card, cards>>)
 * choose a deck to revise (or <<play, play>>) which uses the SRS design mentioned above.
 
-
 [[Purpose]]
 === Purpose
 
@@ -145,10 +144,10 @@ The `UI` component,
 
 //end::UI-component[]
 
-// tag::design-logic[]
+
 
 {empty} +
-
+// tag::design-logic[]
 [[Design-Logic]]
 === Logic component
 
@@ -165,14 +164,13 @@ link:{repoURL}/src/main/java/com/flashspeed/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("remove 2")` API call.
-
-.Interactions inside the Logic Component for the `remove 2` command
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+// end::design-logic[]
+.Interactions inside the Logic Component for the `delete 1` command
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `RemoveDeckCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-// end::design-logic[]
 
 {empty} +
 
@@ -272,6 +270,7 @@ Accepted syntax: `create DECK_NAME`
 
 This functionality is implemented by getting the Deck based on the index provided. Subsequently, the Card(s) that belongs to the selected Deck will be displayed on the right panel via a `TableView`.
 
+===== Validation and extraction of input in parser
 The validation of the arguments in the `create` command is performed in `CreateDeckCommandParser#parse()`. It ensures
 that the user has entered a non-null deck name.
 
@@ -279,6 +278,7 @@ In `CreateDeckCommandParser#parse()`, the `DECK_NAME` of is extracted
 from the arguments in the `create` command. The `DECK_NAME` is converted to a Name object. An `CreateDeckCommand`
 object is then constructed with the Deck name as its parameter.
 
+===== Execution of Command object
 When `CreateDeckCommand#execute()` is executed, an empty Deck with the Name parsed in the `CreateDeckCommand` will be
 created when the Model Manager invokes the `ModelManager#selectDeck()` command.
 After that, `ModelManager#setSelectedDeck()` method will be called to update the UI and display the Deck content
@@ -370,6 +370,7 @@ The Model Manager will be responsible of keeping track of the current deck.
 Subsequently, the Model Manager creates a new card  adds it to the current Deck.
 The display on the right panel will be updated via updating the `TableView`.
 
+===== Validation and extraction of input in parser
 The validation of the arguments in the `add` command is performed in `AddCardCommandParser#parse()`. It ensures
 that the user has entered a non-null front value as well as a non-null back value.
 The lack thereof will cause a `InvalidFaceValueException` to be thrown.
@@ -379,6 +380,7 @@ from the arguments in the `add` command.
 Both values will be converted to a `FrontFace` object and a `BackFace` object respectively.
 A `AddCardCommand` object is then constructed with the 'FrontFace' and 'BackFace' objects as its parameters.
 
+===== Execution of Command object
 When `AddCardCommand#execute()` is called, a `Card` object with the `FrontFace` and `BackFace`
 parsed in the `CreateDeckCommand` will be
 created when the Model Manager invokes the `ModelManager#addCard()` command.
@@ -421,6 +423,7 @@ Below is a summary of the operations flow during the editing of a card.
 .Operations flow during an Edit command.
 image::EditCardActivityDiagram.png[]
 
+===== Validation and extraction of input in parser
 The validation of the arguments in the `edit` command is performed in `EditCommandParser#parse()`. Note that
 the validation only checks that the command is well-formed, i.e. understandable by FlashSpeed. It does not check for the validity of the command
 in the current environment (e.g. if we are currently in Deck view or not). This is for separation of parsing
@@ -430,6 +433,7 @@ In `EditCommandParser#parse()`, the `INDEX` of the card to be edited and the new
 from the arguments in the `edit` command. The `INDEX` is converted to an Index object. An `EditCardCommand`
 object is then constructed with the Index and the new Card as its parameters.
 
+===== Execution of Command object
 When `EditCardCommand#execute()` is executed, the environment is then checked. The `edit` command is only valid when
 we are currently in a Deck, thus a check on the current view is performed using `ModelManager#getView()`. Then
 the Index of the card to be edited is checked by ensuring it is in the range of [0, size of current Deck) using
@@ -472,12 +476,15 @@ Accepted syntax: `play INDEX`
 The play command changes the mode of the application to `PLAY` mode and creates a new session with the Deck at the given `INDEX`.
 The value of the `FRONT` of the selected `Deck` will be displayed to the user.
 
+===== Validation and extraction of input in parser
 The first validation of the `play` command is performed in `PlayCommandParser#parse()`.
 The validation only checks that the `play` command has the correct format as the `INDEX` argument is given by the user and it is performed on the login level.
 
 In `PlayCommandParser#parse()`, the `INDEX` of the deck is extracted from the arguments in the `play` command. The `INDEX` is converted to an Index object. An `PlayCommand`
 object is then constructed with the Index.
 
+
+===== Execution of Command object
 After the object of the `PlayCommand' is constructed, `PlayCommand#execute()` will be executed and the second validation of the `play` command is performed.
 This validation firstly checks if the given `INDEX` argument is a non-negative integer and is within the number of cards in the selected Deck. Then the validation checks if
 there is any card currently in the selected deck by checking if the `FRONT` face and `BACK` face of the card returned by `ModelManager#play()` are both empty.
@@ -502,6 +509,10 @@ Accepted syntax: `flip`
 
 The `flip` command displays the `BACK` face of the card that the user is currently playing with to the user so that user is able to check if his or her answer is correct.
 
+===== Validation and extraction of input in parser
+No user parameter is required, hence a parser is not needed.
+
+===== Execution of Command object
 An `FlipCommand` object is constructed and `FlipCommand#execute()` is executed. In `FlipCommand#execute()`, validation for the `flip` command is performed.
 The validation will check if `ModelManager` is in `PLAY` mode using `ModelManager#getMode()`. if `ModelManager` is in `PLAY` mode, then the validation will check if the card has been flipped
 by checking if the returned `BACK` face of the card is empty since a card can only be flipped once.
@@ -527,6 +538,11 @@ Accepted syntax: `yes` or `no`
 
 After flipping the card, users indicates if he or she gets the correct answer by using `yes` and `no` command.
 
+===== Validation and extraction of input in parser
+No user parameter is required, hence a parser is not needed.
+
+
+===== Execution of Command object
 An `AnswerYesCommand` or `AnswerNoCommand` object is constructed and `AnswerYesCommand#execute()` or `AnswerNoCommand#execute()` is executed accordingly. Validation for the `yes` and `no` command is performed to check
 if if `ModelManager` is in `PLAY` mode using `ModelManager#getMode()`. if `ModelManager` is in `PLAY` mode, then the validation will check if the card has been flipped
 using `ModelManager#getGame().isFlipped()` since a card should not have been flipped before user answers to the card.
@@ -585,7 +601,7 @@ Refer to the guide <<Testing#, here>>.
 
 Refer to the guide <<DevOps#, here>>.
 
-// tag::appendix[]
+// tag::appendixA[]
 
 [appendix]
 == Product Scope
@@ -601,6 +617,9 @@ Refer to the guide <<DevOps#, here>>.
 
 *Value proposition*: study new vocabulary words anytime and anywhere
 
+// end::appendixA[]
+
+// tag::appendixB[]
 [appendix]
 == User Stories
 
@@ -653,6 +672,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |=======================================================================
 
+// end::appendixB[]
+
 [appendix]
 == Use Cases
 
@@ -692,6 +713,7 @@ Use case resumes at step 1.
 
 {empty} +
 
+// tag::appendixC[]
 [discrete]
 === UC03: Delete a deck
 
@@ -719,6 +741,8 @@ Use case resumes at step 1.
 
 {empty} +
 
+
+
 [discrete]
 === UC04: View a deck (select)
 
@@ -743,7 +767,7 @@ Use case ends.
 ** 2a1. FlashSpeed shows an error message.
 +
 Use case resumes at step 1.
-
+// end::appendixC[]
 {empty} +
 
 [discrete]
@@ -972,6 +996,7 @@ Use case resumes at step 3.
 
 _{More to be added}_
 
+// tag::appendixE[]
 [appendix]
 == Glossary
 
@@ -990,6 +1015,8 @@ Cards that are answered wrongly in Play Mode will be shown more frequently in th
 
 [[spaced-repetition-system]] Space Repetition System::
 Spaced repetition is an evidence-based learning technique that is usually performed with flashcards. Newly introduced and more difficult flashcards are shown more frequently while older and less difficult flashcards are shown less frequently in order to exploit the psychological spacing effect
+
+// end::appendixE[]
 
 //tag::views[]
 [[view]] View::
@@ -1029,12 +1056,12 @@ Author: Damien Elmes
 Pros:
 
 * Study algorithm is useful for easily memorizing content.
+* Extensive card browser
 
 Cons:
 
 * Not as appealing UI.
-* Not friendly for fast typist to execute commands/tasks.
-
+* Not friendly for fast typist to execute commands/tasks (no CLI).
 
 [appendix]
 == Instructions for Manual Testing
@@ -1074,7 +1101,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the help window. +
    Expected: The help window opens to the page you last left off from.
 
-
+// tag::appendixG[]
 === Deck functionality
 . Creating a deck.
 
@@ -1142,7 +1169,7 @@ Expected: Similar to previous
 .. Other incorrect create commands to try: `edit`, `edit test : test test`, `edit x Russian : 러시안어` (where x is larger than the list size),
    `rename 1 y` (where y is a card that already exists) +
    Expected: Similar to previous.
-
+// end::appendixG[]
 === Game-play functionality
 . Starting a game
 .. Prerequisites: Ensure that FlashSpeed contains at least 1 Deck, which can be seen on the left panel.

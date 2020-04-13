@@ -21,7 +21,8 @@ FlashSpeed was created to allow students to be able to study and revise foreign 
 * *Major enhancement 1*: designed the *architecture* of the app.
 ** What it does: creates the backbone structure of the application.
 ** Justification: This contribution is critical to the development of the product
-because it created the basic structure of the app so that different features could be developed simultaneously.
+because it created the basic structure of the app as well as designed the logic of the application,
+so that different features could be developed simultaneously.
 ** Highlights: This contribution sets the tone of the application.
 It required an in-depth analysis of how the application should work in the future.
 The implementation too was challenging as it required making high-level design choices.

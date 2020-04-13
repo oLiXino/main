@@ -20,6 +20,7 @@ end box
 box UI UI_COLOR_T1
 participant ":DeckListPanel" as DeckListPanel UI_COLOR
 participant ":CardListPanel" as CardListPanel UI_COLOR
+participant ":ResultDisplay" as ResultDisplay UI_COLOR
 
 
 end box
@@ -72,15 +73,7 @@ deactivate UniqueDeckList
 Library --> Model : deck
 deactivate Library
 
-Model -> DeckListPanel : setSelectedDeck(deck)
-activate DeckListPanel
-
-
-
-create CardListPanel
-Model -> CardListPanel : setSelectedDeck(deck)
-activate CardListPanel
-
+Model --> LogicManager: setSelectedDeck(deck)
 
 Model --> SelectDeckCommand
 deactivate Model
@@ -88,13 +81,23 @@ deactivate Model
 SelectDeckCommand --> LogicManager : commandResult
 deactivate SelectDeckCommand
 
-LogicManager --> user: commandResult
-deactivate LogicManager
+LogicManager -> DeckListPanel : setSelectedDeck(deck)
+activate DeckListPanel
 
-DeckListPanel --> user: UI change
+LogicManager -> CardListPanel : setSelectedDeck(deck)
+activate CardListPanel
+
+LogicManager -> ResultDisplay: commandResult
+deactivate LogicManager
+activate ResultDisplay
+
+DeckListPanel --> user: clearAndSelect(deck)
 deactivate DeckListPanel
 
-CardListPanel --> user: UI change
+CardListPanel --> user: showCardList(deck)
 deactivate CardListPanel
+
+ResultDisplay --> user: setFeedbackToUser(commandResult)
+deactivate ResultDisplay
 
 @enduml
