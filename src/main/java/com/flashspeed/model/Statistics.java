@@ -21,10 +21,29 @@ public class Statistics {
     private int totalQns;
 
     // hash map to keep track the number of attempts to get the correct answer for each card
-    private HashMap<Card, Integer> totalAttempts;
-    private HashMap<Card, Integer> correctAttempts;
-    private HashMap<Card, Integer> wrongAttempts;
-    private HashMap<Card, Integer> cardTracker;
+    private Map<Card, Integer> totalAttempts;
+    private Map<Card, Integer> correctAttempts;
+    private Map<Card, Integer> wrongAttempts;
+    private Map<Card, Integer> cardTracker;
+
+     Statistics(int correctAns, int wrongAns, int totalQns, Map<Card, Integer> totalAttempts,
+               Map<Card, Integer> correctAttempts,
+               Map<Card, Integer> wrongAttempts, ObservableList<Card> cards) {
+        this.correctAns = correctAns;
+        this.wrongAns = wrongAns;
+        this.totalQns = totalQns;
+        this.totalAttempts = totalAttempts;
+        this.correctAttempts = correctAttempts;
+        this.wrongAttempts = wrongAttempts;
+
+        // initialize the number of attempt for each card as 0
+        for (int i = 0; i < cards.size(); i++) {
+            totalAttempts.put(cards.get(i), 0);
+            correctAttempts.put(cards.get(i), 0);
+            wrongAttempts.put(cards.get(i), 0);
+            cardTracker.put(cards.get(i), 1);
+        }
+    }
 
     public Statistics(ObservableList<Card> cards) {
         this.correctAns = 0;
