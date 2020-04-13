@@ -51,63 +51,75 @@ class StatisticsTest {
         }
     };
 
-    private Statistics emptyStatistics = new Statistics(CARDS);
-
-    private Statistics nonEmptyStatistics = new Statistics(CORRECT_ANS, WRONG_ANS, TOTAL_QNS,
-            TOTAL_ATTEMPTS, CORERCT_ATTEMPTS, WRONG_ATTEMPTS, CARDS);
 
     @Test
     void getCorrectAns_newGame_success() {
+        Statistics emptyStatistics = new Statistics(CARDS);
         assertEquals(emptyStatistics.getCorrectAns(), 0);
     }
 
     @Test
     void getCorrectAns_ongoingGame_success() {
+        Statistics nonEmptyStatistics = new Statistics(CORRECT_ANS, WRONG_ANS, TOTAL_QNS,
+                TOTAL_ATTEMPTS, CORERCT_ATTEMPTS, WRONG_ATTEMPTS, CARDS);
         assertEquals(nonEmptyStatistics.getCorrectAns(), CORRECT_ANS);
     }
 
     @Test
     void getWrongAns_newGame_success() {
+        Statistics emptyStatistics = new Statistics(CARDS);
         assertEquals(emptyStatistics.getWrongAns(), 0);
     }
 
     @Test
     void getWrongAns_ongoingGame_success() {
+        Statistics nonEmptyStatistics = new Statistics(CORRECT_ANS, WRONG_ANS, TOTAL_QNS,
+                TOTAL_ATTEMPTS, CORERCT_ATTEMPTS, WRONG_ATTEMPTS, CARDS);
         assertEquals(nonEmptyStatistics.getWrongAns(), WRONG_ANS);
     }
 
     @Test
-    void getTotalQns_newGame_success() {
+    void getTotalQns_newGame_throwsAssertionError() {
+        Statistics emptyStatistics = new Statistics(CARDS);
         assertEquals(emptyStatistics.getTotalQns(), 0);
     }
 
     @Test
     void getTotalQns_ongoingGame_success() {
+        Statistics nonEmptyStatistics = new Statistics(CORRECT_ANS, WRONG_ANS, TOTAL_QNS,
+                TOTAL_ATTEMPTS, CORERCT_ATTEMPTS, WRONG_ATTEMPTS, CARDS);
         assertEquals(nonEmptyStatistics.getTotalQns(), TOTAL_QNS);
     }
 
     @Test
     void getScore_newGame_throwsArithmeticException() {
+        Statistics emptyStatistics = new Statistics(CARDS);
         assertThrows(ArithmeticException.class, () -> emptyStatistics.getScore());
     }
 
     @Test
     void getScore_ongoingGame_success() {
+        Statistics nonEmptyStatistics = new Statistics(CORRECT_ANS, WRONG_ANS, TOTAL_QNS,
+                TOTAL_ATTEMPTS, CORERCT_ATTEMPTS, WRONG_ATTEMPTS, CARDS);
         long score = Math.round(Double.valueOf(CORRECT_ANS) / Double.valueOf(TOTAL_QNS) * 100);
         assertEquals(nonEmptyStatistics.getScore(), score);
     }
 
     @Test
-    void incrementCorrectAttempt_success() {
-        nonEmptyStatistics.incrementCorrectAttempt(JAP_CARD_1);
-        long score = Math.round(Double.valueOf(CORRECT_ANS + 1) / Double.valueOf(TOTAL_QNS + 1) * 100);
+    void incrementWrongAttempt_success() {
+        Statistics nonEmptyStatistics = new Statistics(CORRECT_ANS, WRONG_ANS, TOTAL_QNS,
+                TOTAL_ATTEMPTS, CORERCT_ATTEMPTS, WRONG_ATTEMPTS, CARDS);
+        nonEmptyStatistics.incrementWrongAttempt(JAP_CARD_1);
+        long score = Math.round(Double.valueOf(CORRECT_ANS) / Double.valueOf(TOTAL_QNS + 1) * 100);
         assertEquals(nonEmptyStatistics.getScore(), score);
     }
 
     @Test
-    void incrementWrongAttempt_success() {
-        nonEmptyStatistics.incrementWrongAttempt(JAP_CARD_1);
-        long score = Math.round(Double.valueOf(CORRECT_ANS) / Double.valueOf(TOTAL_QNS + 1) * 100);
+    void incrementCorrectAttempt_success() {
+        Statistics nonEmptyStatistics = new Statistics(CORRECT_ANS, WRONG_ANS, TOTAL_QNS,
+                TOTAL_ATTEMPTS, CORERCT_ATTEMPTS, WRONG_ATTEMPTS, CARDS);
+        nonEmptyStatistics.incrementCorrectAttempt(JAP_CARD_1);
+        long score = Math.round(Double.valueOf(CORRECT_ANS + 1) / Double.valueOf(TOTAL_QNS + 1) * 100);
         assertEquals(nonEmptyStatistics.getScore(), score);
     }
 
