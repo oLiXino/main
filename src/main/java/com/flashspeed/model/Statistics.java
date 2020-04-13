@@ -135,6 +135,7 @@ public class Statistics {
         if (numCardsInDeck > 2) {
             // should never happen, but reset to 2 so no cards can be added.
             numCardsInDeck = 2;
+            cardTracker.replace(card, 2);
         }
 
         if (numCardsInDeck < 2) {
