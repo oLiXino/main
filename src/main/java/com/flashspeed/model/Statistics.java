@@ -12,6 +12,8 @@ import javafx.collections.ObservableList;
  */
 public class Statistics {
 
+    private static final String NEW_GAME_ERR_MSG = "The game has not started yet!";
+
     // number of correct answers
     private int correctAns;
     // number of wrong answer
@@ -21,10 +23,30 @@ public class Statistics {
     private int totalQns;
 
     // hash map to keep track the number of attempts to get the correct answer for each card
-    private HashMap<Card, Integer> totalAttempts;
-    private HashMap<Card, Integer> correctAttempts;
-    private HashMap<Card, Integer> wrongAttempts;
-    private HashMap<Card, Integer> cardTracker;
+    private Map<Card, Integer> totalAttempts;
+    private Map<Card, Integer> correctAttempts;
+    private Map<Card, Integer> wrongAttempts;
+    private Map<Card, Integer> cardTracker;
+
+    Statistics(int correctAns, int wrongAns, int totalQns, Map<Card, Integer> totalAttempts,
+               Map<Card, Integer> correctAttempts,
+               Map<Card, Integer> wrongAttempts, ObservableList<Card> cards) {
+        this.correctAns = correctAns;
+        this.wrongAns = wrongAns;
+        this.totalQns = totalQns;
+        this.totalAttempts = totalAttempts;
+        this.correctAttempts = correctAttempts;
+        this.wrongAttempts = wrongAttempts;
+        this.cardTracker = new HashMap<>();
+
+        // initialize the number of attempt for each card as 0
+        for (int i = 0; i < cards.size(); i++) {
+            totalAttempts.put(cards.get(i), 0);
+            correctAttempts.put(cards.get(i), 0);
+            wrongAttempts.put(cards.get(i), 0);
+            cardTracker.put(cards.get(i), 1);
+        }
+    }
 
     public Statistics(ObservableList<Card> cards) {
         this.correctAns = 0;
@@ -48,6 +70,7 @@ public class Statistics {
      * Returns the number of correct answers so far.
      */
     public int getCorrectAns() {
+        assert(correctAns > 0);
         return this.correctAns;
     }
 
@@ -55,6 +78,7 @@ public class Statistics {
      * Returns the number of incorrect answers so far.
      */
     public int getWrongAns() {
+        assert(correctAns > 0);
         return this.wrongAns;
     }
 
@@ -62,6 +86,7 @@ public class Statistics {
      * Returns the total number of cards played so far.
      */
     public int getTotalQns() {
+        assert(correctAns > 0);
         return this.totalQns;
     }
 
@@ -69,7 +94,10 @@ public class Statistics {
      * Calculates the current score of the game.
      * @return the current score of the game thus far.
      */
-    public long getScore() {
+    public long getScore() throws ArithmeticException {
+        if (totalQns == 0) {
+            throw new ArithmeticException(NEW_GAME_ERR_MSG);
+        }
         return Math.round(Double.valueOf(correctAns) / Double.valueOf(totalQns) * 100);
     }
 
@@ -77,7 +105,10 @@ public class Statistics {
      * Increments the number of attempts of a certain card.
      */
     private void incrementAttempt(Card card) {
+        ++totalQns;
         totalAttempts.merge(card, 1, Integer::sum);
+        assert(totalAttempts.get(card) > 0);
+        assert(totalQns > 0);
     }
 
     /**
@@ -85,7 +116,6 @@ public class Statistics {
      */
     public void incrementCorrectAttempt(Card card) {
         ++correctAns;
-        ++totalQns;
         correctAttempts.merge(card, 1, Integer::sum);
         cardTracker.merge(card, -1, Integer::sum);
         incrementAttempt(card);
@@ -98,7 +128,6 @@ public class Statistics {
      */
     public boolean incrementWrongAttempt(Card card) {
         ++wrongAns;
-        ++totalQns;
         wrongAttempts.merge(card, 1, Integer::sum);
         incrementAttempt(card);
         int numCardsInDeck = cardTracker.get(card);
