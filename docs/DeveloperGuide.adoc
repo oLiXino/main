@@ -98,6 +98,8 @@ The following classes plays an important role at the architecture level:
 * <<Design-Model,*`Model`*>>: Holds the data and current state of FlashSpeed in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from and writes data to a data file on the hard disk.
 
+// end::design-arch[]
+
 Each of the four components
 
 * Defines its _API_ in an `interface` with the same name as the Component.
@@ -107,8 +109,6 @@ For example, the `Logic` component (see the class diagram given below) defines i
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
-
-// end::design-arch[]
 
 {empty} +
 
@@ -141,6 +141,9 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* `HelpWindow` will only be shown when executing `help` command.
+* `StatisticsPopUp` will only be shown after finishing or stopping a *Play session*.
+* Either `CardListPanel` or `PlayPanel` is displayed depending on the current <<view, view>>.
 
 //end::UI-component[]
 
@@ -257,7 +260,6 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 This section describes some noteworthy details on how certain features are implemented.
 
 {empty} +
-
 
 // tag::createdeck[]
 
@@ -397,9 +399,9 @@ image::../diagrams/AddSequenceDiagram.png[]
 See <<Four-Two-Two, 4.2.2 - Design Considerations for creating a Deck - Aspect: Naming convention of command keywords>>.
 // end::addcard[]
 
-// tag::editcard[]
-
 {empty} +
+
+// tag::editcard[]
 
 === Editing a Card: Shortcut Formats
 ==== Current Implementation
