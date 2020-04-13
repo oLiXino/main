@@ -42,7 +42,7 @@ image::olixino.png[width="150", align="left"]
 {empty}[http://github.com/oLiXino[github]] [<<oLiXino#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Play Mode Developer
+Responsibilities: Play View, Model, Game Component
 
 '''
 
