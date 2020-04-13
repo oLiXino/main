@@ -64,8 +64,10 @@ LiXin.
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S2-CS2103T-W17-1/main/pull/295[#295]
 https://github.com/AY1920S2-CS2103T-W17-1/main/pull/84[#84]
+https://github.com/AY1920S2-CS2103T-W17-1/main/pull/347[#347]
 *** Reported bugs and suggestions for other teams in the class (examples:
-https://github.com/kschiew/ped/issues/1[#1] https://github.com/kschiew/ped/issues/2[#2] https://github.com/kschiew/ped/issues/3[#3] https://github.com/kschiew/ped/issues/4[$#4]
+https://github.com/kschiew/ped/issues/1[#1] https://github.com/kschiew/ped/issues/2[#2]
+https://github.com/kschiew/ped/issues/3[#3] https://github.com/kschiew/ped/issues/4[#4]
 ** Tools:
 *** Integrated a third party library (Jackson) to the project (https://github.com/AY1920S2-CS2103T-W17-1/main/pull/119[#119])
 
