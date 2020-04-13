@@ -285,7 +285,8 @@ After that, `ModelManager#setSelectedDeck()` method will be called to update the
 on the right panel. Lastly, the name of the selected Deck will be displayed together with the
 `MESSAGE_SUCCESS` on the `ResultDisplay` panel.
 
-image::../diagrams/CreateSequenceDiagram.png
+.Interactions inside the Model and Logic components when the user enters `create Japanese` into the input box.
+image::../diagrams/CreateSequenceDiagram.png[Something]
 
 // tag::create-deck-consideration[]
 ==== Design Considerations
@@ -382,6 +383,10 @@ created when the Model Manager invokes the `ModelManager#addCard()` command.
 After that, `ModelManager#setSelectedDeck()` method will be called to update the UI and display the Deck content
 on the right panel. Lastly, the name of the selected Deck will be displayed together with the
 `MESSAGE_SUCCESS` on the `ResultDisplay` panel.
+
+
+.Interactions inside Model and Logic components when user enters `add ありがとう:thanks` into the input box.
+image::../diagrams/AddSequenceDiagram.png[]
 
 ==== Design Considerations
 See <<Four-Two-Two, 4.2.2 - Design Considerations for creating a Deck - Aspect: Naming convention of command keywords>>.

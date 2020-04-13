@@ -3,21 +3,21 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager  " as LogicManager LOGIC_COLOR
-participant ":MasterParser " as MasterParser LOGIC_COLOR
+participant ":MasterParser  " as MasterParser LOGIC_COLOR
 participant ":AddCardCommandParser    " as AddCardCommandParser LOGIC_COLOR
-participant "r:AddCardCommand    " as AddCardCommand LOGIC_COLOR
-participant ":CommandResult   " as CommandResult LOGIC_COLOR
+participant "r:AddCardCommand   " as AddCardCommand LOGIC_COLOR
+participant ":CommandResult    " as CommandResult LOGIC_COLOR
 end box
-
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
+participant ":Library " as Library MODEL_COLOR
 end box
 
-[-> LogicManager : execute("add Good Morning: Selamat Pagi")
+[-> LogicManager : execute("add ありがとう:thanks")
 activate LogicManager
 
-LogicManager -> MasterParser : parseCommand("add Good Morning: Selamat Pagi ")
+LogicManager -> MasterParser : parseCommand("add ありがとう:thanks")
 activate MasterParser
 
 create AddCardCommandParser
@@ -27,7 +27,7 @@ activate AddCardCommandParser
 AddCardCommandParser --> MasterParser
 deactivate AddCardCommandParser
 
-MasterParser -> AddCardCommandParser : parse("Good Morning: Selamat Pagi")
+MasterParser -> AddCardCommandParser : parse("ありがとう:thanks")
 activate AddCardCommandParser
 
 create AddCardCommand
@@ -49,8 +49,14 @@ deactivate MasterParser
 LogicManager -> AddCardCommand : execute()
 activate AddCardCommand
 
-AddCardCommand -> Model : createCard("Good Morning", "Selamat Pagi")
+AddCardCommand -> Model : addCard("ありがとう", "thanks")
 activate Model
+
+Model -> Library : addCard("ありがとう", "thanks")
+activate Library
+
+Library -> Model
+deactivate Library
 
 Model --> AddCardCommand
 deactivate Model
