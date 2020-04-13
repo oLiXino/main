@@ -15,6 +15,11 @@ University students often have hectic schedules.
 With this in mind,
 FlashSpeed was created to allow students to be able to study and revise foreign vocabulary on the fly.
 
+FlashSpeed was developed as a team project for the CS2103T Software Engineering module in the National University of Singapore
+(NUS). It is considered a brownfield project as it was built on top of the AddressBook-Level3 project created by the https://se-education.org[SE-EDU initiative].
+FlashSpeed is written in Java and has a GUI created using https://openjfx.io/[JavaFX], with a storage system implemented using
+https://github.com/FasterXML/jackson[Jackson].
+
 
 == Summary of contributions
 
