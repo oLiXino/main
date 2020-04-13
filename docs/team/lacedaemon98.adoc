@@ -34,7 +34,7 @@ By using FlashSpeed, you will learn faster and remember for longer!
 ** Design the application logo
 
 .Draft version (Left) and Final version (Right) of FlashSpeed logo
-image::logos.jpg[width="200", align="center"]
+image::logos.jpg[width="300", align="center"]
 
 * *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=lacedaemon98&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional & Test code]]
 
