@@ -28,7 +28,15 @@ It required an in-depth analysis of how the application should work in the futur
 The implementation too was challenging as it required making high-level design choices.
 ** Credits: Some of the high-level structure of FlashSpeed is inspired by Anki, a digital flashcard application.
 
-* *Major enhancement 2*: added the ability to *generate statistics* after every game session.
+* *Major enhancement 2*: added the *storage function* to the app.
+** What it does: allows the user to save and load the decks of cards created by the user to/from a local directory.
+** Justification: This feature improves the usability of the product significantly
+because a user needs to be able to retrieve the decks of cards that he/she has created in the past.
+** Highlights: This enhancement requires an deep understanding of how JSON files and the Jackson library.
+The implementation was quite challenging as there are quite a few layers of abstraction in the storage system
+implemented by the original project that FlashSpeed is built upon.
+
+* *Major enhancement 3*: added the ability to *generate statistics* after every game session.
 ** What it does: allows the user to look at the statistics related to the game session that he/she played.
 ** Justification: This feature increases the usage rate of the app,
 because it provides a feedback on the performance of the user.
@@ -38,17 +46,8 @@ usage time will increase.
 ** Highlights: The difficulty was manageable,
 as most of the enhancement was essentially arithmetic manipulation.
 
-* *Major enhancement 3*: added the *storage function* to the app.
-** What it does: allows the user to save and load the decks of cards created by the user to a local directory.
-Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the usability of the product significantly
-because a user needs to be able to retrieve the decks of cards that he/she has created in the past.
-** Highlights: This enhancement requires an deep understanding of how JSON files and the Jackson library.
-The implementation was quite challenging as there are quite a few layers of abstraction in the storage system
-implemented by the original project that FlashSpeed is built upon.
-
 * *Minor enhancement*: Implemented the library class that contains the decks of cards along with another teammate,
-LiXin.
+LiXin. Built and enhanced the Model and Logic Component with Amirul and LiXin.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s2.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2020-02-14&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=kschiew&tabRepo=AY1920S2-CS2103T-W17-1%2Fmain%5Bmaster%5D[Functional and Test code]]
 
