@@ -57,8 +57,8 @@ class StatisticsTest {
             TOTAL_ATTEMPTS, CORERCT_ATTEMPTS, WRONG_ATTEMPTS, CARDS);
 
     @Test
-    void getCorrectAns_newGame_success() {
-        assertEquals(emptyStatistics.getCorrectAns(), 0);
+    void getCorrectAns_newGame_throwsAssertionError() {
+        assertThrows(AssertionError.class, () -> emptyStatistics.getCorrectAns());
     }
 
     @Test
@@ -67,8 +67,8 @@ class StatisticsTest {
     }
 
     @Test
-    void getWrongAns_newGame_success() {
-        assertEquals(emptyStatistics.getWrongAns(), 0);
+    void getWrongAns_newGame_throwsAssertionError() {
+        assertThrows(AssertionError.class, () -> emptyStatistics.getWrongAns());
     }
 
     @Test
@@ -77,8 +77,8 @@ class StatisticsTest {
     }
 
     @Test
-    void getTotalQns_newGame_success() {
-        assertEquals(emptyStatistics.getTotalQns(), 0);
+    void getTotalQns_newGame_throwsAssertionError() {
+        assertThrows(AssertionError.class, () -> emptyStatistics.getTotalQns());
     }
 
     @Test
