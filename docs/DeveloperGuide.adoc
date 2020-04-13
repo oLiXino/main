@@ -99,6 +99,8 @@ The following classes plays an important role at the architecture level:
 * <<Design-Model,*`Model`*>>: Holds the data and current state of FlashSpeed in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from and writes data to a data file on the hard disk.
 
+// end::design-arch[]
+
 Each of the four components
 
 * Defines its _API_ in an `interface` with the same name as the Component.
@@ -108,8 +110,6 @@ For example, the `Logic` component (see the class diagram given below) defines i
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
-
-// end::design-arch[]
 
 {empty} +
 
@@ -384,11 +384,10 @@ on the right panel. Lastly, the name of the selected Deck will be displayed toge
 ==== Design Considerations
 See <<Four-Two-Two, 4.2.2 - Design Considerations for creating a Deck - Aspect: Naming convention of command keywords>>.
 // end::addcard[]
->>>>>>> master
-
-// tag::editcard[]
 
 {empty} +
+
+// tag::editcard[]
 
 === Editing a Card: Shortcut Formats
 ==== Current Implementation
