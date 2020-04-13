@@ -52,7 +52,7 @@ activate CreateDeckCommand
 CreateDeckCommand -> Model : createDeck("Japanese")
 activate Model
 
-Model -> Library : createdeck("Japanese")
+Model -> Library : createDeck("Japanese")
 activate Library
 
 Library -> Model

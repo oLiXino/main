@@ -285,6 +285,8 @@ After that, `ModelManager#setSelectedDeck()` method will be called to update the
 on the right panel. Lastly, the name of the selected Deck will be displayed together with the
 `MESSAGE_SUCCESS` on the `ResultDisplay` panel.
 
+The following sequence diagram shows the sequence of operations due to a `create` command.
+
 .Interactions inside the Model and Logic components when the user enters `create Japanese` into the input box.
 image::../diagrams/CreateSequenceDiagram.png[Something]
 
@@ -356,7 +358,7 @@ image::SelectDeckSequenceDiagram.png[]
 
 
 // tag::addcard[]
-=== Creating a Card
+=== Adding a Card
 ==== Current Implementation
 
 The `add` command allows user to create a new Card in the current Deck.
@@ -384,6 +386,7 @@ After that, `ModelManager#setSelectedDeck()` method will be called to update the
 on the right panel. Lastly, the name of the selected Deck will be displayed together with the
 `MESSAGE_SUCCESS` on the `ResultDisplay` panel.
 
+The following sequence diagram shows the sequence of operations due to an `add` command.
 
 .Interactions inside Model and Logic components when user enters `add ありがとう:thanks` into the input box.
 image::../diagrams/AddSequenceDiagram.png[]
@@ -438,7 +441,7 @@ preserved (if needed). We can get the Card to be edited using `ModelManager#getC
 The new Card can then be created.
 We can then perform the replacement using `ModelManager#replaceCard()` with the old Card and the new Card as the parameters.
 
-The following sequence diagram shows how the sequence of operations due to an `edit` command.
+The following sequence diagram shows the sequence of operations due to an `edit` command.
 
 .Operations performed for the `edit 1 fr:bk` command.
 image::EditSequenceDiagram.png[]
