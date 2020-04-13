@@ -107,15 +107,18 @@ include::../DeveloperGuide.adoc[tag=design-consideration-play]
 ---
 
 include::../DeveloperGuide.adoc[tag=appendixC]
-+ {and more, see Appendix C in DG}
+
+{more at Appendix C in DG}
 
 ---
 
 include::../DeveloperGuide.adoc[tag=appendixE]
-+ {and more, see Appendix E in DG}
+
+{Appendix naming is not correct here, more at Appendix E in DG}
 
 ---
 
 include::../DeveloperGuide.adoc[tag=appendixG]
-+ {and more, see Appendix G in DG}
+
+{more at Appendix G in DG}
 
