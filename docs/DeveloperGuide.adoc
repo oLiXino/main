@@ -141,6 +141,9 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* `HelpWindow` will only be shown when executing `help` command.
+* `StatisticsPopUp` will only be shown after finishing or stopping a *Play session*.
+* Either `CardListPanel` or `PlayPanel` is displayed depending on the current <<view, view>>.
 
 //end::UI-component[]
 
