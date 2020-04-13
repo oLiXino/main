@@ -12,7 +12,8 @@ import javafx.collections.ObservableList;
  */
 public class Statistics {
 
-    private final static String NEW_GAME_ERR_MSG = "The game has not started yet!";
+    private static final String NEW_GAME_ERR_MSG = "The game has not started yet!";
+
     // number of correct answers
     private int correctAns;
     // number of wrong answer
@@ -69,6 +70,7 @@ public class Statistics {
      * Returns the number of correct answers so far.
      */
     public int getCorrectAns() {
+        assert(correctAns > 0);
         return this.correctAns;
     }
 
@@ -76,6 +78,7 @@ public class Statistics {
      * Returns the number of incorrect answers so far.
      */
     public int getWrongAns() {
+        assert(correctAns > 0);
         return this.wrongAns;
     }
 
@@ -83,6 +86,7 @@ public class Statistics {
      * Returns the total number of cards played so far.
      */
     public int getTotalQns() {
+        assert(correctAns > 0);
         return this.totalQns;
     }
 

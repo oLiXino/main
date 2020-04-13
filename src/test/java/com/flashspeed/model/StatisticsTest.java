@@ -1,17 +1,18 @@
 package com.flashspeed.model;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static com.flashspeed.testutil.CardUtils.JAP_CARD_1;
+import static com.flashspeed.testutil.CardUtils.JAP_CARD_2;
+import static com.flashspeed.testutil.CardUtils.JAP_CARD_3;
+import static com.flashspeed.testutil.DeckUtils.JAPANESE_DECK;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
 import com.flashspeed.model.deck.card.Card;
-import static com.flashspeed.testutil.DeckUtils.JAPANESE_DECK;
-import static com.flashspeed.testutil.CardUtils.JAP_CARD_1;
-import static com.flashspeed.testutil.CardUtils.JAP_CARD_2;
-import static com.flashspeed.testutil.CardUtils.JAP_CARD_3;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import javafx.collections.ObservableList;
 
@@ -67,22 +68,22 @@ class StatisticsTest {
 
     @Test
     void getWrongAns_newGame_success() {
-        assertEquals(emptyStatistics.getWrongAns(),0 );
+        assertEquals(emptyStatistics.getWrongAns(), 0);
     }
 
     @Test
     void getWrongAns_ongoingGame_success() {
-        assertEquals(nonEmptyStatistics.getWrongAns(),WRONG_ANS);
+        assertEquals(nonEmptyStatistics.getWrongAns(), WRONG_ANS);
     }
 
     @Test
     void getTotalQns_newGame_success() {
-        assertEquals(emptyStatistics.getTotalQns(),0);
+        assertEquals(emptyStatistics.getTotalQns(), 0);
     }
 
     @Test
     void getTotalQns_ongoingGame_success() {
-        assertEquals(nonEmptyStatistics.getTotalQns(),TOTAL_QNS);
+        assertEquals(nonEmptyStatistics.getTotalQns(), TOTAL_QNS);
     }
 
     @Test
@@ -109,4 +110,5 @@ class StatisticsTest {
         long score = Math.round(Double.valueOf(CORRECT_ANS) / Double.valueOf(TOTAL_QNS + 1) * 100);
         assertEquals(nonEmptyStatistics.getScore(), score);
     }
+
 }
